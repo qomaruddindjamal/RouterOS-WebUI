@@ -1,12 +1,15 @@
 /**
  * MitraUtama JSON Data & Config Service
  * Membaca data dan konfigurasi dinamis langsung dari config.json dan interfaces/interfaces.json
+ * Mendukung simulasi CRUD lokal: Create, Read, Update, Delete, Toggle Enable/Disable, dan Selection
  */
 
 export class JsonDataService {
     constructor() {
         this.config = null;
         this.interfacesData = null;
+        this.selectedIndex = -1;
+        this.currentFilter = '';
     }
 
     async loadConfig() {
@@ -27,6 +30,7 @@ export class JsonDataService {
             const res = await fetch('interfaces/interfaces.json');
             if (res.ok) {
                 this.interfacesData = await res.json();
+                this.selectedIndex = -1;
                 return this.interfacesData;
             }
         } catch (e) {
@@ -35,10 +39,11 @@ export class JsonDataService {
         return null;
     }
 
-    renderInterfacesTable(containerId, filterText = '') {
+    renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
         const tableBody = document.querySelector(`#${containerId} tbody`);
         if (!tableBody || !this.interfacesData) return;
 
+        this.currentFilter = filterText;
         const filtered = this.interfacesData.interfaces.filter(item => {
             if (!filterText) return true;
             const term = filterText.toLowerCase();
@@ -55,9 +60,10 @@ export class JsonDataService {
 
             const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
             const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
 
             return `
-            <tr data-mitrautama-row-index="${idx}">
+            <tr data-mitrautama-row-index="${idx}" class="${isSelected}" style="cursor: pointer;">
                 <td class="text-center" style="width: 28px;">${iconSvg}</td>
                 <td>
                     <strong>${item.name}</strong> 
@@ -77,10 +83,78 @@ export class JsonDataService {
             </tr>`;
         }).join('');
 
+        // Row Selection Listener
+        tableBody.querySelectorAll('tr').forEach(tr => {
+            tr.addEventListener('click', (e) => {
+                const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
+                this.selectedIndex = (this.selectedIndex === idx) ? -1 : idx;
+                this.renderInterfacesTable(containerId, this.currentFilter);
+            });
+        });
+
         const totalCounter = document.getElementById('mitrane-total-items');
         if (totalCounter) {
             totalCounter.textContent = `Total: ${filtered.length} items`;
         }
+    }
+
+    addInterface(newRecord) {
+        if (!this.interfacesData) {
+            this.interfacesData = { total: 0, interfaces: [] };
+        }
+        const record = {
+            name: newRecord.name || 'new-iface',
+            subname: newRecord.subname || (newRecord.name ? newRecord.name.toLowerCase() : 'iface'),
+            type: newRecord.type || 'Ethernet',
+            status: 'running',
+            actualMtu: newRecord.actualMtu || 1500,
+            l2Mtu: 1500,
+            tx: '0 B/s',
+            rx: '0 B/s',
+            txPkt: 0,
+            rxPkt: 0,
+            fpTx: '0 B/s',
+            fpRx: '0 B/s',
+            fpTxPkt: 0,
+            fpRxPkt: 0
+        };
+        this.interfacesData.interfaces.unshift(record);
+        this.interfacesData.total = this.interfacesData.interfaces.length;
+        this.selectedIndex = 0;
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        return record;
+    }
+
+    removeSelectedInterface() {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const removed = this.interfacesData.interfaces.splice(this.selectedIndex, 1)[0];
+        this.interfacesData.total = this.interfacesData.interfaces.length;
+        this.selectedIndex = -1;
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        return removed;
+    }
+
+    toggleSelectedStatus(forceStatus = null) {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const item = this.interfacesData.interfaces[this.selectedIndex];
+        if (forceStatus) {
+            item.status = forceStatus;
+        } else {
+            item.status = (item.status === 'running') ? 'inactive' : 'running';
+        }
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        return item;
+    }
+
+    getSelectedInterface() {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        return this.interfacesData.interfaces[this.selectedIndex];
     }
 }
 

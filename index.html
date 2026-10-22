@@ -793,32 +793,34 @@
         </div>
     </div>
 
-    <div id="modal-add-interface" class="modal-overlay">
+        <div id="modal-add-interface" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-header">
                 <div class="modal-title">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                    <span>New Interface</span>
+                    <span>New Interface (Simulasi)</span>
                 </div>
                 <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-add-interface" title="Tutup Modal">✕</button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="vlan10">
+                    <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                    <input type="text" id="input-new-iface-name" class="form-control" placeholder="vlan10">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Type</label>
-                    <select class="form-select">
-                        <option>VLAN</option>
-                        <option>Bridge</option>
-                        <option>WireGuard</option>
-                        <option>EoIP Tunnel</option>
+                    <label class="form-label fw-semibold">Type</label>
+                    <select id="select-new-iface-type" class="form-select">
+                        <option value="VLAN">VLAN</option>
+                        <option value="Ethernet">Ethernet</option>
+                        <option value="Bridge">Bridge</option>
+                        <option value="WireGuard">WireGuard</option>
+                        <option value="EoIP">EoIP Tunnel</option>
+                        <option value="GRE">GRE</option>
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="Swal.fire('Tersimpan', 'Interface baru dikonfigurasi.', 'success')">Simpan</button>
+                <button type="button" id="btn-save-new-interface" class="btn btn-primary">Simpan</button>
                 <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-add-interface">Batal</button>
             </div>
         </div>

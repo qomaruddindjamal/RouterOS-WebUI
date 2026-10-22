@@ -1,7 +1,8 @@
-# RouterOS WebUI Automated Test Suite
+# RouterOS WebUI Automated Test Suite — Expanded Audit Edition
 
 import os
 import json
+import re
 import unittest
 
 WORKSPACE = r"C:\RouterOS"
@@ -97,6 +98,48 @@ class TestRouterOSWorkspace(unittest.TestCase):
             content = f.read()
             self.assertIn('data-mitrautama-view="dashboard"', content)
             self.assertIn('id="view-dashboard"', content)
+
+    def test_interfaces_16_subtabs_present(self):
+        """Verifikasi bahwa 16 sub-tab Interfaces terdaftar secara lengkap"""
+        iface_path = os.path.join(WORKSPACE, "interfaces", "interfaces.html")
+        with open(iface_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        
+        expected_tabs = [
+            "interface", "interface-list", "ethernet", "eoip-tunnel",
+            "ip-tunnel", "gre-tunnel", "vlan", "bridge",
+            "vxlan", "vrf", "vrrp", "lacc",
+            "macsec", "macvlan", "vether", "vether-tunnel"
+        ]
+        for t in expected_tabs:
+            pattern = f'data-mitrautama-subtab="{t}"'
+            self.assertIn(pattern, html, f"Sub-tab '{t}' tidak ditemukan di interfaces.html")
+
+    def test_modal_manual_close_policy(self):
+        """Verifikasi bahwa modal.js memiliki proteksi manual close (tidak auto-close pada backdrop)"""
+        modal_js_path = os.path.join(WORKSPACE, "js", "modal.js")
+        with open(modal_js_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("modal-shake", js)
+        self.assertIn("data-mitrautama-modal-close", js)
+
+    def test_crud_simulation_engine(self):
+        """Verifikasi bahwa data-loader.js menyediakan metode simulasi CRUD lengkap"""
+        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        with open(loader_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("addInterface", js)
+        self.assertIn("removeSelectedInterface", js)
+        self.assertIn("toggleSelectedStatus", js)
+        self.assertIn("getSelectedInterface", js)
+
+    def test_chart_buffer_bounding(self):
+        """Verifikasi bahwa charts.js membatasi panjang titik data buffer (anti memory leak)"""
+        chart_js_path = os.path.join(WORKSPACE, "js", "charts.js")
+        with open(chart_js_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("maxDataPoints", js)
+        self.assertIn("this.timeLabels.shift()", js)
 
 if __name__ == "__main__":
     unittest.main()

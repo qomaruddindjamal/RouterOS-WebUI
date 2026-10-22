@@ -117,28 +117,37 @@ export class NavigationManager {
         });
     }
 
-    bindWinboxSubTabs() {
-        const subTabs = document.querySelectorAll('.mitrautama-winbox-tab[data-tab-target]');
+        bindWinboxSubTabs() {
+        // 1. Selector untuk sub-tabs mitrautama standard dan mitrane tabs
+        const subTabs = document.querySelectorAll('[data-mitrautama-subtab], .mitrautama-winbox-tab[data-tab-target], .mitrautama-subtab[data-mitrautama-subtab], .mitrane-tab-item');
         subTabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
                 e.preventDefault();
-                const targetPaneId = tab.getAttribute('data-tab-target');
-                const parentContainer = tab.closest('.mitrautama-view-section') || document;
+                const subtabName = tab.getAttribute('data-mitrautama-subtab') || tab.getAttribute('data-tab-target');
+                const parentNav = tab.closest('.mitrane-tab-bar') || tab.closest('.mitrautama-subtabs-bar') || tab.parentElement;
 
-                parentContainer.querySelectorAll('.mitrautama-winbox-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+                if (parentNav) {
+                    parentNav.querySelectorAll('.active').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
 
-                parentContainer.querySelectorAll('.mitrautama-tab-pane').forEach(p => p.style.display = 'none');
-                const targetPane = document.getElementById(targetPaneId);
-                if (targetPane) {
-                    targetPane.style.display = 'block';
+                // Jika ada tab-content yang berelasi
+                const parentView = tab.closest('.mitrautama-subview') || tab.closest('.mitrautama-view-section') || document;
+                const tabPanes = parentView.querySelectorAll('.mitrautama-tab-content, .mitrautama-tab-pane');
+                if (tabPanes.length > 0 && subtabName) {
+                    tabPanes.forEach(p => p.classList.remove('active'));
+                    const targetContent = parentView.querySelector(#subtab-) || parentView.querySelector(#);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        targetContent.style.display = 'block';
+                    }
                 }
 
                 toastManager.show({
-                    title: 'Tab Aktif',
-                    message: `Sub-tab: ${tab.textContent.trim()}`,
+                    title: 'Sub-Tab Aktif',
+                    message: Membuka tampilan tab: ,
                     type: 'info',
-                    duration: 1500
+                    duration: 1200
                 });
             });
         });
