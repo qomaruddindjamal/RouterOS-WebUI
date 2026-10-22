@@ -2139,3 +2139,21 @@ input[type=number] {
 [data-period="malam"] .mitrane-legend-pill strong {
     color: #f1f5f9 !important;
 }
+
+/* Remove badge background and style Type column as clean plain text */
+.mitrane-badge-type {
+    display: inline !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: 0.775rem !important;
+    font-weight: 500 !important;
+    background: transparent !important;
+    color: var(--mu-text-main, #1e293b) !important;
+    line-height: inherit !important;
+}
+
+[data-theme="dark"] .mitrane-badge-type,
+[data-period="malam"] .mitrane-badge-type {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+}
