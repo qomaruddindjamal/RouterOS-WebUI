@@ -2231,4 +2231,109 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    // =========================================================================
+    // QoS Simple Queue WinBox Modal Dialog Handlers
+    // =========================================================================
+    // 1. Sub-tabs switching inside modal-simple-queue
+    document.addEventListener('click', (e) => {
+        const subtabBtn = e.target.closest('#modal-queue-subtabs-bar .winbox-subtab-btn');
+        if (!subtabBtn) return;
+        e.preventDefault();
+
+        const bar = document.getElementById('modal-queue-subtabs-bar');
+        if (!bar) return;
+        bar.querySelectorAll('.winbox-subtab-btn').forEach(btn => btn.classList.remove('active'));
+        subtabBtn.classList.add('active');
+
+        const targetSubtab = subtabBtn.getAttribute('data-subtab');
+        const container = document.getElementById('modal-queue-tab-contents');
+        if (container && targetSubtab) {
+            container.querySelectorAll('.modal-queue-pane').forEach(pane => {
+                pane.style.display = 'none';
+            });
+            const activePane = document.getElementById(`modal-queue-pane-${targetSubtab}`);
+            if (activePane) {
+                activePane.style.display = 'block';
+            }
+        }
+    });
+
+    // 2. Open Simple Queue modal on table row click
+    document.addEventListener('click', (e) => {
+        const tr = e.target.closest('#table-queues-simple tbody tr');
+        if (!tr) return;
+        if (e.target.closest('.btn-queue-toggle')) return;
+
+        const nameSpan = tr.querySelector('td:nth-child(3) span:last-child');
+        const queueName = nameSpan ? nameSpan.textContent.trim() : 'queue1';
+        const targetTd = tr.querySelector('td:nth-child(4)');
+        const queueTarget = targetTd ? targetTd.textContent.trim() : '0.0.0.0/0';
+        const upLimitTd = tr.querySelector('td:nth-child(5)');
+        const downLimitTd = tr.querySelector('td:nth-child(6)');
+
+        const titleEl = document.getElementById('modal-queue-title-name');
+        if (titleEl) titleEl.textContent = `<${queueName}>`;
+        const nameInput = document.getElementById('modal-queue-name');
+        if (nameInput) nameInput.value = queueName;
+        const targetInput = document.getElementById('modal-queue-target');
+        if (targetInput) targetInput.value = queueTarget;
+        const maxUpInput = document.getElementById('modal-queue-max-upload');
+        if (maxUpInput && upLimitTd) maxUpInput.value = upLimitTd.textContent.trim() || '0';
+        const maxDownInput = document.getElementById('modal-queue-max-download');
+        if (maxDownInput && downLimitTd) maxDownInput.value = downLimitTd.textContent.trim() || '0';
+
+        if (window.modalManager) {
+            window.modalManager.open('modal-simple-queue');
+        }
+    });
+
+    // 3. Reset form when clicking "+ New" button
+    document.addEventListener('click', (e) => {
+        const newBtn = e.target.closest('#btn-queues-new');
+        if (!newBtn) return;
+        const titleEl = document.getElementById('modal-queue-title-name');
+        if (titleEl) titleEl.textContent = 'New...';
+        const nameInput = document.getElementById('modal-queue-name');
+        if (nameInput) nameInput.value = 'queue1';
+        const targetInput = document.getElementById('modal-queue-target');
+        if (targetInput) targetInput.value = '0.0.0.0/0';
+        const maxUpInput = document.getElementById('modal-queue-max-upload');
+        if (maxUpInput) maxUpInput.value = '0';
+        const maxDownInput = document.getElementById('modal-queue-max-download');
+        if (maxDownInput) maxDownInput.value = '0';
+
+        const bar = document.getElementById('modal-queue-subtabs-bar');
+        if (bar) {
+            bar.querySelectorAll('.winbox-subtab-btn').forEach(btn => btn.classList.remove('active'));
+            const generalBtn = bar.querySelector('[data-subtab="general"]');
+            if (generalBtn) generalBtn.classList.add('active');
+        }
+        const container = document.getElementById('modal-queue-tab-contents');
+        if (container) {
+            container.querySelectorAll('.modal-queue-pane').forEach(p => p.style.display = 'none');
+            const genPane = document.getElementById('modal-queue-pane-general');
+            if (genPane) genPane.style.display = 'block';
+        }
+    });
+
+    // 4. Handle Apply and OK
+    document.addEventListener('click', (e) => {
+        const applyBtn = e.target.closest('#btn-apply-simple-queue');
+        const okBtn = e.target.closest('#btn-ok-simple-queue');
+        if (applyBtn || okBtn) {
+            const nameInput = document.getElementById('modal-queue-name');
+            const qName = nameInput ? nameInput.value : 'queue1';
+            if (window.toastManager) {
+                window.toastManager.show({
+                    title: 'QoS Queue Saved',
+                    message: `Antrean ${qName} berhasil disimpan.`,
+                    type: 'success'
+                });
+            }
+            if (okBtn && window.modalManager) {
+                window.modalManager.close('modal-simple-queue');
+            }
+        }
+    });
 });
