@@ -1267,8 +1267,13 @@
 
       <!-- Footer Tab 1 -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <div class="d-flex align-items-center">
-          <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">Total: 3 interfaces</span>
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">Total: 3 interfaces</span>
+          <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-wg-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8b5cf6; display: inline-block; flex-shrink: 0;"></span><span>WireGuard Server: <strong style="color: var(--mu-text-main, #1e293b);">3</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #64748b; display: inline-block; flex-shrink: 0;"></span><span>DOWN: <strong style="color: var(--mu-text-main, #1e293b);">3</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>UP: <strong style="color: var(--mu-text-main, #1e293b);">0</strong></span></span>
+          </div>
         </div>
         <div class="text-muted" style="font-size: 0.72rem;">WireGuard Subsystem</div>
       </div>
@@ -1402,8 +1407,13 @@
 
       <!-- Footer Tab 2 -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <div class="d-flex align-items-center">
-          <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">Total: 3 peers</span>
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">Total: 3 peers</span>
+          <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-wg-peer-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #3b82f6; display: inline-block; flex-shrink: 0;"></span><span>Configured Peers: <strong style="color: var(--mu-text-main, #1e293b);">3</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #f97316; display: inline-block; flex-shrink: 0;"></span><span>Allowed IPs: <strong style="color: var(--mu-text-main, #1e293b);">0.0.0.0/0</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; display: inline-block; flex-shrink: 0;"></span><span>Keepalive: <strong style="color: var(--mu-text-main, #1e293b);">Active</strong></span></span>
+          </div>
         </div>
         <div class="text-muted" style="font-size: 0.72rem;">WireGuard Subsystem</div>
       </div>
@@ -1491,10 +1501,12 @@
 
       <!-- Footer Tab 3 -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <div class="d-flex align-items-center">
-          <span style="font-size: 0.73rem; color: var(--mu-text-main, #1e293b);">
-            <strong>Interfaces (UP):</strong> 0 active <span class="mx-2 text-muted">|</span> <strong>Connected Peers:</strong> 0 active
-          </span>
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">Telemetri Status</span>
+          <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-wg-status-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Interfaces (UP): <strong style="color: var(--mu-text-main, #1e293b);">0 active</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #06b6d4; display: inline-block; flex-shrink: 0;"></span><span>Connected Peers: <strong style="color: var(--mu-text-main, #1e293b);">0 active</strong></span></span>
+          </div>
         </div>
         <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">
           <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #16a34a; display: inline-block; margin-right: 6px;"></span>
