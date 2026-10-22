@@ -1,9 +1,9 @@
 <!-- Module: ip/ip.html -->
-<div class="mitrautama-subview" id="view-ip-addresses">
+<div class="mitrautama-view-section" id="view-ip-addresses">
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar -->
-    <div class="mitrane-tab-bar">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs">
       <button class="mitrane-window-title-btn" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"></circle>
@@ -13,29 +13,29 @@
         <span>IP</span>
       </button>
 
-      <a href="#" class="mitrane-tab-item active" data-mitrautama-subtab="ip-addr">Addresses</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ip-routes">Routes</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ip-dhcp">DHCP Server</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ip-pool">Pools</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ip-firewall">Firewall NAT</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="ip-addr">Addresses</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-routes">Routes</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-dhcp">DHCP Server</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-pool">Pools</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-firewall">Firewall NAT</a>
     </div>
 
     <!-- 2. Window Action Toolbar -->
-    <div class="mitrane-toolbar">
-      <div class="mitrane-action-group">
-        <button type="button" class="mitrane-btn-action btn-new" onclick="Swal.fire({title:'Tambah IP Address (Demo)', html:'<input class=\'form-control mb-2\' placeholder=\'192.168.1.1/24\'><input class=\'form-control\' placeholder=\'Interface: ether1\'>', confirmButtonText:'Simpan'})">
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire({title:'Tambah IP Address (Demo)', html:'<input class=\'form-control mb-2\' placeholder=\'192.168.1.1/24\'><input class=\'form-control\' placeholder=\'Interface: ether1\'>', confirmButtonText:'Simpan'})">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
-        <button type="button" class="mitrane-btn-action" onclick="toastManager.show({title:'Enable IP', message:'IP diaktifkan (simulasi)', type:'success'})">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Enable IP', message:'IP diaktifkan (simulasi)', type:'success'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Enable</span>
         </button>
-        <button type="button" class="mitrane-btn-action" onclick="toastManager.show({title:'Disable IP', message:'IP dinonaktifkan (simulasi)', type:'warning'})">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Disable IP', message:'IP dinonaktifkan (simulasi)', type:'warning'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           <span>Disable</span>
         </button>
-        <button type="button" class="mitrane-btn-action" onclick="Swal.fire('Hapus IP', 'Konfirmasi hapus IP address terpilih?', 'warning')">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="Swal.fire('Hapus IP', 'Konfirmasi hapus IP address terpilih?', 'warning')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           <span>Remove</span>
         </button>
@@ -43,7 +43,7 @@
 
       <div class="d-flex align-items-center gap-2">
         <input type="text" placeholder="Find IP..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
-        <button type="button" class="mitrane-btn-action" onclick="toastManager.show({title:'Refresh', message:'Data IP diperbarui', type:'info'})">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Refresh', message:'Data IP diperbarui', type:'info'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
           <span>Refresh</span>
         </button>
@@ -54,7 +54,7 @@
     <!-- Tab 1: Addresses -->
     <div class="mitrautama-tab-content active" id="subtab-ip-addr">
       <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table">
+        <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr>
               <th style="width: 28px;">#</th>
@@ -78,7 +78,7 @@
     <!-- Tab 2: Routes -->
     <div class="mitrautama-tab-content" id="subtab-ip-routes" style="display: none;">
       <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table">
+        <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Flags</th><th>Dst. Address</th><th>Gateway</th><th>Immediate GW</th><th>Distance</th></tr>
           </thead>
@@ -95,7 +95,7 @@
     <!-- Tab 3: DHCP Server -->
     <div class="mitrautama-tab-content" id="subtab-ip-dhcp" style="display: none;">
       <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table">
+        <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Flags</th><th>Name</th><th>Interface</th><th>Lease Time</th><th>Address Pool</th></tr>
           </thead>
@@ -115,7 +115,7 @@
     <!-- Tab 4: Pools -->
     <div class="mitrautama-tab-content" id="subtab-ip-pool" style="display: none;">
       <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table">
+        <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Name</th><th>Ranges</th><th>Next Pool</th></tr>
           </thead>
@@ -130,7 +130,7 @@
     <!-- Tab 5: Firewall NAT -->
     <div class="mitrautama-tab-content" id="subtab-ip-firewall" style="display: none;">
       <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table">
+        <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Chain</th><th>Action</th><th>Out Interface</th><th>Src. Address</th></tr>
           </thead>

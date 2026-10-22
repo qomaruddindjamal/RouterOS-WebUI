@@ -1,9 +1,9 @@
 <!-- Module: interfaces/interfaces.html (MITRANE Style Window) -->
-<div class="mitrautama-subview" id="view-interfaces" style="display: block;">
+<div class="mitrautama-view-section" id="view-interfaces" style="display: none;">
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar -->
-    <div class="mitrane-tab-bar" id="mitrane-interface-tabs">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-interface-tabs">
       <button class="mitrane-window-title-btn" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
@@ -18,48 +18,48 @@
       </button>
 
       <!-- Sub-tabs matching screenshot -->
-      <a href="#" class="mitrane-tab-item active" data-mitrautama-subtab="interface">Interface</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="interface-list">Interface List</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ethernet">Ethernet</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="eoip-tunnel">EoIP Tunnel</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="ip-tunnel">IP Tunnel</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="gre-tunnel">GRE Tunnel</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vlan">VLAN</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="bridge">Bridge</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vxlan">VXLAN</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vrf">VRF</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vrrp">VRRP</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="lacc">LACC</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="macsec">MACsec</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="macvlan">MACVLAN</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vether">vEther</a>
-      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="vether-tunnel">vEther Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab active" data-mitrautama-subtab="interface">Interface</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="interface-list">Interface List</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="ethernet">Ethernet</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="eoip-tunnel">EoIP Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="ip-tunnel">IP Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="gre-tunnel">GRE Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vlan">VLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="bridge">Bridge</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vxlan">VXLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vrf">VRF</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vrrp">VRRP</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="lacc">LACC</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="macsec">MACsec</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="macvlan">MACVLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vether">vEther</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vether-tunnel">vEther Tunnel</a>
     </div>
 
     <!-- 2. Window Action Toolbar -->
-    <div class="mitrane-toolbar">
-      <div class="mitrane-action-group">
-        <button type="button" class="mitrane-btn-action btn-new" id="btn-interface-new" data-mitrautama-modal-open="modal-add-interface">
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn btn-new" id="btn-interface-new" data-mitrautama-modal-open="modal-add-interface">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-edit" data-mitrautama-modal-open="modal-edit-interface">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-edit" data-mitrautama-modal-open="modal-edit-interface">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
             <span>Edit</span>
           </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-enable">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-enable">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Enable</span>
         </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-disable">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-disable">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           <span>Disable</span>
         </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-remove">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-remove">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           <span>Remove</span>
         </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-comment">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-comment">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           <span>Comment</span>
         </button>
@@ -74,22 +74,22 @@
           <input type="text" id="mitrane-interface-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
         </div>
 
-        <button type="button" class="mitrane-btn-action" title="Filter Records">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" title="Filter Records">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
           <span>Filter</span>
         </button>
-        <button type="button" class="mitrane-btn-action" id="btn-interface-refresh" title="Refresh Table">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-refresh" title="Refresh Table">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
         </button>
-        <button type="button" class="mitrane-btn-action" title="Configure Columns">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" title="Configure Columns">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
       </div>
     </div>
 
     <!-- 3. Grid Table Container (Loaded from interfaces/interfaces.json) -->
-    <div class="flex-grow-1 overflow-auto">
-      <table class="mitrane-grid-table" id="mitrane-interfaces-table">
+    <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+      <table class="mitrane-grid-table mitrautama-table" id="mitrane-interfaces-table">
         <thead>
           <tr>
             <th style="width: 28px;"></th>
