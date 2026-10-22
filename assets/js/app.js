@@ -1,4 +1,4 @@
-﻿// === MODULE: theme.js ===
+// === MODULE: theme.js ===
 /**
  * MitraUtama Theme Management Module
  * Mendukung mode:
@@ -846,7 +846,7 @@ class NavigationManager {
         };
 
         const resolvedId = routeAliasMap[viewId] || viewId;
-        const targetSection = document.getElementById(iew- + resolvedId);
+        const targetSection = document.getElementById("view-" + resolvedId);
         if (targetSection) {
             targetSection.style.display = 'block';
             const container = document.querySelector('.mitrautama-content-area');
@@ -1637,6 +1637,7 @@ class ModuleLoader {
 }
 
 const moduleLoader = new ModuleLoader();
+window.moduleLoader = moduleLoader;
 
 // Auto-start loader and navigation for standalone or local execution
 document.addEventListener('DOMContentLoaded', () => {
