@@ -9,11 +9,11 @@
       "actualMtu": 1500,
       "l2Mtu": 1500,
       "tx": "1.0 KB/s",
-      "rx": "641 B/s",
+      "rx": "930 B/s",
       "txPkt": 3,
       "rxPkt": 4,
       "fpTx": "1.0 KB/s",
-      "fpRx": "641 B/s",
+      "fpRx": "930 B/s",
       "fpTxPkt": 3,
       "fpRxPkt": 4
     },

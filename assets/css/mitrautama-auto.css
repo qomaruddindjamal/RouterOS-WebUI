@@ -205,3 +205,181 @@
     background: #1e293b;
     color: #94a3b8;
 }
+
+/* =========================================================================
+   6. AUTO MALAM WINBOX, SUB-TABS, TOOLBAR, & TABLE EXPANSIONS
+   ========================================================================= */
+[data-period="malam"] .mitrane-window {
+    background: #111827 !important;
+    border-color: #1f2937 !important;
+}
+
+[data-period="malam"] .mitrane-tab-bar,
+[data-period="malam"] .mitrautama-winbox-tabs {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+[data-period="malam"] .mitrane-window-title-btn {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .mitrane-tab-item,
+[data-period="malam"] .mitrautama-winbox-tab {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-period="malam"] .mitrane-tab-item:hover,
+[data-period="malam"] .mitrautama-winbox-tab:hover {
+    background: #243248 !important;
+    color: #38bdf8 !important;
+}
+
+[data-period="malam"] .mitrane-tab-item.active,
+[data-period="malam"] .mitrautama-winbox-tab.active {
+    background: #151e32 !important;
+    color: #38bdf8 !important;
+    border-top: 2px solid #38bdf8 !important;
+    border-bottom-color: #151e32 !important;
+}
+
+[data-period="malam"] .mitrane-toolbar,
+[data-period="malam"] .mitrautama-winbox-toolbar {
+    background: #151e32 !important;
+    border-color: #334155 !important;
+}
+
+[data-period="malam"] .mitrane-btn-action,
+[data-period="malam"] .mitrautama-toolbar-btn {
+    color: #cbd5e1 !important;
+}
+
+[data-period="malam"] .mitrane-btn-action:hover,
+[data-period="malam"] .mitrautama-toolbar-btn:hover {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #38bdf8 !important;
+}
+
+[data-period="malam"] .mitrautama-winbox-toolbar .form-control,
+[data-period="malam"] .mitrane-toolbar .form-control,
+[data-period="malam"] .form-control {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .mitrautama-winbox-toolbar .form-control:focus,
+[data-period="malam"] .mitrane-toolbar .form-control:focus {
+    background-color: #1e293b !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+}
+
+[data-period="malam"] .input-group-text {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-period="malam"] .mitrane-grid-table {
+    border-color: #1e293b !important;
+}
+
+[data-period="malam"] .mitrane-rate-active {
+    background-color: rgba(56, 189, 248, 0.1) !important;
+}
+
+/* HAMBURGER TOGGLE BUTTON SEAMLESS / TANPA KOTAK BADGE */
+#sidebar-toggle-btn {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+#sidebar-toggle-btn:focus,
+#sidebar-toggle-btn:active {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* AUTO MALAM KPI & CHART SYSTEM */
+[data-period="malam"] .mitrautama-kpi-card,
+[data-period="malam"] .mitrautama-chart-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-period="malam"] .mitrautama-kpi-title {
+    color: #94a3b8 !important;
+}
+
+[data-period="malam"] .mitrautama-kpi-value {
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .mitrautama-kpi-meta {
+    color: #64748b !important;
+}
+
+[data-period="malam"] .mitrautama-chart-header {
+    border-bottom-color: #334155 !important;
+}
+
+[data-period="malam"] .mitrautama-chart-title {
+    color: #f8fafc !important;
+}
+
+/* USER MENU DROPDOWN AUTO MALAM SUPPORT */
+[data-period='malam'] #userMenuDropdown {
+    background: #1e293b !important;
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
+}
+
+[data-period='malam'] #userMenuDropdown:hover {
+    background: #243248 !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] {
+    background-color: #151e32 !important;
+    border-color: #334155 !important;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .border-bottom {
+    border-bottom-color: #1e293b !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-divider {
+    border-top-color: #1e293b !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item {
+    color: #cbd5e1 !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item:hover {
+    background-color: #1e293b !important;
+    color: #38bdf8 !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item.active {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .text-muted {
+    color: #94a3b8 !important;
+}
+
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .fw-bold {
+    color: #f8fafc !important;
+}

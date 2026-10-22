@@ -665,3 +665,203 @@ body.modal-open {
         border-radius: var(--mu-radius-md);
     }
 }
+
+/* Ensure submenus, chevrons, and collapsed sidebars never show background boxes */
+.mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-text,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-title-text,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-text,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-title-text {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+
+/* =========================================================================
+   CLEAN VECTOR SVG CHEVRON (Menyatu Alami Dengan Teks Menu, Tanpa Badge/Box)
+   ========================================================================= */
+svg.mitrautama-submenu-chevron,
+.mitrautama-submenu-chevron {
+    display: inline-block !important;
+    width: 12px !important;
+    height: 12px !important;
+    min-width: 12px !important;
+    min-height: 12px !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    color: var(--mu-text-light, #94a3b8) !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    transition: transform 0.2s ease, color 0.2s ease !important;
+}
+
+[data-theme="dark"] svg.mitrautama-submenu-chevron,
+[data-theme="dark"] .mitrautama-submenu-chevron {
+    color: #64748b !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    fill: none !important;
+}
+
+.mitrautama-menu-item:hover svg.mitrautama-submenu-chevron,
+.mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: var(--mu-primary, #0284c7) !important;
+    stroke: currentColor !important;
+}
+
+[data-theme="dark"] .mitrautama-menu-item:hover svg.mitrautama-submenu-chevron,
+[data-theme="dark"] .mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: #38bdf8 !important;
+    stroke: currentColor !important;
+}
+
+.mitrautama-sidebar.collapsed svg.mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed svg.mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+
+/* Sembunyikan scrollbar sepenuhnya saat sidebar dalam mode Collapsed */
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu,
+.mitrautama-sidebar.collapsed,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar,
+.mitrautama-sidebar.collapsed::-webkit-scrollbar,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-thumb,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-thumb,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-track,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-track,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-button,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-button {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* HIDE ALL SCROLLBAR BUTTONS / STEPPER ARROWS ACROSS ALL BROWSERS */
+::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button,
+.mitrautama-table-container::-webkit-scrollbar-button,
+.overflow-auto::-webkit-scrollbar-button,
+.mitrane-window::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+/* SLEEK MODERN SCROLLBAR OR HIDE UNNECESSARY SCROLLBARS */
+.mitrautama-table-container,
+.mitrane-window,
+#view-interfaces .overflow-auto {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent !important;
+}
+
+/* HIDE TAB BAR & WINBOX TABS SCROLLBARS COMPLETELY */
+.mitrane-tab-bar,
+.mitrautama-winbox-tabs,
+#mitrane-interface-tabs {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrane-tab-bar::-webkit-scrollbar,
+.mitrautama-winbox-tabs::-webkit-scrollbar,
+#mitrane-interface-tabs::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrane-tab-bar::-webkit-scrollbar-button,
+.mitrautama-winbox-tabs::-webkit-scrollbar-button,
+#mitrane-interface-tabs::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* TABLE CONTAINER & WINDOW CONTAINER SCROLLBAR HIDING */
+.mitrautama-table-container,
+.mitrane-window,
+#mitrane-interfaces-table,
+#view-interfaces .overflow-auto,
+.overflow-auto {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrautama-table-container::-webkit-scrollbar,
+.mitrane-window::-webkit-scrollbar,
+#mitrane-interfaces-table::-webkit-scrollbar,
+#view-interfaces .overflow-auto::-webkit-scrollbar,
+.overflow-auto::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrautama-table-container::-webkit-scrollbar-button,
+.mitrane-window::-webkit-scrollbar-button,
+#mitrane-interfaces-table::-webkit-scrollbar-button,
+#view-interfaces .overflow-auto::-webkit-scrollbar-button,
+.overflow-auto::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Preserve original case on table headers (no forced uppercase) */
+.mitrautama-table thead th,
+.mitrane-grid-table thead th,
+.mitrane-window table thead th {
+    text-transform: none !important;
+    letter-spacing: normal !important;
+}

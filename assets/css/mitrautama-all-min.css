@@ -616,48 +616,66 @@ html, body {
 
 /* Dark mode for KPI & Charts */
 [data-theme="dark"] .mitrautama-kpi-card,
-[data-theme="dark"] .mitrautama-chart-card {
-    background: #1e293b;
-    border-color: #334155;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+[data-theme="dark"] .mitrautama-chart-card,
+[data-period="malam"] .mitrautama-kpi-card,
+[data-period="malam"] .mitrautama-chart-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-[data-theme="dark"] .mitrautama-kpi-title {
-    color: #94a3b8;
+[data-theme="dark"] .mitrautama-kpi-title,
+[data-period="malam"] .mitrautama-kpi-title {
+    color: #94a3b8 !important;
 }
 
-[data-theme="dark"] .mitrautama-kpi-value {
-    color: #f8fafc;
+[data-theme="dark"] .mitrautama-kpi-value,
+[data-period="malam"] .mitrautama-kpi-value {
+    color: #f8fafc !important;
 }
 
-[data-theme="dark"] .mitrautama-kpi-meta {
-    color: #64748b;
+[data-theme="dark"] .mitrautama-kpi-meta,
+[data-period="malam"] .mitrautama-kpi-meta {
+    color: #64748b !important;
 }
 
-[data-theme="dark"] .mitrautama-chart-header {
-    border-bottom-color: #334155;
+[data-theme="dark"] .mitrautama-chart-header,
+[data-period="malam"] .mitrautama-chart-header {
+    border-bottom-color: #334155 !important;
 }
 
-[data-theme="dark"] .mitrautama-chart-title {
-    color: #f8fafc;
+[data-theme="dark"] .mitrautama-chart-title,
+[data-period="malam"] .mitrautama-chart-title {
+    color: #f8fafc !important;
 }
 
 
 /* HEADER COMPONENT CLEAN FIXES */
 #header-container { width: 100%; height: 52px; min-height: 52px; position: relative; z-index: 1040; }
-.mitrautama-fixed-header { height: 52px !important; min-height: 52px !important; max-height: 52px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: nowrap !important; padding: 0 16px !important; box-sizing: border-box !important; overflow: hidden !important; background: var(--mu-bg-card, #ffffff); border-bottom: 1px solid var(--mu-border, #e2e8f0); }
+.mitrautama-fixed-header { height: 52px !important; min-height: 52px !important; max-height: 52px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: nowrap !important; padding: 0 16px !important; box-sizing: border-box !important; overflow: visible !important; background: var(--mu-bg-card, #ffffff); border-bottom: 1px solid var(--mu-border, #e2e8f0); }
 .mitrautama-header-left { display: flex !important; align-items: center !important; gap: 12px !important; flex-shrink: 0 !important; height: 100% !important; }
-#sidebar-toggle-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 6px !important; border: 1px solid var(--mu-border, #cbd5e1) !important; background: transparent !important; color: var(--mu-text-main, #334155) !important; cursor: pointer !important; transition: all 0.2s ease !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
-#sidebar-toggle-btn:hover { background: rgba(0, 0, 0, 0.05) !important; color: var(--mu-primary, #0284c7) !important; }
+#sidebar-toggle-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 6px !important; border: none !important; background: transparent !important; box-shadow: none !important; outline: none !important; color: var(--mu-text-main, #334155) !important; cursor: pointer !important; transition: all 0.2s ease !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
+#sidebar-toggle-btn:hover { background: transparent !important; color: var(--mu-primary, #0284c7) !important; }
 .mu-logo-icon { width: 30px !important; height: 30px !important; min-width: 30px !important; min-height: 30px !important; border-radius: 6px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 0.85rem !important; font-weight: 700 !important; line-height: 1 !important; flex-shrink: 0 !important; background: linear-gradient(135deg, var(--mu-primary, #0284c7) 0%, #38bdf8 100%) !important; color: #ffffff !important; }
 .mitrautama-header-home-btn { display: inline-flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important; color: inherit !important; }
 .mitrautama-header-brand-text { font-size: 0.95rem !important; font-weight: 700 !important; color: var(--mu-text-main, #0f172a) !important; line-height: 1.2 !important; white-space: nowrap !important; }
 [data-theme='dark'] .mitrautama-header-brand-text { color: #f8fafc !important; }
-[data-theme='dark'] #sidebar-toggle-btn { border-color: #334155 !important; color: #cbd5e1 !important; }
-[data-theme='dark'] #sidebar-toggle-btn:hover { background: rgba(255, 255, 255, 0.08) !important; color: #38bdf8 !important; }
+[data-theme='dark'] #sidebar-toggle-btn,
+[data-period='malam'] #sidebar-toggle-btn {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #cbd5e1 !important;
+}
+[data-theme='dark'] #sidebar-toggle-btn:hover,
+[data-period='malam'] #sidebar-toggle-btn:hover {
+    background: transparent !important;
+    color: #38bdf8 !important;
+}
 /* COLLAPSED HEADER BRAND & HAMBURGER ALIGNMENT */
 body.mitrautama-sidebar-collapsed .mitrautama-header-left {
-    width: 48px !important;
+    width: 58px !important;
+    min-width: 58px !important;
     justify-content: center !important;
     gap: 0 !important;
     position: relative !important;
@@ -667,9 +685,17 @@ body.mitrautama-sidebar-collapsed .mu-brand-text {
     display: none !important;
 }
 
-/* Saat sidebar collapse: ikon MU tetap tampil dan dapat diklik untuk toggle kembali, atau hover tombol toggle */
+/* Saat sidebar collapse: logo MU tampil rapi di tengah rail dan dapat diklik untuk expand, hamburger sembunyi */
 body.mitrautama-sidebar-collapsed .mu-logo-icon {
+    display: inline-flex !important;
     cursor: pointer !important;
+    margin: 0 auto !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+body.mitrautama-sidebar-collapsed .mu-logo-icon:hover {
+    transform: scale(1.08) !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5) !important;
 }
 
 body.mitrautama-sidebar-collapsed #sidebar-toggle-btn {
@@ -800,4 +826,1014 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
     .mitrautama-kpi-card {
         padding: 12px !important;
     }
+}
+
+/* Theme Dropdown Icon-Only Styling */
+#themeDropdown {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    color: var(--mu-text-main, #334155);
+    background-color: var(--mu-bg-card, #ffffff);
+    border: 1px solid var(--mu-border-card, #e2e8f0);
+    transition: all 0.2s ease;
+}
+#themeDropdown:hover {
+    background-color: var(--mu-bg-main, #f1f5f9);
+    border-color: #cbd5e1;
+}
+[data-theme="dark"] #themeDropdown {
+    color: #f1f5f9;
+    background-color: #1e293b;
+    border-color: #334155;
+}
+[data-theme="dark"] #themeDropdown:hover {
+    background-color: #334155;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] {
+    min-width: 44px !important;
+    width: 44px !important;
+    padding: 4px !important;
+    border-radius: 8px !important;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] {
+    min-width: 44px !important;
+    width: 44px !important;
+    padding: 4px !important;
+    border-radius: 8px !important;
+    background-color: var(--mu-bg-card, #ffffff) !important;
+    border: 1px solid var(--mu-border-card, #cbd5e1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px !important;
+    border-radius: 6px;
+    color: #334155 !important;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item svg {
+    stroke: currentColor !important;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+.dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item.active {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item {
+    color: #f1f5f9 !important;
+    opacity: 0.85;
+}
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item:hover,
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item.active {
+    opacity: 1;
+}
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item:hover {
+    background-color: #334155 !important;
+    color: #ffffff !important;
+}
+[data-theme="dark"] .dropdown-menu[aria-labelledby="themeDropdown"] .dropdown-item.active {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================================
+   CUSTOM MODERN SLEEK SCROLLBAR (No bulky native OS scrollbars)
+   ========================================================================= */
+.mitrautama-sidebar-menu {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+.mitrautama-sidebar-menu:hover {
+    scrollbar-color: rgba(148, 163, 184, 0.6) transparent !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+    background: transparent !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.3) !important;
+    border-radius: 9999px !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.mitrautama-sidebar-menu:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background-color: var(--mu-primary, #0284c7) !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+[data-theme="dark"] .mitrautama-sidebar-menu {
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent !important;
+}
+
+[data-theme="dark"] .mitrautama-sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .mitrautama-sidebar-menu:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Also apply sleek modern scrollbar across all scrollable containers */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.6);
+}
+*::-webkit-scrollbar-button {
+    display: none !important;
+}
+
+/* Sembunyikan panah/chevron/badge submenu saat sidebar diciutkan (collapsed) baik light maupun dark mode */
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron,
+[data-theme="dark"] .mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+[data-theme="dark"] body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Sembunyikan teks label, pembungkus label, dan panah submenu saat sidebar diciutkan (collapsed) */
+.mitrautama-sidebar.collapsed .mitrautama-menu-text,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-title-text,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-text,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-title-text {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-label-wrap,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-label-wrap {
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 0 !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-item,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-item {
+    justify-content: center !important;
+    padding: 8px 0 !important;
+    width: 100% !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-icon,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-icon {
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Styling Chevron Panah Drop-Right Submenu (Clean Text Arrow, No Background Box/Badge) */
+.mitrautama-submenu-chevron {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.65rem !important;
+    color: var(--mu-text-light, #94a3b8) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-left: auto !important;
+    line-height: 1 !important;
+}
+
+[data-theme="dark"] .mitrautama-submenu-chevron {
+    color: #64748b !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: var(--mu-primary, #0284c7) !important;
+}
+
+[data-theme="dark"] .mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: #38bdf8 !important;
+}
+
+
+/* =========================================================================
+   CLEAN VECTOR SVG CHEVRON (Menyatu Alami Dengan Teks Menu, Tanpa Badge/Box)
+   ========================================================================= */
+svg.mitrautama-submenu-chevron,
+.mitrautama-submenu-chevron {
+    display: inline-block !important;
+    width: 12px !important;
+    height: 12px !important;
+    min-width: 12px !important;
+    min-height: 12px !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    color: var(--mu-text-light, #94a3b8) !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    transition: transform 0.2s ease, color 0.2s ease !important;
+}
+
+[data-theme="dark"] svg.mitrautama-submenu-chevron,
+[data-theme="dark"] .mitrautama-submenu-chevron {
+    color: #64748b !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    fill: none !important;
+}
+
+.mitrautama-menu-item:hover svg.mitrautama-submenu-chevron,
+.mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: var(--mu-primary, #0284c7) !important;
+    stroke: currentColor !important;
+}
+
+[data-theme="dark"] .mitrautama-menu-item:hover svg.mitrautama-submenu-chevron,
+[data-theme="dark"] .mitrautama-menu-item:hover .mitrautama-submenu-chevron {
+    color: #38bdf8 !important;
+    stroke: currentColor !important;
+}
+
+.mitrautama-sidebar.collapsed svg.mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed svg.mitrautama-submenu-chevron,
+body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Posisi Hamburger di Header Sidebar */
+.mitrautama-header-left {
+    width: 240px !important;
+    min-width: 240px !important;
+    max-width: 240px !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+
+.mitrautama-header-left #sidebar-toggle-btn {
+    margin-left: auto !important;
+    margin-right: -5px !important;
+}
+
+body.mitrautama-sidebar-collapsed .mitrautama-header-left {
+    width: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+    padding-right: 0 !important;
+    justify-content: center !important;
+}
+
+body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
+    display: none !important;
+}
+
+/* Penyelarasan Presisi Logo MU dengan Icon Sidebar saat Collapsed */
+body.mitrautama-sidebar-collapsed .mitrautama-fixed-header {
+    padding-left: 0 !important;
+}
+
+body.mitrautama-sidebar-collapsed .mitrautama-header-left {
+    width: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+body.mitrautama-sidebar-collapsed .mu-logo-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    cursor: pointer !important;
+}
+
+/* Perfect Vertical Center Alignment for Rail Icons & Logo in Collapsed State */
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu {
+    padding: 6px 0 !important;
+    width: 100% !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-item,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-item {
+    width: 44px !important;
+    height: 40px !important;
+    margin: 3px auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-icon,
+body.mitrautama-sidebar-collapsed .mitrautama-menu-icon {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+body.mitrautama-sidebar-collapsed .mu-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+}
+
+/* Sempurnakan Posisi Logo MU Agar Rata Tegak Lurus Presisi dengan Icon Menu (Center X = 23.5px) */
+body.mitrautama-sidebar-collapsed .mu-logo-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin-left: 8px !important;
+    margin-right: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+}
+
+
+/* Sembunyikan scrollbar sepenuhnya saat sidebar dalam mode Collapsed */
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu,
+.mitrautama-sidebar.collapsed,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar,
+.mitrautama-sidebar.collapsed::-webkit-scrollbar,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-thumb,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-thumb,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-track,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-track,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-button,
+body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-button {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* WINBOX & INTERFACE MODULE DARK THEME SUPPORT (Auto Malam & Dark Mode) */
+[data-theme="dark"] .mitrane-window,
+[data-period="malam"] .mitrane-window {
+    background: #111827;
+    border-color: #1f2937;
+}
+
+[data-theme="dark"] .mitrane-tab-bar,
+[data-theme="dark"] .mitrautama-winbox-tabs,
+[data-period="malam"] .mitrane-tab-bar,
+[data-period="malam"] .mitrautama-winbox-tabs {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .mitrane-window-title-btn,
+[data-period="malam"] .mitrane-window-title-btn {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item,
+[data-theme="dark"] .mitrautama-winbox-tab,
+[data-period="malam"] .mitrane-tab-item,
+[data-period="malam"] .mitrautama-winbox-tab {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item:hover,
+[data-theme="dark"] .mitrautama-winbox-tab:hover,
+[data-period="malam"] .mitrane-tab-item:hover,
+[data-period="malam"] .mitrautama-winbox-tab:hover {
+    background: #243248 !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item.active,
+[data-theme="dark"] .mitrautama-winbox-tab.active,
+[data-period="malam"] .mitrane-tab-item.active,
+[data-period="malam"] .mitrautama-winbox-tab.active {
+    background: #151e32 !important;
+    color: #38bdf8 !important;
+    border-top: 2px solid #38bdf8 !important;
+    border-bottom-color: #151e32 !important;
+}
+
+[data-theme="dark"] .mitrane-toolbar,
+[data-theme="dark"] .mitrautama-winbox-toolbar,
+[data-period="malam"] .mitrane-toolbar,
+[data-period="malam"] .mitrautama-winbox-toolbar {
+    background: #151e32 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .mitrane-btn-action,
+[data-theme="dark"] .mitrautama-toolbar-btn,
+[data-period="malam"] .mitrane-btn-action,
+[data-period="malam"] .mitrautama-toolbar-btn {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .mitrane-btn-action:hover,
+[data-theme="dark"] .mitrautama-toolbar-btn:hover,
+[data-period="malam"] .mitrane-btn-action:hover,
+[data-period="malam"] .mitrautama-toolbar-btn:hover {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .mitrautama-winbox-toolbar .form-control,
+[data-theme="dark"] .mitrane-toolbar .form-control,
+[data-period="malam"] .mitrautama-winbox-toolbar .form-control,
+[data-period="malam"] .mitrane-toolbar .form-control,
+[data-theme="dark"] .form-control,
+[data-period="malam"] .form-control {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .mitrautama-winbox-toolbar .form-control:focus,
+[data-theme="dark"] .mitrane-toolbar .form-control:focus,
+[data-period="malam"] .mitrautama-winbox-toolbar .form-control:focus,
+[data-period="malam"] .mitrane-toolbar .form-control:focus {
+    background-color: #1e293b !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .input-group-text,
+[data-period="malam"] .input-group-text {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mitrane-grid-table,
+[data-period="malam"] .mitrane-grid-table {
+    border-color: #1e293b !important;
+}
+
+[data-theme="dark"] .mitrane-rate-active,
+[data-period="malam"] .mitrane-rate-active {
+    background-color: rgba(56, 189, 248, 0.1) !important;
+}
+
+/* USER MENU DROPDOWN STYLING & DARK THEME SUPPORT */
+#userMenuDropdown {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    background: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+#userMenuDropdown::after {
+    display: none !important;
+}
+
+#userMenuDropdown:hover {
+    background: #0369a1 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.4) !important;
+}
+
+[data-theme='dark'] #userMenuDropdown,
+[data-period='malam'] #userMenuDropdown {
+    background: #1e293b !important;
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme='dark'] #userMenuDropdown:hover,
+[data-period='malam'] #userMenuDropdown:hover {
+    background: #243248 !important;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
+}
+
+/* User Menu Dropdown Panel Theme Styling */
+.dropdown-menu[aria-labelledby="userMenuDropdown"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+.dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item {
+    color: #334155 !important;
+    transition: all 0.15s ease !important;
+}
+
+.dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item:hover {
+    background-color: #f1f5f9 !important;
+    color: #0284c7 !important;
+}
+
+.dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item.active {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+/* Dark Theme & Auto Malam for User Dropdown */
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"],
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] {
+    background-color: #151e32 !important;
+    border-color: #334155 !important;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .border-bottom,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .border-bottom {
+    border-bottom-color: #1e293b !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-divider,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-divider {
+    border-top-color: #1e293b !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item {
+    color: #cbd5e1 !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item:hover,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item:hover {
+    background-color: #1e293b !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item.active,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .dropdown-item.active {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .text-muted,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .text-muted {
+    color: #94a3b8 !important;
+}
+
+[data-theme='dark'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .fw-bold,
+[data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .fw-bold {
+    color: #f8fafc !important;
+}
+/* SUBMENU DROP-RIGHT FLYOUT FIXED POPUP & DARK THEME SUPPORT */
+.mitrautama-menu-group.open > .mitrautama-submenu-list {
+    display: block !important;
+    position: fixed !important;
+    z-index: 9999 !important;
+    min-width: 195px !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='dark'] .mitrautama-submenu-list,
+[data-period='malam'] .mitrautama-submenu-list {
+    background: #151e32 !important;
+    border-color: #334155 !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme='dark'] .mitrautama-submenu-item,
+[data-period='malam'] .mitrautama-submenu-item {
+    color: #cbd5e1 !important;
+}
+
+[data-theme='dark'] .mitrautama-submenu-item:hover,
+[data-period='malam'] .mitrautama-submenu-item:hover {
+    background: #1e293b !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme='dark'] .mitrautama-submenu-item.active,
+[data-period='malam'] .mitrautama-submenu-item.active {
+    background: #0284c7 !important;
+    color: #ffffff !important;
+}
+/* MITRANE INTERFACES TABLE WINBOX PIXEL-PERFECT REPLICA */
+.mitrane-window {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mitrane-tab-bar {
+    display: flex;
+    align-items: center;
+    background: #dbe4ef;
+    border-bottom: 1px solid #b8c7d9;
+    padding: 3px 6px 0 6px;
+    gap: 3px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.mitrane-window-title-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #b8c7d9;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-right: 6px;
+    cursor: default;
+}
+
+.mitrane-tab-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: #475569;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.mitrane-tab-item:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #0f172a;
+}
+
+.mitrane-tab-item.active {
+    background: #ffffff !important;
+    border-color: #b8c7d9 !important;
+    border-bottom: 1px solid #ffffff !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    margin-bottom: -1px;
+}
+
+.mitrane-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f5f9;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 4px 8px;
+    gap: 6px;
+}
+
+.mitrane-action-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mitrane-btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #334155;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mitrane-btn-action:hover:not([disabled]) {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+.mitrane-btn-action.btn-new {
+    border-color: #38bdf8;
+    color: #0284c7;
+    background: #f0f9ff;
+}
+
+.mitrane-btn-action.btn-new:hover {
+    background: #e0f2fe;
+}
+
+.mitrane-grid-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.775rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.mitrane-grid-table thead th {
+    background: #e2e8f0;
+    color: #334155;
+    font-weight: 700;
+    padding: 5px 8px;
+    border-right: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+    white-space: nowrap;
+    text-align: left;
+    user-select: none;
+}
+
+.mitrane-grid-table tbody td {
+    padding: 4px 8px;
+    border-right: 1px solid #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    color: #1e293b;
+    vertical-align: middle;
+}
+
+.mitrane-grid-table tbody tr:hover td {
+    background-color: #f8fafc;
+}
+
+.mitrane-grid-table tbody tr.table-primary td,
+.mitrane-grid-table tbody tr.selected td {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+}
+
+/* Badge type matching WinBox pill (grey box with rounded edges) */
+.mitrane-badge-type {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: #64748b;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Rate indicators */
+.mitrane-rate-active {
+    color: #16a34a !important;
+    font-weight: 600;
+}
+
+.mitrane-rate-active-rx {
+    color: #0284c7 !important;
+    font-weight: 600;
+}
+
+/* Bottom status bar */
+.mitrane-status-subsystem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border-top: 1px solid #cbd5e1;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 500;
+}
+/* Sembunyikan scrollbar arrows / steppers dan sembunyikan scrollbar secara bersih */
+*::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Sembunyikan spinner stepper panah atas-bawah pada input type number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+input[type=number] {
+    -moz-appearance: textfield !important;
+}
+
+/* Scrollbar sidebar menu & tabs: clean & tanpa stepper button */
+.mitrautama-sidebar-menu,
+.mitrautama-sidebar,
+.mitrane-tab-bar,
+.mitrautama-winbox-tabs,
+.mitrautama-table-container {
+    scrollbar-width: thin !important;
+}
+
+.mitrautama-sidebar-menu::-webkit-scrollbar-button,
+.mitrautama-sidebar::-webkit-scrollbar-button,
+.mitrane-tab-bar::-webkit-scrollbar-button,
+.mitrautama-winbox-tabs::-webkit-scrollbar-button,
+.mitrautama-table-container::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+/* HIDE ALL SCROLLBAR BUTTONS / STEPPER ARROWS ACROSS ALL BROWSERS */
+::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button,
+.mitrautama-table-container::-webkit-scrollbar-button,
+.overflow-auto::-webkit-scrollbar-button,
+.mitrane-window::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+/* SLEEK MODERN SCROLLBAR OR HIDE UNNECESSARY SCROLLBARS */
+.mitrautama-table-container,
+.mitrane-window,
+#view-interfaces .overflow-auto {
+    scrollbar-width: thin !important;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent !important;
+}
+
+/* HIDE TAB BAR & WINBOX TABS SCROLLBARS COMPLETELY */
+.mitrane-tab-bar,
+.mitrautama-winbox-tabs,
+#mitrane-interface-tabs {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrane-tab-bar::-webkit-scrollbar,
+.mitrautama-winbox-tabs::-webkit-scrollbar,
+#mitrane-interface-tabs::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrane-tab-bar::-webkit-scrollbar-button,
+.mitrautama-winbox-tabs::-webkit-scrollbar-button,
+#mitrane-interface-tabs::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* TABLE CONTAINER & WINDOW CONTAINER SCROLLBAR HIDING */
+.mitrautama-table-container,
+.mitrane-window,
+#mitrane-interfaces-table,
+#view-interfaces .overflow-auto,
+.overflow-auto {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.mitrautama-table-container::-webkit-scrollbar,
+.mitrane-window::-webkit-scrollbar,
+#mitrane-interfaces-table::-webkit-scrollbar,
+#view-interfaces .overflow-auto::-webkit-scrollbar,
+.overflow-auto::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
+.mitrautama-table-container::-webkit-scrollbar-button,
+.mitrane-window::-webkit-scrollbar-button,
+#mitrane-interfaces-table::-webkit-scrollbar-button,
+#view-interfaces .overflow-auto::-webkit-scrollbar-button,
+.overflow-auto::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Preserve original case on table headers (no forced uppercase) */
+.mitrautama-table thead th,
+.mitrane-grid-table thead th,
+.mitrane-window table thead th {
+    text-transform: none !important;
+    letter-spacing: normal !important;
 }

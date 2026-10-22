@@ -81,6 +81,18 @@ export class ThemeManager {
         document.documentElement.setAttribute('data-period', periodInfo.name);
         this.period = periodInfo.name;
 
+        // Sync dark stylesheet and attribute if night period
+        const themeLink = document.getElementById('theme-stylesheet');
+        if (themeLink) {
+            if (periodInfo.name === 'malam') {
+                themeLink.href = 'assets/css/mitrautama-dark.css';
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                themeLink.href = 'assets/css/mitrautama.css';
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        }
+
         // Dispatch custom event agar modul UI lain bisa bereaksi (misal greeting badge)
         const event = new CustomEvent('themePeriodChange', { detail: periodInfo });
         window.dispatchEvent(event);
@@ -110,9 +122,7 @@ export class ThemeManager {
             document.documentElement.setAttribute('data-theme', 'light');
         } else {
             // mode === 'auto'
-            themeLink.href = 'assets/css/mitrautama.css'; // base terang
             autoLink.disabled = false;
-            document.documentElement.setAttribute('data-theme', 'auto');
             this.evaluateAutoTime();
         }
 

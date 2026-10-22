@@ -99,12 +99,7 @@ export class ModuleLoader {
                 refreshBtn.addEventListener('click', async () => {
                     await jsonDataService.loadInterfaces();
                     jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
-                    toastManager.show({
-                        title: 'Tabel Diperbarui',
-                        message: 'Data interfaces dimuat ulang dari fixture JSON.',
-                        type: 'success',
-                        duration: 1500
-                    });
+
                 });
             }
 
@@ -113,12 +108,7 @@ export class ModuleLoader {
                 editBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel untuk diedit.',
-                            type: 'warning',
-                            duration: 2000
-                        });
+
                         return;
                     }
 
@@ -182,21 +172,7 @@ export class ModuleLoader {
             if (enableBtn) {
                 enableBtn.addEventListener('click', () => {
                     const updated = jsonDataService.toggleSelectedStatus('running');
-                    if (updated) {
-                        toastManager.show({
-                            title: 'Interface Enabled',
-                            message: `Interface ${updated.name} kini berstatus Running (simulasi).`,
-                            type: 'success',
-                            duration: 2000
-                        });
-                    } else {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    }
+
                 });
             }
 
@@ -205,21 +181,7 @@ export class ModuleLoader {
             if (disableBtn) {
                 disableBtn.addEventListener('click', () => {
                     const updated = jsonDataService.toggleSelectedStatus('inactive');
-                    if (updated) {
-                        toastManager.show({
-                            title: 'Interface Disabled',
-                            message: `Interface ${updated.name} kini berstatus Inactive (simulasi).`,
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    } else {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    }
+
                 });
             }
 
@@ -229,12 +191,6 @@ export class ModuleLoader {
                 removeBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface yang akan dihapus.',
-                            type: 'warning',
-                            duration: 2000
-                        });
                         return;
                     }
 
@@ -271,12 +227,6 @@ export class ModuleLoader {
                 commentBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface untuk menambahkan komentar.',
-                            type: 'warning',
-                            duration: 2000
-                        });
                         return;
                     }
 

@@ -82,6 +82,18 @@ class ThemeManager {
         document.documentElement.setAttribute('data-period', periodInfo.name);
         this.period = periodInfo.name;
 
+        // Sync dark stylesheet and attribute if night period
+        const themeLink = document.getElementById('theme-stylesheet');
+        if (themeLink) {
+            if (periodInfo.name === 'malam') {
+                themeLink.href = 'assets/css/mitrautama-dark.css';
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                themeLink.href = 'assets/css/mitrautama.css';
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        }
+
         // Dispatch custom event agar modul UI lain bisa bereaksi (misal greeting badge)
         const event = new CustomEvent('themePeriodChange', { detail: periodInfo });
         window.dispatchEvent(event);
@@ -111,9 +123,7 @@ class ThemeManager {
             document.documentElement.setAttribute('data-theme', 'light');
         } else {
             // mode === 'auto'
-            themeLink.href = 'assets/css/mitrautama.css'; // base terang
             autoLink.disabled = false;
-            document.documentElement.setAttribute('data-theme', 'auto');
             this.evaluateAutoTime();
         }
 
@@ -132,8 +142,7 @@ const themeManager = new ThemeManager();
 
 // === MODULE: theme-ui.js ===
 /**
- * MitraUtama Theme UI Controller & Period Badge Updater
- * Menghubungkan ThemeManager dengan tombol UI dan indikator periode waktu
+ * MitraUtama Theme UI Controller & User Session Controller
  */
 
 
@@ -145,11 +154,10 @@ class ThemeUIController {
     init() {
         this.bindButtons();
         this.bindEvents();
-        this.updateBadge(themeManager.getCurrentPeriod());
+        this.updateActiveButton(themeManager.currentMode);
     }
 
     bindButtons() {
-        // Support both [data-theme-set] and [data-mitrautama-theme]
         const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -159,8 +167,6 @@ class ThemeUIController {
                 this.updateActiveButton(mode);
             });
         });
-
-        // Set initial button active state
         this.updateActiveButton(themeManager.currentMode);
     }
 
@@ -175,6 +181,13 @@ class ThemeUIController {
             }
         });
 
+        const activeThemeText = document.getElementById('user-dropdown-active-theme');
+        if (activeThemeText) {
+            if (mode === 'auto') activeThemeText.textContent = 'Auto (Waktu)';
+            else if (mode === 'light') activeThemeText.textContent = 'Cerah (Light)';
+            else if (mode === 'dark') activeThemeText.textContent = 'Gelap (Dark)';
+        }
+
         const label = document.getElementById('current-theme-label');
         if (label) {
             if (mode === 'auto') label.textContent = 'Auto Theme';
@@ -184,48 +197,12 @@ class ThemeUIController {
     }
 
     bindEvents() {
-        window.addEventListener('themePeriodChange', (e) => {
-            this.updateBadge(e.detail);
-        });
-
         window.addEventListener('themeModeChange', (e) => {
-            if (e.detail.mode === 'auto') {
-                this.updateBadge(themeManager.getCurrentPeriod());
-            } else {
-                this.clearBadge(e.detail.mode);
-            }
+            this.updateActiveButton(e.detail.mode);
         });
-    }
-
-    updateBadge(periodInfo) {
-        const badge = document.getElementById('period-badge');
-        const greeting = document.getElementById('period-greeting');
-
-        if (badge) {
-            badge.style.display = 'inline-flex';
-            badge.innerHTML = `<span>${periodInfo.icon}</span> <span>Mode Auto: ${periodInfo.label}</span>`;
-        }
-
-        if (greeting) {
-            greeting.textContent = periodInfo.greeting;
-        }
-    }
-
-    clearBadge(mode) {
-        const badge = document.getElementById('period-badge');
-        if (badge) {
-            if (mode === 'dark') {
-                badge.style.display = 'inline-flex';
-                badge.innerHTML = `<span>🌙</span> <span>Mode: Dark</span>`;
-            } else if (mode === 'light') {
-                badge.style.display = 'inline-flex';
-                badge.innerHTML = `<span>☀️</span> <span>Mode: Bright Light</span>`;
-            }
-        }
     }
 }
 
-// Inisialisasi controller
 document.addEventListener('DOMContentLoaded', () => {
     new ThemeUIController();
 });
@@ -682,12 +659,7 @@ class NavigationManager {
                 window.dispatchEvent(new Event('resize'));
             }, 260);
 
-            toastManager.show({
-                title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
-                message: isCollapsed ? 'Mode ikon aktif (Klik logo MU untuk membuka kembali)' : 'Mode navigasi lengkap aktif',
-                type: 'info',
-                duration: 2000
-            });
+
         };
 
         if (toggleBtn && sidebar) {
@@ -739,13 +711,32 @@ class NavigationManager {
                 e.preventDefault();
                 e.stopPropagation();
                 const parentGroup = toggle.closest('.mitrautama-menu-group');
+                const subList = parentGroup ? parentGroup.querySelector('.mitrautama-submenu-list') : null;
                 
+                const isOpen = parentGroup && parentGroup.classList.contains('open');
+
                 document.querySelectorAll('.mitrautama-menu-group').forEach(g => {
-                    if (g !== parentGroup) g.classList.remove('open');
+                    g.classList.remove('open');
                 });
 
-                if (parentGroup) {
-                    parentGroup.classList.toggle('open');
+                if (parentGroup && !isOpen) {
+                    parentGroup.classList.add('open');
+
+                    // Hitung posisi vertikal fixed flyout dropright agar tidak terpotong overflow container
+                    if (subList) {
+                        const rect = toggle.getBoundingClientRect();
+                        subList.style.position = 'fixed';
+                        subList.style.left = (rect.right + 4) + "px";
+                        subList.style.top = rect.top + "px";
+                        subList.style.zIndex = '9999';
+
+                        // Pastikan tidak meluap keluar batas bawah layar
+                        const listRect = subList.getBoundingClientRect();
+                        if (listRect.bottom > window.innerHeight) {
+                            const diff = listRect.bottom - window.innerHeight + 10;
+                        subList.style.top = Math.max(10, rect.top - diff) + "px";
+                        }
+                    }
                 }
             });
         });
@@ -811,12 +802,7 @@ class NavigationManager {
                     }
                 }
 
-                toastManager.show({
-                    title: 'Sub-Tab Aktif',
-                    message: `Membuka tampilan tab: ${tab.textContent.trim()}`,
-                    type: 'info',
-                    duration: 1200
-                });
+
             });
         });
     }
@@ -867,12 +853,7 @@ class NavigationManager {
             this.renderDynamicView(viewId, titleLabel);
         }
 
-        toastManager.show({
-            title: 'Menu Terbuka',
-            message: `Modul Aktif: ${titleLabel || viewId}`,
-            type: 'success',
-            duration: 2000
-        });
+
     }
 
     activateSubTab(parentSection, subtabId) {
@@ -903,13 +884,13 @@ class NavigationManager {
                     <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('Tambah', 'Tambah entri pada ${titleLabel}', 'info')">
                         <strong>+</strong> New
                     </button>
-                    <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Enable', message:'Item diaktifkan', type:'success'})">
+                    <button class="mitrautama-toolbar-btn text-success" >
                         ✓ Enable
                     </button>
-                    <button class="mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Disable', message:'Item dinonaktifkan', type:'warning'})">
+                    <button class="mitrautama-toolbar-btn text-danger" >
                         ✕ Disable
                     </button>
-                    <button class="mitrautama-toolbar-btn text-muted" onclick="toastManager.show({title:'Comment', message:'Dialog komentar', type:'info'})">
+                    <button class="mitrautama-toolbar-btn text-muted" >
                         ✎ Comment
                     </button>
                 </div>
@@ -1382,12 +1363,7 @@ class ModuleLoader {
                 refreshBtn.addEventListener('click', async () => {
                     await jsonDataService.loadInterfaces();
                     jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
-                    toastManager.show({
-                        title: 'Tabel Diperbarui',
-                        message: 'Data interfaces dimuat ulang dari fixture JSON.',
-                        type: 'success',
-                        duration: 1500
-                    });
+
                 });
             }
 
@@ -1396,12 +1372,7 @@ class ModuleLoader {
                 editBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel untuk diedit.',
-                            type: 'warning',
-                            duration: 2000
-                        });
+
                         return;
                     }
 
@@ -1465,21 +1436,7 @@ class ModuleLoader {
             if (enableBtn) {
                 enableBtn.addEventListener('click', () => {
                     const updated = jsonDataService.toggleSelectedStatus('running');
-                    if (updated) {
-                        toastManager.show({
-                            title: 'Interface Enabled',
-                            message: `Interface ${updated.name} kini berstatus Running (simulasi).`,
-                            type: 'success',
-                            duration: 2000
-                        });
-                    } else {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    }
+
                 });
             }
 
@@ -1488,21 +1445,7 @@ class ModuleLoader {
             if (disableBtn) {
                 disableBtn.addEventListener('click', () => {
                     const updated = jsonDataService.toggleSelectedStatus('inactive');
-                    if (updated) {
-                        toastManager.show({
-                            title: 'Interface Disabled',
-                            message: `Interface ${updated.name} kini berstatus Inactive (simulasi).`,
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    } else {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
-                            type: 'warning',
-                            duration: 2000
-                        });
-                    }
+
                 });
             }
 
@@ -1512,12 +1455,6 @@ class ModuleLoader {
                 removeBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface yang akan dihapus.',
-                            type: 'warning',
-                            duration: 2000
-                        });
                         return;
                     }
 
@@ -1554,12 +1491,6 @@ class ModuleLoader {
                 commentBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
-                        toastManager.show({
-                            title: 'Pilih Baris',
-                            message: 'Silakan pilih interface untuk menambahkan komentar.',
-                            type: 'warning',
-                            duration: 2000
-                        });
                         return;
                     }
 
@@ -1647,4 +1578,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.navigationManager) {
         window.navigationManager.init();
     }
+});
+// Listener Tombol Logout Header User Dropdown
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', (e) => {
+        const logoutBtn = e.target.closest('#header-btn-logout');
+        if (logoutBtn) {
+            e.preventDefault();
+            if (window.Swal) {
+                Swal.fire({
+                    title: 'Konfirmasi Logout',
+                    text: 'Apakah Anda yakin ingin keluar dari sesi RouterOS WebUI?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Logout',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#ef4444'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        Swal.fire({
+                            title: 'Sesi Berakhir',
+                            text: 'Anda telah berhasil logout.',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+            } else {
+                if (confirm('Apakah Anda yakin ingin logout?')) {
+                    alert('Anda telah berhasil logout.');
+                }
+            }
+        }
+    });
 });

@@ -30,35 +30,101 @@
     <div class="mitrautama-app-wrapper">
         <!-- 1. FIXED HEADER CONTAINER (Modular: includes/header.html) -->
         <div id="header-container">
-            <header class="mitrautama-fixed-header">
-                <div class="mitrautama-header-left">
-                    <div class="mu-logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem;">MU</div>
-                    <div class="d-none d-sm-block mu-brand-text">
-                        <strong style="font-size: 0.95rem;">MitraUtama</strong>
-                    </div>
-                    <button type="button" id="sidebar-toggle-btn" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center p-1 ms-1" style="width: 32px; height: 32px;" title="Ciutkan / Perluas Sidebar">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <!-- Module: includes/header.html (Unified WinBox Header) -->
+<header class="mitrautama-fixed-header">
+    <div class="mitrautama-header-left d-flex align-items-center">
+        <a href="#" class="mitrautama-header-home-btn d-flex align-items-center gap-2 text-decoration-none" data-mitrautama-view="dashboard">
+            <div class="mu-logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem;">RO</div>
+            <div class="d-none d-sm-block mu-brand-text">
+                <strong style="font-size: 0.95rem; color: var(--mu-text-main, #0f172a);">RouterOS</strong>
+            </div>
+        </a>
+
+        <button type="button" id="sidebar-toggle-btn" class="btn btn-sm d-flex align-items-center justify-content-center p-0 border-0 bg-transparent" style="width: 32px; height: 32px;" title="Ciutkan / Perluas Sidebar" aria-label="Toggle Sidebar" aria-expanded="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+        <!-- Right Controls: User Profile Dropdown (with Router Status, Theme, and Logout) -->
+    <div class="d-flex align-items-center gap-2">
+        <div class="dropdown">
+            <button class="btn btn-sm d-flex align-items-center justify-content-center p-0 rounded-circle shadow-sm" type="button" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Profil Pengguna (admin)" style="width: 34px; height: 34px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 py-2" aria-labelledby="userMenuDropdown" style="min-width: 220px; border-radius: 8px;">
+                <li class="px-3 py-1 mb-1 border-bottom">
+                    <div class="fw-bold small text-truncate" style="color: var(--mu-text-main, #1e293b);">Administrator</div>
+                    <div class="text-muted" style="font-size: 0.72rem;">admin@RB3011UiAS</div>
+                </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#" data-mitrautama-modal-open="modal-router-status">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2-2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        <span>Status Router</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#" data-mitrautama-view="system-resources">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span>System Resources</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider my-1"></li>
+                <li>
+                    <div class="px-3 py-1 text-muted small fw-semibold" style="font-size: 0.72rem;">PILIHAN TEMA</div>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-1 px-3 small" data-theme-set="auto" data-mitrautama-theme="auto">
+                        <span class="d-flex align-items-center gap-2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Auto (Waktu)
+                        </span>
                     </button>
-                </div>
-
-                <div class="d-flex align-items-center gap-3">
-
-                    <div class="mu-period-badge mb-0 d-none d-lg-inline-flex" id="period-badge">
-                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg></span> <span>Mode Auto: Pagi</span>
-                    </div>
-
-                    <div class="mu-theme-selector">
-                        <button type="button" class="mu-theme-btn active" data-theme-set="auto">Auto</button>
-                        <button type="button" class="mu-theme-btn" data-theme-set="light">Cerah</button>
-                        <button type="button" class="mu-theme-btn" data-theme-set="dark">Gelap</button>
-                    </div>
-
-                    <button type="button" class="btn btn-sm btn-primary d-flex align-items-center gap-1" data-mitrautama-modal-open="modal-router-status">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                        <span>Router</span>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-1 px-3 small" data-theme-set="light" data-mitrautama-theme="light">
+                        <span class="d-flex align-items-center gap-2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            Cerah (Light)
+                        </span>
                     </button>
-                </div>
-            </header>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center justify-content-between py-1 px-3 small" data-theme-set="dark" data-mitrautama-theme="dark">
+                        <span class="d-flex align-items-center gap-2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            Gelap (Dark)
+                        </span>
+                    </button>
+                </li>
+                <li><hr class="dropdown-divider my-1"></li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger fw-semibold" href="#" id="header-btn-logout">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H45a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
         </div>
 
         <!-- 2. BODY CONTAINER (SIDEBAR + CONTENT) -->
@@ -333,15 +399,1039 @@
                 
                 <!-- MODUL 1: INTERFACES (interfaces/interfaces.html) -->
                 <!-- DYNAMIC PACKAGES / MODULE CONTAINERS -->
-                <div id="interfaces-module-container"></div>
-                <div id="ip-module-container"></div>
-                <div id="wireguard-module-container"></div>
-                <div id="wireless-module-container"></div>
-                <div id="switch-module-container"></div>
-                <div id="bridge-module-container"></div>
-                <div id="system-module-container"></div>
-                <div id="queues-module-container"></div>
-                <div id="ppp-module-container"></div>
+                <div id="interfaces-module-container">
+<!-- Module: interfaces/interfaces.html (MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-interfaces" style="display: none;">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-interface-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+          <line x1="6" y1="6" x2="6.01" y2="6"></line>
+          <line x1="6" y1="18" x2="6.01" y2="18"></line>
+        </svg>
+        <span>Interfaces</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- Sub-tabs matching screenshot -->
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab active" data-mitrautama-subtab="interface">Interface</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="interface-list">Interface List</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="ethernet">Ethernet</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="eoip-tunnel">EoIP Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="ip-tunnel">IP Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="gre-tunnel">GRE Tunnel</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vlan">VLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="bridge">Bridge</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vxlan">VXLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vrf">VRF</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vrrp">VRRP</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="lacc">LACC</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="macsec">MACsec</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="macvlan">MACVLAN</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vether">vEther</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab mitrautama-winbox-tab" data-mitrautama-subtab="vether-tunnel">vEther Tunnel</a>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn btn-new" id="btn-interface-new" data-mitrautama-modal-open="modal-add-interface">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-edit" data-mitrautama-modal-open="modal-edit-interface">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>Edit</span>
+          </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-enable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-disable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-remove">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-comment">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Comment</span>
+        </button>
+      </div>
+
+      <!-- Right Tools: Find Search Box, Filter, Refresh, Columns -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text bg-white border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="mitrane-interface-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
+        </div>
+
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" title="Filter Records">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          <span>Filter</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-refresh" title="Refresh Table">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" title="Configure Columns">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Grid Table Container (Loaded from interfaces/interfaces.json) -->
+    <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+      <table class="mitrane-grid-table mitrautama-table" id="mitrane-interfaces-table">
+        <thead>
+          <tr>
+            <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+            <th>Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></th>
+            <th>Type</th>
+            <th>Actual MTU</th>
+            <th>L2 MTU</th>
+            <th>Tx</th>
+            <th>Rx</th>
+            <th>Tx Packet (p/s)</th>
+            <th>Rx Packet (p/s)</th>
+            <th>FP Tx</th>
+            <th>FP Rx</th>
+            <th>FP Tx Packet (p/s)</th>
+            <th>FP Rx Packet (p/s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic JSON Render via js/data-loader.js with fallback content -->
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>ETH1</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp1s0)</span></td>
+            <td><span class="mitrane-badge-type">Ethernet</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">1.0 KB/s</td>
+            <td class="text-primary fw-semibold">641 B/s</td>
+            <td>3</td>
+            <td>4</td>
+            <td>1.0 KB/s</td>
+            <td>641 B/s</td>
+            <td>3</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td><strong>GRE0</strong> <span class="text-muted" style="font-size: 0.72rem;">(gre0)</span></td>
+            <td><span class="mitrane-badge-type">GRE</span></td>
+            <td>1476</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td><strong>GRETAP0</strong> <span class="text-muted" style="font-size: 0.72rem;">(gretap0)</span></td>
+            <td><span class="mitrane-badge-type">GRE</span></td>
+            <td>1462</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td><strong>ERSPAN0</strong> <span class="text-muted" style="font-size: 0.72rem;">(erspan0)</span></td>
+            <td><span class="mitrane-badge-type">Ethernet</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td><strong>TUNL0</strong> <span class="text-muted" style="font-size: 0.72rem;">(tunl0)</span></td>
+            <td><span class="mitrane-badge-type">IPIP</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>PPP0</strong> <span class="text-muted" style="font-size: 0.72rem;">(ppp0)</span></td>
+            <td><span class="mitrane-badge-type">Ethernet</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>GRE-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(gre-vps)</span></td>
+            <td><span class="mitrane-badge-type">GRE</span></td>
+            <td>1476</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>IPIP-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(ipip-vps)</span></td>
+            <td><span class="mitrane-badge-type">IPIP</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>EOIP-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(eoip-vps)</span></td>
+            <td><span class="mitrane-badge-type">EoIP</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>VXLAN100</strong> <span class="text-muted" style="font-size: 0.72rem;">(vxlan100)</span></td>
+            <td><span class="mitrane-badge-type">VXLAN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td><strong>LO</strong> <span class="text-muted" style="font-size: 0.72rem;">(lo)</span></td>
+            <td><span class="mitrane-badge-type">Loopback</span></td>
+            <td>65536</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">1.6 KB/s</td>
+            <td class="text-primary fw-semibold">1.6 KB/s</td>
+            <td>8</td>
+            <td>8</td>
+            <td>1.6 KB/s</td>
+            <td>1.6 KB/s</td>
+            <td>8</td>
+            <td>8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4. Subsystem Status & Item Count Footer -->
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
+      <span id="mitrane-total-items">11 items</span>
+      <span></span>
+    </div>
+
+  </div>
+</div>
+
+</div>
+                <div id="ip-module-container">
+<!-- Module: ip/ip.html -->
+<div class="mitrautama-view-section" id="view-ip-addresses">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span>IP</span>
+      </button>
+
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="ip-addr">Addresses</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-routes">Routes</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-dhcp">DHCP Server</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-pool">Pools</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ip-firewall">Firewall NAT</a>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire({title:'Tambah IP Address (Demo)', html:'<input class=\'form-control mb-2\' placeholder=\'192.168.1.1/24\'><input class=\'form-control\' placeholder=\'Interface: ether1\'>', confirmButtonText:'Simpan'})">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Enable IP', message:'IP diaktifkan (simulasi)', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Disable IP', message:'IP dinonaktifkan (simulasi)', type:'warning'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="Swal.fire('Hapus IP', 'Konfirmasi hapus IP address terpilih?', 'warning')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <input type="text" placeholder="Find IP..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Refresh', message:'Data IP diperbarui', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Sub-Tab Panes -->
+    <!-- Tab 1: Addresses -->
+    <div class="mitrautama-tab-content active" id="subtab-ip-addr">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px;">#</th>
+              <th>Address</th>
+              <th>Network</th>
+              <th>Interface</th>
+              <th>Actual Interface</th>
+              <th>VRF</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td><strong>10.10.92.254/24</strong></td><td>10.10.92.0</td><td>ether2</td><td>ether2</td><td>main</td></tr>
+            <tr><td>1</td><td><strong>172.16.92.230/24</strong></td><td>172.16.92.0</td><td><span class="badge bg-primary">1. WAN</span></td><td>1. WAN</td><td>main</td></tr>
+            <tr><td>2</td><td><strong>10.10.16.254/24</strong></td><td>10.10.16.0</td><td><span class="badge bg-success">2. LAN</span></td><td>2. LAN</td><td>main</td></tr>
+            <tr class="table-info"><td>3</td><td><strong>10.10.77.2/30</strong> <em>(WireGuard Tunnel IP)</em></td><td>10.10.77.0</td><td><span class="badge bg-info">wg-chr</span></td><td>wg-chr</td><td>main</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: Routes -->
+    <div class="mitrautama-tab-content" id="subtab-ip-routes" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr><th>Flags</th><th>Dst. Address</th><th>Gateway</th><th>Immediate GW</th><th>Distance</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="fw-bold text-success">As</span></td><td><strong>0.0.0.0/0 (Default Route)</strong></td><td>172.16.92.254</td><td>172.16.92.254%1. WAN</td><td>1</td></tr>
+            <tr><td><span class="fw-bold text-info">DAc</span></td><td>10.10.16.0/24</td><td>2. LAN</td><td>2. LAN</td><td>0</td></tr>
+            <tr><td><span class="fw-bold text-info">DAc</span></td><td>10.10.77.0/30</td><td>wg-chr</td><td>wg-chr</td><td>0</td></tr>
+            <tr><td><span class="fw-bold text-info">DAc</span></td><td>172.16.92.0/24</td><td>1. WAN</td><td>1. WAN</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 3: DHCP Server -->
+    <div class="mitrautama-tab-content" id="subtab-ip-dhcp" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr><th>Flags</th><th>Name</th><th>Interface</th><th>Lease Time</th><th>Address Pool</th></tr>
+          </thead>
+          <tbody>
+            <tr class="text-muted">
+              <td><span class="fw-bold text-warning">I</span></td>
+              <td>dhcp1 <em>(Interface not running)</em></td>
+              <td>ether2</td>
+              <td>10m</td>
+              <td>dhcp_pool10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 4: Pools -->
+    <div class="mitrautama-tab-content" id="subtab-ip-pool" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr><th>Name</th><th>Ranges</th><th>Next Pool</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>dhcp_pool10</td><td>10.10.92.1-10.10.92.253</td><td>none</td></tr>
+            <tr><td>pool-hotspot</td><td>10.10.16.10-10.10.16.250</td><td>none</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 5: Firewall NAT -->
+    <div class="mitrautama-tab-content" id="subtab-ip-firewall" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr><th>Chain</th><th>Action</th><th>Out Interface</th><th>Src. Address</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>srcnat</td><td><span class="badge bg-success">masquerade</span></td><td>1. WAN</td><td>10.10.16.0/24</td></tr>
+            <tr><td>srcnat</td><td><span class="badge bg-success">masquerade</span></td><td>wg-chr</td><td>10.10.77.0/30</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
+      <span>IP Subsystem Ready</span>
+      <span class="text-muted">Routing & Address Management</span>
+    </div>
+
+  </div>
+</div>
+
+</div>
+                <div id="wireguard-module-container">
+<!-- Module: wireguard/wireguard.html -->
+<div class="mitrautama-view-section" id="view-wireguard" style="display: none;">
+    <div class="mitrautama-win-header">
+        <div class="mitrautama-win-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>WireGuard</span>
+        </div>
+    </div>
+
+    <!-- Winbox Sub-tabs -->
+    <div class="mitrautama-winbox-tabs">
+        <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-wg-iface">WireGuard</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wg-peers">Peers</a>
+    </div>
+
+    <!-- Actions Toolbar -->
+    <div class="mitrautama-winbox-toolbar">
+        <div class="mitrautama-toolbar-actions">
+            <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('WireGuard', 'Tambah tunnel WireGuard baru', 'info')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'WireGuard Aktif', message:'Tunnel siap mentransfer paket.', type:'success'})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Enable</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-danger">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <span>Disable</span>
+            </button>
+        </div>
+        <div>
+            <input type="text" placeholder="Filter WireGuard..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+        </div>
+    </div>
+
+    <!-- Tab Pane 1: WireGuard Interface -->
+    <div class="mitrautama-tab-pane" id="tab-pane-wg-iface" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr>
+                        <th>Flags</th>
+                        <th>Name</th>
+                        <th>MTU</th>
+                        <th>Listen Port</th>
+                        <th>Public Key</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="fw-bold text-success">R</span></td>
+                        <td><strong>wg-chr</strong></td>
+                        <td>1420</td>
+                        <td>13231</td>
+                        <td><code class="text-primary font-monospace">AoWMx8P3Zph2NwvplM8FASwRvHEHCKWdEAIpjMDDHyI=</code></td>
+                        <td>WireGuard to CHR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Pane 2: WireGuard Peers -->
+    <div class="mitrautama-tab-pane" id="tab-pane-wg-peers" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr>
+                        <th>Interface</th>
+                        <th>Public Key</th>
+                        <th>Endpoint</th>
+                        <th>Allowed Address</th>
+                        <th>Current Rx / Tx</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>wg-chr</td>
+                        <td><code class="font-monospace">h8r2K...chrCloudServerKey</code></td>
+                        <td>103.150.x.x:13231</td>
+                        <td>0.0.0.0/0, 10.10.77.1/32</td>
+                        <td><span class="text-success">52.4 MB</span> / <span class="text-primary">89.1 MB</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+                <div id="wireless-module-container">
+<!-- Module: wireless/wireless.html -->
+<div class="mitrautama-view-section" id="view-wireless-tables" style="display: none;">
+    <div class="mitrautama-win-header">
+        <div class="mitrautama-win-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+            <span>Wireless Tables &amp; CAPsMAN</span>
+        </div>
+    </div>
+
+    <!-- Winbox Sub-tabs Wireless -->
+    <div class="mitrautama-winbox-tabs">
+        <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-wlan-iface">Interfaces</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wlan-sec">Security Profiles</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wlan-reg">Registration</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wlan-caps">CAPsMAN Radios</a>
+    </div>
+
+    <div class="mitrautama-winbox-toolbar">
+        <div class="mitrautama-toolbar-actions">
+            <button class="mitrautama-toolbar-btn text-primary">New</button>
+            <button class="mitrautama-toolbar-btn text-success">Enable</button>
+            <button class="mitrautama-toolbar-btn text-danger">Disable</button>
+        </div>
+        <div>
+            <input type="text" placeholder="Filter Wireless..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+        </div>
+    </div>
+
+    <div class="mitrautama-tab-pane" id="tab-pane-wlan-iface" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr><th>Name</th><th>Mode</th><th>SSID</th><th>Band</th><th>Frequency</th><th>Radio MAC</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>cap-wifi1</strong></td>
+                        <td>ap-bridge (managed by CAPsMAN)</td>
+                        <td><strong class="text-primary">MitraUtama-Hotspot</strong></td>
+                        <td>2GHz-g/n</td>
+                        <td>2412 MHz (Channel 1)</td>
+                        <td><code>48:8F:5A:12:34:B1</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>cap-wifi2</strong></td>
+                        <td>ap-bridge (managed by CAPsMAN)</td>
+                        <td><strong class="text-primary">MitraUtama-5G</strong></td>
+                        <td>5GHz-a/n/ac</td>
+                        <td>5180 MHz (Channel 36)</td>
+                        <td><code>48:8F:5A:12:34:B2</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mitrautama-tab-pane" id="tab-pane-wlan-sec" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead><tr><th>Name</th><th>Mode</th><th>Authentication Types</th><th>Unicast Ciphers</th></tr></thead>
+                <tbody>
+                    <tr><td>default</td><td>none (Hotspot Open Portal)</td><td>none</td><td>none</td></tr>
+                    <tr><td>profile-kantor</td><td>wpa2-psk</td><td>WPA2-PSK</td><td>aes-ccm</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+                <div id="switch-module-container">
+<div class="mitrautama-view-section" id="view-switch">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      <strong>Switch</strong> (QCA8337 Hardware Switch)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="switch-ports">Port</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-vlan">VLAN</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-rule">Rule</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-host">Host</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-switch-ports">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead>
+          <tr>
+            <th>Port</th>
+            <th>Switch</th>
+            <th>VLAN Mode</th>
+            <th>VLAN Header</th>
+            <th>Default VLAN ID</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ether1</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-success">Running</span></td></tr>
+          <tr><td><strong>ether2</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether3</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether4</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether5</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>switch1-cpu</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-info">CPU</span></td></tr>
+          <tr><td><strong>ether6</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether7</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether8</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether9</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether10</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>switch2-cpu</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-info">CPU</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-vlan">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Switch</th><th>VLAN ID</th><th>Ports</th><th>Independent Learning</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" class="text-center text-muted py-3">No hardware switch VLAN entries configured.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-rule">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>#</th><th>Switch</th><th>MAC Protocol</th><th>Copy to CPU</th><th>Redirect to CPU</th><th>Mirror</th></tr></thead>
+        <tbody>
+          <tr><td>0 (Dynamic)</td><td>switch2</td><td><span class="badge bg-primary">romon</span></td><td>no</td><td><span class="badge bg-success">yes</span></td><td>no</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-host">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>MAC Address</th><th>Port</th><th>VLAN ID</th><th>Dynamic</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" class="text-center text-muted py-3">Hardware host table populated automatically by switch chips.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+                <div id="bridge-module-container">
+<div class="mitrautama-view-section" id="view-bridge">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <strong>Bridge</strong> (RB3011 Dual Switch Bridge)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="bridge-list">Bridge</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="bridge-ports">Ports</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="bridge-vlans">VLANs</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-bridge-list">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Name</th><th>MAC Address</th><th>Fast Forward</th><th>Protocol Mode</th><th>IGMP Snooping</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. WAN</strong></td><td><code>2C:C8:1B:18:BE:35</code></td><td><span class="badge bg-success">yes</span></td><td>none</td><td>no</td><td><span class="badge bg-success">Running</span></td></tr>
+          <tr><td><strong>2. LAN</strong></td><td><code>2C:C8:1B:18:BE:2E</code></td><td><span class="badge bg-success">yes</span></td><td>none</td><td>no</td><td><span class="badge bg-success">Running</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-bridge-ports">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Interface</th><th>Bridge</th><th>Priority</th><th>HW Offload</th><th>PVID</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ether1</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether3</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether4</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether7</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether8</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-warning text-dark">no</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether9</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-bridge-vlans">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Bridge</th><th>VLAN IDs</th><th>Tagged</th><th>Untagged</th><th>Current Tagged</th><th>Current Untagged</th></tr></thead>
+        <tbody>
+          <tr><td>2. LAN</td><td>1</td><td></td><td>2. LAN</td><td></td><td>2. LAN, ether1, ether3, ether4</td></tr>
+          <tr><td>1. WAN</td><td>1</td><td></td><td>1. WAN</td><td></td><td>1. WAN, ether7, ether8, ether9</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+                <div id="system-module-container">
+<div class="mitrautama-view-section" id="view-system">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+      <strong>System Resources & Hardware</strong> (RB3011UiAS)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="sys-resources">Resources</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-routerboard">RouterBOARD</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-health">Health</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-users">Users</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-sys-resources">
+    <div class="row g-3 p-3">
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border">
+          <h6 class="fw-bold text-primary mb-3">Hardware & OS</h6>
+          <table class="table table-sm table-borderless mb-0">
+            <tr><th class="text-muted">Board:</th><td><strong>RB3011UiAS-RM</strong></td></tr>
+            <tr><th class="text-muted">Architecture:</th><td>arm</td></tr>
+            <tr><th class="text-muted">CPU:</th><td>Qualcomm IPQ8064 (2 Cores @ 1.4 GHz)</td></tr>
+            <tr><th class="text-muted">RouterOS Version:</th><td><span class="badge bg-success">7.24.5 (stable)</span></td></tr>
+            <tr><th class="text-muted">Build Time:</th><td>2026-09-29 14:21:27</td></tr>
+            <tr><th class="text-muted">Identity:</th><td><strong>BACKBONE</strong></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border">
+          <h6 class="fw-bold text-success mb-3">Memory & Storage</h6>
+          <table class="table table-sm table-borderless mb-0">
+            <tr><th class="text-muted">Total RAM:</th><td>1024.0 MiB</td></tr>
+            <tr><th class="text-muted">Free RAM:</th><td><span class="text-success fw-bold">940.7 MiB (91.8%)</span></td></tr>
+            <tr><th class="text-muted">Total HDD/NAND:</th><td>128.0 MiB</td></tr>
+            <tr><th class="text-muted">Free HDD/NAND:</th><td>111.4 MiB (87.0%)</td></tr>
+            <tr><th class="text-muted">Write Sector Since Reboot:</th><td>1,421</td></tr>
+            <tr><th class="text-muted">Bad Blocks:</th><td>0.0%</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-routerboard">
+    <div class="p-3">
+      <div class="p-3 bg-light rounded border">
+        <h6 class="fw-bold text-primary mb-3">Firmware Information</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>RouterBOARD:</strong> Yes</p>
+            <p><strong>Model:</strong> RB3011UiAS</p>
+            <p><strong>Revision:</strong> r2</p>
+            <p><strong>Serial Number:</strong> <code>E14B0E638BF7</code></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Firmware Type:</strong> ipq8060</p>
+            <p><strong>Current Firmware:</strong> 7.24.4</p>
+            <p><strong>Upgrade Firmware:</strong> <span class="badge bg-info">7.24.5</span></p>
+            <button class="btn btn-sm btn-outline-primary">Upgrade Firmware</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-health">
+    <div class="p-3">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded border text-center">
+            <div class="text-muted mb-1">Supply Voltage</div>
+            <div class="display-5 fw-bold text-primary">23.9 V</div>
+            <span class="badge bg-success mt-2">Optimal (10V - 30V supported)</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded border text-center">
+            <div class="text-muted mb-1">Board Temperature</div>
+            <div class="display-5 fw-bold text-success">44 °C</div>
+            <span class="badge bg-success mt-2">Normal Operating Range</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-users">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>User</th><th>Group</th><th>Allowed Address</th><th>Inactivity Timeout</th><th>Last Logged In</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>citramedia</strong></td><td><span class="badge bg-danger">full</span></td><td>0.0.0.0/0</td><td>10m</td><td>2026-10-22 15:06:41</td><td><span class="badge bg-success">Active</span></td></tr>
+          <tr><td>admin</td><td>full</td><td>0.0.0.0/0</td><td>10m</td><td>-</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+                <div id="queues-module-container">
+<div class="mitrautama-view-section" id="view-queues">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        <span>Queues</span>
+      </button>
+
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="queues-simple">Simple Queues</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-tree">Queue Tree</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">Queue Types</a>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-queues-new">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-enable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-disable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-remove">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-refresh" title="Refresh Table">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Grid Table Content -->
+    <div class="mitrautama-tab-content active" id="subtab-queues-simple">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table" id="table-queues-simple">
+          <thead>
+            <tr>
+              <th style="width: 28px;">#</th>
+              <th>Name</th>
+              <th>Target</th>
+              <th>Max Limit (Up/Down)</th>
+              <th>Priority</th>
+              <th>Queue Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td><strong>ALL TRAFIC</strong></td>
+              <td>0.0.0.0/0</td>
+              <td>500M / 500M</td>
+              <td>8/8</td>
+              <td>pcq-upload / pcq-download</td>
+              <td><span class="badge bg-secondary">Disabled</span></td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td><strong>CLIENT-VIP</strong></td>
+              <td>172.16.92.0/24</td>
+              <td>100M / 100M</td>
+              <td>1/1</td>
+              <td>default-small</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-queues-tree" style="display: none;">
+      <div class="p-3 text-center text-muted">
+        Tidak ada antrean bertingkat (Queue Tree) yang dikonfigurasi.
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-queues-types" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr><th>Type Name</th><th>Kind</th><th>Parameters</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>default</td><td>pfifo</td><td>pfifo-limit=50</td></tr>
+            <tr><td>default-small</td><td>pfifo</td><td>pfifo-limit=10</td></tr>
+            <tr><td>pcq-download-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+            <tr><td>pcq-upload-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
+      <span>Total: 2 queues</span>
+      <span class="text-muted">Bandwidth QoS Subsystem</span>
+    </div>
+
+  </div>
+</div>
+
+</div>
+                <div id="ppp-module-container">
+<div class="mitrautama-view-section" id="view-ppp">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <strong>PPP / PPPoE</strong> (Point-to-Point Tunneling)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="ppp-interfaces">Interfaces</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-servers">PPPoE Servers</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-secrets">Secrets</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-active">Active Connections</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-ppp-interfaces">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Name</th><th>Type</th><th>User</th><th>Service</th><th>Caller ID</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td colspan="6" class="text-center text-muted py-3">No active PPPoE client interfaces.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-ppp-servers">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Service Name</th><th>Interface</th><th>Max MTU</th><th>Max MRU</th><th>Default Profile</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td colspan="6" class="text-center text-muted py-3">No PPPoE server instances configured.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-ppp-secrets">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Name</th><th>Service</th><th>Profile</th><th>Local Address</th><th>Remote Address</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5" class="text-center text-muted py-3">No PPP secrets configured.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-ppp-active">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>User</th><th>Service</th><th>Caller ID</th><th>Address</th><th>Uptime</th><th>Encoding</th></tr></thead>
+        <tbody>
+          <tr><td colspan="6" class="text-center text-muted py-3">No active PPP sessions.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
 
                 <!-- DASHBOARD QUICK SET & KPI -->
                 <div class="mitrautama-view-section" id="view-dashboard" style="display: block;">

@@ -3,7 +3,7 @@
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar -->
-    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-interface-tabs">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-interface-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
       <button class="mitrane-window-title-btn" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
@@ -92,7 +92,7 @@
       <table class="mitrane-grid-table mitrautama-table" id="mitrane-interfaces-table">
         <thead>
           <tr>
-            <th style="width: 28px;"></th>
+            <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
             <th>Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></th>
             <th>Type</th>
             <th>Actual MTU</th>
@@ -280,8 +280,8 @@
 
     <!-- 4. Subsystem Status & Item Count Footer -->
     <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
-      <span id="mitrane-total-items">Total: 11 items</span>
-      <span class="text-muted">MitraNet Interface Subsystem</span>
+      <span id="mitrane-total-items">11 items</span>
+      <span></span>
     </div>
 
   </div>

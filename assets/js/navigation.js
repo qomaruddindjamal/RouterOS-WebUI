@@ -44,12 +44,7 @@ export class NavigationManager {
                 window.dispatchEvent(new Event('resize'));
             }, 260);
 
-            toastManager.show({
-                title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
-                message: isCollapsed ? 'Mode ikon aktif (Klik logo MU untuk membuka kembali)' : 'Mode navigasi lengkap aktif',
-                type: 'info',
-                duration: 2000
-            });
+
         };
 
         if (toggleBtn && sidebar) {
@@ -101,13 +96,32 @@ export class NavigationManager {
                 e.preventDefault();
                 e.stopPropagation();
                 const parentGroup = toggle.closest('.mitrautama-menu-group');
+                const subList = parentGroup ? parentGroup.querySelector('.mitrautama-submenu-list') : null;
                 
+                const isOpen = parentGroup && parentGroup.classList.contains('open');
+
                 document.querySelectorAll('.mitrautama-menu-group').forEach(g => {
-                    if (g !== parentGroup) g.classList.remove('open');
+                    g.classList.remove('open');
                 });
 
-                if (parentGroup) {
-                    parentGroup.classList.toggle('open');
+                if (parentGroup && !isOpen) {
+                    parentGroup.classList.add('open');
+
+                    // Hitung posisi vertikal fixed flyout dropright agar tidak terpotong overflow container
+                    if (subList) {
+                        const rect = toggle.getBoundingClientRect();
+                        subList.style.position = 'fixed';
+                        subList.style.left = ${rect.right + 4}px;
+                        subList.style.top = ${rect.top}px;
+                        subList.style.zIndex = '9999';
+
+                        // Pastikan tidak meluap keluar batas bawah layar
+                        const listRect = subList.getBoundingClientRect();
+                        if (listRect.bottom > window.innerHeight) {
+                            const diff = listRect.bottom - window.innerHeight + 10;
+                            subList.style.top = ${Math.max(10, rect.top - diff)}px;
+                        }
+                    }
                 }
             });
         });
@@ -173,12 +187,7 @@ export class NavigationManager {
                     }
                 }
 
-                toastManager.show({
-                    title: 'Sub-Tab Aktif',
-                    message: `Membuka tampilan tab: ${tab.textContent.trim()}`,
-                    type: 'info',
-                    duration: 1200
-                });
+
             });
         });
     }
@@ -208,7 +217,7 @@ export class NavigationManager {
         };
 
         const resolvedId = routeAliasMap[viewId] || viewId;
-        const targetSection = document.getElementById(iew- + resolvedId);
+        const targetSection = document.getElementById("view-" + resolvedId);
         if (targetSection) {
             targetSection.style.display = 'block';
             const container = document.querySelector('.mitrautama-content-area');
@@ -229,12 +238,7 @@ export class NavigationManager {
             this.renderDynamicView(viewId, titleLabel);
         }
 
-        toastManager.show({
-            title: 'Menu Terbuka',
-            message: `Modul Aktif: ${titleLabel || viewId}`,
-            type: 'success',
-            duration: 2000
-        });
+
     }
 
     activateSubTab(parentSection, subtabId) {
@@ -265,13 +269,13 @@ export class NavigationManager {
                     <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('Tambah', 'Tambah entri pada ${titleLabel}', 'info')">
                         <strong>+</strong> New
                     </button>
-                    <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Enable', message:'Item diaktifkan', type:'success'})">
+                    <button class="mitrautama-toolbar-btn text-success" >
                         ✓ Enable
                     </button>
-                    <button class="mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Disable', message:'Item dinonaktifkan', type:'warning'})">
+                    <button class="mitrautama-toolbar-btn text-danger" >
                         ✕ Disable
                     </button>
-                    <button class="mitrautama-toolbar-btn text-muted" onclick="toastManager.show({title:'Comment', message:'Dialog komentar', type:'info'})">
+                    <button class="mitrautama-toolbar-btn text-muted" >
                         ✎ Comment
                     </button>
                 </div>
