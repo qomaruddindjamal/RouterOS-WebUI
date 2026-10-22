@@ -1,0 +1,1649 @@
+﻿// === MODULE: theme.js ===
+/**
+ * MitraUtama Theme Management Module
+ * Mendukung mode:
+ * - light (cerah default)
+ * - dark (mitrautama-dark.css)
+ * - auto (mitrautama-auto.css berdasarkan waktu: fajar, pagi, siang, senja, malam)
+ */
+
+class ThemeManager {
+    constructor() {
+        this.currentMode = localStorage.getItem('mitra_theme_mode') || 'auto'; // 'light', 'dark', 'auto'
+        this.period = '';
+        this.init();
+    }
+
+    init() {
+        this.applyTheme(this.currentMode);
+        
+        // Cek update periode waktu berkala untuk mode auto
+        setInterval(() => {
+            if (this.currentMode === 'auto') {
+                this.evaluateAutoTime();
+            }
+        }, 30000); // per 30 detik
+    }
+
+    /**
+     * Hitung waktu fajar, pagi, siang, senja, malam
+     * Waktu Indonesia / Tropis:
+     * - Fajar (Dawn): 04:30 - 06:14 (Cahaya lembut fajar keemasan pastel)
+     * - Pagi (Morning): 06:15 - 11:29 (Cerah segar biru langit & putih hangat)
+     * - Siang (Afternoon): 11:30 - 15:29 (Ultra-bright, kontras tajam, cerah maksimal)
+     * - Senja (Dusk / Golden Sunset): 15:30 - 18:29 (Hangat jingga lembayung)
+     * - Malam (Night): 18:30 - 04:29 (Deep night, biru pekat nyaman elegan)
+     */
+    getTimePeriod(date = new Date()) {
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const timeVal = hours * 60 + minutes;
+
+        if (timeVal >= 4 * 60 + 30 && timeVal < 6 * 60 + 15) {
+            return {
+                name: 'fajar',
+                label: 'Fajar (Dawn)',
+                icon: '🌅',
+                greeting: 'Selamat Beribadah & Menjelang Pagi'
+            };
+        } else if (timeVal >= 6 * 60 + 15 && timeVal < 11 * 60 + 30) {
+            return {
+                name: 'pagi',
+                label: 'Pagi (Morning)',
+                icon: '☀️',
+                greeting: 'Selamat Pagi'
+            };
+        } else if (timeVal >= 11 * 60 + 30 && timeVal < 15 * 60 + 30) {
+            return {
+                name: 'siang',
+                label: 'Siang (Afternoon)',
+                icon: '🌞',
+                greeting: 'Selamat Siang'
+            };
+        } else if (timeVal >= 15 * 60 + 30 && timeVal < 18 * 60 + 30) {
+            return {
+                name: 'senja',
+                label: 'Senja (Dusk)',
+                icon: '🌇',
+                greeting: 'Selamat Sore Menjelang Senja'
+            };
+        } else {
+            return {
+                name: 'malam',
+                label: 'Malam (Night)',
+                icon: '🌙',
+                greeting: 'Selamat Malam'
+            };
+        }
+    }
+
+    evaluateAutoTime() {
+        const periodInfo = this.getTimePeriod();
+        document.documentElement.setAttribute('data-period', periodInfo.name);
+        this.period = periodInfo.name;
+
+        // Dispatch custom event agar modul UI lain bisa bereaksi (misal greeting badge)
+        const event = new CustomEvent('themePeriodChange', { detail: periodInfo });
+        window.dispatchEvent(event);
+    }
+
+    setTheme(mode) {
+        this.currentMode = mode;
+        localStorage.setItem('mitra_theme_mode', mode);
+        this.applyTheme(mode);
+    }
+
+    applyTheme(mode) {
+        const themeLink = document.getElementById('theme-stylesheet');
+        const autoLink = document.getElementById('auto-theme-stylesheet');
+
+        if (!themeLink || !autoLink) return;
+
+        if (mode === 'dark') {
+            themeLink.href = 'assets/css/mitrautama-dark.css';
+            autoLink.disabled = true;
+            document.documentElement.removeAttribute('data-period');
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (mode === 'light') {
+            themeLink.href = 'assets/css/mitrautama.css';
+            autoLink.disabled = true;
+            document.documentElement.removeAttribute('data-period');
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            // mode === 'auto'
+            themeLink.href = 'assets/css/mitrautama.css'; // base terang
+            autoLink.disabled = false;
+            document.documentElement.setAttribute('data-theme', 'auto');
+            this.evaluateAutoTime();
+        }
+
+        const event = new CustomEvent('themeModeChange', {
+            detail: { mode, period: this.period }
+        });
+        window.dispatchEvent(event);
+    }
+
+    getCurrentPeriod() {
+        return this.getTimePeriod();
+    }
+}
+
+const themeManager = new ThemeManager();
+
+// === MODULE: theme-ui.js ===
+/**
+ * MitraUtama Theme UI Controller & Period Badge Updater
+ * Menghubungkan ThemeManager dengan tombol UI dan indikator periode waktu
+ */
+
+
+class ThemeUIController {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.bindButtons();
+        this.bindEvents();
+        this.updateBadge(themeManager.getCurrentPeriod());
+    }
+
+    bindButtons() {
+        // Support both [data-theme-set] and [data-mitrautama-theme]
+        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const mode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
+                themeManager.setTheme(mode);
+                this.updateActiveButton(mode);
+            });
+        });
+
+        // Set initial button active state
+        this.updateActiveButton(themeManager.currentMode);
+    }
+
+    updateActiveButton(mode) {
+        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
+        buttons.forEach(btn => {
+            const btnMode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
+            if (btnMode === mode) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const label = document.getElementById('current-theme-label');
+        if (label) {
+            if (mode === 'auto') label.textContent = 'Auto Theme';
+            else if (mode === 'light') label.textContent = 'Light Theme';
+            else if (mode === 'dark') label.textContent = 'Dark Theme';
+        }
+    }
+
+    bindEvents() {
+        window.addEventListener('themePeriodChange', (e) => {
+            this.updateBadge(e.detail);
+        });
+
+        window.addEventListener('themeModeChange', (e) => {
+            if (e.detail.mode === 'auto') {
+                this.updateBadge(themeManager.getCurrentPeriod());
+            } else {
+                this.clearBadge(e.detail.mode);
+            }
+        });
+    }
+
+    updateBadge(periodInfo) {
+        const badge = document.getElementById('period-badge');
+        const greeting = document.getElementById('period-greeting');
+
+        if (badge) {
+            badge.style.display = 'inline-flex';
+            badge.innerHTML = `<span>${periodInfo.icon}</span> <span>Mode Auto: ${periodInfo.label}</span>`;
+        }
+
+        if (greeting) {
+            greeting.textContent = periodInfo.greeting;
+        }
+    }
+
+    clearBadge(mode) {
+        const badge = document.getElementById('period-badge');
+        if (badge) {
+            if (mode === 'dark') {
+                badge.style.display = 'inline-flex';
+                badge.innerHTML = `<span>🌙</span> <span>Mode: Dark</span>`;
+            } else if (mode === 'light') {
+                badge.style.display = 'inline-flex';
+                badge.innerHTML = `<span>☀️</span> <span>Mode: Bright Light</span>`;
+            }
+        }
+    }
+}
+
+// Inisialisasi controller
+document.addEventListener('DOMContentLoaded', () => {
+    new ThemeUIController();
+});
+
+// === MODULE: toast.js ===
+/**
+ * MitraUtama Toast Modular Notification System (mitrautama- namespace + SVG Icons)
+ */
+
+class ToastManager {
+    constructor() {
+        this.container = null;
+        this.init();
+    }
+
+    init() {
+        if (!document.querySelector('.mitrautama-toast-container')) {
+            this.container = document.createElement('div');
+            this.container.className = 'mitrautama-toast-container';
+            document.body.appendChild(this.container);
+        } else {
+            this.container = document.querySelector('.mitrautama-toast-container');
+        }
+    }
+
+    show({ title = 'Notifikasi', message = '', type = 'info', duration = 4000 }) {
+        this.init();
+
+        const toast = document.createElement('div');
+        toast.className = `mitrautama-toast mitrautama-toast-${type}`;
+
+        const svgIcons = {
+            success: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`,
+            error: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`,
+            warning: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+            info: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
+        };
+
+        toast.innerHTML = `
+            <div class="mitrautama-toast-icon">${svgIcons[type] || svgIcons.info}</div>
+            <div class="mitrautama-toast-content">
+                <div class="mitrautama-toast-title">${title}</div>
+                <div class="mitrautama-toast-message">${message}</div>
+            </div>
+            <button type="button" class="mitrautama-toast-close" title="Tutup">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="mitrautama-toast-progress" style="transition: width ${duration}ms linear; width: 100%;"></div>
+        `;
+
+        this.container.appendChild(toast);
+
+        setTimeout(() => {
+            const progress = toast.querySelector('.mitrautama-toast-progress');
+            if (progress) progress.style.width = '0%';
+        }, 50);
+
+        const closeBtn = toast.querySelector('.mitrautama-toast-close');
+        closeBtn.addEventListener('click', () => {
+            this.dismiss(toast);
+        });
+
+        if (duration > 0) {
+            setTimeout(() => {
+                this.dismiss(toast);
+            }, duration);
+        }
+
+        return toast;
+    }
+
+    dismiss(toast) {
+        if (!toast || toast.classList.contains('hiding')) return;
+        toast.classList.add('hiding');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+}
+
+const toastManager = new ToastManager();
+
+// === MODULE: modal.js ===
+/**
+ * MitraUtama Modal Manager Module
+ * Rules:
+ * 1. Modal TIDAK BOLEH auto-close (tidak tertutup saat klik backdrop / overlay di luar modal).
+ * 2. Modal TIDAK BOLEH auto-close dengan timer atau keyboard Escape (kecuali tombol manual ditekan).
+ * 3. Modal HANYA BISA ditutup secara manual melalui tombol close [X], tombol 'Tutup' / 'Batal'.
+ * 4. Mendukung atribut awalan mitrautama-:
+ *    - data-mitrautama-modal-open="modalId"
+ *    - data-mitrautama-modal-close="modalId"
+ *    - (backward compatible dengan data-modal-open / data-modal-close)
+ */
+
+class ModalManager {
+    constructor() {
+        this.activeModals = new Set();
+        this.init();
+    }
+
+    init() {
+        // Cegah klik backdrop overlay menutup modal secara otomatis
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Beri efek shake halus untuk mengindikasikan modal harus ditutup manual
+                const modalBox = e.target.querySelector('.modal-box');
+                if (modalBox) {
+                    modalBox.classList.add('modal-shake');
+                    setTimeout(() => modalBox.classList.remove('modal-shake'), 400);
+                }
+            }
+        });
+
+        // Event listener delegasi untuk tombol penutup manual
+        document.addEventListener('click', (e) => {
+            const closeBtn = e.target.closest('[data-mitrautama-modal-close], [data-modal-close]');
+            if (closeBtn) {
+                const modalId = closeBtn.getAttribute('data-mitrautama-modal-close') ||
+                                closeBtn.getAttribute('data-modal-close') ||
+                                closeBtn.closest('.modal-overlay')?.id;
+                if (modalId) {
+                    this.close(modalId);
+                }
+            }
+        });
+
+        // Event listener delegasi untuk tombol pembuka modal
+        document.addEventListener('click', (e) => {
+            const openBtn = e.target.closest('[data-mitrautama-modal-open], [data-modal-open]');
+            if (openBtn) {
+                const modalId = openBtn.getAttribute('data-mitrautama-modal-open') ||
+                                openBtn.getAttribute('data-modal-open');
+                if (modalId) {
+                    this.open(modalId);
+                }
+            }
+        });
+    }
+
+    open(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.warn(`Modal with ID "${modalId}" not found.`);
+            return;
+        }
+
+        modal.classList.add('active');
+        document.body.classList.add('modal-open');
+        this.activeModals.add(modalId);
+
+        modal.dispatchEvent(new CustomEvent('modal:opened', { detail: { modalId } }));
+    }
+
+    close(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        modal.classList.remove('active');
+        this.activeModals.delete(modalId);
+
+        if (this.activeModals.size === 0) {
+            document.body.classList.remove('modal-open');
+        }
+
+        modal.dispatchEvent(new CustomEvent('modal:closed', { detail: { modalId } }));
+    }
+
+    isOpen(modalId) {
+        return this.activeModals.has(modalId);
+    }
+}
+
+const modalManager = new ModalManager();
+
+// === MODULE: charts.js ===
+/**
+ * MitraUtama Traffic & Charts Module
+ * Render realtime Chart.js untuk Traffic Throughput (Rx / Tx), CPU Load, Memory, dan Latency.
+ * Dilengkapi lifecycle management: penghancuran timer lama untuk mencegah timer leak.
+ */
+
+class ChartController {
+    constructor() {
+        this.trafficChart = null;
+        this.cpuChart = null;
+        this.maxDataPoints = 25;
+        this.timeLabels = [];
+        this.rxData = [];
+        this.txData = [];
+        this.cpuData = [];
+        this.streamTimer = null;
+        this.init();
+    }
+
+    init() {
+        this.initTrafficChart();
+        this.initCpuChart();
+        this.startSimulatedRealtimeStream();
+    }
+
+    destroyCharts() {
+        if (this.trafficChart) {
+            this.trafficChart.destroy();
+            this.trafficChart = null;
+        }
+        if (this.cpuChart) {
+            this.cpuChart.destroy();
+            this.cpuChart = null;
+        }
+    }
+
+    initTrafficChart() {
+        const ctx = document.getElementById('trafficChart');
+        if (!ctx) return;
+
+        if (this.trafficChart) {
+            this.trafficChart.destroy();
+            this.trafficChart = null;
+        }
+
+        // Inisialisasi awal 15 titik data jika belum ada
+        if (this.timeLabels.length === 0) {
+            const now = new Date();
+            for (let i = 14; i >= 0; i--) {
+                const t = new Date(now.getTime() - i * 2000);
+                this.timeLabels.push(t.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+                this.rxData.push(Math.floor(12 + Math.random() * 8)); // Mbps
+                this.txData.push(Math.floor(6 + Math.random() * 5));  // Mbps
+            }
+        }
+
+        this.trafficChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: this.timeLabels,
+                datasets: [
+                    {
+                        label: 'Download (Rx)',
+                        data: this.rxData,
+                        borderColor: '#0284c7',
+                        backgroundColor: 'rgba(2, 132, 199, 0.12)',
+                        fill: true,
+                        tension: 0.35,
+                        borderWidth: 2,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Upload (Tx)',
+                        data: this.txData,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                        fill: true,
+                        tension: 0.35,
+                        borderWidth: 2,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { boxWidth: 12, font: { size: 11, family: 'Segoe UI' } }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        grid: { display: false },
+                        ticks: { maxTicksLimit: 6, font: { size: 10 } }
+                    },
+                    y: {
+                        display: true,
+                        grid: { color: 'rgba(226, 232, 240, 0.6)' },
+                        ticks: {
+                            font: { size: 10 },
+                            callback: (val) => val + ' Mbps'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    initCpuChart() {
+        const ctx = document.getElementById('cpuChart');
+        if (!ctx) return;
+
+        if (this.cpuChart) {
+            this.cpuChart.destroy();
+            this.cpuChart = null;
+        }
+
+        if (this.cpuData.length === 0) {
+            for (let i = 14; i >= 0; i--) {
+                this.cpuData.push(Math.floor(2 + Math.random() * 5));
+            }
+        }
+
+        this.cpuChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: this.timeLabels,
+                datasets: [{
+                    label: 'CPU Load (%)',
+                    data: this.cpuData,
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                    fill: true,
+                    tension: 0.2,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: { display: false },
+                    y: {
+                        min: 0,
+                        max: 100,
+                        ticks: { font: { size: 10 }, callback: (v) => v + '%' }
+                    }
+                }
+            }
+        });
+    }
+
+    startSimulatedRealtimeStream() {
+        // Hentikan timer sebelumnya jika sudah aktif (mencegah duplikasi timer)
+        if (this.streamTimer) {
+            clearInterval(this.streamTimer);
+            this.streamTimer = null;
+        }
+
+        this.streamTimer = setInterval(() => {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            // Random traffic pulse
+            const newRx = Math.floor(10 + Math.random() * 18);
+            const newTx = Math.floor(4 + Math.random() * 9);
+            const newCpu = Math.floor(2 + Math.random() * 7);
+
+            // Update live numbers di KPI
+            const liveWanRx = document.getElementById('kpi-wan-rx');
+            const liveWanTx = document.getElementById('kpi-wan-tx');
+            const liveCpuVal = document.getElementById('kpi-cpu-val');
+            const liveCpuBar = document.getElementById('kpi-cpu-bar');
+
+            if (liveWanRx) liveWanRx.textContent = newRx + ' Mbps';
+            if (liveWanTx) liveWanTx.textContent = newTx + ' Mbps';
+            if (liveCpuVal) liveCpuVal.textContent = newCpu + '%';
+            if (liveCpuBar) liveCpuBar.style.width = newCpu + '%';
+
+            if (this.trafficChart) {
+                this.timeLabels.push(timeStr);
+                this.rxData.push(newRx);
+                this.txData.push(newTx);
+
+                if (this.timeLabels.length > this.maxDataPoints) {
+                    this.timeLabels.shift();
+                    this.rxData.shift();
+                    this.txData.shift();
+                }
+
+                this.trafficChart.update('quiet');
+            }
+
+            if (this.cpuChart) {
+                this.cpuData.push(newCpu);
+                if (this.cpuData.length > this.maxDataPoints) {
+                    this.cpuData.shift();
+                }
+                this.cpuChart.update('quiet');
+            }
+        }, 2000);
+    }
+
+    stopStream() {
+        if (this.streamTimer) {
+            clearInterval(this.streamTimer);
+            this.streamTimer = null;
+        }
+    }
+}
+
+const chartController = new ChartController();
+if (typeof window !== 'undefined') {
+    window.chartController = chartController;
+}
+
+// === MODULE: navigation.js ===
+/**
+ * MitraUtama Dashboard Navigation & View Switcher
+ * Mengontrol pembukaan Menu, Sub-Menu Drop-Right, Tab-Menu, Filter Tabel, Collapse Sidebar, dan Aksi SweetAlert
+ * Menggunakan class dan selector awalan mitrautama-
+ */
+
+
+class NavigationManager {
+    constructor() {
+        this.activeView = 'dashboard'; // Defaultkan langsung ke interfaces agar langsung muncul
+        this.init();
+    }
+
+    init() {
+        this.bindSidebarCollapse();
+        this.bindSidebarMenus();
+        this.bindDropRightSubMenus();
+        this.bindWinboxSubTabs();
+        this.bindActionButtons();
+        this.bindQuickSweetAlerts();
+
+        // Pastikan view awal aktif
+        this.switchView('dashboard', 'Home');
+    }
+
+    bindSidebarCollapse() {
+        const toggleBtn = document.getElementById('sidebar-toggle-btn');
+        const logoIcon = document.querySelector('.mitrautama-header-left .mu-logo-icon') || document.querySelector('.mu-logo-icon');
+        const sidebar = document.getElementById('sidebarMenu');
+        
+        const toggleSidebar = () => {
+            if (!sidebar) return;
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
+            if (toggleBtn) {
+                toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+            }
+            localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+            
+            // Trigger window resize event agar Chart.js merespons lebar canvas baru
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 260);
+
+            toastManager.show({
+                title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
+                message: isCollapsed ? 'Mode ikon aktif (Klik logo MU untuk membuka kembali)' : 'Mode navigasi lengkap aktif',
+                type: 'info',
+                duration: 2000
+            });
+        };
+
+        if (toggleBtn && sidebar) {
+            toggleBtn.setAttribute('aria-expanded', sidebar.classList.contains('collapsed') ? 'false' : 'true');
+            toggleBtn.addEventListener('click', toggleSidebar);
+        }
+
+        if (logoIcon) {
+            logoIcon.addEventListener('click', () => {
+                if (document.body.classList.contains('mitrautama-sidebar-collapsed') || (sidebar && sidebar.classList.contains('collapsed'))) {
+                    toggleSidebar();
+                }
+            });
+            logoIcon.title = 'MitraUtama WebUI (Klik untuk memperluas sidebar saat diciutkan)';
+        }
+
+        // Pulihkan state collapse dari localStorage jika ada
+        if (localStorage.getItem('mitra_sidebar_collapsed') === 'true' && sidebar) {
+            sidebar.classList.add('collapsed');
+            document.body.classList.add('mitrautama-sidebar-collapsed');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    bindSidebarMenus() {
+        // Direct click pada menu item utama
+        const mainLinks = document.querySelectorAll('.mitrautama-menu-item[data-mitrautama-view]');
+        mainLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const viewId = link.getAttribute('data-mitrautama-view');
+                const title = link.querySelector('.mitrautama-menu-text')?.textContent.trim() || viewId;
+                this.switchView(viewId, title);
+
+                document.querySelectorAll('.mitrautama-menu-item, .mitrautama-submenu-item').forEach(m => m.classList.remove('active'));
+                link.classList.add('active');
+
+                // Tutup semua popover flyout
+                document.querySelectorAll('.mitrautama-menu-group').forEach(g => g.classList.remove('open'));
+            });
+        });
+    }
+
+    bindDropRightSubMenus() {
+        // Klik toggle submenu untuk membuka/menutup popover drop-right
+        const subToggles = document.querySelectorAll('.mitrautama-submenu-toggle');
+        subToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const parentGroup = toggle.closest('.mitrautama-menu-group');
+                
+                document.querySelectorAll('.mitrautama-menu-group').forEach(g => {
+                    if (g !== parentGroup) g.classList.remove('open');
+                });
+
+                if (parentGroup) {
+                    parentGroup.classList.toggle('open');
+                }
+            });
+        });
+
+        // Klik langsung pada item sub-menu drop-right (misal: Host, Port Isolation, Ports, Rule, Settings, VLAN pada Switch)
+        const subItems = document.querySelectorAll('.mitrautama-submenu-item[data-mitrautama-view]');
+        subItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const viewId = item.getAttribute('data-mitrautama-view');
+                const label = item.textContent.trim();
+
+                this.switchView(viewId, label);
+
+                document.querySelectorAll('.mitrautama-menu-item, .mitrautama-submenu-item').forEach(m => m.classList.remove('active'));
+                item.classList.add('active');
+
+                const parentGroup = item.closest('.mitrautama-menu-group');
+                if (parentGroup) {
+                    const parentMenu = parentGroup.querySelector('.mitrautama-menu-item');
+                    if (parentMenu) parentMenu.classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.mitrautama-menu-group')) {
+                document.querySelectorAll('.mitrautama-menu-group').forEach(g => g.classList.remove('open'));
+            }
+        });
+    }
+
+    bindWinboxSubTabs() {
+        // Selector untuk sub-tabs mitrautama standard, mitrane tabs, dan tab-target
+        const subTabs = document.querySelectorAll('[data-mitrautama-subtab], .mitrautama-winbox-tab[data-tab-target], .mitrautama-subtab[data-mitrautama-subtab], .mitrane-tab-item');
+        subTabs.forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                e.preventDefault();
+                const subtabName = tab.getAttribute('data-mitrautama-subtab') || tab.getAttribute('data-tab-target');
+                const parentNav = tab.closest('.mitrane-tab-bar') || tab.closest('.mitrautama-subtabs-bar') || tab.parentElement;
+
+                if (parentNav) {
+                    parentNav.querySelectorAll('.active').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+
+                // Jika ada tab-content yang berelasi
+                const parentView = tab.closest('.mitrautama-subview') || tab.closest('.mitrautama-view-section') || document;
+                const tabPanes = parentView.querySelectorAll('.mitrautama-tab-content, .mitrautama-tab-pane');
+                if (tabPanes.length > 0 && subtabName) {
+                    tabPanes.forEach(p => {
+                        p.classList.remove('active');
+                        p.style.display = 'none';
+                    });
+                    const targetContent = parentView.querySelector(`#subtab-${subtabName}`) || 
+                                          parentView.querySelector(`#${subtabName}`) ||
+                                          document.getElementById(subtabName);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        targetContent.style.display = 'block';
+                    }
+                }
+
+                toastManager.show({
+                    title: 'Sub-Tab Aktif',
+                    message: `Membuka tampilan tab: ${tab.textContent.trim()}`,
+                    type: 'info',
+                    duration: 1200
+                });
+            });
+        });
+    }
+
+    switchView(viewId, titleLabel = '') {
+        this.activeView = viewId;
+        const allSections = document.querySelectorAll('.mitrautama-view-section');
+        allSections.forEach(sec => {
+            sec.style.display = 'none';
+        });
+
+        // 1. Pemetaan Alias Route ke Modul Spesifik
+        const routeAliasMap = {
+            'ip': 'ip-addresses',
+            'switch': 'switch-ports',
+            'switch-ports': 'switch',
+            'switch-vlan': 'switch',
+            'switch-rule': 'switch',
+            'switch-host': 'switch',
+            'system-resources': 'system',
+            'system-routerboard': 'system',
+            'system-users': 'system',
+            'wireless-tables': 'wireless-tables',
+            'wireless-security': 'wireless-tables',
+            'wireless-registration': 'wireless-tables',
+            'wireless': 'wireless-tables'
+        };
+
+        const resolvedId = routeAliasMap[viewId] || viewId;
+        const targetSection = document.getElementById(iew- + resolvedId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+            const container = document.querySelector('.mitrautama-content-area');
+            if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Dashboard Chart Lifecycle Integration
+            if (viewId === 'dashboard' && window.chartController) {
+                window.chartController.initTrafficChart();
+                window.chartController.initCpuChart();
+                window.chartController.startSimulatedRealtimeStream();
+            } else if (window.chartController) {
+                window.chartController.stopStream();
+            }
+        } else {
+            if (window.chartController) {
+                window.chartController.stopStream();
+            }
+            this.renderDynamicView(viewId, titleLabel);
+        }
+
+        toastManager.show({
+            title: 'Menu Terbuka',
+            message: `Modul Aktif: ${titleLabel || viewId}`,
+            type: 'success',
+            duration: 2000
+        });
+    }
+
+    activateSubTab(parentSection, subtabId) {
+        if (!parentSection) return;
+        const tabBtn = parentSection.querySelector('[data-mitrautama-subtab=\"' + subtabId + '\"], [data-tab-target=\"' + subtabId + '\"]');
+        if (tabBtn) tabBtn.click();
+    }
+
+    renderDynamicView(viewId, titleLabel) {
+        let genericSection = document.getElementById('view-generic-module');
+        if (!genericSection) {
+            genericSection = document.createElement('div');
+            genericSection.id = 'view-generic-module';
+            genericSection.className = 'mitrautama-view-section';
+            document.querySelector('.mitrautama-content-area').appendChild(genericSection);
+        }
+
+        genericSection.innerHTML = `
+            <div class="mitrautama-win-header">
+                <div class="mitrautama-win-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>${titleLabel || viewId}</span>
+                </div>
+            </div>
+
+            <div class="mitrautama-winbox-toolbar">
+                <div class="mitrautama-toolbar-actions">
+                    <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('Tambah', 'Tambah entri pada ${titleLabel}', 'info')">
+                        <strong>+</strong> New
+                    </button>
+                    <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Enable', message:'Item diaktifkan', type:'success'})">
+                        ✓ Enable
+                    </button>
+                    <button class="mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Disable', message:'Item dinonaktifkan', type:'warning'})">
+                        ✕ Disable
+                    </button>
+                    <button class="mitrautama-toolbar-btn text-muted" onclick="toastManager.show({title:'Comment', message:'Dialog komentar', type:'info'})">
+                        ✎ Comment
+                    </button>
+                </div>
+                <div>
+                    <input type="text" placeholder="Find / Filter..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+                </div>
+            </div>
+
+            <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+                <table class="mitrautama-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Parameter / Item</th>
+                            <th>Nilai Konfigurasi</th>
+                            <th>Interface Target</th>
+                            <th>Status Operasional</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td><strong>Default-${viewId}</strong></td>
+                            <td>Active Enabled</td>
+                            <td>1. WAN (172.16.92.230)</td>
+                            <td><span class="mitrautama-badge mitrautama-badge-success">● RUNNING</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Hardware Policy</strong></td>
+                            <td>RB3011UiAS Switch Chip (QCA8337)</td>
+                            <td>2. LAN (10.10.16.254)</td>
+                            <td><span class="mitrautama-badge mitrautama-badge-info">Slave</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        genericSection.style.display = 'block';
+        const container = document.querySelector('.mitrautama-content-area');
+        if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    bindActionButtons() {
+        const pingBtn = document.getElementById('btn-action-ping');
+        if (pingBtn) {
+            pingBtn.addEventListener('click', () => {
+                this.runPingTest();
+            });
+        }
+
+        const rebootBtn = document.getElementById('btn-action-reboot');
+        if (rebootBtn) {
+            rebootBtn.addEventListener('click', () => {
+                Swal.fire({
+                    title: 'Konfirmasi Reboot Router',
+                    text: 'Apakah Anda yakin ingin me-restart MikroTik RB3011 (172.16.92.230)?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#64748b',
+                    confirmButtonText: 'Ya, Reboot Sekarang',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        toastManager.show({
+                            title: 'Perintah Diterima',
+                            message: 'Reboot aman disimulasikan (proteksi data aktif).',
+                            type: 'warning',
+                            duration: 4000
+                        });
+                        Swal.fire({
+                            title: 'Simulasi Reboot',
+                            text: 'Perintah reboot diuji dengan aman tanpa memutus koneksi produksi.',
+                            icon: 'success'
+                        });
+                    }
+                });
+            });
+        }
+
+        const backupBtn = document.getElementById('btn-action-backup');
+        if (backupBtn) {
+            backupBtn.addEventListener('click', () => {
+                Swal.fire({
+                    title: 'Buat Backup Konfigurasi',
+                    text: 'Menyimpan cadangan konfigurasi sistem RouterOS...',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Mulai Backup',
+                    cancelButtonText: 'Tutup'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        toastManager.show({
+                            title: 'Backup Berhasil',
+                            message: 'File backup2026.backup siap diunduh.',
+                            type: 'success',
+                            duration: 3500
+                        });
+                    }
+                });
+            });
+        }
+    }
+
+    runPingTest() {
+        const pingOutput = document.getElementById('ping-results-box');
+        if (!pingOutput) return;
+
+        pingOutput.innerHTML = `<span class="text-primary">Mengirim 4 paket ICMP ke gateway 172.16.92.254...</span><br>`;
+
+        let count = 1;
+        const interval = setInterval(() => {
+            if (count > 4) {
+                clearInterval(interval);
+                pingOutput.innerHTML += `<br><span class="text-success fw-bold">✓ Selesai: 4 packets transmitted, 4 received, 0% packet loss, avg RTT = 0.8ms</span>`;
+                toastManager.show({
+                    title: 'Ping Berhasil',
+                    message: 'Koneksi ke gateway normal (loss 0%, RTT 0.8ms).',
+                    type: 'success',
+                    duration: 3000
+                });
+                return;
+            }
+            const rtt = (0.6 + Math.random() * 0.5).toFixed(1);
+            pingOutput.innerHTML += `SEQ=${count} HOST=172.16.92.254 SIZE=56 TTL=64 TIME=${rtt}ms<br>`;
+            count++;
+        }, 600);
+    }
+
+    bindQuickSweetAlerts() {
+        const alertTrigger = document.querySelectorAll('[data-mitrautama-swal]');
+        alertTrigger.forEach(el => {
+            el.addEventListener('click', () => {
+                const type = el.getAttribute('data-mitrautama-swal');
+                if (type === 'test') {
+                    Swal.fire({
+                        title: 'SweetAlert Terintegrasi!',
+                        text: 'Pemberitahuan interaktif modern siap digunakan pada semua modul RouterOS.',
+                        icon: 'success',
+                        confirmButtonColor: '#0284c7'
+                    });
+                }
+            });
+        });
+    }
+}
+
+const navigationManager = new NavigationManager();
+window.navigationManager = navigationManager;
+
+// === MODULE: data-loader.js ===
+/**
+ * MitraUtama JSON Data & Config Service
+ * Membaca data dan konfigurasi dinamis langsung dari config.json dan interfaces/interfaces.json
+ * Mendukung simulasi CRUD lokal: Create, Read, Update, Delete, Toggle Enable/Disable, dan Selection
+ */
+
+class JsonDataService {
+    constructor() {
+        this.config = null;
+        this.interfacesData = null;
+        this.selectedIndex = -1;
+        this.currentFilter = '';
+        this.onSelectionChangeCallbacks = [];
+    }
+
+    onSelectionChange(cb) {
+        if (typeof cb === 'function') {
+            this.onSelectionChangeCallbacks.push(cb);
+        }
+    }
+
+    notifySelectionChange() {
+        const item = this.getSelectedInterface();
+        this.onSelectionChangeCallbacks.forEach(cb => cb(item, this.selectedIndex));
+    }
+
+    async loadConfig() {
+        try {
+            const res = await fetch('config.json');
+            if (res.ok) {
+                this.config = await res.json();
+                return this.config;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching config.json failed, falling back to default:', e);
+        }
+        return null;
+    }
+
+    async loadInterfaces() {
+        try {
+            const res = await fetch('packages/interfaces/interfaces.json');
+            if (res.ok) {
+                this.interfacesData = await res.json();
+                this.selectedIndex = -1;
+                this.notifySelectionChange();
+                return this.interfacesData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching interfaces.json failed:', e);
+        }
+        return null;
+    }
+
+    renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
+        const tableBody = document.querySelector(`#${containerId} tbody`);
+        if (!tableBody || !this.interfacesData) return;
+
+        this.currentFilter = filterText;
+        const filtered = this.interfacesData.interfaces.filter(item => {
+            if (!filterText) return true;
+            const term = filterText.toLowerCase();
+            return item.name.toLowerCase().includes(term) || 
+                   item.subname.toLowerCase().includes(term) ||
+                   item.type.toLowerCase().includes(term);
+        });
+
+        tableBody.innerHTML = filtered.map((item, idx) => {
+            const isRunning = item.status === 'running';
+            const iconSvg = isRunning 
+                ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+                : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+
+            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
+            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
+
+            // Sanitasi teks dengan pengamanan textContent / escaping
+            const safeName = this.escapeHtml(item.name);
+            const safeSubname = this.escapeHtml(item.subname);
+            const safeType = this.escapeHtml(item.type);
+
+            return `
+            <tr data-mitrautama-row-index="${idx}" class="${isSelected}" style="cursor: pointer;">
+                <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                <td>
+                    <strong>${safeName}</strong> 
+                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                </td>
+                <td><span class="mitrane-badge-type">${safeType}</span></td>
+                <td>${item.actualMtu}</td>
+                <td>${item.l2Mtu}</td>
+                <td class="${txRateClass}">${item.tx}</td>
+                <td class="${rxRateClass}">${item.rx}</td>
+                <td>${item.txPkt}</td>
+                <td>${item.rxPkt}</td>
+                <td>${item.fpTx}</td>
+                <td>${item.fpRx}</td>
+                <td>${item.fpTxPkt}</td>
+                <td>${item.fpRxPkt}</td>
+            </tr>`;
+        }).join('');
+
+        // Row Selection Listener
+        tableBody.querySelectorAll('tr').forEach(tr => {
+            tr.addEventListener('click', (e) => {
+                const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
+                this.selectedIndex = (this.selectedIndex === idx) ? -1 : idx;
+                this.renderInterfacesTable(containerId, this.currentFilter);
+                this.notifySelectionChange();
+            });
+        });
+
+        const totalCounter = document.getElementById('mitrane-total-items');
+        if (totalCounter) {
+            totalCounter.textContent = `Total: ${filtered.length} items`;
+        }
+    }
+
+    addInterface(newRecord) {
+        if (!this.interfacesData) {
+            this.interfacesData = { total: 0, interfaces: [] };
+        }
+        const record = {
+            id: 'iface_' + Date.now(),
+            name: newRecord.name || 'new-iface',
+            subname: newRecord.subname || (newRecord.name ? newRecord.name.toLowerCase() : 'iface'),
+            type: newRecord.type || 'Ethernet',
+            status: 'running',
+            actualMtu: Number(newRecord.actualMtu) || 1500,
+            l2Mtu: 1500,
+            tx: '0 B/s',
+            rx: '0 B/s',
+            txPkt: 0,
+            rxPkt: 0,
+            fpTx: '0 B/s',
+            fpRx: '0 B/s',
+            fpTxPkt: 0,
+            fpRxPkt: 0
+        };
+        this.interfacesData.interfaces.unshift(record);
+        this.interfacesData.total = this.interfacesData.interfaces.length;
+        this.selectedIndex = 0;
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
+        return record;
+    }
+
+    updateSelectedInterface(updatedFields) {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const item = this.interfacesData.interfaces[this.selectedIndex];
+        if (updatedFields.name) {
+            item.name = updatedFields.name;
+            item.subname = updatedFields.subname || updatedFields.name.toLowerCase();
+        }
+        if (updatedFields.type) item.type = updatedFields.type;
+        if (updatedFields.actualMtu) item.actualMtu = Number(updatedFields.actualMtu);
+
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
+        return item;
+    }
+
+    removeSelectedInterface() {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const removed = this.interfacesData.interfaces.splice(this.selectedIndex, 1)[0];
+        this.interfacesData.total = this.interfacesData.interfaces.length;
+        this.selectedIndex = -1;
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
+        return removed;
+    }
+
+    toggleSelectedStatus(forceStatus = null) {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const item = this.interfacesData.interfaces[this.selectedIndex];
+        if (forceStatus) {
+            item.status = forceStatus;
+        } else {
+            item.status = (item.status === 'running') ? 'inactive' : 'running';
+        }
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
+        return item;
+    }
+
+    getSelectedInterface() {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        return this.interfacesData.interfaces[this.selectedIndex];
+    }
+
+    escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+}
+
+const jsonDataService = new JsonDataService();
+
+// === MODULE: module-loader.js ===
+/**
+ * MitraUtama HTML Module Loader & JSON Data Initializer
+ * Mengunggah file modul HTML (includes/, interfaces/, ip/, wireguard/, wireless/, switch/, bridge/, system/, queues/, ppp/)
+ * dan memuat konfigurasi serta data dari config.json dan interfaces/interfaces.json
+ */
+
+class ModuleLoader {
+    constructor() {
+        this.modules = {
+            'header-container': 'includes/header.html',
+            'sidebar-container': 'includes/sidebar.html',
+            'footer-container': 'includes/footer.html',
+            'interfaces-module-container': 'packages/interfaces/interfaces.html',
+            'ip-module-container': 'packages/ip/ip.html',
+            'wireguard-module-container': 'packages/wireguard/wireguard.html',
+            'wireless-module-container': 'packages/wireless/wireless.html',
+            'switch-module-container': 'packages/switch/switch.html',
+            'bridge-module-container': 'packages/bridge/bridge.html',
+            'system-module-container': 'packages/system/system.html',
+            'queues-module-container': 'packages/queues/queues.html',
+            'ppp-module-container': 'packages/ppp/ppp.html'
+        };
+    }
+
+    async loadAll() {
+        const loadPromises = Object.entries(this.modules).map(async ([containerId, filePath]) => {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            try {
+                const response = await fetch(filePath);
+                if (response.ok) {
+                    const html = await response.text();
+                    container.innerHTML = html;
+                    console.log(`[ModuleLoader] Loaded ${filePath} into #${containerId}`);
+                }
+            } catch (err) {
+                console.info(`[ModuleLoader] Using inline fallback for ${filePath}`);
+            }
+        });
+
+        await Promise.all(loadPromises);
+
+        // Muat Data & Konfigurasi JSON
+        await this.initJsonData();
+
+        // Re-bind navigasi setelah template terinjeksi
+        if (window.navigationManager) {
+            window.navigationManager.init();
+        }
+    }
+
+    async initJsonData() {
+        try {
+            const config = await jsonDataService.loadConfig();
+            if (config && config.app) {
+                const hostEl = document.getElementById('mitrane-header-host');
+                if (hostEl) hostEl.textContent = config.app.hostname;
+                const nameEl = document.getElementById('mitrane-app-name');
+                if (nameEl) nameEl.textContent = config.app.title;
+                const footerTitle = document.getElementById('mitrane-footer-title');
+                if (footerTitle) footerTitle.textContent = config.app.title;
+                const footerBadge = document.getElementById('mitrane-footer-badge');
+                if (footerBadge) footerBadge.textContent = config.app.badge;
+            }
+
+            const ifaceData = await jsonDataService.loadInterfaces();
+            if (ifaceData) {
+                jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
+            }
+
+            // Sync Edit & Action Buttons state when selection changes
+            const editBtn = document.getElementById('btn-interface-edit');
+            jsonDataService.onSelectionChange((selectedItem) => {
+                if (editBtn) {
+                    if (selectedItem) {
+                        editBtn.removeAttribute('disabled');
+                        editBtn.classList.remove('opacity-50');
+                    } else {
+                        editBtn.setAttribute('disabled', 'true');
+                        editBtn.classList.add('opacity-50');
+                    }
+                }
+            });
+
+            // Bind Search Filter
+            const searchInput = document.getElementById('mitrane-interface-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    jsonDataService.renderInterfacesTable('mitrane-interfaces-table', e.target.value);
+                });
+            }
+
+            // Bind Refresh Button
+            const refreshBtn = document.getElementById('btn-interface-refresh');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', async () => {
+                    await jsonDataService.loadInterfaces();
+                    jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
+                    toastManager.show({
+                        title: 'Tabel Diperbarui',
+                        message: 'Data interfaces dimuat ulang dari fixture JSON.',
+                        type: 'success',
+                        duration: 1500
+                    });
+                });
+            }
+
+            // Bind Edit Button
+            if (editBtn) {
+                editBtn.addEventListener('click', () => {
+                    const selected = jsonDataService.getSelectedInterface();
+                    if (!selected) {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface pada tabel untuk diedit.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                        return;
+                    }
+
+                    // Populate fields in modal-edit-interface
+                    const nameField = document.getElementById('input-edit-iface-name');
+                    const typeField = document.getElementById('select-edit-iface-type');
+                    const mtuField = document.getElementById('input-edit-iface-mtu');
+
+                    if (nameField) nameField.value = selected.name;
+                    if (typeField) typeField.value = selected.type;
+                    if (mtuField) mtuField.value = selected.actualMtu;
+
+                    if (window.modalManager) {
+                        window.modalManager.open('modal-edit-interface');
+                    }
+                });
+            }
+
+            // Bind Save Edit Button inside Modal
+            const saveEditBtn = document.getElementById('btn-save-edit-interface');
+            if (saveEditBtn) {
+                saveEditBtn.addEventListener('click', () => {
+                    const nameField = document.getElementById('input-edit-iface-name');
+                    const typeField = document.getElementById('select-edit-iface-type');
+                    const mtuField = document.getElementById('input-edit-iface-mtu');
+
+                    const newName = nameField ? nameField.value.trim() : '';
+                    if (!newName) {
+                        if (window.Swal) {
+                            window.Swal.fire({
+                                title: 'Nama Wajib Diisi',
+                                text: 'Nama interface tidak boleh kosong.',
+                                icon: 'error',
+                                confirmButtonColor: '#ef4444'
+                            });
+                        }
+                        return;
+                    }
+
+                    const updated = jsonDataService.updateSelectedInterface({
+                        name: newName,
+                        type: typeField ? typeField.value : 'VLAN',
+                        actualMtu: mtuField ? mtuField.value : 1500
+                    });
+
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-edit-interface');
+                    }
+
+                    toastManager.show({
+                        title: 'Perubahan Disimpan',
+                        message: `Interface "${updated.name}" berhasil diperbarui (simulasi).`,
+                        type: 'success',
+                        duration: 2000
+                    });
+                });
+            }
+
+            // Bind Enable Button
+            const enableBtn = document.getElementById('btn-interface-enable');
+            if (enableBtn) {
+                enableBtn.addEventListener('click', () => {
+                    const updated = jsonDataService.toggleSelectedStatus('running');
+                    if (updated) {
+                        toastManager.show({
+                            title: 'Interface Enabled',
+                            message: `Interface ${updated.name} kini berstatus Running (simulasi).`,
+                            type: 'success',
+                            duration: 2000
+                        });
+                    } else {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                    }
+                });
+            }
+
+            // Bind Disable Button
+            const disableBtn = document.getElementById('btn-interface-disable');
+            if (disableBtn) {
+                disableBtn.addEventListener('click', () => {
+                    const updated = jsonDataService.toggleSelectedStatus('inactive');
+                    if (updated) {
+                        toastManager.show({
+                            title: 'Interface Disabled',
+                            message: `Interface ${updated.name} kini berstatus Inactive (simulasi).`,
+                            type: 'warning',
+                            duration: 2000
+                        });
+                    } else {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface pada tabel terlebih dahulu.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                    }
+                });
+            }
+
+            // Bind Remove Button
+            const removeBtn = document.getElementById('btn-interface-remove');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', () => {
+                    const selected = jsonDataService.getSelectedInterface();
+                    if (!selected) {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface yang akan dihapus.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                        return;
+                    }
+
+                    if (window.Swal) {
+                        window.Swal.fire({
+                            title: 'Hapus Interface?',
+                            text: `Konfirmasi penghapusan interface demo: ${selected.name} (${selected.subname})`,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            cancelButtonColor: '#64748b',
+                            confirmButtonText: 'Ya, Hapus (Demo)',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                const removed = jsonDataService.removeSelectedInterface();
+                                if (removed) {
+                                    toastManager.show({
+                                        title: 'Interface Dihapus',
+                                        message: `${removed.name} telah dihapus dari tabel demonstrasi.`,
+                                        type: 'success',
+                                        duration: 2000
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Bind Comment Button
+            const commentBtn = document.getElementById('btn-interface-comment');
+            if (commentBtn) {
+                commentBtn.addEventListener('click', () => {
+                    const selected = jsonDataService.getSelectedInterface();
+                    if (!selected) {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface untuk menambahkan komentar.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                        return;
+                    }
+
+                    if (window.Swal) {
+                        window.Swal.fire({
+                            title: `Komentar Interface [${selected.name}]`,
+                            input: 'text',
+                            inputLabel: 'Masukkan deskripsi atau catatan',
+                            inputPlaceholder: 'Contoh: Uplink ISP Utama',
+                            showCancelButton: true,
+                            confirmButtonColor: '#0284c7',
+                            confirmButtonText: 'Simpan',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed && result.value) {
+                                toastManager.show({
+                                    title: 'Komentar Disimpan',
+                                    message: `Catatan "${result.value}" disematkan ke ${selected.name}.`,
+                                    type: 'success',
+                                    duration: 2500
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Bind Modal Save Interface Form (Create)
+            const saveIfaceBtn = document.getElementById('btn-save-new-interface');
+            if (saveIfaceBtn) {
+                saveIfaceBtn.addEventListener('click', () => {
+                    const nameInput = document.getElementById('input-new-iface-name');
+                    const typeInput = document.getElementById('select-new-iface-type');
+                    const nameVal = nameInput ? nameInput.value.trim() : '';
+                    const typeVal = typeInput ? typeInput.value : 'VLAN';
+
+                    if (!nameVal) {
+                        if (window.Swal) {
+                            window.Swal.fire({
+                                title: 'Nama Wajib Diisi',
+                                text: 'Silakan masukkan nama interface baru.',
+                                icon: 'error',
+                                confirmButtonColor: '#ef4444'
+                            });
+                        }
+                        return;
+                    }
+
+                    const added = jsonDataService.addInterface({
+                        name: nameVal,
+                        subname: nameVal.toLowerCase(),
+                        type: typeVal,
+                        actualMtu: 1500
+                    });
+
+                    // Tutup modal secara manual via modalManager
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-add-interface');
+                    }
+                    if (nameInput) nameInput.value = '';
+
+                    toastManager.show({
+                        title: 'Interface Dibuat',
+                        message: `Interface demo "${added.name}" (${added.type}) berhasil ditambahkan.`,
+                        type: 'success',
+                        duration: 2500
+                    });
+                });
+            }
+
+        } catch (e) {
+            console.warn('[ModuleLoader] JSON data init failed:', e);
+        }
+    }
+}
+
+const moduleLoader = new ModuleLoader();
+
+// Auto-start loader and navigation for standalone or local execution
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.moduleLoader) {
+        window.moduleLoader.loadAll();
+    }
+    if (window.navigationManager) {
+        window.navigationManager.init();
+    }
+});

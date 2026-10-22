@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -596,16 +596,7 @@
     <!-- Bootstrap 5.3.3 JS Bundle -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Modular JS Scripts (ES Modules) -->
-    <script type="module" src="assets/js/theme.js"></script>
-    <script type="module" src="assets/js/theme-ui.js"></script>
-    <script type="module" src="assets/js/modal.js"></script>
-    <script type="module" src="assets/js/toast.js"></script>
-    <script type="module" src="assets/js/charts.js"></script>
-    <script type="module" src="assets/js/navigation.js"></script>
-    <script type="module">
-        import { moduleLoader } from './assets/js/module-loader.js';
-        moduleLoader.loadAll();
-    </script>
+    <!-- 100% Local Application Script (Works seamlessly on file:/// and http://) -->
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
