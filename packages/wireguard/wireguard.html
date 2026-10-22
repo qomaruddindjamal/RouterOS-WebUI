@@ -1,90 +1,372 @@
-<!-- Module: wireguard/wireguard.html -->
+<!-- Module: wireguard/wireguard.html (MITRANE Style Window) -->
 <div class="mitrautama-view-section" id="view-wireguard" style="display: none;">
-    <div class="mitrautama-win-header">
-        <div class="mitrautama-win-title">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span>WireGuard</span>
-        </div>
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-wireguard-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>WireGuard</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- Sub-tabs matching screenshot -->
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="wg-interfaces">Interfaces</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="wg-secrets">Secrets</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="wg-status">Status</a>
     </div>
 
-    <!-- Winbox Sub-tabs -->
-    <div class="mitrautama-winbox-tabs">
-        <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-wg-iface">WireGuard</a>
-        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wg-peers">Peers</a>
+    <!-- ==================== SUBTAB 1: INTERFACES ==================== -->
+    <div class="mitrautama-tab-pane active" id="subtab-wg-interfaces" style="display: flex; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <!-- Toolbar Tab 1 -->
+      <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+        <div class="mitrane-action-group mitrautama-toolbar-actions">
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-wg-new" onclick="Swal.fire('WireGuard', 'Tambah tunnel WireGuard baru', 'info')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>New</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-settings" onclick="Swal.fire('Settings', 'Pengaturan WireGuard Subsystem', 'info')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span>Settings</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-enable" onclick="toastManager.show({title:'WireGuard', message:'Interface WireGuard diaktifkan.', type:'success'})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Enable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-disable" onclick="toastManager.show({title:'WireGuard', message:'Interface WireGuard dinonaktifkan.', type:'info'})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <span>Disable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-remove" onclick="Swal.fire('WireGuard', 'Hapus interface yang dipilih?', 'warning')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <span>Remove</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-comment">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Comment</span>
+          </button>
+        </div>
+
+        <!-- Right Tools -->
+        <div class="d-flex align-items-center gap-2">
+          <div class="input-group input-group-sm" style="width: 170px;">
+            <span class="input-group-text bg-white border-end-0 py-0 px-2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input type="text" id="mitrane-wg-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find interface...">
+          </div>
+
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Refresh Data" aria-label="Refresh">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Show/Hide Columns" aria-label="Columns">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Tab 1 -->
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="mitrane-wg-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>WireGuard</th>
+              <th>Status</th>
+              <th>Mode</th>
+              <th>Description</th>
+              <th>Interface Address</th>
+              <th>Listen Port</th>
+              <th>Public Key</th>
+              <th>Rx</th>
+              <th>Tx</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td><strong>wg0</strong></td>
+              <td><span style="color: #64748b; font-weight: 600; font-size: 0.73rem;">&#9679; DOWN</span></td>
+              <td>Server</td>
+              <td>WireGuard Tunnel</td>
+              <td>10.10.77.3/24</td>
+              <td>51820</td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">subc1TB1AdQGbNCJw8r...</code></td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td><strong>wgboost1</strong></td>
+              <td><span style="color: #64748b; font-weight: 600; font-size: 0.73rem;">&#9679; DOWN</span></td>
+              <td>Server</td>
+              <td>WireGuard Tunnel</td>
+              <td>10.250.1.2/30</td>
+              <td>51831</td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">ajIHxAHDgkMRssad...</code></td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td><strong>wgboost2</strong></td>
+              <td><span style="color: #64748b; font-weight: 600; font-size: 0.73rem;">&#9679; DOWN</span></td>
+              <td>Server</td>
+              <td>WireGuard Tunnel</td>
+              <td>10.250.2.2/30</td>
+              <td>51832</td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">jtnP093wZuCW7jWY...</code></td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Tab 1 -->
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <div class="d-flex align-items-center">
+          <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">Total: 3 interfaces</span>
+        </div>
+        <div class="text-muted" style="font-size: 0.72rem;">WireGuard Subsystem</div>
+      </div>
     </div>
 
-    <!-- Actions Toolbar -->
-    <div class="mitrautama-winbox-toolbar">
-        <div class="mitrautama-toolbar-actions">
-            <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('WireGuard', 'Tambah tunnel WireGuard baru', 'info')">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>New</span>
-            </button>
-            <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'WireGuard Aktif', message:'Tunnel siap mentransfer paket.', type:'success'})">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Enable</span>
-            </button>
-            <button class="mitrautama-toolbar-btn text-danger">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                <span>Disable</span>
-            </button>
+    <!-- ==================== SUBTAB 2: SECRETS / PEERS ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-wg-secrets" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <!-- Toolbar Tab 2 -->
+      <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+        <div class="mitrane-action-group mitrautama-toolbar-actions">
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-wg-peer-new" onclick="Swal.fire('Peer / Secret', 'Tambah peer WireGuard baru', 'info')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>New</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-enable" onclick="toastManager.show({title:'WireGuard Peer', message:'Peer diaktifkan.', type:'success'})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Enable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-disable" onclick="toastManager.show({title:'WireGuard Peer', message:'Peer dinonaktifkan.', type:'info'})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <span>Disable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-remove" onclick="Swal.fire('WireGuard Peer', 'Hapus peer yang dipilih?', 'warning')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <span>Remove</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-comment">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Comment</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-edit">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            <span>Edit</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-qr" onclick="Swal.fire('WireGuard QR', 'Tampilkan QR Code konfigurasi client WireGuard', 'info')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>QR</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-peer-ros" onclick="if(window.navigationManager){window.navigationManager.switchView('terminal','Terminal');}">
+            <span style="font-weight: 700; font-family: monospace; font-size: 0.72rem;">&gt;_</span>
+            <span>ROS</span>
+          </button>
         </div>
-        <div>
-            <input type="text" placeholder="Filter WireGuard..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+
+        <!-- Right Tools -->
+        <div class="d-flex align-items-center gap-2">
+          <div class="input-group input-group-sm" style="width: 170px;">
+            <span class="input-group-text bg-white border-end-0 py-0 px-2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input type="text" id="mitrane-wg-peer-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find peer...">
+          </div>
+
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Refresh Data" aria-label="Refresh">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Show/Hide Columns" aria-label="Columns">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+          </button>
         </div>
+      </div>
+
+      <!-- Table Tab 2 -->
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="mitrane-wg-peers-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Peer / Secret</th>
+              <th>Interface</th>
+              <th>Public Key</th>
+              <th>Endpoint</th>
+              <th>Endpoint Port</th>
+              <th>Allowed Address</th>
+              <th>Persistent Keepalive</th>
+              <th>Current Endpoint</th>
+              <th>Current Endpoint Port</th>
+              <th>Rx</th>
+              <th>Tx</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td>WireGuard Peer</td>
+              <td><span class="mitrane-wg-link">wg0</span></td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">11T1nH0dgfZNU2jRLk...</code></td>
+              <td>103.93.162.168</td>
+              <td>13231</td>
+              <td><span class="mitrane-wg-cidr">0.0.0.0/0</span></td>
+              <td>25s</td>
+              <td>103.93.162.168</td>
+              <td>13231</td>
+              <td>0.00 KiB</td>
+              <td>0.00 KiB</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td>WireGuard Peer</td>
+              <td><span class="mitrane-wg-link">wgboost1</span></td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">Ak9JKc6j+RfmZsvX9M...</code></td>
+              <td>103.93.162.168</td>
+              <td>51831</td>
+              <td><span class="mitrane-wg-cidr">0.0.0.0/0</span></td>
+              <td>10s</td>
+              <td>103.93.162.168</td>
+              <td>51831</td>
+              <td>0.00 KiB</td>
+              <td>0.00 KiB</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></td>
+              <td>WireGuard Peer</td>
+              <td><span class="mitrane-wg-link">wgboost2</span></td>
+              <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">HiZhphYcylcQ5FYivB...</code></td>
+              <td>103.93.162.168</td>
+              <td>51832</td>
+              <td><span class="mitrane-wg-cidr">0.0.0.0/0</span></td>
+              <td>10s</td>
+              <td>103.93.162.168</td>
+              <td>51832</td>
+              <td>0.00 KiB</td>
+              <td>0.00 KiB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Tab 2 -->
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <div class="d-flex align-items-center">
+          <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">Total: 3 peers</span>
+        </div>
+        <div class="text-muted" style="font-size: 0.72rem;">WireGuard Subsystem</div>
+      </div>
     </div>
 
-    <!-- Tab Pane 1: WireGuard Interface -->
-    <div class="mitrautama-tab-pane" id="tab-pane-wg-iface" style="display: none;">
-        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
-            <table class="mitrautama-table">
-                <thead>
-                    <tr>
-                        <th>Flags</th>
-                        <th>Name</th>
-                        <th>MTU</th>
-                        <th>Listen Port</th>
-                        <th>Public Key</th>
-                        <th>Comment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="fw-bold text-success">R</span></td>
-                        <td><strong>wg-chr</strong></td>
-                        <td>1420</td>
-                        <td>13231</td>
-                        <td><code class="text-primary font-monospace">AoWMx8P3Zph2NwvplM8FASwRvHEHCKWdEAIpjMDDHyI=</code></td>
-                        <td>WireGuard to CHR</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- ==================== SUBTAB 3: STATUS ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-wg-status" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <!-- Toolbar Tab 3 -->
+      <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+        <div class="mitrane-action-group mitrautama-toolbar-actions">
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-wg-restart" onclick="toastManager.show({title:'WireGuard', message:'Restarting WireGuard subsystem...', type:'info'})">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            <span>Restart</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-status-qr" onclick="Swal.fire('WireGuard QR', 'Tampilkan QR Code telemetry & status', 'info')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>QR</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-status-ros" onclick="if(window.navigationManager){window.navigationManager.switchView('terminal','Terminal');}">
+            <span style="font-weight: 700; font-family: monospace; font-size: 0.72rem;">&gt;_</span>
+            <span>ROS</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-status-enable">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Enable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-status-disable">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            <span>Disable</span>
+          </button>
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-wg-status-remove">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <span>Remove</span>
+          </button>
         </div>
+
+        <!-- Right Tools -->
+        <div class="d-flex align-items-center gap-2">
+          <div class="input-group input-group-sm" style="width: 170px;">
+            <span class="input-group-text bg-white border-end-0 py-0 px-2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input type="text" id="mitrane-wg-status-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find status...">
+          </div>
+
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Refresh Data" aria-label="Refresh">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+          <button type="button" class="mitrane-toolbar-icon-btn" title="Show/Hide Columns" aria-label="Columns">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table Tab 3 with Empty State -->
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="mitrane-wg-status-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>WireGuard</th>
+              <th>Status</th>
+              <th>Mode</th>
+              <th>Description</th>
+              <th>Address / CIDR</th>
+              <th>Port</th>
+              <th>Public Key</th>
+              <th>Peers</th>
+              <th>Rx</th>
+              <th>Tx</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="11" class="text-center py-5 text-muted" style="font-size: 0.8rem; background: transparent;">
+                Tidak ada data telemetri WireGuard. Pastikan interface sudah dibuat dan subsystem aktif.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Tab 3 -->
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <div class="d-flex align-items-center">
+          <span style="font-size: 0.73rem; color: var(--mu-text-main, #1e293b);">
+            <strong>Interfaces (UP):</strong> 0 active <span class="mx-2 text-muted">|</span> <strong>Connected Peers:</strong> 0 active
+          </span>
+        </div>
+        <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #16a34a; display: inline-block; margin-right: 6px;"></span>
+          <span>Showing only UP interfaces &amp; Connected peers</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Tab Pane 2: WireGuard Peers -->
-    <div class="mitrautama-tab-pane" id="tab-pane-wg-peers" style="display: none;">
-        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
-            <table class="mitrautama-table">
-                <thead>
-                    <tr>
-                        <th>Interface</th>
-                        <th>Public Key</th>
-                        <th>Endpoint</th>
-                        <th>Allowed Address</th>
-                        <th>Current Rx / Tx</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>wg-chr</td>
-                        <td><code class="font-monospace">h8r2K...chrCloudServerKey</code></td>
-                        <td>103.150.x.x:13231</td>
-                        <td>0.0.0.0/0, 10.10.77.1/32</td>
-                        <td><span class="text-success">52.4 MB</span> / <span class="text-primary">89.1 MB</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+  </div>
 </div>

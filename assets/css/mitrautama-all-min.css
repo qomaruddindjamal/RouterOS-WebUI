@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MitraUtama All Minified Core Stylesheet (mitrautama-all-min.css)
  * Desain Fixed Header, Fixed Footer, Collapsible Sidebar,
  * Drop-right Flyout Submenus (Winbox Style), dan Tab Toolbar Winbox Asli.
@@ -2468,4 +2468,127 @@ input[type=number] {
 [data-period="malam"] .mitrane-tab-close-btn:hover {
     background: #ef4444 !important;
     color: #ffffff !important;
+}
+
+
+/* ==========================================================
+ * WireGuard Module Styles - WinBox Replica
+ * ========================================================== */
+#view-wireguard:not([style*="none"]) {
+    padding: 0 !important;
+    overflow: hidden !important;
+    height: calc(100vh - 52px - 32px) !important;
+    max-height: calc(100vh - 52px - 32px) !important;
+}
+
+#view-wireguard {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#view-wireguard[style*="display: none"] {
+    display: none !important;
+}
+
+#view-wireguard .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#view-wireguard .mitrane-tab-bar {
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-wireguard .mitrane-toolbar {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-wireguard .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    overflow: auto !important;
+}
+
+[data-period="malam"] #view-wireguard .mitrautama-table-container,
+[data-theme="dark"] #view-wireguard .mitrautama-table-container {
+    border-bottom: 1px solid #334155 !important;
+}
+
+#view-wireguard .mitrane-status-subsystem {
+    margin-top: auto !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    border-top: 1px solid #cbd5e1 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 4px 12px !important;
+    box-sizing: border-box !important;
+    background: #f1f5f9 !important;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04) !important;
+    z-index: 10 !important;
+}
+
+[data-period="malam"] #view-wireguard .mitrane-status-subsystem,
+[data-theme="dark"] #view-wireguard .mitrane-status-subsystem {
+    border-top: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+}
+
+.mitrane-wg-link {
+    color: #db2777;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+
+.mitrane-wg-link:hover {
+    color: #be185d;
+}
+
+[data-period="malam"] .mitrane-wg-link,
+[data-theme="dark"] .mitrane-wg-link {
+    color: #f472b6;
+}
+
+.mitrane-wg-cidr {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+[data-period="malam"] .mitrane-wg-cidr,
+[data-theme="dark"] .mitrane-wg-cidr {
+    color: #f87171;
 }
