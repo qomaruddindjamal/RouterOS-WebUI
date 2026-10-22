@@ -767,11 +767,18 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         background: var(--mu-bg-card, #ffffff) !important;
     }
 
-    /* Di layar mobile (<= 768px), tombol hamburger menempel rapi di kiri sebelum logo brand */
+    /* Di layar mobile (<= 768px), tombol hamburger menempel rapi di tepi kiri sebelum logo brand */
     .mitrautama-fixed-header,
     body.mitrautama-sidebar-collapsed .mitrautama-fixed-header {
-        padding-left: 8px !important;
-        padding-right: 12px !important;
+        padding-left: 4px !important;
+        padding-right: 10px !important;
+    }
+
+    .mitrautama-header-left,
+    .mitrautama-header-left #sidebar-toggle-btn,
+    body.mitrautama-sidebar-collapsed .mitrautama-header-left,
+    body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
+        margin-left: 0 !important;
     }
 
     .mitrautama-header-left,
@@ -782,13 +789,16 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         margin: 0 !important;
         padding: 0 !important;
         justify-content: flex-start !important;
-        gap: 8px !important;
+        gap: 6px !important;
     }
 
     #sidebar-toggle-btn,
+    .mitrautama-header-left #sidebar-toggle-btn,
     body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
         display: inline-flex !important;
         margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         order: 1 !important;
     }
 
