@@ -19,6 +19,7 @@ export class NavigationManager {
         this.bindWinboxSubTabs();
         this.bindActionButtons();
         this.bindQuickSweetAlerts();
+        this.bindTerminalEvents();
 
         // Pastikan view awal aktif
         this.switchView('dashboard', 'Home');
@@ -215,6 +216,7 @@ export class NavigationManager {
 
         // 1. Pemetaan Alias Route ke Modul Spesifik
         const routeAliasMap = {
+            'terminal': 'terminal',
             'ip': 'ip-addresses',
             'switch': 'switch-ports',
             'switch-ports': 'switch',
@@ -237,7 +239,7 @@ export class NavigationManager {
             const container = document.querySelector('.mitrautama-content-area');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
-                if (resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
+                if (resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
                     container.classList.add('winbox-mode');
                 } else {
                     container.classList.remove('winbox-mode');
@@ -435,7 +437,53 @@ export class NavigationManager {
         }, 600);
     }
 
-    bindQuickSweetAlerts() {
+
+    bindTerminalEvents() {
+        const input = document.getElementById('terminal-cli-input');
+        const output = document.getElementById('terminal-history-output');
+        const consoleScreen = document.getElementById('terminal-console-screen');
+        if (!input || !output) return;
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim();
+                if (!cmd) return;
+
+                const userCmdLine = document.createElement('div');
+                userCmdLine.style.color = '#94a3b8';
+                userCmdLine.textContent = `[admin@BACKBONE] > ${cmd}`;
+                output.appendChild(userCmdLine);
+
+                const responseLine = document.createElement('div');
+                responseLine.style.color = '#38bdf8';
+
+                if (cmd === '/interface print' || cmd === 'interface print' || cmd === 'ip link') {
+                    responseLine.innerHTML = `Flags: R - RUNNING; S - SLAVE<br>
+ 0 R  name="ETH1" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
+ 1    name="ETH2" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
+ 2 R  name="LO" type=loopback mtu=65536 actual-mtu=65536<br>
+ 3 R  name="WG-BACKBONE" type=wireguard mtu=1420`;
+                } else if (cmd === '/system resource print' || cmd === 'system resource print') {
+                    responseLine.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h49m10s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%`;
+                } else if (cmd === 'clear' || cmd === '/clear') {
+                    output.innerHTML = '';
+                    input.value = '';
+                    return;
+                } else if (cmd === '?' || cmd === 'help' || cmd === '/help') {
+                    responseLine.innerHTML = `Available commands: /interface print, /system resource print, /ip address print, /ping 8.8.8.8, clear, exit`;
+                } else {
+                    responseLine.style.color = '#ef4444';
+                    responseLine.textContent = `bad command name ${cmd} (line 1 column 1)`;
+                }
+
+                output.appendChild(responseLine);
+                input.value = '';
+                if (consoleScreen) consoleScreen.scrollTop = consoleScreen.scrollHeight;
+            }
+        });
+    }
+
+        bindQuickSweetAlerts() {
         const alertTrigger = document.querySelectorAll('[data-mitrautama-swal]');
         alertTrigger.forEach(el => {
             el.addEventListener('click', () => {
