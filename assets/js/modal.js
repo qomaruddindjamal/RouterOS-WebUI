@@ -92,3 +92,6 @@ export class ModalManager {
 }
 
 export const modalManager = new ModalManager();
+if (typeof window !== 'undefined') {
+    window.modalManager = modalManager;
+}

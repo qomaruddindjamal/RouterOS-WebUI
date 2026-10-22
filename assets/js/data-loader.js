@@ -209,3 +209,6 @@ export class JsonDataService {
 }
 
 export const jsonDataService = new JsonDataService();
+if (typeof window !== 'undefined') {
+    window.jsonDataService = jsonDataService;
+}

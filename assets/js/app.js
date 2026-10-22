@@ -382,6 +382,7 @@ class ModalManager {
 }
 
 const modalManager = new ModalManager();
+window.modalManager = modalManager;
 
 // === MODULE: charts.js ===
 /**
@@ -1337,19 +1338,9 @@ class JsonDataService {
         }).join('');
 
         // Row Selection & Properties Modal Open Listener
+        // Note: Event delegation is handled globally, but keep selection highlight synced
         tableBody.querySelectorAll('tr').forEach(tr => {
-            tr.addEventListener('click', (e) => {
-                const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
-                this.selectedIndex = idx;
-                this.renderInterfacesTable(containerId, this.currentFilter);
-                this.notifySelectionChange();
-
-                // Buka modal properti interface sesuai referensi WinBox
-                const item = this.getSelectedInterface();
-                if (item && window.openInterfacePropertiesModal) {
-                    window.openInterfacePropertiesModal(item);
-                }
-            });
+            tr.style.cursor = 'pointer';
         });
 
         const totalCounter = document.getElementById('mitrane-total-items');
@@ -1450,6 +1441,7 @@ class JsonDataService {
 }
 
 const jsonDataService = new JsonDataService();
+window.jsonDataService = jsonDataService;
 
 // === MODULE: module-loader.js ===
 /**
@@ -1843,8 +1835,59 @@ window.openInterfacePropertiesModal = function(item) {
 
     if (window.modalManager) {
         window.modalManager.open('modal-interface-properties');
+    } else {
+        const modal = document.getElementById('modal-interface-properties');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.classList.add('modal-open');
+        }
     }
 };
+
+// Global Event Delegation agar klik baris interface SELALU membuka modal properties
+document.addEventListener('click', (e) => {
+    const row = e.target.closest('#mitrane-interfaces-table tbody tr');
+    if (!row) return;
+
+    // Highlight row
+    const tbody = row.closest('tbody');
+    if (tbody) {
+        tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
+        row.classList.add('table-primary', 'selected');
+    }
+
+    // Ambil data jika ada data-mitrautama-row-index dan jsonDataService
+    const rowIndex = row.getAttribute('data-mitrautama-row-index');
+    if (rowIndex !== null && window.jsonDataService && window.jsonDataService.interfacesData && window.jsonDataService.interfacesData.interfaces) {
+        const idx = parseInt(rowIndex, 10);
+        if (!isNaN(idx) && window.jsonDataService.interfacesData.interfaces[idx]) {
+            window.jsonDataService.selectedIndex = idx;
+            window.jsonDataService.notifySelectionChange();
+            window.openInterfacePropertiesModal(window.jsonDataService.interfacesData.interfaces[idx]);
+            return;
+        }
+    }
+
+    // Fallback ekstraksi langsung dari cell HTML (bekerja baik pada file:/// saat fetch JSON tidak berjalan)
+    const strongEl = row.querySelector('strong');
+    const name = strongEl ? strongEl.textContent.trim() : 'ether1';
+    const subnameEl = row.querySelector('span.text-muted');
+    const subname = subnameEl ? subnameEl.textContent.replace(/[()]/g, '').trim() : name.toLowerCase();
+    const tds = row.querySelectorAll('td');
+    const type = tds[2] ? tds[2].textContent.trim() : 'Ethernet';
+    const actualMtu = tds[3] ? tds[3].textContent.trim() : '1500';
+    const l2Mtu = tds[4] ? tds[4].textContent.trim() : '1500';
+    const item = {
+        name: name,
+        subname: subname,
+        type: type,
+        status: 'running',
+        actualMtu: parseInt(actualMtu, 10) || 1500,
+        l2Mtu: parseInt(l2Mtu, 10) || 1500,
+        macAddress: '2C:C8:1B:18:BE:2E'
+    };
+    window.openInterfacePropertiesModal(item);
+});
 
 // Bind Apply and OK buttons
 document.addEventListener('DOMContentLoaded', () => {
