@@ -1185,3 +1185,88 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     background: transparent !important;
     color: #cbd5e1 !important;
 }
+
+/* =========================================================================
+   WINBOX TERMINAL WINDOW ADAPTIVE THEME (LIGHT / DARK / AUTO MALAM)
+   ========================================================================= */
+#view-terminal .mitrane-window {
+    background: #0f172a !important;
+    transition: background-color 0.2s ease;
+}
+
+#view-terminal .mitrane-tab-bar {
+    background: #dbe4ef !important;
+    border-bottom: 1px solid #b8c7d9 !important;
+}
+
+#view-terminal .mitrane-window-title-btn {
+    background: #000000 !important;
+    color: #38bdf8 !important;
+    border: 1px solid #334155 !important;
+    border-bottom: none !important;
+    border-radius: 5px 5px 0 0 !important;
+}
+
+#view-terminal .mitrane-tab-item {
+    color: #475569 !important;
+}
+
+#view-terminal .mitrane-tab-item.active {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #b8c7d9 !important;
+    border-bottom: 1px solid #ffffff !important;
+}
+
+#view-terminal #terminal-console-screen {
+    background: #0a0f1d !important;
+    color: #22c55e !important;
+}
+
+#view-terminal .mitrane-terminal-status-bar {
+    background: #f8fafc !important;
+    border-top: 1px solid #cbd5e1 !important;
+    color: #64748b !important;
+}
+
+/* DARK MODE & AUTO MALAM ADAPTATION FOR TERMINAL WINDOW */
+[data-theme="dark"] #view-terminal .mitrane-tab-bar,
+[data-period="malam"] #view-terminal .mitrane-tab-bar {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-window-title-btn,
+[data-period="malam"] #view-terminal .mitrane-window-title-btn {
+    background: #050811 !important;
+    color: #38bdf8 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-item,
+[data-period="malam"] #view-terminal .mitrane-tab-item {
+    background: #1e293b !important;
+    color: #94a3b8 !important;
+    border: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-item.active,
+[data-period="malam"] #view-terminal .mitrane-tab-item.active {
+    background: #0a0f1d !important;
+    color: #38bdf8 !important;
+    border-color: #334155 !important;
+    border-bottom-color: #0a0f1d !important;
+}
+
+[data-theme="dark"] #view-terminal #terminal-console-screen,
+[data-period="malam"] #view-terminal #terminal-console-screen {
+    background: #050811 !important;
+    color: #4ade80 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-terminal-status-bar,
+[data-period="malam"] #view-terminal .mitrane-terminal-status-bar {
+    background: #0a0f1d !important;
+    border-top: 1px solid #1f2937 !important;
+    color: #94a3b8 !important;
+}
