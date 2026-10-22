@@ -12,15 +12,15 @@ export class ModuleLoader {
             'header-container': 'includes/header.html',
             'sidebar-container': 'includes/sidebar.html',
             'footer-container': 'includes/footer.html',
-            'interfaces-module-container': 'interfaces/interfaces.html',
-            'ip-module-container': 'ip/ip.html',
-            'wireguard-module-container': 'wireguard/wireguard.html',
-            'wireless-module-container': 'wireless/wireless.html',
-            'switch-module-container': 'switch/switch.html',
-            'bridge-module-container': 'bridge/bridge.html',
-            'system-module-container': 'system/system.html',
-            'queues-module-container': 'queues/queues.html',
-            'ppp-module-container': 'ppp/ppp.html'
+            'interfaces-module-container': 'packages/interfaces/interfaces.html',
+            'ip-module-container': 'packages/ip/ip.html',
+            'wireguard-module-container': 'packages/wireguard/wireguard.html',
+            'wireless-module-container': 'packages/wireless/wireless.html',
+            'switch-module-container': 'packages/switch/switch.html',
+            'bridge-module-container': 'packages/bridge/bridge.html',
+            'system-module-container': 'packages/system/system.html',
+            'queues-module-container': 'packages/queues/queues.html',
+            'ppp-module-container': 'packages/ppp/ppp.html'
         };
     }
 

@@ -39,7 +39,7 @@ export class JsonDataService {
 
     async loadInterfaces() {
         try {
-            const res = await fetch('interfaces/interfaces.json');
+            const res = await fetch('packages/interfaces/interfaces.json');
             if (res.ok) {
                 this.interfacesData = await res.json();
                 this.selectedIndex = -1;

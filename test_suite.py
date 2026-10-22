@@ -20,15 +20,15 @@ class TestRouterOSWorkspace(unittest.TestCase):
             "includes/header.html",
             "includes/sidebar.html",
             "includes/footer.html",
-            "interfaces/interfaces.html",
-            "switch/switch.html",
-            "bridge/bridge.html",
-            "system/system.html",
-            "queues/queues.html",
-            "ppp/ppp.html",
-            "ip/ip.html",
-            "wireguard/wireguard.html",
-            "wireless/wireless.html"
+            "packages/interfaces/interfaces.html",
+            "packages/switch/switch.html",
+            "packages/bridge/bridge.html",
+            "packages/system/system.html",
+            "packages/queues/queues.html",
+            "packages/ppp/ppp.html",
+            "packages/ip/ip.html",
+            "packages/wireguard/wireguard.html",
+            "packages/wireless/wireless.html"
         ]
         for mod in modules:
             path = os.path.join(WORKSPACE, mod)
@@ -37,31 +37,31 @@ class TestRouterOSWorkspace(unittest.TestCase):
     def test_required_css_files(self):
         """Pastikan seluruh stylesheet modular mitrautama-* ada dan tidak ada mitrautama-winbox"""
         required_css = [
-            "css/mitrautama.css",
-            "css/mitrautama-dark.css",
-            "css/mitrautama-auto.css",
-            "css/mitrautama-tabel.css",
-            "css/mitrautama-tost.css",
-            "css/mitrautama-all-min.css"
+            "assets/css/mitrautama.css",
+            "assets/css/mitrautama-dark.css",
+            "assets/css/mitrautama-auto.css",
+            "assets/css/mitrautama-tabel.css",
+            "assets/css/mitrautama-tost.css",
+            "assets/css/mitrautama-all-min.css"
         ]
         for css in required_css:
             path = os.path.join(WORKSPACE, css)
             self.assertTrue(os.path.exists(path), f"CSS hilang: {css}")
         
-        forbidden = os.path.join(WORKSPACE, "css/mitrautama-winbox.css")
+        forbidden = os.path.join(WORKSPACE, "assets/css/mitrautama-winbox.css")
         self.assertFalse(os.path.exists(forbidden), "mitrautama-winbox.css tidak boleh ada!")
 
     def test_required_js_modules(self):
         """Pastikan modul-modul JS esensial ada dan terpisah (tidak monolitik)"""
         js_files = [
-            "js/navigation.js",
-            "js/modal.js",
-            "js/toast.js",
-            "js/charts.js",
-            "js/theme.js",
-            "js/theme-ui.js",
-            "js/module-loader.js",
-            "js/data-loader.js"
+            "assets/js/navigation.js",
+            "assets/js/modal.js",
+            "assets/js/toast.js",
+            "assets/js/charts.js",
+            "assets/js/theme.js",
+            "assets/js/theme-ui.js",
+            "assets/js/module-loader.js",
+            "assets/js/data-loader.js"
         ]
         for js in js_files:
             path = os.path.join(WORKSPACE, js)
@@ -76,7 +76,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
             self.assertIn("app", cfg)
             self.assertIn("navigation", cfg)
 
-        iface_path = os.path.join(WORKSPACE, "interfaces", "interfaces.json")
+        iface_path = os.path.join(WORKSPACE, "packages", "interfaces", "interfaces.json")
         self.assertTrue(os.path.exists(iface_path))
         with open(iface_path, "r", encoding="utf-8") as f:
             ifaces = json.load(f)
@@ -101,7 +101,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_interfaces_16_subtabs_present(self):
         """Verifikasi bahwa 16 sub-tab Interfaces terdaftar secara lengkap"""
-        iface_path = os.path.join(WORKSPACE, "interfaces", "interfaces.html")
+        iface_path = os.path.join(WORKSPACE, "packages", "interfaces", "interfaces.html")
         with open(iface_path, "r", encoding="utf-8") as f:
             html = f.read()
         
@@ -117,7 +117,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_modal_manual_close_policy(self):
         """Verifikasi bahwa modal.js memiliki proteksi manual close (tidak auto-close pada backdrop)"""
-        modal_js_path = os.path.join(WORKSPACE, "js", "modal.js")
+        modal_js_path = os.path.join(WORKSPACE, "assets", "js", "modal.js")
         with open(modal_js_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("modal-shake", js)
@@ -125,7 +125,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_crud_simulation_engine(self):
         """Verifikasi bahwa data-loader.js menyediakan metode simulasi CRUD lengkap"""
-        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
         with open(loader_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("addInterface", js)
@@ -135,7 +135,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_chart_buffer_bounding(self):
         """Verifikasi bahwa charts.js membatasi panjang titik data buffer (anti memory leak)"""
-        chart_js_path = os.path.join(WORKSPACE, "js", "charts.js")
+        chart_js_path = os.path.join(WORKSPACE, "assets", "js", "charts.js")
         with open(chart_js_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("maxDataPoints", js)
@@ -143,7 +143,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_crud_edit_interface(self):
         """Verifikasi implementasi edit interface di data-loader.js dan modal edit di index.html"""
-        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
         with open(loader_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("updateSelectedInterface", js)
@@ -157,7 +157,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_charts_timer_cleanup(self):
         """Verifikasi chart timer cleanup dan destroyCharts di js/charts.js"""
-        chart_js_path = os.path.join(WORKSPACE, "js", "charts.js")
+        chart_js_path = os.path.join(WORKSPACE, "assets", "js", "charts.js")
         with open(chart_js_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("stopStream", js)
@@ -166,14 +166,14 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_html_escaping(self):
         """Verifikasi sanitasi escapeHtml pada rendering data-loader.js"""
-        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
         with open(loader_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("escapeHtml", js)
 
     def test_all_subviews_mitrane_window_class(self):
         """Verifikasi keseragaman arsitektur .mitrane-window pada modul utama"""
-        for mod in ["interfaces/interfaces.html", "queues/queues.html", "ip/ip.html"]:
+        for mod in ["packages/interfaces/interfaces.html", "packages/queues/queues.html", "packages/ip/ip.html"]:
             path = os.path.join(WORKSPACE, mod)
             with open(path, "r", encoding="utf-8") as f:
                 content = f.read()

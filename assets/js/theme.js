@@ -99,18 +99,18 @@ export class ThemeManager {
         if (!themeLink || !autoLink) return;
 
         if (mode === 'dark') {
-            themeLink.href = 'css/mitrautama-dark.css';
+            themeLink.href = 'assets/css/mitrautama-dark.css';
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (mode === 'light') {
-            themeLink.href = 'css/mitrautama.css';
+            themeLink.href = 'assets/css/mitrautama.css';
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'light');
         } else {
             // mode === 'auto'
-            themeLink.href = 'css/mitrautama.css'; // base terang
+            themeLink.href = 'assets/css/mitrautama.css'; // base terang
             autoLink.disabled = false;
             document.documentElement.setAttribute('data-theme', 'auto');
             this.evaluateAutoTime();
