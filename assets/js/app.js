@@ -690,21 +690,42 @@ class NavigationManager {
         
         const toggleSidebar = () => {
             if (!sidebar) return;
-            sidebar.classList.toggle('collapsed');
-            const isCollapsed = sidebar.classList.contains('collapsed');
-            document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
-            if (toggleBtn) {
-                toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // Saat mobile: Toggle drawer slide-in dari kiri
+                const isDrawerOpen = document.body.classList.toggle('mitrautama-mobile-drawer-open');
+                if (toggleBtn) {
+                    toggleBtn.setAttribute('aria-expanded', isDrawerOpen ? 'true' : 'false');
+                }
+            } else {
+                // Saat desktop: Collapse rail sidebar
+                sidebar.classList.toggle('collapsed');
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
+                if (toggleBtn) {
+                    toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+                }
+                localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+                
+                // Trigger window resize event agar Chart.js merespons lebar canvas baru
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 260);
             }
-            localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
-            
-            // Trigger window resize event agar Chart.js merespons lebar canvas baru
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-            }, 260);
-
-
         };
+
+        // Buat Mobile Backdrop Overlay jika belum ada di DOM
+        let backdrop = document.querySelector('.mitrautama-mobile-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'mitrautama-mobile-backdrop';
+            document.body.appendChild(backdrop);
+        }
+        backdrop.addEventListener('click', () => {
+            document.body.classList.remove('mitrautama-mobile-drawer-open');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        });
 
         if (toggleBtn && sidebar) {
             toggleBtn.setAttribute('aria-expanded', sidebar.classList.contains('collapsed') ? 'false' : 'true');
@@ -766,20 +787,26 @@ class NavigationManager {
                 if (parentGroup && !isOpen) {
                     parentGroup.classList.add('open');
 
-                    // Hitung posisi vertikal fixed flyout dropright agar tidak terpotong overflow container
-                    if (subList) {
+                    const isMobile = window.innerWidth <= 768;
+                    if (!isMobile && subList) {
+                        // Desktop: Flyout drop-right fixed positioning
                         const rect = toggle.getBoundingClientRect();
                         subList.style.position = 'fixed';
                         subList.style.left = (rect.right + 4) + "px";
                         subList.style.top = rect.top + "px";
                         subList.style.zIndex = '9999';
 
-                        // Pastikan tidak meluap keluar batas bawah layar
                         const listRect = subList.getBoundingClientRect();
                         if (listRect.bottom > window.innerHeight) {
                             const diff = listRect.bottom - window.innerHeight + 10;
-                        subList.style.top = Math.max(10, rect.top - diff) + "px";
+                            subList.style.top = Math.max(10, rect.top - diff) + "px";
                         }
+                    } else if (isMobile && subList) {
+                        // Mobile: Reset fixed coordinates to allow smooth in-line accordion dropdown
+                        subList.style.position = '';
+                        subList.style.left = '';
+                        subList.style.top = '';
+                        subList.style.zIndex = '';
                     }
                 }
             });
