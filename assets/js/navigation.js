@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MitraUtama Dashboard Navigation & View Switcher
  * Mengontrol pembukaan Menu, Sub-Menu Drop-Right, Tab-Menu, Filter Tabel, Collapse Sidebar, dan Aksi SweetAlert
  * Menggunakan class dan selector awalan mitrautama-
@@ -26,36 +26,51 @@ export class NavigationManager {
 
     bindSidebarCollapse() {
         const toggleBtn = document.getElementById('sidebar-toggle-btn');
+        const logoIcon = document.querySelector('.mitrautama-header-left .mu-logo-icon') || document.querySelector('.mu-logo-icon');
         const sidebar = document.getElementById('sidebarMenu');
+        
+        const toggleSidebar = () => {
+            if (!sidebar) return;
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
+            if (toggleBtn) {
+                toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+            }
+            localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+            
+            // Trigger window resize event agar Chart.js merespons lebar canvas baru
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 260);
+
+            toastManager.show({
+                title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
+                message: isCollapsed ? 'Mode ikon aktif (Klik logo MU untuk membuka kembali)' : 'Mode navigasi lengkap aktif',
+                type: 'info',
+                duration: 2000
+            });
+        };
+
         if (toggleBtn && sidebar) {
             toggleBtn.setAttribute('aria-expanded', sidebar.classList.contains('collapsed') ? 'false' : 'true');
+            toggleBtn.addEventListener('click', toggleSidebar);
+        }
 
-            toggleBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('collapsed');
-                const isCollapsed = sidebar.classList.contains('collapsed');
-                document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
-                toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
-                localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
-                
-                // Trigger window resize event agar Chart.js merespons lebar canvas baru
-                setTimeout(() => {
-                    window.dispatchEvent(new Event('resize'));
-                }, 260);
-
-                toastManager.show({
-                    title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
-                    message: isCollapsed ? 'Navigasi mode icon minimalis.' : 'Navigasi mode lengkap.',
-                    type: 'info',
-                    duration: 1500
-                });
+        if (logoIcon) {
+            logoIcon.addEventListener('click', () => {
+                if (document.body.classList.contains('mitrautama-sidebar-collapsed') || (sidebar && sidebar.classList.contains('collapsed'))) {
+                    toggleSidebar();
+                }
             });
+            logoIcon.title = 'MitraUtama WebUI (Klik untuk memperluas sidebar saat diciutkan)';
+        }
 
-            // Restore state
-            if (localStorage.getItem('mitra_sidebar_collapsed') === 'true') {
-                sidebar.classList.add('collapsed');
-                document.body.classList.add('mitrautama-sidebar-collapsed');
-                toggleBtn.setAttribute('aria-expanded', 'false');
-            }
+        // Pulihkan state collapse dari localStorage jika ada
+        if (localStorage.getItem('mitra_sidebar_collapsed') === 'true' && sidebar) {
+            sidebar.classList.add('collapsed');
+            document.body.classList.add('mitrautama-sidebar-collapsed');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
         }
     }
 

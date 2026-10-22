@@ -652,3 +652,23 @@ html, body {
 [data-theme='dark'] .mitrautama-header-brand-text { color: #f8fafc !important; }
 [data-theme='dark'] #sidebar-toggle-btn { border-color: #334155 !important; color: #cbd5e1 !important; }
 [data-theme='dark'] #sidebar-toggle-btn:hover { background: rgba(255, 255, 255, 0.08) !important; color: #38bdf8 !important; }
+/* COLLAPSED HEADER BRAND & HAMBURGER ALIGNMENT */
+body.mitrautama-sidebar-collapsed .mitrautama-header-left {
+    width: 48px !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    position: relative !important;
+}
+
+body.mitrautama-sidebar-collapsed .mu-brand-text {
+    display: none !important;
+}
+
+/* Saat sidebar collapse: ikon MU tetap tampil dan dapat diklik untuk toggle kembali, atau hover tombol toggle */
+body.mitrautama-sidebar-collapsed .mu-logo-icon {
+    cursor: pointer !important;
+}
+
+body.mitrautama-sidebar-collapsed #sidebar-toggle-btn {
+    display: none !important;
+}
