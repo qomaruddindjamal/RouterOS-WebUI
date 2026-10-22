@@ -179,5 +179,34 @@ class TestRouterOSWorkspace(unittest.TestCase):
                 content = f.read()
             self.assertIn("mitrane-window", content, f"{mod} missing .mitrane-window")
 
+
+    def test_dashboard_kpi_cards_and_charts_structure(self):
+        """Verifikasi struktur kartu 4 KPI dan 2 grafik responsif pada dashboard index.html"""
+        idx_path = os.path.join(WORKSPACE, "index.html")
+        with open(idx_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        self.assertIn('class="mitrautama-kpi-grid"', html)
+        self.assertIn('id="kpi-wan-rx"', html)
+        self.assertIn('id="kpi-cpu-val"', html)
+        self.assertIn('id="trafficChart"', html)
+        self.assertIn('id="cpuChart"', html)
+
+    def test_dashboard_kpi_css_rules_present(self):
+        """Verifikasi kehadiran CSS grid dan kartu KPI di assets/css/mitrautama-all-min.css"""
+        css_path = os.path.join(WORKSPACE, "assets", "css", "mitrautama-all-min.css")
+        with open(css_path, "r", encoding="utf-8") as f:
+            css = f.read()
+        self.assertIn('.mitrautama-kpi-grid', css)
+        self.assertIn('.mitrautama-kpi-card', css)
+        self.assertIn('.mitrautama-chart-card', css)
+
+    def test_dashboard_chart_lifecycle_in_navigation(self):
+        """Verifikasi integrasi chart lifecycle saat berpindah view di navigation.js"""
+        nav_path = os.path.join(WORKSPACE, "assets", "js", "navigation.js")
+        with open(nav_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("window.chartController.initTrafficChart()", js)
+        self.assertIn("window.chartController.stopStream()", js)
+
 if __name__ == "__main__":
     unittest.main()

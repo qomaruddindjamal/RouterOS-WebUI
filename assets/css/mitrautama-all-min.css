@@ -480,3 +480,147 @@ html, body {
     justify-content: center !important;
     padding: 8px 0 !important;
 }
+
+
+/* =========================================================================
+   DASHBOARD KPI & CHART SYSTEM (Modern Winbox-Inspired Cards)
+   ========================================================================= */
+
+.mitrautama-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+    .mitrautama-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .mitrautama-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mitrautama-kpi-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    min-height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mitrautama-kpi-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+.mitrautama-kpi-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.mitrautama-kpi-title {
+    font-size: 0.775rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.mitrautama-kpi-value {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.mitrautama-kpi-meta {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mitrautama-kpi-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+.mitrautama-chart-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.mitrautama-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.mitrautama-chart-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dark mode for KPI & Charts */
+[data-theme="dark"] .mitrautama-kpi-card,
+[data-theme="dark"] .mitrautama-chart-card {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .mitrautama-kpi-title {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .mitrautama-kpi-value {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .mitrautama-kpi-meta {
+    color: #64748b;
+}
+
+[data-theme="dark"] .mitrautama-chart-header {
+    border-bottom-color: #334155;
+}
+
+[data-theme="dark"] .mitrautama-chart-title {
+    color: #f8fafc;
+}

@@ -165,7 +165,19 @@ export class NavigationManager {
             targetSection.style.display = 'block';
             const container = document.querySelector('.mitrautama-content-area');
             if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Dashboard Chart Lifecycle Integration
+            if (viewId === 'dashboard' && window.chartController) {
+                window.chartController.initTrafficChart();
+                window.chartController.initCpuChart();
+                window.chartController.startSimulatedRealtimeStream();
+            } else if (window.chartController) {
+                window.chartController.stopStream();
+            }
         } else {
+            if (window.chartController) {
+                window.chartController.stopStream();
+            }
             this.renderDynamicView(viewId, titleLabel);
         }
 

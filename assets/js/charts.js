@@ -223,3 +223,6 @@ export class ChartController {
 }
 
 export const chartController = new ChartController();
+if (typeof window !== 'undefined') {
+    window.chartController = chartController;
+}
