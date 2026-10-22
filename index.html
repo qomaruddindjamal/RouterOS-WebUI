@@ -331,8 +331,9 @@
                 </aside>
             </div>
 
-            <!-- 3. MAIN CONTENT CONTAINER (MODULAR COMPONENT INJECTIONS) -->
-            <main class="mitrautama-content-area">
+            <!-- RIGHT MAIN COLUMN (Content + Right-side Footer) -->
+            <div class="mitrautama-main-column">
+                <main class="mitrautama-content-area">
                 
                 <!-- MODUL 1: INTERFACES (interfaces/interfaces.html) -->
                 <!-- DYNAMIC PACKAGES / MODULE CONTAINERS -->
@@ -428,19 +429,20 @@
                     </div>
                 </div>
 
-            </main>
-        </div>
+                </main>
 
-        <!-- 4. FIXED FOOTER CONTAINER (Modular: includes/footer.html) -->
-        <div id="footer-container">
-            <footer class="mitrautama-fixed-footer">
-                <div class="footer-left-info">
-                    <strong>RouterOS v7.24.5 (stable)</strong> &bull; Board: <strong>RB3011UiAS</strong> &bull; Uptime: 16h48m
+                <!-- 4. FIXED FOOTER CONTAINER (Modular: includes/footer.html) -->
+                <div id="footer-container">
+                    <footer class="mitrautama-fixed-footer">
+                        <div class="footer-left-info">
+                            <strong>RouterOS v7.24.5 (stable)</strong> &bull; Board: <strong>RB3011UiAS</strong> &bull; Uptime: 16h48m
+                        </div>
+                        <div>
+                            <span>Voltage: 23.9V</span> | <span>Temp: 45°C</span> | <span>Memory: 942.1MB Free</span>
+                        </div>
+                    </footer>
                 </div>
-                <div>
-                    <span>Voltage: 23.9V</span> | <span>Temp: 45°C</span> | <span>Memory: 942.1MB Free</span>
-                </div>
-            </footer>
+            </div>
         </div>
     </div>
 

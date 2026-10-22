@@ -47,7 +47,19 @@ html, body {
     position: relative;
 }
 
-/* FIXED FOOTER */
+/* RIGHT MAIN COLUMN (MAIN CONTENT AREA + BOTTOM FOOTER) */
+.mitrautama-main-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* FIXED FOOTER (Flush right under main content area only) */
 .mitrautama-fixed-footer {
     height: 32px;
     min-height: 32px;
@@ -61,6 +73,7 @@ html, body {
     color: var(--mu-text-muted, #64748b);
     z-index: 1040;
     gap: 16px;
+    width: 100%;
 }
 
 .mitrautama-fixed-footer .footer-left-info {
@@ -174,7 +187,7 @@ html, body {
     position: absolute;
     left: 100%;
     top: 0;
-    margin-left: 2px;
+    margin-left: 8px;
     min-width: 185px;
     background: var(--mu-bg-card, #ffffff);
     border: 1px solid var(--mu-border, #cbd5e1);

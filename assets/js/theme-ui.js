@@ -17,10 +17,12 @@ export class ThemeUIController {
     }
 
     bindButtons() {
-        const buttons = document.querySelectorAll('[data-theme-set]');
+        // Support both [data-theme-set] and [data-mitrautama-theme]
+        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
         buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const mode = btn.getAttribute('data-theme-set');
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const mode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
                 themeManager.setTheme(mode);
                 this.updateActiveButton(mode);
             });
@@ -31,14 +33,22 @@ export class ThemeUIController {
     }
 
     updateActiveButton(mode) {
-        const buttons = document.querySelectorAll('[data-theme-set]');
+        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
         buttons.forEach(btn => {
-            if (btn.getAttribute('data-theme-set') === mode) {
+            const btnMode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
+            if (btnMode === mode) {
                 btn.classList.add('active');
             } else {
                 btn.classList.remove('active');
             }
         });
+
+        const label = document.getElementById('current-theme-label');
+        if (label) {
+            if (mode === 'auto') label.textContent = 'Auto Theme';
+            else if (mode === 'light') label.textContent = 'Light Theme';
+            else if (mode === 'dark') label.textContent = 'Dark Theme';
+        }
     }
 
     bindEvents() {

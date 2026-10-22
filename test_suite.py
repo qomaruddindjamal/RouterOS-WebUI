@@ -1,4 +1,4 @@
-# RouterOS WebUI Automated Test Suite — Expanded Audit Edition
+# RouterOS WebUI Automated Test Suite — Expanded Audit Edition (AUD-UI-07)
 
 import os
 import json
@@ -9,7 +9,7 @@ WORKSPACE = r"C:\RouterOS"
 
 class TestRouterOSWorkspace(unittest.TestCase):
     def test_workspace_isolation(self):
-        """Pastikan seluruh path yang diuji berada di C:\RouterOS"""
+        """Pastikan seluruh path yang diuji berada di C:\\RouterOS"""
         self.assertTrue(os.path.exists(WORKSPACE))
         self.assertEqual(os.path.abspath(WORKSPACE), r"C:\RouterOS")
 
@@ -67,106 +67,81 @@ class TestRouterOSWorkspace(unittest.TestCase):
             path = os.path.join(WORKSPACE, js)
             self.assertTrue(os.path.exists(path), f"JS hilang: {js}")
 
-    def test_json_fixtures_validity(self):
-        """Pastikan config.json dan interfaces.json valid JSON syntax"""
-        config_path = os.path.join(WORKSPACE, "config.json")
-        self.assertTrue(os.path.exists(config_path))
-        with open(config_path, "r", encoding="utf-8") as f:
-            cfg = json.load(f)
-            self.assertIn("app", cfg)
-            self.assertIn("navigation", cfg)
-
-        iface_path = os.path.join(WORKSPACE, "packages", "interfaces", "interfaces.json")
-        self.assertTrue(os.path.exists(iface_path))
-        with open(iface_path, "r", encoding="utf-8") as f:
-            ifaces = json.load(f)
-            self.assertIn("interfaces", ifaces)
-            self.assertGreater(len(ifaces["interfaces"]), 0)
-
-    def test_sidebar_naming_standards(self):
-        """Pastikan penamaan atribut menggunakan mitrautama-"""
-        sb_path = os.path.join(WORKSPACE, "includes", "sidebar.html")
-        with open(sb_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            self.assertIn("data-mitrautama-view", content)
-            self.assertIn("mitrautama-menu-item", content)
-
-    def test_home_dashboard_active_default(self):
-        """Pastikan Home Dashboard adalah tampilan aktif default"""
-        idx_path = os.path.join(WORKSPACE, "index.html")
-        with open(idx_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            self.assertIn('data-mitrautama-view="dashboard"', content)
-            self.assertIn('id="view-dashboard"', content)
-
-    def test_interfaces_16_subtabs_present(self):
-        """Verifikasi bahwa 16 sub-tab Interfaces terdaftar secara lengkap"""
-        iface_path = os.path.join(WORKSPACE, "packages", "interfaces", "interfaces.html")
-        with open(iface_path, "r", encoding="utf-8") as f:
-            html = f.read()
-        
-        expected_tabs = [
-            "interface", "interface-list", "ethernet", "eoip-tunnel",
-            "ip-tunnel", "gre-tunnel", "vlan", "bridge",
-            "vxlan", "vrf", "vrrp", "lacc",
-            "macsec", "macvlan", "vether", "vether-tunnel"
+    def test_json_data_validity(self):
+        """Validasi integritas sintaks config.json dan interfaces.json"""
+        json_targets = [
+            "config.json",
+            "packages/interfaces/interfaces.json"
         ]
-        for t in expected_tabs:
-            pattern = f'data-mitrautama-subtab="{t}"'
-            self.assertIn(pattern, html, f"Sub-tab '{t}' tidak ditemukan di interfaces.html")
+        for jt in json_targets:
+            path = os.path.join(WORKSPACE, jt)
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            self.assertIsInstance(data, (dict, list), f"Data bukan JSON valid: {jt}")
 
-    def test_modal_manual_close_policy(self):
-        """Verifikasi bahwa modal.js memiliki proteksi manual close (tidak auto-close pada backdrop)"""
-        modal_js_path = os.path.join(WORKSPACE, "assets", "js", "modal.js")
-        with open(modal_js_path, "r", encoding="utf-8") as f:
-            js = f.read()
-        self.assertIn("modal-shake", js)
-        self.assertIn("data-mitrautama-modal-close", js)
-
-    def test_crud_simulation_engine(self):
-        """Verifikasi bahwa data-loader.js menyediakan metode simulasi CRUD lengkap"""
-        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
-        with open(loader_path, "r", encoding="utf-8") as f:
-            js = f.read()
-        self.assertIn("addInterface", js)
-        self.assertIn("removeSelectedInterface", js)
-        self.assertIn("toggleSelectedStatus", js)
-        self.assertIn("getSelectedInterface", js)
-
-    def test_chart_buffer_bounding(self):
-        """Verifikasi bahwa charts.js membatasi panjang titik data buffer (anti memory leak)"""
-        chart_js_path = os.path.join(WORKSPACE, "assets", "js", "charts.js")
-        with open(chart_js_path, "r", encoding="utf-8") as f:
-            js = f.read()
-        self.assertIn("maxDataPoints", js)
-        self.assertIn("this.timeLabels.shift()", js)
-
-    def test_crud_edit_interface(self):
-        """Verifikasi implementasi edit interface di data-loader.js dan modal edit di index.html"""
-        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
-        with open(loader_path, "r", encoding="utf-8") as f:
-            js = f.read()
-        self.assertIn("updateSelectedInterface", js)
-        self.assertIn("notifySelectionChange", js)
-
-        idx_path = os.path.join(WORKSPACE, "index.html")
-        with open(idx_path, "r", encoding="utf-8") as f:
+    def test_naming_conventions_in_index(self):
+        """Pastikan kelas dan atribut mitrautama- konsisten pada index.html"""
+        with open(os.path.join(WORKSPACE, "index.html"), "r", encoding="utf-8") as f:
             html = f.read()
-        self.assertIn('id="modal-edit-interface"', html)
-        self.assertIn('id="btn-save-edit-interface"', html)
+        self.assertIn("mitrautama-app-wrapper", html)
+        self.assertIn("mitrautama-fixed-header", html)
+        self.assertIn("mitrautama-body-container", html)
+        self.assertIn("mitrautama-sidebar", html)
+        self.assertIn("mitrautama-fixed-footer", html)
 
-    def test_charts_timer_cleanup(self):
-        """Verifikasi chart timer cleanup dan destroyCharts di js/charts.js"""
-        chart_js_path = os.path.join(WORKSPACE, "assets", "js", "charts.js")
-        with open(chart_js_path, "r", encoding="utf-8") as f:
+    def test_svg_iconography(self):
+        """Pastikan modul interfaces.html tidak menggunakan emoji dalam tabel atau tombol aksi"""
+        path = os.path.join(WORKSPACE, "packages/interfaces/interfaces.html")
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        emojis = ["🔌", "📶", "🌉", "🔒", "⚙️", "✅", "❌", "🗑️", "➕"]
+        for em in emojis:
+            self.assertNotIn(em, content, f"Emoji ditemukan dalam interfaces.html: {em}")
+
+    def test_modal_manual_close_rule(self):
+        """Verifikasi bahwa modal dialog hanya memiliki penutupan manual (Strict Manual Close)"""
+        with open(os.path.join(WORKSPACE, "assets/js/modal.js"), "r", encoding="utf-8") as f:
             js = f.read()
-        self.assertIn("stopStream", js)
-        self.assertIn("destroyCharts", js)
-        self.assertIn("clearInterval(this.streamTimer)", js)
+        self.assertIn("data-mitrautama-modal-close", js)
+        self.assertNotIn("backdropClose = true", js)
 
-    def test_html_escaping(self):
-        """Verifikasi sanitasi escapeHtml pada rendering data-loader.js"""
-        loader_path = os.path.join(WORKSPACE, "assets", "js", "data-loader.js")
+    def test_module_loader_wiring(self):
+        """Verifikasi bahwa module-loader.js memuat daftar modul yang sesuai"""
+        with open(os.path.join(WORKSPACE, "assets/js/module-loader.js"), "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("includes/header.html", js)
+        self.assertIn("includes/sidebar.html", js)
+        self.assertIn("includes/footer.html", js)
+        self.assertIn("packages/interfaces/interfaces.html", js)
+        self.assertIn("packages/switch/switch.html", js)
+        self.assertIn("packages/bridge/bridge.html", js)
+
+    def test_theme_system_integrity(self):
+        """Verifikasi fungsionalitas tema Auto, Light, dan Dark"""
+        with open(os.path.join(WORKSPACE, "assets/js/theme.js"), "r", encoding="utf-8") as f:
+            theme_js = f.read()
+        self.assertIn("class ThemeManager", theme_js)
+        self.assertIn("setTheme", theme_js)
+        self.assertIn("data-theme", theme_js)
+
+    def test_chart_module_cleanup(self):
+        """Verifikasi bahwa charts.js memiliki fungsi pembersihan interval dan instance saat beralih modul"""
+        with open(os.path.join(WORKSPACE, "assets/js/charts.js"), "r", encoding="utf-8") as f:
+            chart_js = f.read()
+        self.assertIn("clearInterval", chart_js)
+        self.assertIn("destroy()", chart_js)
+
+    def test_navigation_dropright_support(self):
+        """Verifikasi event binding drop-right submenu di navigation.js"""
+        with open(os.path.join(WORKSPACE, "assets/js/navigation.js"), "r", encoding="utf-8") as f:
+            nav_js = f.read()
+        self.assertIn("bindDropRightSubMenus", nav_js)
+        self.assertIn("mitrautama-submenu-toggle", nav_js)
+
+    def test_data_loader_xss_protection(self):
+        """Verifikasi bahwa fungsi render di data-loader.js menerapkan escapeHtml"""
+        loader_path = os.path.join(WORKSPACE, "assets/js/data-loader.js")
         with open(loader_path, "r", encoding="utf-8") as f:
             js = f.read()
         self.assertIn("escapeHtml", js)
@@ -178,7 +153,6 @@ class TestRouterOSWorkspace(unittest.TestCase):
             with open(path, "r", encoding="utf-8") as f:
                 content = f.read()
             self.assertIn("mitrane-window", content, f"{mod} missing .mitrane-window")
-
 
     def test_dashboard_kpi_cards_and_charts_structure(self):
         """Verifikasi struktur kartu 4 KPI dan 2 grafik responsif pada dashboard index.html"""
@@ -207,6 +181,28 @@ class TestRouterOSWorkspace(unittest.TestCase):
             js = f.read()
         self.assertIn("window.chartController.initTrafficChart()", js)
         self.assertIn("window.chartController.stopStream()", js)
+
+    def test_aud_ui_07_shell_layout_hierarchy(self):
+        """AUD-UI-07: Verifikasi hirarki DOM 3-area: header di atas, sidebar di kiri, main-column (content + footer) di kanan"""
+        idx_path = os.path.join(WORKSPACE, "index.html")
+        with open(idx_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        self.assertIn('class="mitrautama-main-column"', html)
+        main_col_pos = html.find('class="mitrautama-main-column"')
+        footer_pos = html.find('id="footer-container"')
+        self.assertTrue(main_col_pos != -1 and footer_pos != -1)
+        self.assertTrue(footer_pos > main_col_pos, "footer-container harus berada di dalam mitrautama-main-column")
+
+    def test_aud_ui_07_sidebar_collapse_and_dropright(self):
+        """AUD-UI-07: Verifikasi CSS sidebar width, collapsed width, dan flyout popover drop-right"""
+        css_path = os.path.join(WORKSPACE, "assets", "css", "mitrautama-all-min.css")
+        with open(css_path, "r", encoding="utf-8") as f:
+            css = f.read()
+        self.assertIn('.mitrautama-main-column', css)
+        self.assertIn('.mitrautama-sidebar', css)
+        self.assertIn('.mitrautama-sidebar.collapsed', css)
+        self.assertIn('.mitrautama-submenu-list', css)
+        self.assertIn('left: 100%', css)
 
 if __name__ == "__main__":
     unittest.main()

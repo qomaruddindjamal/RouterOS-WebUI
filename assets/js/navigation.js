@@ -28,11 +28,20 @@ export class NavigationManager {
         const toggleBtn = document.getElementById('sidebar-toggle-btn');
         const sidebar = document.getElementById('sidebarMenu');
         if (toggleBtn && sidebar) {
+            toggleBtn.setAttribute('aria-expanded', sidebar.classList.contains('collapsed') ? 'false' : 'true');
+
             toggleBtn.addEventListener('click', () => {
                 sidebar.classList.toggle('collapsed');
                 const isCollapsed = sidebar.classList.contains('collapsed');
                 document.body.classList.toggle('mitrautama-sidebar-collapsed', isCollapsed);
+                toggleBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
                 localStorage.setItem('mitra_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+                
+                // Trigger window resize event agar Chart.js merespons lebar canvas baru
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 260);
+
                 toastManager.show({
                     title: isCollapsed ? 'Sidebar Diciutkan' : 'Sidebar Diperluas',
                     message: isCollapsed ? 'Navigasi mode icon minimalis.' : 'Navigasi mode lengkap.',
@@ -45,6 +54,7 @@ export class NavigationManager {
             if (localStorage.getItem('mitra_sidebar_collapsed') === 'true') {
                 sidebar.classList.add('collapsed');
                 document.body.classList.add('mitrautama-sidebar-collapsed');
+                toggleBtn.setAttribute('aria-expanded', 'false');
             }
         }
     }
@@ -117,8 +127,8 @@ export class NavigationManager {
         });
     }
 
-        bindWinboxSubTabs() {
-        // 1. Selector untuk sub-tabs mitrautama standard dan mitrane tabs
+    bindWinboxSubTabs() {
+        // Selector untuk sub-tabs mitrautama standard, mitrane tabs, dan tab-target
         const subTabs = document.querySelectorAll('[data-mitrautama-subtab], .mitrautama-winbox-tab[data-tab-target], .mitrautama-subtab[data-mitrautama-subtab], .mitrane-tab-item');
         subTabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
@@ -135,8 +145,13 @@ export class NavigationManager {
                 const parentView = tab.closest('.mitrautama-subview') || tab.closest('.mitrautama-view-section') || document;
                 const tabPanes = parentView.querySelectorAll('.mitrautama-tab-content, .mitrautama-tab-pane');
                 if (tabPanes.length > 0 && subtabName) {
-                    tabPanes.forEach(p => p.classList.remove('active'));
-                    const targetContent = parentView.querySelector(#subtab-) || parentView.querySelector(#);
+                    tabPanes.forEach(p => {
+                        p.classList.remove('active');
+                        p.style.display = 'none';
+                    });
+                    const targetContent = parentView.querySelector(`#subtab-${subtabName}`) || 
+                                          parentView.querySelector(`#${subtabName}`) ||
+                                          document.getElementById(subtabName);
                     if (targetContent) {
                         targetContent.classList.add('active');
                         targetContent.style.display = 'block';
@@ -145,7 +160,7 @@ export class NavigationManager {
 
                 toastManager.show({
                     title: 'Sub-Tab Aktif',
-                    message: Membuka tampilan tab: ,
+                    message: `Membuka tampilan tab: ${tab.textContent.trim()}`,
                     type: 'info',
                     duration: 1200
                 });
