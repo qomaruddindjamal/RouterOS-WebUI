@@ -163,45 +163,16 @@
             transform: translateY(0);
         }
 
-        /* Top Corner Floating Theme Toggle */
-        .mitrautama-floating-theme {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            z-index: 100;
-        }
-
         @media (max-width: 576px) {
             .mitrautama-login-card {
                 padding: 24px 18px 20px 18px;
                 border-radius: 10px;
                 box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             }
-            .mitrautama-floating-theme {
-                top: 10px;
-                right: 10px;
-            }
         }
     </style>
 </head>
 <body class="mitrautama-login-body">
-
-    <!-- Floating Theme Switcher Button -->
-    <div class="mitrautama-floating-theme">
-        <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center border shadow-sm" id="btn-theme-toggle" title="Ganti Tema" style="width: 34px; height: 34px; border-radius: 50%; background: var(--login-card-bg);">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
-    </div>
 
     <!-- Main Responsive Login Card (Centered, No Header, No Footer) -->
     <div class="mitrautama-login-card">
@@ -311,24 +282,7 @@
 
     <!-- Script Wiring -->
     <script type="module">
-        import { themeManager } from './assets/js/theme.js';
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme toggle listener on login page
-            const themeBtn = document.getElementById('btn-theme-toggle');
-            if (themeBtn) {
-                themeBtn.addEventListener('click', () => {
-                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-                    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    if (window.themeManager) {
-                        window.themeManager.setTheme(nextTheme);
-                    } else {
-                        document.documentElement.setAttribute('data-theme', nextTheme);
-                        localStorage.setItem('mitrautama_theme', nextTheme);
-                    }
-                });
-            }
-
             // Password Visibility Toggle
             const togglePwd = document.getElementById('toggle-password');
             const passwordInput = document.getElementById('password-input');
