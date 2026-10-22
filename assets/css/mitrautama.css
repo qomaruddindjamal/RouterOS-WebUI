@@ -1017,3 +1017,90 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     padding: 4px 12px !important;
     box-sizing: border-box !important;
 }
+
+/* =========================================================================
+   WINBOX TABLE BORDER & SLEEK SCROLLBAR FOR OVERFLOW CONTENT
+   ========================================================================= */
+.mitrautama-table-container,
+#view-interfaces .mitrautama-table-container {
+    border-bottom: 1px solid #cbd5e1 !important;
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+}
+
+[data-theme="dark"] .mitrautama-table-container,
+[data-period="malam"] .mitrautama-table-container,
+[data-theme="dark"] #view-interfaces .mitrautama-table-container,
+[data-period="malam"] #view-interfaces .mitrautama-table-container {
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* Garis pemisah tegas di atas baris status footer (items counter) */
+.mitrane-status-subsystem,
+#view-interfaces .mitrane-status-subsystem {
+    border-top: 1px solid #cbd5e1 !important;
+    background: #f1f5f9 !important;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04) !important;
+    z-index: 10 !important;
+}
+
+[data-theme="dark"] .mitrane-status-subsystem,
+[data-period="malam"] .mitrane-status-subsystem,
+[data-theme="dark"] #view-interfaces .mitrane-status-subsystem,
+[data-period="malam"] #view-interfaces .mitrane-status-subsystem {
+    border-top: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+}
+
+/* Pastikan border bottom tiap row td tampil konsisten */
+.mitrane-grid-table tbody tr:last-child td {
+    border-bottom: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="dark"] .mitrane-grid-table tbody tr:last-child td,
+[data-period="malam"] .mitrane-grid-table tbody tr:last-child td {
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* Scrollbar halus elegan saat row melebihi tinggi layar */
+#view-interfaces .mitrautama-table-container::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+    display: block !important;
+}
+
+#view-interfaces .mitrautama-table-container::-webkit-scrollbar-track {
+    background: #f1f5f9 !important;
+}
+
+#view-interfaces .mitrautama-table-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-radius: 4px !important;
+}
+
+#view-interfaces .mitrautama-table-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8 !important;
+}
+
+#view-interfaces .mitrautama-table-container::-webkit-scrollbar-button {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Sticky Header pada tabel saat scroll data panjang */
+.mitrane-grid-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 5 !important;
+    background: #e2e8f0 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important;
+}
+
+[data-theme="dark"] .mitrane-grid-table thead th,
+[data-period="malam"] .mitrane-grid-table thead th {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+}
