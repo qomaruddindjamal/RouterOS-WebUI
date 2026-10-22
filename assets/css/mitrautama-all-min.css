@@ -776,6 +776,12 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         color: var(--mu-text-main, #1e293b) !important;
     }
 
+    /* Sembunyikan status text subtitle seperti 'MitraNet Interface Status' di mobile */
+    .mitrane-status-subsystem > div:last-child:not(:first-child),
+    .mitrane-status-subsystem > span.text-muted:last-child:not(:first-child) {
+        display: none !important;
+    }
+
     /* WinBox Toolbar Mobile Responsiveness (Clean Single-Line Scrollable) */
     .mitrane-toolbar,
     .mitrautama-winbox-toolbar {
