@@ -826,6 +826,44 @@
         </div>
     </div>
 
+    <div id="modal-edit-interface" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    <span>Edit Interface (Simulasi)</span>
+                </div>
+                <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-edit-interface" title="Tutup Modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                    <input type="text" id="input-edit-iface-name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Type</label>
+                    <select id="select-edit-iface-type" class="form-select">
+                        <option value="VLAN">VLAN</option>
+                        <option value="Ethernet">Ethernet</option>
+                        <option value="Bridge">Bridge</option>
+                        <option value="WireGuard">WireGuard</option>
+                        <option value="EoIP">EoIP Tunnel</option>
+                        <option value="GRE">GRE</option>
+                        <option value="Loopback">Loopback</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">MTU</label>
+                    <input type="number" id="input-edit-iface-mtu" class="form-control" value="1500">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-save-edit-interface" class="btn btn-primary">Terapkan Perubahan</button>
+                <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-edit-interface">Batal</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap 5.3.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

@@ -1,6 +1,7 @@
 /**
  * MitraUtama Traffic & Charts Module
  * Render realtime Chart.js untuk Traffic Throughput (Rx / Tx), CPU Load, Memory, dan Latency.
+ * Dilengkapi lifecycle management: penghancuran timer lama untuk mencegah timer leak.
  */
 
 export class ChartController {
@@ -12,6 +13,7 @@ export class ChartController {
         this.rxData = [];
         this.txData = [];
         this.cpuData = [];
+        this.streamTimer = null;
         this.init();
     }
 
@@ -21,17 +23,35 @@ export class ChartController {
         this.startSimulatedRealtimeStream();
     }
 
+    destroyCharts() {
+        if (this.trafficChart) {
+            this.trafficChart.destroy();
+            this.trafficChart = null;
+        }
+        if (this.cpuChart) {
+            this.cpuChart.destroy();
+            this.cpuChart = null;
+        }
+    }
+
     initTrafficChart() {
         const ctx = document.getElementById('trafficChart');
         if (!ctx) return;
 
-        // Inisialisasi awal 15 titik data
-        const now = new Date();
-        for (let i = 14; i >= 0; i--) {
-            const t = new Date(now.getTime() - i * 2000);
-            this.timeLabels.push(t.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-            this.rxData.push(Math.floor(12 + Math.random() * 8)); // Mbps
-            this.txData.push(Math.floor(6 + Math.random() * 5));  // Mbps
+        if (this.trafficChart) {
+            this.trafficChart.destroy();
+            this.trafficChart = null;
+        }
+
+        // Inisialisasi awal 15 titik data jika belum ada
+        if (this.timeLabels.length === 0) {
+            const now = new Date();
+            for (let i = 14; i >= 0; i--) {
+                const t = new Date(now.getTime() - i * 2000);
+                this.timeLabels.push(t.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+                this.rxData.push(Math.floor(12 + Math.random() * 8)); // Mbps
+                this.txData.push(Math.floor(6 + Math.random() * 5));  // Mbps
+            }
         }
 
         this.trafficChart = new Chart(ctx, {
@@ -47,51 +67,46 @@ export class ChartController {
                         fill: true,
                         tension: 0.35,
                         borderWidth: 2,
-                        pointRadius: 2,
-                        pointHoverRadius: 5
+                        pointRadius: 0
                     },
                     {
                         label: 'Upload (Tx)',
                         data: this.txData,
                         borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.12)',
                         fill: true,
                         tension: 0.35,
                         borderWidth: 2,
-                        pointRadius: 2,
-                        pointHoverRadius: 5
+                        pointRadius: 0
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { size: 10 } }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(226, 232, 240, 0.6)' },
-                        ticks: {
-                            callback: (val) => val + ' Mbps',
-                            font: { size: 10 }
-                        }
-                    }
-                },
+                animation: false,
                 plugins: {
                     legend: {
                         position: 'top',
-                        labels: { boxWidth: 12, font: { size: 11, weight: '600' } }
+                        labels: { boxWidth: 12, font: { size: 11, family: 'Segoe UI' } }
                     },
                     tooltip: {
-                        callbacks: {
-                            label: (ctx) => `${ctx.dataset.label}: ${ctx.raw} Mbps`
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        grid: { display: false },
+                        ticks: { maxTicksLimit: 6, font: { size: 10 } }
+                    },
+                    y: {
+                        display: true,
+                        grid: { color: 'rgba(226, 232, 240, 0.6)' },
+                        ticks: {
+                            font: { size: 10 },
+                            callback: (val) => val + ' Mbps'
                         }
                     }
                 }
@@ -103,8 +118,15 @@ export class ChartController {
         const ctx = document.getElementById('cpuChart');
         if (!ctx) return;
 
-        for (let i = 14; i >= 0; i--) {
-            this.cpuData.push(Math.floor(2 + Math.random() * 6)); // CPU % RB3011 Dual-Core
+        if (this.cpuChart) {
+            this.cpuChart.destroy();
+            this.cpuChart = null;
+        }
+
+        if (this.cpuData.length === 0) {
+            for (let i = 14; i >= 0; i--) {
+                this.cpuData.push(Math.floor(2 + Math.random() * 5));
+            }
         }
 
         this.cpuChart = new Chart(ctx, {
@@ -117,7 +139,7 @@ export class ChartController {
                     borderColor: '#f59e0b',
                     backgroundColor: 'rgba(245, 158, 11, 0.15)',
                     fill: true,
-                    tension: 0.3,
+                    tension: 0.2,
                     borderWidth: 2,
                     pointRadius: 0
                 }]
@@ -125,23 +147,30 @@ export class ChartController {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: false,
+                plugins: {
+                    legend: { display: false }
+                },
                 scales: {
                     x: { display: false },
                     y: {
                         min: 0,
                         max: 100,
-                        ticks: { font: { size: 9 }, stepSize: 25 }
+                        ticks: { font: { size: 10 }, callback: (v) => v + '%' }
                     }
-                },
-                plugins: {
-                    legend: { display: false }
                 }
             }
         });
     }
 
     startSimulatedRealtimeStream() {
-        setInterval(() => {
+        // Hentikan timer sebelumnya jika sudah aktif (mencegah duplikasi timer)
+        if (this.streamTimer) {
+            clearInterval(this.streamTimer);
+            this.streamTimer = null;
+        }
+
+        this.streamTimer = setInterval(() => {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
@@ -183,6 +212,13 @@ export class ChartController {
                 this.cpuChart.update('quiet');
             }
         }, 2000);
+    }
+
+    stopStream() {
+        if (this.streamTimer) {
+            clearInterval(this.streamTimer);
+            this.streamTimer = null;
+        }
     }
 }
 

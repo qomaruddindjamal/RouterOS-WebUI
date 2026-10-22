@@ -10,6 +10,18 @@ export class JsonDataService {
         this.interfacesData = null;
         this.selectedIndex = -1;
         this.currentFilter = '';
+        this.onSelectionChangeCallbacks = [];
+    }
+
+    onSelectionChange(cb) {
+        if (typeof cb === 'function') {
+            this.onSelectionChangeCallbacks.push(cb);
+        }
+    }
+
+    notifySelectionChange() {
+        const item = this.getSelectedInterface();
+        this.onSelectionChangeCallbacks.forEach(cb => cb(item, this.selectedIndex));
     }
 
     async loadConfig() {
@@ -31,6 +43,7 @@ export class JsonDataService {
             if (res.ok) {
                 this.interfacesData = await res.json();
                 this.selectedIndex = -1;
+                this.notifySelectionChange();
                 return this.interfacesData;
             }
         } catch (e) {
@@ -62,14 +75,19 @@ export class JsonDataService {
             const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
             const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
 
+            // Sanitasi teks dengan pengamanan textContent / escaping
+            const safeName = this.escapeHtml(item.name);
+            const safeSubname = this.escapeHtml(item.subname);
+            const safeType = this.escapeHtml(item.type);
+
             return `
             <tr data-mitrautama-row-index="${idx}" class="${isSelected}" style="cursor: pointer;">
                 <td class="text-center" style="width: 28px;">${iconSvg}</td>
                 <td>
-                    <strong>${item.name}</strong> 
-                    <span class="text-muted" style="font-size: 0.72rem;">(${item.subname})</span>
+                    <strong>${safeName}</strong> 
+                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
                 </td>
-                <td><span class="mitrane-badge-type">${item.type}</span></td>
+                <td><span class="mitrane-badge-type">${safeType}</span></td>
                 <td>${item.actualMtu}</td>
                 <td>${item.l2Mtu}</td>
                 <td class="${txRateClass}">${item.tx}</td>
@@ -89,6 +107,7 @@ export class JsonDataService {
                 const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
                 this.selectedIndex = (this.selectedIndex === idx) ? -1 : idx;
                 this.renderInterfacesTable(containerId, this.currentFilter);
+                this.notifySelectionChange();
             });
         });
 
@@ -103,11 +122,12 @@ export class JsonDataService {
             this.interfacesData = { total: 0, interfaces: [] };
         }
         const record = {
+            id: 'iface_' + Date.now(),
             name: newRecord.name || 'new-iface',
             subname: newRecord.subname || (newRecord.name ? newRecord.name.toLowerCase() : 'iface'),
             type: newRecord.type || 'Ethernet',
             status: 'running',
-            actualMtu: newRecord.actualMtu || 1500,
+            actualMtu: Number(newRecord.actualMtu) || 1500,
             l2Mtu: 1500,
             tx: '0 B/s',
             rx: '0 B/s',
@@ -122,7 +142,25 @@ export class JsonDataService {
         this.interfacesData.total = this.interfacesData.interfaces.length;
         this.selectedIndex = 0;
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
         return record;
+    }
+
+    updateSelectedInterface(updatedFields) {
+        if (!this.interfacesData || this.selectedIndex < 0 || this.selectedIndex >= this.interfacesData.interfaces.length) {
+            return null;
+        }
+        const item = this.interfacesData.interfaces[this.selectedIndex];
+        if (updatedFields.name) {
+            item.name = updatedFields.name;
+            item.subname = updatedFields.subname || updatedFields.name.toLowerCase();
+        }
+        if (updatedFields.type) item.type = updatedFields.type;
+        if (updatedFields.actualMtu) item.actualMtu = Number(updatedFields.actualMtu);
+
+        this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
+        return item;
     }
 
     removeSelectedInterface() {
@@ -133,6 +171,7 @@ export class JsonDataService {
         this.interfacesData.total = this.interfacesData.interfaces.length;
         this.selectedIndex = -1;
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
         return removed;
     }
 
@@ -147,6 +186,7 @@ export class JsonDataService {
             item.status = (item.status === 'running') ? 'inactive' : 'running';
         }
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
+        this.notifySelectionChange();
         return item;
     }
 
@@ -155,6 +195,16 @@ export class JsonDataService {
             return null;
         }
         return this.interfacesData.interfaces[this.selectedIndex];
+    }
+
+    escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     }
 }
 

@@ -1,51 +1,116 @@
 <div class="mitrautama-subview" id="view-queues">
-  <div class="mitrautama-window-header">
-    <div class="mitrautama-window-title">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <strong>Queues</strong> (Bandwidth Management)
-    </div>
-  </div>
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        <span>Queues</span>
+      </button>
 
-  <div class="mitrautama-subtabs-bar">
-    <button class="mitrautama-subtab active" data-mitrautama-subtab="queues-simple">Simple Queues</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="queues-tree">Queue Tree</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="queues-types">Queue Types</button>
-  </div>
-
-  <div class="mitrautama-tab-content active" id="subtab-queues-simple">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>#</th><th>Name</th><th>Target</th><th>Max Limit (Up/Down)</th><th>Priority</th><th>Queue Type</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>0</td><td><strong>ALL TRAFIC</strong></td><td>0.0.0.0/0</td><td>500M / 500M</td><td>8/8</td><td>pcq-upload / pcq-download</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
-          <tr><td>1</td><td><strong>CLIENT-VIP</strong></td><td>172.16.92.0/24</td><td>100M / 100M</td><td>1/1</td><td>default-small</td><td><span class="badge bg-success">Active</span></td></tr>
-        </tbody>
-      </table>
+      <a href="#" class="mitrane-tab-item active" data-mitrautama-subtab="queues-simple">Simple Queues</a>
+      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="queues-tree">Queue Tree</a>
+      <a href="#" class="mitrane-tab-item" data-mitrautama-subtab="queues-types">Queue Types</a>
     </div>
-  </div>
 
-  <div class="mitrautama-tab-content" id="subtab-queues-tree">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>Name</th><th>Parent</th><th>Packet Mark</th><th>Queue Type</th><th>Priority</th><th>Max Limit</th></tr></thead>
-        <tbody>
-          <tr><td colspan="6" class="text-center text-muted py-3">No Queue Tree rules configured.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar">
+      <div class="mitrane-action-group">
+        <button type="button" class="mitrane-btn-action btn-new" id="btn-queues-new">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action" id="btn-queues-enable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action" id="btn-queues-disable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action" id="btn-queues-remove">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+      </div>
 
-  <div class="mitrautama-tab-content" id="subtab-queues-types">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>Type Name</th><th>Kind</th><th>Parameters</th></tr></thead>
-        <tbody>
-          <tr><td>default</td><td>pfifo</td><td>pfifo-limit=50</td></tr>
-          <tr><td>default-small</td><td>pfifo</td><td>pfifo-limit=10</td></tr>
-          <tr><td>pcq-download-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
-          <tr><td>pcq-upload-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
-        </tbody>
-      </table>
+      <div class="d-flex align-items-center gap-2">
+        <button type="button" class="mitrane-btn-action" id="btn-queues-refresh" title="Refresh Table">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
     </div>
+
+    <!-- 3. Grid Table Content -->
+    <div class="mitrautama-tab-content active" id="subtab-queues-simple">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table" id="table-queues-simple">
+          <thead>
+            <tr>
+              <th style="width: 28px;">#</th>
+              <th>Name</th>
+              <th>Target</th>
+              <th>Max Limit (Up/Down)</th>
+              <th>Priority</th>
+              <th>Queue Type</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td><strong>ALL TRAFIC</strong></td>
+              <td>0.0.0.0/0</td>
+              <td>500M / 500M</td>
+              <td>8/8</td>
+              <td>pcq-upload / pcq-download</td>
+              <td><span class="badge bg-secondary">Disabled</span></td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td><strong>CLIENT-VIP</strong></td>
+              <td>172.16.92.0/24</td>
+              <td>100M / 100M</td>
+              <td>1/1</td>
+              <td>default-small</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-queues-tree" style="display: none;">
+      <div class="p-3 text-center text-muted">
+        Tidak ada antrean bertingkat (Queue Tree) yang dikonfigurasi.
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-queues-types" style="display: none;">
+      <div class="flex-grow-1 overflow-auto">
+        <table class="mitrane-grid-table">
+          <thead>
+            <tr><th>Type Name</th><th>Kind</th><th>Parameters</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>default</td><td>pfifo</td><td>pfifo-limit=50</td></tr>
+            <tr><td>default-small</td><td>pfifo</td><td>pfifo-limit=10</td></tr>
+            <tr><td>pcq-download-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+            <tr><td>pcq-upload-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
+      <span>Total: 2 queues</span>
+      <span class="text-muted">Bandwidth QoS Subsystem</span>
+    </div>
+
   </div>
 </div>

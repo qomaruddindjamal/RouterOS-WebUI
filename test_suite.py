@@ -141,5 +141,43 @@ class TestRouterOSWorkspace(unittest.TestCase):
         self.assertIn("maxDataPoints", js)
         self.assertIn("this.timeLabels.shift()", js)
 
+    def test_crud_edit_interface(self):
+        """Verifikasi implementasi edit interface di data-loader.js dan modal edit di index.html"""
+        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        with open(loader_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("updateSelectedInterface", js)
+        self.assertIn("notifySelectionChange", js)
+
+        idx_path = os.path.join(WORKSPACE, "index.html")
+        with open(idx_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        self.assertIn('id="modal-edit-interface"', html)
+        self.assertIn('id="btn-save-edit-interface"', html)
+
+    def test_charts_timer_cleanup(self):
+        """Verifikasi chart timer cleanup dan destroyCharts di js/charts.js"""
+        chart_js_path = os.path.join(WORKSPACE, "js", "charts.js")
+        with open(chart_js_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("stopStream", js)
+        self.assertIn("destroyCharts", js)
+        self.assertIn("clearInterval(this.streamTimer)", js)
+
+    def test_html_escaping(self):
+        """Verifikasi sanitasi escapeHtml pada rendering data-loader.js"""
+        loader_path = os.path.join(WORKSPACE, "js", "data-loader.js")
+        with open(loader_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("escapeHtml", js)
+
+    def test_all_subviews_mitrane_window_class(self):
+        """Verifikasi keseragaman arsitektur .mitrane-window pada modul utama"""
+        for mod in ["interfaces/interfaces.html", "queues/queues.html", "ip/ip.html"]:
+            path = os.path.join(WORKSPACE, mod)
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read()
+            self.assertIn("mitrane-window", content, f"{mod} missing .mitrane-window")
+
 if __name__ == "__main__":
     unittest.main()

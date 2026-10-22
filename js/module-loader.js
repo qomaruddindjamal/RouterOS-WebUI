@@ -71,6 +71,20 @@ export class ModuleLoader {
                 jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
             }
 
+            // Sync Edit & Action Buttons state when selection changes
+            const editBtn = document.getElementById('btn-interface-edit');
+            jsonDataService.onSelectionChange((selectedItem) => {
+                if (editBtn) {
+                    if (selectedItem) {
+                        editBtn.removeAttribute('disabled');
+                        editBtn.classList.remove('opacity-50');
+                    } else {
+                        editBtn.setAttribute('disabled', 'true');
+                        editBtn.classList.add('opacity-50');
+                    }
+                }
+            });
+
             // Bind Search Filter
             const searchInput = document.getElementById('mitrane-interface-search');
             if (searchInput) {
@@ -90,6 +104,75 @@ export class ModuleLoader {
                         message: 'Data interfaces dimuat ulang dari fixture JSON.',
                         type: 'success',
                         duration: 1500
+                    });
+                });
+            }
+
+            // Bind Edit Button
+            if (editBtn) {
+                editBtn.addEventListener('click', () => {
+                    const selected = jsonDataService.getSelectedInterface();
+                    if (!selected) {
+                        toastManager.show({
+                            title: 'Pilih Baris',
+                            message: 'Silakan pilih interface pada tabel untuk diedit.',
+                            type: 'warning',
+                            duration: 2000
+                        });
+                        return;
+                    }
+
+                    // Populate fields in modal-edit-interface
+                    const nameField = document.getElementById('input-edit-iface-name');
+                    const typeField = document.getElementById('select-edit-iface-type');
+                    const mtuField = document.getElementById('input-edit-iface-mtu');
+
+                    if (nameField) nameField.value = selected.name;
+                    if (typeField) typeField.value = selected.type;
+                    if (mtuField) mtuField.value = selected.actualMtu;
+
+                    if (window.modalManager) {
+                        window.modalManager.open('modal-edit-interface');
+                    }
+                });
+            }
+
+            // Bind Save Edit Button inside Modal
+            const saveEditBtn = document.getElementById('btn-save-edit-interface');
+            if (saveEditBtn) {
+                saveEditBtn.addEventListener('click', () => {
+                    const nameField = document.getElementById('input-edit-iface-name');
+                    const typeField = document.getElementById('select-edit-iface-type');
+                    const mtuField = document.getElementById('input-edit-iface-mtu');
+
+                    const newName = nameField ? nameField.value.trim() : '';
+                    if (!newName) {
+                        if (window.Swal) {
+                            window.Swal.fire({
+                                title: 'Nama Wajib Diisi',
+                                text: 'Nama interface tidak boleh kosong.',
+                                icon: 'error',
+                                confirmButtonColor: '#ef4444'
+                            });
+                        }
+                        return;
+                    }
+
+                    const updated = jsonDataService.updateSelectedInterface({
+                        name: newName,
+                        type: typeField ? typeField.value : 'VLAN',
+                        actualMtu: mtuField ? mtuField.value : 1500
+                    });
+
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-edit-interface');
+                    }
+
+                    toastManager.show({
+                        title: 'Perubahan Disimpan',
+                        message: `Interface "${updated.name}" berhasil diperbarui (simulasi).`,
+                        type: 'success',
+                        duration: 2000
                     });
                 });
             }
@@ -221,7 +304,7 @@ export class ModuleLoader {
                 });
             }
 
-            // Bind Modal Save Interface Form
+            // Bind Modal Save Interface Form (Create)
             const saveIfaceBtn = document.getElementById('btn-save-new-interface');
             if (saveIfaceBtn) {
                 saveIfaceBtn.addEventListener('click', () => {
