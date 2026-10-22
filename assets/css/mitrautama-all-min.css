@@ -813,7 +813,14 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
 
     .mu-brand-text,
     body.mitrautama-sidebar-collapsed .mu-brand-text {
-        display: none !important;
+        display: inline-block !important;
+    }
+
+    .mu-brand-text strong {
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        color: var(--mu-text-main, #0f172a) !important;
+        line-height: 1.2 !important;
     }
 
     /* Sidebar Drawer Slide-in dari Kiri saat Mobile */
