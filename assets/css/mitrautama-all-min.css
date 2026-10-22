@@ -2242,3 +2242,197 @@ input[type=number] {
     border-top: 1px solid #1f2937 !important;
     color: #94a3b8 !important;
 }
+
+/* =========================================================================
+   WINBOX TERMINAL WINDOW ADAPTIVE THEME (LIGHT / DARK / AUTO MALAM)
+   ========================================================================= */
+#view-terminal .mitrane-window {
+    background: #ffffff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+#view-terminal .mitrane-tab-bar {
+    background: #dbe4ef !important;
+    border-bottom: 1px solid #b8c7d9 !important;
+    padding: 3px 6px 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+}
+
+#view-terminal .mitrane-window-title-btn {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border: 1px solid #b8c7d9 !important;
+    border-bottom: none !important;
+    border-radius: 5px 5px 0 0 !important;
+    padding: 4px 10px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+#view-terminal .mitrane-tab-item {
+    background: transparent !important;
+    color: #475569 !important;
+    border: 1px solid transparent !important;
+    border-bottom: none !important;
+    border-radius: 5px 5px 0 0 !important;
+    padding: 4px 10px !important;
+    font-size: 0.775rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+#view-terminal .mitrane-tab-item:hover {
+    background: rgba(255, 255, 255, 0.6) !important;
+    color: #0f172a !important;
+}
+
+#view-terminal .mitrane-tab-item.active {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #b8c7d9 !important;
+    border-bottom: 1px solid #ffffff !important;
+    font-weight: 700 !important;
+    margin-bottom: -1px !important;
+}
+
+#view-terminal .mitrane-tab-new-btn {
+    background: transparent !important;
+    color: #0284c7 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+}
+
+#view-terminal .mitrane-tab-new-btn:hover {
+    background: rgba(2, 132, 199, 0.1) !important;
+    color: #0369a1 !important;
+}
+
+/* Console Area Light Mode */
+#view-terminal .terminal-session-pane {
+    background: #ffffff !important;
+    color: #1e293b !important;
+}
+
+#view-terminal .terminal-session-pane .terminal-ascii-art {
+    color: #0284c7 !important;
+}
+
+#view-terminal .terminal-session-pane .terminal-info-text {
+    color: #475569 !important;
+}
+
+#view-terminal .terminal-session-pane .terminal-prompt {
+    color: #0284c7 !important;
+}
+
+#view-terminal .terminal-session-pane .terminal-input {
+    color: #0f172a !important;
+}
+
+#view-terminal .terminal-session-pane hr {
+    border-color: #e2e8f0 !important;
+}
+
+#view-terminal .mitrane-terminal-status-bar {
+    background: #f8fafc !important;
+    border-top: 1px solid #cbd5e1 !important;
+    color: #64748b !important;
+    font-size: 0.72rem !important;
+    padding: 4px 12px !important;
+}
+
+/* =========================================================================
+   DARK MODE & AUTO MALAM FOR TERMINAL
+   ========================================================================= */
+[data-theme="dark"] #view-terminal .mitrane-window,
+[data-period="malam"] #view-terminal .mitrane-window {
+    background: #0b1120 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-bar,
+[data-period="malam"] #view-terminal .mitrane-tab-bar {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-window-title-btn,
+[data-period="malam"] #view-terminal .mitrane-window-title-btn {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-item,
+[data-period="malam"] #view-terminal .mitrane-tab-item {
+    background: #1e293b !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-item:hover,
+[data-period="malam"] #view-terminal .mitrane-tab-item:hover {
+    background: #243248 !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-item.active,
+[data-period="malam"] #view-terminal .mitrane-tab-item.active {
+    background: #050811 !important;
+    color: #38bdf8 !important;
+    border-color: #334155 !important;
+    border-bottom-color: #050811 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-tab-new-btn,
+[data-period="malam"] #view-terminal .mitrane-tab-new-btn {
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane,
+[data-period="malam"] #view-terminal .terminal-session-pane {
+    background: #050811 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane .terminal-ascii-art,
+[data-period="malam"] #view-terminal .terminal-session-pane .terminal-ascii-art {
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane .terminal-info-text,
+[data-period="malam"] #view-terminal .terminal-session-pane .terminal-info-text {
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane .terminal-prompt,
+[data-period="malam"] #view-terminal .terminal-session-pane .terminal-prompt {
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane .terminal-input,
+[data-period="malam"] #view-terminal .terminal-session-pane .terminal-input {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] #view-terminal .terminal-session-pane hr,
+[data-period="malam"] #view-terminal .terminal-session-pane hr {
+    border-color: #1f2937 !important;
+}
+
+[data-theme="dark"] #view-terminal .mitrane-terminal-status-bar,
+[data-period="malam"] #view-terminal .mitrane-terminal-status-bar {
+    background: #0a0f1d !important;
+    border-top: 1px solid #1f2937 !important;
+    color: #94a3b8 !important;
+}

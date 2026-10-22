@@ -1054,51 +1054,159 @@ class NavigationManager {
 
 
     bindTerminalEvents() {
-        const input = document.getElementById('terminal-cli-input');
-        const output = document.getElementById('terminal-history-output');
-        const consoleScreen = document.getElementById('terminal-console-screen');
-        if (!input || !output) return;
+        let sessionCounter = 1;
 
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = input.value.trim();
-                if (!cmd) return;
+        const setupInputListener = (pane) => {
+            const input = pane.querySelector('.terminal-cli-input');
+            const output = pane.querySelector('.terminal-history-output');
+            if (!input || !output) return;
 
-                const userCmdLine = document.createElement('div');
-                userCmdLine.style.color = '#94a3b8';
-                userCmdLine.textContent = `[admin@BACKBONE] > ${cmd}`;
-                output.appendChild(userCmdLine);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const cmd = input.value.trim();
+                    if (!cmd) return;
 
-                const responseLine = document.createElement('div');
-                responseLine.style.color = '#38bdf8';
+                    const userCmdLine = document.createElement('div');
+                    userCmdLine.className = 'text-muted';
+                    userCmdLine.textContent = `[admin@BACKBONE] > ${cmd}`;
+                    output.appendChild(userCmdLine);
 
-                if (cmd === '/interface print' || cmd === 'interface print' || cmd === 'ip link') {
-                    responseLine.innerHTML = `Flags: R - RUNNING; S - SLAVE<br>
+                    const responseLine = document.createElement('div');
+                    responseLine.className = 'terminal-prompt';
+
+                    if (cmd === '/interface print' || cmd === 'interface print' || cmd === 'ip link') {
+                        responseLine.innerHTML = `Flags: R - RUNNING; S - SLAVE<br>
  0 R  name="ETH1" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
  1    name="ETH2" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
  2 R  name="LO" type=loopback mtu=65536 actual-mtu=65536<br>
  3 R  name="WG-BACKBONE" type=wireguard mtu=1420`;
-                } else if (cmd === '/system resource print' || cmd === 'system resource print') {
-                    responseLine.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h49m10s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%`;
-                } else if (cmd === 'clear' || cmd === '/clear') {
-                    output.innerHTML = '';
-                    input.value = '';
-                    return;
-                } else if (cmd === '?' || cmd === 'help' || cmd === '/help') {
-                    responseLine.innerHTML = `Available commands: /interface print, /system resource print, /ip address print, /ping 8.8.8.8, clear, exit`;
-                } else {
-                    responseLine.style.color = '#ef4444';
-                    responseLine.textContent = `bad command name ${cmd} (line 1 column 1)`;
-                }
+                    } else if (cmd === '/system resource print' || cmd === 'system resource print') {
+                        responseLine.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h50m00s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%`;
+                    } else if (cmd === 'clear' || cmd === '/clear') {
+                        output.innerHTML = '';
+                        input.value = '';
+                        return;
+                    } else if (cmd === '?' || cmd === 'help' || cmd === '/help') {
+                        responseLine.innerHTML = `Available commands: /interface print, /system resource print, /ip address print, /ping 8.8.8.8, clear, exit`;
+                    } else {
+                        responseLine.style.color = '#ef4444';
+                        responseLine.textContent = `bad command name ${cmd} (line 1 column 1)`;
+                    }
 
-                output.appendChild(responseLine);
-                input.value = '';
-                if (consoleScreen) consoleScreen.scrollTop = consoleScreen.scrollHeight;
+                    output.appendChild(responseLine);
+                    input.value = '';
+                    pane.scrollTop = pane.scrollHeight;
+                }
+            });
+        };
+
+        // Initial setup for first session
+        const firstPane = document.getElementById('terminal-session-1');
+        if (firstPane) setupInputListener(firstPane);
+
+        // Add New Terminal Tab Button Listener
+        const btnAddNew = document.getElementById('btn-add-new-terminal');
+        const tabsContainer = document.getElementById('terminal-tabs-container');
+        const sessionsContainer = document.getElementById('terminal-sessions-container');
+
+        if (btnAddNew && tabsContainer && sessionsContainer) {
+            btnAddNew.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                sessionCounter++;
+                const newId = sessionCounter;
+
+                // Deactivate all existing tabs & panes
+                tabsContainer.querySelectorAll('.mitrane-tab-item').forEach(t => t.classList.remove('active'));
+                sessionsContainer.querySelectorAll('.terminal-session-pane').forEach(p => p.style.display = 'none');
+
+                // Create new Tab Element
+                const newTab = document.createElement('a');
+                newTab.href = '#';
+                newTab.className = 'mitrane-tab-item mitrautama-winbox-tab active';
+                newTab.setAttribute('data-terminal-tab', newId);
+                newTab.innerHTML = `<span>New Terminal (${newId})</span><span class="ms-2 text-muted close-tab-btn" title="Tutup Sesi" style="font-size: 0.75rem; cursor: pointer;">&times;</span>`;
+                tabsContainer.appendChild(newTab);
+
+                // Create new Terminal Pane
+                const newPane = document.createElement('div');
+                newPane.className = 'terminal-session-pane flex-grow-1 p-3 font-monospace overflow-auto';
+                newPane.id = `terminal-session-${newId}`;
+                newPane.setAttribute('data-session-id', newId);
+                newPane.style.height = '100%';
+                newPane.style.fontSize = '0.85rem';
+                newPane.style.lineHeight = '1.6';
+                newPane.style.userSelect = 'text';
+
+                newPane.innerHTML = `
+                    <div class="terminal-ascii-art">
+  MMM      MMM       KKK                          TTTTTTTTTTT      KKK<br>
+  MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK<br>
+  MMM MMMM MMM  III  KKK  KKK  RRRRR   OOOOOO         TTT     III  KKK  KKK<br>
+  MMM  MM  MMM  III  KKKKK     RR  RR OOO  OOO        TTT     III  KKKKK<br>
+  MMM      MMM  III  KKK KKK   RRRRR  OOO  OOO        TTT     III  KKK KKK<br>
+  MMM      MMM  III  KKK  KKK  RR  RR  OOOOOO         TTT     III  KKK  KKK<br>
+                    </div>
+                    <div class="mt-2 terminal-info-text">
+                      MikroTik RouterOS 7.24.5 (c) 1999-2026 http://www.mikrotik.com/<br>
+                      Board: RB3011UiAS-RM (ARM 2 Cores @ 1.4 GHz, 1024 MB RAM)<br>
+                      Terminal Session: #${newId} [local admin console active]
+                    </div>
+                    <hr style="margin: 10px 0;">
+                    <div class="terminal-history-output"></div>
+                    <div class="d-flex align-items-center mt-2 terminal-prompt-line">
+                      <span class="terminal-prompt fw-bold me-2">[admin@BACKBONE] &gt;</span>
+                      <input type="text" class="terminal-cli-input terminal-input bg-transparent border-0 font-monospace flex-grow-1 p-0" style="outline: none; box-shadow: none; font-size: 0.85rem;" autofocus autocomplete="off" spellcheck="false" placeholder="type command (e.g. /interface print, /ping, ?)">
+                    </div>
+                `;
+                sessionsContainer.appendChild(newPane);
+                setupInputListener(newPane);
+
+                // Tab Click Switching
+                newTab.addEventListener('click', (ev) => {
+                    if (ev.target.classList.contains('close-tab-btn')) {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        newTab.remove();
+                        newPane.remove();
+                        // Activate first remaining
+                        const firstRemainingTab = tabsContainer.querySelector('.mitrane-tab-item');
+                        if (firstRemainingTab) firstRemainingTab.click();
+                        return;
+                    }
+                    ev.preventDefault();
+                    tabsContainer.querySelectorAll('.mitrane-tab-item').forEach(t => t.classList.remove('active'));
+                    sessionsContainer.querySelectorAll('.terminal-session-pane').forEach(p => p.style.display = 'none');
+                    newTab.classList.add('active');
+                    newPane.style.display = 'block';
+                    const inp = newPane.querySelector('.terminal-cli-input');
+                    if (inp) inp.focus();
+                });
+
+                // Focus new input
+                setTimeout(() => {
+                    const inp = newPane.querySelector('.terminal-cli-input');
+                    if (inp) inp.focus();
+                }, 50);
+            });
+
+            // Delegate clicking on existing first tab
+            const firstTab = tabsContainer.querySelector('[data-terminal-tab="1"]');
+            if (firstTab && firstPane) {
+                firstTab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    tabsContainer.querySelectorAll('.mitrane-tab-item').forEach(t => t.classList.remove('active'));
+                    sessionsContainer.querySelectorAll('.terminal-session-pane').forEach(p => p.style.display = 'none');
+                    firstTab.classList.add('active');
+                    firstPane.style.display = 'block';
+                    const inp = firstPane.querySelector('.terminal-cli-input');
+                    if (inp) inp.focus();
+                });
             }
-        });
+        }
     }
 
-        bindQuickSweetAlerts() {
+    bindQuickSweetAlerts() {
         const alertTrigger = document.querySelectorAll('[data-mitrautama-swal]');
         alertTrigger.forEach(el => {
             el.addEventListener('click', () => {

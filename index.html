@@ -1722,12 +1722,12 @@
 </div>
 
                 
-                <!-- MODUL TERMINAL: WINBOX FULL CLI WINDOW -->
+                                <!-- MODUL TERMINAL: WINBOX FULL CLI WINDOW -->
                 <div class="mitrautama-view-section" id="view-terminal" style="display: none; height: 100%; flex-direction: column;">
-                  <div class="mitrane-window" style="height: 100%; display: flex; flex-direction: column; background: #000000; border-radius: 0; border: none;">
+                  <div class="mitrane-window">
                     
                     <!-- 1. Window Tab Bar (Matching WinBox Native Tabs) -->
-                    <div class="mitrane-tab-bar mitrautama-winbox-tabs" style="scrollbar-width: none; overflow-x: auto; overflow-y: hidden;">
+                    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="terminal-tab-bar" style="scrollbar-width: none; overflow-x: auto; overflow-y: hidden;">
                       <button class="mitrane-window-title-btn" type="button">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                           <polyline points="4 17 10 11 4 5"></polyline>
@@ -1735,33 +1735,44 @@
                         </svg>
                         <span>Terminal</span>
                       </button>
-                      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="terminal-main">New Terminal</a>
+                      <div id="terminal-tabs-container" class="d-inline-flex align-items-center gap-1">
+                        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-terminal-tab="1">New Terminal</a>
+                      </div>
+                      <button type="button" class="btn btn-sm p-0 px-2 ms-1 border-0 mitrane-tab-new-btn" id="btn-add-new-terminal" title="Buka Tab Terminal Baru" style="font-size: 0.8rem; height: 26px; border-radius: 4px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>New Terminal</span>
+                      </button>
                     </div>
 
-                    <!-- 2. Interactive Terminal Console Area -->
-                    <div class="flex-grow-1 p-3 font-monospace overflow-auto" id="terminal-console-screen" style="background: #000000; color: #22c55e; font-size: 0.85rem; line-height: 1.6; user-select: text;">
-                      <div class="text-secondary" style="color: #94a3b8 !important;">
+                    <!-- 2. Terminal Sessions Container -->
+                    <div id="terminal-sessions-container" class="flex-grow-1 position-relative" style="min-height: 0; overflow: hidden; display: flex; flex-direction: column;">
+                      
+                      <!-- Session Pane 1 (Active) -->
+                      <div class="terminal-session-pane flex-grow-1 p-3 font-monospace overflow-auto" id="terminal-session-1" data-session-id="1" style="height: 100%; font-size: 0.85rem; line-height: 1.6; user-select: text;">
+                        <div class="terminal-ascii-art">
   MMM      MMM       KKK                          TTTTTTTTTTT      KKK<br>
   MMMM    MMMM       KKK                          TTTTTTTTTTT      KKK<br>
   MMM MMMM MMM  III  KKK  KKK  RRRRR   OOOOOO         TTT     III  KKK  KKK<br>
   MMM  MM  MMM  III  KKKKK     RR  RR OOO  OOO        TTT     III  KKKKK<br>
   MMM      MMM  III  KKK KKK   RRRRR  OOO  OOO        TTT     III  KKK KKK<br>
   MMM      MMM  III  KKK  KKK  RR  RR  OOOOOO         TTT     III  KKK  KKK<br>
+                        </div>
+                        <div class="mt-2 terminal-info-text">
+                          MikroTik RouterOS 7.24.5 (c) 1999-2026 http://www.mikrotik.com/<br>
+                          Board: RB3011UiAS-RM (ARM 2 Cores @ 1.4 GHz, 1024 MB RAM)<br>
+                          Terminal Session: #1 [local admin console active]
+                        </div>
+                        <hr style="margin: 10px 0;">
+                        <div class="terminal-history-output">
+                          <div class="text-muted">[admin@BACKBONE] &gt; /system resource print</div>
+                          <div class="terminal-prompt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h48m22s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;build-time: Oct/20/2026 14:10:00<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%</div>
+                        </div>
+                        <div class="d-flex align-items-center mt-2 terminal-prompt-line">
+                          <span class="terminal-prompt fw-bold me-2">[admin@BACKBONE] &gt;</span>
+                          <input type="text" class="terminal-cli-input terminal-input bg-transparent border-0 font-monospace flex-grow-1 p-0" style="outline: none; box-shadow: none; font-size: 0.85rem;" autofocus autocomplete="off" spellcheck="false" placeholder="type command (e.g. /interface print, /ping, ?)">
+                        </div>
                       </div>
-                      <div class="mt-2" style="color: #cbd5e1;">
-                        MikroTik RouterOS 7.24.5 (c) 1999-2026 http://www.mikrotik.com/<br>
-                        Board: RB3011UiAS-RM (ARM 2 Cores @ 1.4 GHz, 1024 MB RAM)<br>
-                        Terminal Session: #1 [local admin console active]
-                      </div>
-                      <hr style="border-color: #334155; margin: 10px 0;">
-                      <div id="terminal-history-output">
-                        <div style="color: #94a3b8;">[admin@BACKBONE] &gt; /system resource print</div>
-                        <div style="color: #38bdf8;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h48m22s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;build-time: Oct/20/2026 14:10:00<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%</div>
-                      </div>
-                      <div class="d-flex align-items-center mt-2" id="terminal-prompt-line">
-                        <span class="text-info fw-bold me-2" style="color: #38bdf8 !important;">[admin@BACKBONE] &gt;</span>
-                        <input type="text" id="terminal-cli-input" class="bg-transparent border-0 text-white font-monospace flex-grow-1 p-0" style="outline: none; box-shadow: none; font-size: 0.85rem;" autofocus autocomplete="off" spellcheck="false" placeholder="type command (e.g. /interface print, /ping, ?)">
-                      </div>
+
                     </div>
 
                     <!-- 3. Terminal Status Bar -->
@@ -1772,7 +1783,6 @@
 
                   </div>
                 </div>
-
 
                 <!-- DASHBOARD QUICK SET & KPI -->
                 <div class="mitrautama-view-section" id="view-dashboard" style="display: block;">
