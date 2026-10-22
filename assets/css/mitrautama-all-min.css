@@ -2592,3 +2592,130 @@ input[type=number] {
 [data-theme="dark"] .mitrane-wg-cidr {
     color: #f87171;
 }
+
+
+/* ==========================================================
+ * VPN Module Styles - WinBox Replica
+ * ========================================================== */
+#view-ppp:not([style*="none"]),
+#view-vpn:not([style*="none"]) {
+    padding: 0 !important;
+    overflow: hidden !important;
+    height: calc(100vh - 52px - 32px) !important;
+    max-height: calc(100vh - 52px - 32px) !important;
+}
+
+#view-ppp,
+#view-vpn {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#view-ppp[style*="display: none"],
+#view-vpn[style*="display: none"] {
+    display: none !important;
+}
+
+#view-ppp .mitrane-window,
+#view-vpn .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#view-ppp .mitrane-tab-bar,
+#view-vpn .mitrane-tab-bar {
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-ppp .mitrane-toolbar,
+#view-vpn .mitrane-toolbar {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-ppp .mitrautama-table-container,
+#view-vpn .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    overflow: auto !important;
+}
+
+[data-period="malam"] #view-ppp .mitrautama-table-container,
+[data-period="malam"] #view-vpn .mitrautama-table-container,
+[data-theme="dark"] #view-ppp .mitrautama-table-container,
+[data-theme="dark"] #view-vpn .mitrautama-table-container {
+    border-bottom: 1px solid #334155 !important;
+}
+
+#view-ppp .mitrane-status-subsystem,
+#view-vpn .mitrane-status-subsystem {
+    margin-top: auto !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    border-top: 1px solid #cbd5e1 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 4px 12px !important;
+    box-sizing: border-box !important;
+    background: #f1f5f9 !important;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04) !important;
+    z-index: 10 !important;
+}
+
+[data-period="malam"] #view-ppp .mitrane-status-subsystem,
+[data-period="malam"] #view-vpn .mitrane-status-subsystem,
+[data-theme="dark"] #view-ppp .mitrane-status-subsystem,
+[data-theme="dark"] #view-vpn .mitrane-status-subsystem {
+    border-top: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+}
+
+.mitrane-type-badge {
+    display: inline-block;
+    padding: 1px 5px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #0284c7;
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 3px;
+    line-height: 1.2;
+}
+
+[data-period="malam"] .mitrane-type-badge,
+[data-theme="dark"] .mitrane-type-badge {
+    background: #0f2744;
+    border-color: #0369a1;
+    color: #38bdf8;
+}

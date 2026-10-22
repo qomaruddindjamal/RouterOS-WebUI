@@ -1,59 +1,392 @@
-<div class="mitrautama-view-section" id="view-ppp">
-  <div class="mitrautama-window-header">
-    <div class="mitrautama-window-title">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      <strong>PPP / PPPoE</strong> (Point-to-Point Tunneling)
-    </div>
-  </div>
+<!-- Module: ppp/ppp.html (VPN MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-ppp" style="display: none;">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-vpn-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        <span>VPN</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
 
-  <div class="mitrautama-subtabs-bar">
-    <button class="mitrautama-subtab active" data-mitrautama-subtab="ppp-interfaces">Interfaces</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-servers">PPPoE Servers</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-secrets">Secrets</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="ppp-active">Active Connections</button>
-  </div>
-
-  <div class="mitrautama-tab-content active" id="subtab-ppp-interfaces">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>Name</th><th>Type</th><th>User</th><th>Service</th><th>Caller ID</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td colspan="6" class="text-center text-muted py-3">No active PPPoE client interfaces.</td></tr>
-        </tbody>
-      </table>
+      <!-- Sub-tabs matching screenshot -->
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="vpn-interface">Interface</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-pppoe-servers">PPPoE Servers</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-ovpn-servers">OVPN Servers</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-secrets">Secrets</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-profiles">Profiles</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-active">Active Connections</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-l2tp-ethernet">L2TP Ethernet</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-l2tp-secrets">L2TP Secrets</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="vpn-booster">Cloud Speed Booster</a>
     </div>
-  </div>
 
-  <div class="mitrautama-tab-content" id="subtab-ppp-servers">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>Service Name</th><th>Interface</th><th>Max MTU</th><th>Max MRU</th><th>Default Profile</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td colspan="6" class="text-center text-muted py-3">No PPPoE server instances configured.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <!-- Quick Server Buttons -->
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-pptp" onclick="Swal.fire('PPTP Server', 'Konfigurasi Server PPTP', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>PPTP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-sstp" onclick="Swal.fire('SSTP Server', 'Konfigurasi Server SSTP SSL', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>SSTP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-l2tp" onclick="Swal.fire('L2TP Server', 'Konfigurasi Server L2TP / IPsec', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+          <span>L2TP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-ovpn" onclick="Swal.fire('OpenVPN Server', 'Konfigurasi Server OpenVPN', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span>OpenVPN Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-booster" onclick="Swal.fire('Cloud Speed Booster', 'Pengaturan Akselerasi Tunnel Cloud Speed Booster', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Booster Server</span>
+        </button>
 
-  <div class="mitrautama-tab-content" id="subtab-ppp-secrets">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>Name</th><th>Service</th><th>Profile</th><th>Local Address</th><th>Remote Address</th></tr></thead>
-        <tbody>
-          <tr><td colspan="5" class="text-center text-muted py-3">No PPP secrets configured.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <!-- Standard Actions -->
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-vpn-new" onclick="Swal.fire('VPN Interface', 'Tambah koneksi VPN Interface baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-enable" onclick="toastManager.show({title:'VPN Interface', message:'Interface VPN diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-disable" onclick="toastManager.show({title:'VPN Interface', message:'Interface VPN dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-remove" onclick="Swal.fire('VPN Interface', 'Hapus interface yang dipilih?', 'warning')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-comment">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Comment</span>
+        </button>
+      </div>
 
-  <div class="mitrautama-tab-content" id="subtab-ppp-active">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>User</th><th>Service</th><th>Caller ID</th><th>Address</th><th>Uptime</th><th>Encoding</th></tr></thead>
-        <tbody>
-          <tr><td colspan="6" class="text-center text-muted py-3">No active PPP sessions.</td></tr>
-        </tbody>
-      </table>
+      <!-- Right Tools: Find Search Box, Filter, Refresh, Columns -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text bg-white border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="mitrane-vpn-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
+        </div>
+
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Refresh Data" aria-label="Refresh">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Show/Hide Columns" aria-label="Columns">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+        </button>
+      </div>
     </div>
+
+    <!-- ==================== SUBTAB: INTERFACE (Active) ==================== -->
+    <div class="mitrautama-tab-pane active" id="subtab-vpn-interface" style="display: flex; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <!-- Table Container -->
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="mitrane-vpn-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+              <th>Type</th>
+              <th>Actual MTU</th>
+              <th>L2 MTU</th>
+              <th>Tx</th>
+              <th>Rx</th>
+              <th>Tx Packet (p/s)</th>
+              <th>Rx Packet (p/s)</th>
+              <th>FP Tx</th>
+              <th>FP Rx</th>
+              <th>FP Tx Packet (p/s)</th>
+              <th>FP Rx Packet (p/s)</th>
+              <th style="width: 24px; text-align: center;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>&lt;ppp0&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; Active Tunnel (10.10.66.100 -&gt; 10.10.66.254)</span></td>
+              <td><span class="mitrane-type-badge">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">1.3 KiB</td>
+              <td class="text-primary fw-semibold">514 B</td>
+              <td>17</td>
+              <td>16</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Subsystem -->
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <div class="d-flex align-items-center flex-wrap">
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">1 items at interface</span>
+          <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-vpn-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>L2TP Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
+          </div>
+        </div>
+        <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">
+          <span class="text-muted me-1">Linux VPN Core:</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" class="me-1"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <strong style="color: #16a34a;">PPP / OVPN / L2TP / SSTP RUNNING</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: PPPoE Servers ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-pppoe-servers" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Service Name</th>
+              <th>Interface</th>
+              <th>Max MTU</th>
+              <th>Max MRU</th>
+              <th>Default Profile</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No PPPoE server instances configured.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">PPPoE Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: OVPN Servers ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-ovpn-servers" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Server Name</th>
+              <th>Port</th>
+              <th>Mode</th>
+              <th>Certificate</th>
+              <th>Default Profile</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No OpenVPN server instances configured.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">OpenVPN Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: Secrets ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-secrets" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Profile</th>
+              <th>Local Address</th>
+              <th>Remote Address</th>
+              <th>Last Logged Out</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No PPP/VPN secrets configured.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: Profiles ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-profiles" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Name</th>
+              <th>Local Address</th>
+              <th>Remote Address</th>
+              <th>DNS Server</th>
+              <th>Rate Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>default</strong></td>
+              <td>10.10.66.1</td>
+              <td>pool-vpn</td>
+              <td>8.8.8.8</td>
+              <td>unlimited</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>default-encryption</strong></td>
+              <td>10.10.66.1</td>
+              <td>pool-vpn</td>
+              <td>8.8.8.8</td>
+              <td>unlimited</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">2 profiles</span>
+        <div class="text-muted" style="font-size: 0.72rem;">VPN Profiles Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: Active Connections ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-active" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>User</th>
+              <th>Service</th>
+              <th>Caller ID</th>
+              <th>Address</th>
+              <th>Uptime</th>
+              <th>Encoding</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>client-branch-01</strong></td>
+              <td><span class="mitrane-type-badge">l2tp</span></td>
+              <td>103.93.162.168</td>
+              <td>10.10.66.100</td>
+              <td>16h50m</td>
+              <td>CBC-AES-128/SHA1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">1 active sessions</span>
+        <div class="text-muted" style="font-size: 0.72rem;">Active VPN Sessions</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: L2TP Ethernet ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-l2tp-ethernet" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Name</th>
+              <th>Remote Address</th>
+              <th>Session ID</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="5" class="text-center text-muted py-5" style="font-size: 0.8rem;">No L2TP Ethernet bindings configured.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">L2TP Ethernet Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: L2TP Secrets ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-l2tp-secrets" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path></svg></th>
+              <th>Address</th>
+              <th>Secret</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="3" class="text-center text-muted py-5" style="font-size: 0.8rem;">No L2TP IPsec secrets configured.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">L2TP Secrets Subsystem</div>
+      </div>
+    </div>
+
+    <!-- ==================== SUBTAB: Cloud Speed Booster ==================== -->
+    <div class="mitrautama-tab-pane" id="subtab-vpn-booster" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></th>
+              <th>Booster Profile</th>
+              <th>Target Server</th>
+              <th>Acceleration Mode</th>
+              <th>Latency Optimization</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>CloudSpeed-PRO-01</strong></td>
+              <td>id-cgk.cloudspeed.booster</td>
+              <td>Multi-Stream BBRv3</td>
+              <td>-28% Ping (Smooth)</td>
+              <td><span style="color: #16a34a; font-weight: 600;">ACTIVE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">1 booster running</span>
+        <div class="text-muted" style="font-size: 0.72rem;">Cloud Speed Booster Subsystem</div>
+      </div>
+    </div>
+
   </div>
 </div>

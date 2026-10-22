@@ -184,7 +184,7 @@ export class NavigationManager {
                                           document.getElementById(subtabName);
                     if (targetContent) {
                         targetContent.classList.add('active');
-                        targetContent.style.display = targetContent.id.startsWith('subtab-wg-') ? 'flex' : 'block';
+                        targetContent.style.display = (targetContent.id.startsWith('subtab-wg-') || targetContent.id.startsWith('subtab-vpn-')) ? 'flex' : 'block';
                     }
                 }
 
