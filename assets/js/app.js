@@ -1336,13 +1336,19 @@ class JsonDataService {
             </tr>`;
         }).join('');
 
-        // Row Selection Listener
+        // Row Selection & Properties Modal Open Listener
         tableBody.querySelectorAll('tr').forEach(tr => {
             tr.addEventListener('click', (e) => {
                 const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
-                this.selectedIndex = (this.selectedIndex === idx) ? -1 : idx;
+                this.selectedIndex = idx;
                 this.renderInterfacesTable(containerId, this.currentFilter);
                 this.notifySelectionChange();
+
+                // Buka modal properti interface sesuai referensi WinBox
+                const item = this.getSelectedInterface();
+                if (item && window.openInterfacePropertiesModal) {
+                    window.openInterfacePropertiesModal(item);
+                }
             });
         });
 
@@ -1794,4 +1800,78 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+});
+
+
+// Global Helper untuk membuka dan mengisi data modal Interface Properties (WinBox Replica)
+window.openInterfacePropertiesModal = function(item) {
+    if (!item) return;
+
+    const titleName = document.getElementById('modal-iface-title-name');
+    const nameInput = document.getElementById('modal-iface-name');
+    const defaultNameInput = document.getElementById('modal-iface-default-name');
+    const typeInput = document.getElementById('modal-iface-type');
+    const mtuInput = document.getElementById('modal-iface-mtu');
+    const actualMtuInput = document.getElementById('modal-iface-actual-mtu');
+    const l2MtuInput = document.getElementById('modal-iface-l2-mtu');
+    const macInput = document.getElementById('modal-iface-mac');
+    const enabledInput = document.getElementById('modal-iface-enabled');
+    const commentInput = document.getElementById('modal-iface-comment');
+
+    if (titleName) titleName.textContent = item.name.toLowerCase();
+    if (nameInput) nameInput.value = item.name.toLowerCase();
+    if (defaultNameInput) defaultNameInput.value = item.subname || item.name.toLowerCase();
+    if (typeInput) typeInput.value = item.type || 'Ethernet';
+    if (mtuInput) mtuInput.value = item.actualMtu || 1500;
+    if (actualMtuInput) actualMtuInput.value = item.actualMtu || 1500;
+    if (l2MtuInput) l2MtuInput.value = item.l2Mtu || 1598;
+    if (macInput) macInput.value = item.macAddress || '2C:C8:1B:18:BE:2E';
+    if (enabledInput) enabledInput.checked = (item.status === 'running');
+    if (commentInput) commentInput.value = item.comment || '';
+
+    // Bind subtab buttons inside modal
+    const modalEl = document.getElementById('modal-interface-properties');
+    if (modalEl) {
+        const subtabs = modalEl.querySelectorAll('.winbox-subtab-btn');
+        subtabs.forEach(btn => {
+            btn.onclick = function() {
+                subtabs.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            };
+        });
+    }
+
+    if (window.modalManager) {
+        window.modalManager.open('modal-interface-properties');
+    }
+};
+
+// Bind Apply and OK buttons
+document.addEventListener('DOMContentLoaded', () => {
+    const okBtn = document.getElementById('btn-ok-interface-properties');
+    const applyBtn = document.getElementById('btn-apply-interface-properties');
+
+    const handleSave = () => {
+        const nameInput = document.getElementById('modal-iface-name');
+        const mtuInput = document.getElementById('modal-iface-mtu');
+        const selected = jsonDataService ? jsonDataService.getSelectedInterface() : null;
+        if (selected && nameInput) {
+            selected.name = nameInput.value.toUpperCase();
+            if (mtuInput) selected.actualMtu = parseInt(mtuInput.value, 10) || 1500;
+            jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
+            if (window.toastManager) {
+                window.toastManager.show({title: 'Interface Saved', message: `Perubahan ${selected.name} disimpan.`, type: 'success'});
+            }
+        }
+    };
+
+    if (okBtn) {
+        okBtn.addEventListener('click', () => {
+            handleSave();
+            if (window.modalManager) window.modalManager.close('modal-interface-properties');
+        });
+    }
+    if (applyBtn) {
+        applyBtn.addEventListener('click', handleSave);
+    }
 });
