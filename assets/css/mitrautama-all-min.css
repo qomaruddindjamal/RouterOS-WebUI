@@ -747,22 +747,33 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
 /* Tablet & Mobile Screens (<= 768px) */
 @media (max-width: 768px) {
 
-    /* Mobile Legend Pills: Circle Saja Tanpa Text */
+    /* Mobile Legend: Circle + Angka Jumlah (Tanpa Text Label) */
     .mitrane-legend-item {
         margin-right: 8px !important;
-        gap: 0 !important;
+        gap: 3px !important;
+        font-size: 0.73rem !important;
+        display: inline-flex !important;
+        align-items: center !important;
     }
 
     .mitrane-legend-item span:first-child {
-        width: 10px !important;
-        height: 10px !important;
+        width: 9px !important;
+        height: 9px !important;
         border-radius: 50% !important;
         display: inline-block !important;
         flex-shrink: 0 !important;
     }
 
+    /* Sembunyikan label teks (seperti 'Ethernet: ') */
     .mitrane-legend-item span:last-child {
-        display: none !important;
+        font-size: 0 !important;
+    }
+
+    /* Tetap tampilkan angka jumlah */
+    .mitrane-legend-item span:last-child strong {
+        font-size: 0.73rem !important;
+        font-weight: 700 !important;
+        color: var(--mu-text-main, #1e293b) !important;
     }
 
     /* WinBox Toolbar Mobile Responsiveness (Clean Single-Line Scrollable) */
