@@ -11,6 +11,11 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 
-# Temporary dumps & scratch scripts
+# Temporary dumps, secrets & private hardware dumps
 *.tmp
 temp_*.py
+full_router_dump.json
+router_snapshot.json
+*.backup
+*.key
+*.pem
