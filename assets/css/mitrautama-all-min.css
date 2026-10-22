@@ -746,6 +746,25 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
 
 /* Tablet & Mobile Screens (<= 768px) */
 @media (max-width: 768px) {
+
+    /* Mobile Legend Pills: Circle Saja Tanpa Text */
+    .mitrane-legend-item {
+        margin-right: 8px !important;
+        gap: 0 !important;
+    }
+
+    .mitrane-legend-item span:first-child {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 50% !important;
+        display: inline-block !important;
+        flex-shrink: 0 !important;
+    }
+
+    .mitrane-legend-item span:last-child {
+        display: none !important;
+    }
+
     /* WinBox Toolbar Mobile Responsiveness (Clean Single-Line Scrollable) */
     .mitrane-toolbar,
     .mitrautama-winbox-toolbar {
