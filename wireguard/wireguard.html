@@ -1,0 +1,90 @@
+<!-- Module: wireguard/wireguard.html -->
+<div class="mitrautama-view-section" id="view-wireguard" style="display: none;">
+    <div class="mitrautama-win-header">
+        <div class="mitrautama-win-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>WireGuard</span>
+        </div>
+    </div>
+
+    <!-- Winbox Sub-tabs -->
+    <div class="mitrautama-winbox-tabs">
+        <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-wg-iface">WireGuard</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-wg-peers">Peers</a>
+    </div>
+
+    <!-- Actions Toolbar -->
+    <div class="mitrautama-winbox-toolbar">
+        <div class="mitrautama-toolbar-actions">
+            <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('WireGuard', 'Tambah tunnel WireGuard baru', 'info')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'WireGuard Aktif', message:'Tunnel siap mentransfer paket.', type:'success'})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Enable</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-danger">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <span>Disable</span>
+            </button>
+        </div>
+        <div>
+            <input type="text" placeholder="Filter WireGuard..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+        </div>
+    </div>
+
+    <!-- Tab Pane 1: WireGuard Interface -->
+    <div class="mitrautama-tab-pane" id="tab-pane-wg-iface" style="display: block;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr>
+                        <th>Flags</th>
+                        <th>Name</th>
+                        <th>MTU</th>
+                        <th>Listen Port</th>
+                        <th>Public Key</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="fw-bold text-success">R</span></td>
+                        <td><strong>wg-chr</strong></td>
+                        <td>1420</td>
+                        <td>13231</td>
+                        <td><code class="text-primary font-monospace">AoWMx8P3Zph2NwvplM8FASwRvHEHCKWdEAIpjMDDHyI=</code></td>
+                        <td>WireGuard to CHR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Pane 2: WireGuard Peers -->
+    <div class="mitrautama-tab-pane" id="tab-pane-wg-peers" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr>
+                        <th>Interface</th>
+                        <th>Public Key</th>
+                        <th>Endpoint</th>
+                        <th>Allowed Address</th>
+                        <th>Current Rx / Tx</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>wg-chr</td>
+                        <td><code class="font-monospace">h8r2K...chrCloudServerKey</code></td>
+                        <td>103.150.x.x:13231</td>
+                        <td>0.0.0.0/0, 10.10.77.1/32</td>
+                        <td><span class="text-success">52.4 MB</span> / <span class="text-primary">89.1 MB</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

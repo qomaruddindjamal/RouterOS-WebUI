@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MitraUtama WebUI - MikroTik RouterOS RB3011 (BACKBONE)</title>
+
+    <!-- Bootstrap 5.3.3 (Versi Terbaru) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- CSS MitraUtama Modular (Awalan mitrautama-) -->
+    <link rel="stylesheet" id="theme-stylesheet" href="css/mitrautama.css">
+    <link rel="stylesheet" id="auto-theme-stylesheet" href="css/mitrautama-auto.css">
+    <link rel="stylesheet" href="css/mitrautama-tabel.css">
+    <link rel="stylesheet" href="css/mitrautama-tost.css">
+    <link rel="stylesheet" href="css/mitrautama-all-min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    <!-- SweetAlert2 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+
+    <div class="mitrautama-app-wrapper">
+        <!-- 1. FIXED HEADER CONTAINER (Modular: includes/header.html) -->
+        <div id="header-container">
+            <header class="mitrautama-fixed-header">
+                <div class="mitrautama-menu-label-wrap">
+                    <button type="button" id="sidebar-toggle-btn" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center p-1" style="width: 32px; height: 32px;" title="Ciutkan / Perluas Sidebar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <div class="mu-logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem;">MU</div>
+                    <div class="d-none d-sm-block">
+                        <strong style="font-size: 0.95rem;">MitraUtama WebUI</strong>
+                        <span class="badge bg-primary text-white ms-2" style="font-size: 0.7rem;">RB3011UiAS</span>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-none d-md-flex align-items-center gap-1 font-monospace" style="font-size: 0.8rem; color: var(--mu-text-muted);">
+                        <span class="text-success">●</span> citramedia@172.16.92.230 (BACKBONE)
+                    </div>
+
+                    <div class="mu-period-badge mb-0 d-none d-lg-inline-flex" id="period-badge">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg></span> <span>Mode Auto: Pagi</span>
+                    </div>
+
+                    <div class="mu-theme-selector">
+                        <button type="button" class="mu-theme-btn active" data-theme-set="auto">Auto</button>
+                        <button type="button" class="mu-theme-btn" data-theme-set="light">Cerah</button>
+                        <button type="button" class="mu-theme-btn" data-theme-set="dark">Gelap</button>
+                    </div>
+
+                    <button type="button" class="btn btn-sm btn-primary d-flex align-items-center gap-1" data-mitrautama-modal-open="modal-router-status">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span>Router</span>
+                    </button>
+                </div>
+            </header>
+        </div>
+
+        <!-- 2. BODY CONTAINER (SIDEBAR + CONTENT) -->
+        <div class="mitrautama-body-container">
+            <!-- SIDEBAR CONTAINER (Modular: includes/sidebar.html) -->
+            <div id="sidebar-container">
+                <aside class="mitrautama-sidebar" id="sidebarMenu">
+                    <ul class="mitrautama-sidebar-menu">
+                        <!-- Quick Set -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item active" data-mitrautama-view="dashboard">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Home</span>
+                            </a>
+                        </li>
+
+                        <!-- WiFi -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="wifi">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">WiFi</span>
+                            </a>
+                        </li>
+
+                        <!-- Wireless (Drop-Right Submenu) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                                    </span>
+                                    <span class="mitrautama-menu-text">Wireless</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="wireless-tables">Wireless Tables</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="wireless-security">Security Profiles</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="wireless-registration">Registration</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Interfaces (Active Default) -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="interfaces">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Interfaces</span>
+                            </a>
+                        </li>
+
+                        <!-- WireGuard -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="wireguard">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">WireGuard</span>
+                            </a>
+                        </li>
+
+                        <!-- Bridge -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="bridge">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Bridge</span>
+                            </a>
+                        </li>
+
+                        <!-- PPP -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="ppp">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">PPP</span>
+                            </a>
+                        </li>
+
+                        <!-- Switch (Drop-Right Winbox Asli) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                                    </span>
+                                    <span class="mitrautama-menu-text">Switch</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-host">Host</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-port-isolation">Port Isolation</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-ports">Ports</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-rule">Rule</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-settings">Settings</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-vlan">VLAN</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Mesh -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="mesh">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Mesh</span>
+                            </a>
+                        </li>
+
+                        <!-- IP (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                    </span>
+                                    <span class="mitrautama-menu-text">IP</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-addresses">Addresses</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-dhcp-server">DHCP Server</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-dhcp-client">DHCP Client</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-dns">DNS</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-routes">Routes</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-firewall">Firewall</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-pool">Pool</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-hotspot">Hotspot</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- IPv6 (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"></path></svg></span>
+                                    <span class="mitrautama-menu-text">IPv6</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ipv6-addresses">Addresses</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ipv6-routes">Routes</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ipv6-firewall">Firewall</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- MPLS (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path></svg></span>
+                                    <span class="mitrautama-menu-text">MPLS</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="mpls-interfaces">Interfaces</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="mpls-ldp">LDP</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Routing (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line></svg></span>
+                                    <span class="mitrautama-menu-text">Routing</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="routing-bgp">BGP</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="routing-ospf">OSPF</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- System (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
+                                    <span class="mitrautama-menu-text">System</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-resources">Resources &amp; Health</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-routerboard">RouterBOARD</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-users">Users</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Queues -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="queues">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
+                                <span class="mitrautama-menu-text">Queues</span>
+                            </a>
+                        </li>
+
+                        <!-- Dot1X -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="dot1x">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+                                <span class="mitrautama-menu-text">Dot1X</span>
+                            </a>
+                        </li>
+
+                        <!-- Files -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="files">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span>
+                                <span class="mitrautama-menu-text">Files</span>
+                            </a>
+                        </li>
+
+                        <!-- Log -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="log">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
+                                <span class="mitrautama-menu-text">Log</span>
+                            </a>
+                        </li>
+
+                        <!-- New Terminal -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-modal-open="modal-terminal">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg></span>
+                                <span class="mitrautama-menu-text">New Terminal</span>
+                            </a>
+                        </li>
+
+                        <!-- RADIUS -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="radius">
+                                <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></span>
+                                <span class="mitrautama-menu-text">RADIUS</span>
+                            </a>
+                        </li>
+
+                        <!-- Tools (Drop-Right) -->
+                        <li class="mitrautama-menu-group">
+                            <a href="#" class="mitrautama-menu-item mitrautama-submenu-toggle">
+                                <span class="mitrautama-menu-label-wrap">
+                                    <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
+                                    <span class="mitrautama-menu-text">Tools</span>
+                                </span>
+                                <span class="mitrautama-submenu-chevron">▶</span>
+                            </a>
+                            <ul class="mitrautama-submenu-list">
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-modal-open="modal-ping">Ping Tool</a></li>
+                                <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="tools-torch">Torch</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+
+            <!-- 3. MAIN CONTENT CONTAINER (MODULAR COMPONENT INJECTIONS) -->
+            <main class="mitrautama-content-area">
+                
+                <!-- MODUL 1: INTERFACES (interfaces/interfaces.html) -->
+                <div id="interfaces-module-container">
+                    <div class="mitrautama-view-section" id="view-interfaces" style="display: none;">
+                        <div class="mitrautama-win-header">
+                            <div class="mitrautama-win-title">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                                <span>Interfaces</span>
+                            </div>
+                        </div>
+
+                        <div class="mitrautama-winbox-tabs">
+                            <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-interface">Interface</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-iface-list">Interface List</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-ethernet">Ethernet</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-eoip">EoIP Tunnel</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-iptunnel">IP Tunnel</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-gre">GRE Tunnel</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-vlan">VLAN</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-vxlan">VXLAN</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-vrrp">VRRP</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-macsec">MACsec</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-macvlan">MACVLAN</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-bonding">Bonding</a>
+                            <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-lte">LTE</a>
+                        </div>
+
+                        <div class="mitrautama-winbox-toolbar">
+                            <div class="mitrautama-toolbar-actions">
+                                <button class="mitrautama-toolbar-btn text-primary" data-mitrautama-modal-open="modal-add-interface">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>New</span>
+                                </button>
+                                <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Enable Interface', message:'Interface diaktifkan.', type:'success'})">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Enable</span>
+                                </button>
+                                <button class="mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Disable Interface', message:'Interface dinonaktifkan.', type:'warning'})">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    <span>Disable</span>
+                                </button>
+                                <button class="mitrautama-toolbar-btn text-danger" onclick="Swal.fire('Hapus Interface', 'Apakah Anda yakin ingin menghapus interface terpilih?', 'warning')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline></svg>
+                                    <span>Remove</span>
+                                </button>
+                                <button class="mitrautama-toolbar-btn text-muted" onclick="Swal.fire({title:'Tambah Komentar', input:'text', confirmButtonText:'Simpan'})">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                    <span>Comment</span>
+                                </button>
+                            </div>
+                            <div class="mitrautama-menu-label-wrap">
+                                <span class="text-muted" style="font-size: 0.75rem;">🔍 Find</span>
+                                <input type="text" placeholder="Filter interface..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+                            </div>
+                        </div>
+
+                        <div class="mitrautama-tab-pane" id="tab-pane-interface" style="display: block;">
+                            <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+                                <table class="mitrautama-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 35px;">Flags</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Actual MTU</th>
+                                            <th>L2 MTU</th>
+                                            <th>Tx Rate</th>
+                                            <th>Rx Rate</th>
+                                            <th>Tx Packet (p/s)</th>
+                                            <th>Rx Packet (p/s)</th>
+                                            <th>FP Tx</th>
+                                            <th>FP Rx</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-light">
+                                            <td><span class="fw-bold text-success">R</span></td>
+                                            <td><span class="text-success fw-bold me-1">#</span><strong>1. WAN</strong></td>
+                                            <td>Bridge</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td class="font-monospace text-primary">156.1 kbps</td>
+                                            <td class="font-monospace text-success">7.4 kbps</td>
+                                            <td>14</td>
+                                            <td>8</td>
+                                            <td>0 bps</td>
+                                            <td>4.8 kbps</td>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <td><span class="fw-bold text-success">R</span></td>
+                                            <td><span class="text-success fw-bold me-1">#</span><strong>2. LAN</strong></td>
+                                            <td>Bridge</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td class="font-monospace text-muted">0 bps</td>
+                                            <td class="font-monospace text-muted">0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-secondary">S</span></td>
+                                            <td><span class="text-info me-1">⚙</span> ether1</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><span class="text-info me-1">⚙</span> ether2</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-secondary">S</span></td>
+                                            <td><span class="text-info me-1">⚙</span> ether3</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-secondary">S</span></td>
+                                            <td><span class="text-info me-1">⚙</span> ether4</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr class="text-muted" style="opacity: 0.65;">
+                                            <td><span class="fw-bold text-danger">X</span></td>
+                                            <td><span class="text-muted me-1">⚙</span> ether5</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><span class="text-info me-1">⚙</span> ether6</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-secondary">S</span></td>
+                                            <td><span class="text-info me-1">⚙</span> ether7</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr style="background: rgba(16, 185, 129, 0.05);">
+                                            <td><span class="fw-bold text-success">RS</span></td>
+                                            <td><span class="text-success me-1">⚙</span> <strong>ether8</strong></td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td class="font-monospace text-primary">158.0 kbps</td>
+                                            <td class="font-monospace text-success">9.5 kbps</td>
+                                            <td>15</td>
+                                            <td>9</td>
+                                            <td>0 bps</td>
+                                            <td>7.5 kbps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-secondary">S</span></td>
+                                            <td><span class="text-info me-1">⚙</span> ether9</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><span class="text-info me-1">⚙</span> ether10</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1598</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fw-bold text-success">R</span></td>
+                                            <td><span class="text-muted me-1">∞</span> lo</td>
+                                            <td>Loopback</td>
+                                            <td>65536</td>
+                                            <td>-</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><span class="text-warning me-1">⚡</span> sfp1</td>
+                                            <td>Ethernet</td>
+                                            <td>1500</td>
+                                            <td>1600</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <td><span class="fw-bold text-primary">R</span></td>
+                                            <td><span class="text-primary me-1">🛡</span><strong>wg-chr</strong> <em>(WireGuard to CHR)</em></td>
+                                            <td>WireGuard</td>
+                                            <td>1420</td>
+                                            <td>-</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0 bps</td>
+                                            <td>0 bps</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODUL 2: IP (ip/ip.html) -->
+                <div id="ip-module-container"></div>
+
+                <!-- MODUL 3: WIREGUARD (wireguard/wireguard.html) -->
+                <div id="wireguard-module-container"></div>
+
+                <!-- MODUL 4: WIRELESS (wireless/wireless.html) -->
+                <div id="wireless-module-container"></div>
+
+                <!-- DASHBOARD QUICK SET & KPI -->
+                <div class="mitrautama-view-section" id="view-dashboard" style="display: block;">
+                    <div class="mitrautama-kpi-grid">
+                        <div class="mitrautama-kpi-card">
+                            <div class="mitrautama-kpi-info">
+                                <span class="mitrautama-kpi-title">WAN Throughput</span>
+                                <span class="mitrautama-kpi-value text-primary" id="kpi-wan-rx">156.1 kbps</span>
+                                <span class="mitrautama-kpi-meta text-muted">Tx: <span id="kpi-wan-tx" class="fw-semibold text-success">7.4 kbps</span> &bull; 1. WAN</span>
+                            </div>
+                            <div class="mitrautama-kpi-icon-box" style="background: rgba(2, 132, 199, 0.12); color: #0284c7;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            </div>
+                        </div>
+
+                        <div class="mitrautama-kpi-card">
+                            <div class="mitrautama-kpi-info">
+                                <span class="mitrautama-kpi-title">CPU Dual-Core</span>
+                                <span class="mitrautama-kpi-value text-warning" id="kpi-cpu-val">2%</span>
+                                <div class="progress mt-2" style="height: 6px; width: 130px;">
+                                    <div id="kpi-cpu-bar" class="progress-bar bg-warning" role="progressbar" style="width: 2%;"></div>
+                                </div>
+                            </div>
+                            <div class="mitrautama-kpi-icon-box" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>
+                            </div>
+                        </div>
+
+                        <div class="mitrautama-kpi-card">
+                            <div class="mitrautama-kpi-info">
+                                <span class="mitrautama-kpi-title">RAM Tersedia</span>
+                                <span class="mitrautama-kpi-value text-success">942.1 MB</span>
+                                <span class="mitrautama-kpi-meta text-muted">Total: 1024 MB (92% Free)</span>
+                            </div>
+                            <div class="mitrautama-kpi-icon-box" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                            </div>
+                        </div>
+
+                        <div class="mitrautama-kpi-card">
+                            <div class="mitrautama-kpi-info">
+                                <span class="mitrautama-kpi-title">Suhu &amp; Voltase</span>
+                                <span class="mitrautama-kpi-value text-danger">45 °C</span>
+                                <span class="mitrautama-kpi-meta text-muted">Voltage: 23.9 V &bull; Normal</span>
+                            </div>
+                            <div class="mitrautama-kpi-icon-box" style="background: rgba(239, 68, 68, 0.12); color: #ef4444;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-8">
+                            <div class="mitrautama-chart-card">
+                                <div class="mitrautama-chart-header">
+                                    <div class="mitrautama-chart-title">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                                        <span>Realtime Traffic Graph - Interface "1. WAN"</span>
+                                    </div>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle">Live 2s</span>
+                                </div>
+                                <div style="height: 280px; position: relative;">
+                                    <canvas id="trafficChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mitrautama-chart-card">
+                                <div class="mitrautama-chart-header">
+                                    <div class="mitrautama-chart-title">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect></svg>
+                                        <span>CPU History</span>
+                                    </div>
+                                    <small class="text-muted">ARM Dual-Core 1.4 GHz</small>
+                                </div>
+                                <div style="height: 280px; position: relative;">
+                                    <canvas id="cpuChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- 4. FIXED FOOTER CONTAINER (Modular: includes/footer.html) -->
+        <div id="footer-container">
+            <footer class="mitrautama-fixed-footer">
+                <div class="footer-left-info">
+                    <strong>RouterOS v7.24.5 (stable)</strong> &bull; Board: <strong>RB3011UiAS</strong> &bull; Uptime: 16h48m
+                </div>
+                <div>
+                    <span>Voltage: 23.9V</span> | <span>Temp: 45°C</span> | <span>Memory: 942.1MB Free</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODALS (Strict Manual Close) -->
+    <div id="modal-ping" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    <span>Ping Diagnostic Tool</span>
+                </div>
+                <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-ping" title="Tutup Modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Target IP / Hostname</label>
+                    <div class="input-group">
+                        <input type="text" id="ping-target-input" class="form-control" value="172.16.92.254">
+                        <button class="btn btn-primary" type="button" id="btn-action-ping">Mulai Ping</button>
+                    </div>
+                </div>
+                <div class="p-3 bg-dark text-light rounded font-monospace" style="font-size: 0.8rem; height: 160px; overflow-y: auto;" id="ping-results-box">
+                    Ketik target IP dan klik "Mulai Ping" untuk menguji latensi gateway...
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-ping">Tutup Manual</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-terminal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 650px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    <span>RouterOS Web Terminal (citramedia@BACKBONE)</span>
+                </div>
+                <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-terminal" title="Tutup Modal">✕</button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="p-3 bg-black text-success font-monospace" style="min-height: 250px; font-size: 0.825rem; line-height: 1.5;">
+                    [citramedia@BACKBONE] &gt; /interface print<br>
+                    Flags: R - RUNNING; S - SLAVE<br>
+                    0 R name="1. WAN" type=bridge mtu=1500<br>
+                    1 R name="2. LAN" type=bridge mtu=1500<br>
+                    2 RS name="ether8" type=ether mtu=1500<br>
+                    [citramedia@BACKBONE] &gt; <span class="text-white">_</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-terminal">Tutup Terminal</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-router-status" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Status &amp; Kontrol Router</span>
+                </div>
+                <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-router-status" title="Tutup Modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item d-flex justify-content-between"><span>Identity</span><span class="fw-bold">BACKBONE</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Board Model</span><span class="fw-bold">RB3011UiAS</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>CPU</span><span>ARM (2 Cores)</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>SSH Port</span><span class="badge bg-success">22 OK</span></li>
+                    <li class="list-group-item d-flex justify-content-between"><span>Winbox Port</span><span class="badge bg-success">8291 OK</span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-router-status">Tutup Manual</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-add-interface" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                    <span>New Interface</span>
+                </div>
+                <button type="button" class="modal-close-btn" data-mitrautama-modal-close="modal-add-interface" title="Tutup Modal">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" placeholder="vlan10">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <select class="form-select">
+                        <option>VLAN</option>
+                        <option>Bridge</option>
+                        <option>WireGuard</option>
+                        <option>EoIP Tunnel</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="Swal.fire('Tersimpan', 'Interface baru dikonfigurasi.', 'success')">Simpan</button>
+                <button type="button" class="btn btn-secondary" data-mitrautama-modal-close="modal-add-interface">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Modular JS Scripts (ES Modules) -->
+    <script type="module" src="js/theme.js"></script>
+    <script type="module" src="js/theme-ui.js"></script>
+    <script type="module" src="js/modal.js"></script>
+    <script type="module" src="js/toast.js"></script>
+    <script type="module" src="js/charts.js"></script>
+    <script type="module" src="js/navigation.js"></script>
+    <script type="module">
+        import { moduleLoader } from './js/module-loader.js';
+        moduleLoader.loadAll();
+    </script>
+</body>
+</html>

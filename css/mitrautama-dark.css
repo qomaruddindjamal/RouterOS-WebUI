@@ -1,0 +1,87 @@
+/**
+ * MitraUtama Dark Mode Stylesheet
+ * Disesuaikan untuk keterbacaan tinggi, kontras optimal, elegan,
+ * serta mempertahankan aksen warna modern yang jernih.
+ */
+
+:root, [data-theme="dark"] {
+    --mu-primary: #38bdf8;         /* Sky bright di dark mode */
+    --mu-primary-hover: #7dd3fc;
+    --mu-primary-light: rgba(56, 189, 248, 0.15);
+    --mu-primary-glow: rgba(56, 189, 248, 0.35);
+
+    --mu-accent: #34d399;
+    --mu-accent-light: rgba(52, 211, 153, 0.15);
+
+    --mu-bg-main: #0b1120;         /* Deep navy / midnight dark */
+    --mu-bg-card: #151e32;         /* Solid card dark */
+    --mu-bg-card-subtle: #0f172a;
+    --mu-bg-glass: rgba(21, 30, 50, 0.94);
+
+    --mu-text-main: #f8fafc;       /* Putih cerah */
+    --mu-text-muted: #94a3b8;      /* Slate 400 */
+    --mu-text-light: #64748b;
+
+    --mu-border: #1e293b;
+    --mu-border-focus: #38bdf8;
+
+    --mu-danger: #f87171;
+    --mu-danger-light: rgba(248, 113, 113, 0.18);
+    --mu-success: #34d399;
+    --mu-warning: #fbbf24;
+
+    --mu-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --mu-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --mu-shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+    --mu-shadow-xl: 0 20px 30px -5px rgba(0, 0, 0, 0.6);
+}
+
+body {
+    background-color: var(--mu-bg-main);
+    color: var(--mu-text-main);
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.12) 0px, transparent 45%),
+        radial-gradient(at 90% 85%, rgba(14, 165, 233, 0.08) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.8) 0px, transparent 100%);
+}
+
+.mu-header {
+    background: rgba(15, 23, 42, 0.75);
+    border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+}
+
+.mu-input {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #334155;
+}
+
+.mu-input:focus {
+    background: #1e293b;
+    border-color: var(--mu-primary);
+}
+
+.mu-card {
+    border-color: #1e293b;
+    box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.7);
+}
+
+.mu-tariff-card {
+    background: #111827;
+    border-color: #1f2937;
+}
+
+.modal-box {
+    background: #151e32;
+    border-color: #1e293b;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+}
+
+.modal-header, .modal-footer {
+    border-color: #1e293b;
+}
+
+.modal-close-btn {
+    background: #1e293b;
+    color: #94a3b8;
+}

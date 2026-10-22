@@ -1,0 +1,16 @@
+# Dependency & local environments
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# OS & Editor artifacts
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary dumps & scratch scripts
+*.tmp
+temp_*.py

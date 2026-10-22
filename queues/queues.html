@@ -1,0 +1,51 @@
+<div class="mitrautama-subview" id="view-queues">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <strong>Queues</strong> (Bandwidth Management)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="queues-simple">Simple Queues</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="queues-tree">Queue Tree</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="queues-types">Queue Types</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-queues-simple">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>#</th><th>Name</th><th>Target</th><th>Max Limit (Up/Down)</th><th>Priority</th><th>Queue Type</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td><strong>ALL TRAFIC</strong></td><td>0.0.0.0/0</td><td>500M / 500M</td><td>8/8</td><td>pcq-upload / pcq-download</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
+          <tr><td>1</td><td><strong>CLIENT-VIP</strong></td><td>172.16.92.0/24</td><td>100M / 100M</td><td>1/1</td><td>default-small</td><td><span class="badge bg-success">Active</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-queues-tree">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Name</th><th>Parent</th><th>Packet Mark</th><th>Queue Type</th><th>Priority</th><th>Max Limit</th></tr></thead>
+        <tbody>
+          <tr><td colspan="6" class="text-center text-muted py-3">No Queue Tree rules configured.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-queues-types">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Type Name</th><th>Kind</th><th>Parameters</th></tr></thead>
+        <tbody>
+          <tr><td>default</td><td>pfifo</td><td>pfifo-limit=50</td></tr>
+          <tr><td>default-small</td><td>pfifo</td><td>pfifo-limit=10</td></tr>
+          <tr><td>pcq-download-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+          <tr><td>pcq-upload-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

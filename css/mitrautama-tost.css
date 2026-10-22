@@ -1,0 +1,131 @@
+/**
+ * MitraUtama Toast Notification Stylesheet (mitrautama-tost.css)
+ * Awalan kelas dan atribut: mitrautama-
+ */
+
+.mitrautama-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1090;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 380px;
+    width: calc(100% - 40px);
+    pointer-events: none;
+}
+
+.mitrautama-toast {
+    pointer-events: auto;
+    background: var(--mu-bg-card, #ffffff);
+    border: 1px solid var(--mu-border, #e2e8f0);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: mitrautamaToastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mitrautama-toast.hiding {
+    animation: mitrautamaToastSlideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mitrautama-toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+.mitrautama-toast-content {
+    flex: 1;
+}
+
+.mitrautama-toast-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--mu-text-main, #0f172a);
+    margin-bottom: 2px;
+}
+
+.mitrautama-toast-message {
+    font-size: 0.825rem;
+    color: var(--mu-text-muted, #64748b);
+    line-height: 1.4;
+}
+
+.mitrautama-toast-close {
+    background: transparent;
+    border: none;
+    color: var(--mu-text-light, #94a3b8);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: color 0.15s ease;
+}
+
+.mitrautama-toast-close:hover {
+    color: var(--mu-text-main, #0f172a);
+}
+
+.mitrautama-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--mu-primary, #0284c7);
+    width: 100%;
+}
+
+@keyframes mitrautamaToastSlideIn {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes mitrautamaToastSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+}
+
+[data-theme="dark"] .mitrautama-toast {
+    background: #151e32;
+    border-color: #1e293b;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .mitrautama-toast-title {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .mitrautama-toast-message {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .mitrautama-toast-close:hover {
+    color: #f8fafc;
+}

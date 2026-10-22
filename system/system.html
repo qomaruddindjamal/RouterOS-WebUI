@@ -1,0 +1,101 @@
+<div class="mitrautama-subview" id="view-system">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+      <strong>System Resources & Hardware</strong> (RB3011UiAS)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="sys-resources">Resources</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-routerboard">RouterBOARD</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-health">Health</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-users">Users</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-sys-resources">
+    <div class="row g-3 p-3">
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border">
+          <h6 class="fw-bold text-primary mb-3">Hardware & OS</h6>
+          <table class="table table-sm table-borderless mb-0">
+            <tr><th class="text-muted">Board:</th><td><strong>RB3011UiAS-RM</strong></td></tr>
+            <tr><th class="text-muted">Architecture:</th><td>arm</td></tr>
+            <tr><th class="text-muted">CPU:</th><td>Qualcomm IPQ8064 (2 Cores @ 1.4 GHz)</td></tr>
+            <tr><th class="text-muted">RouterOS Version:</th><td><span class="badge bg-success">7.24.5 (stable)</span></td></tr>
+            <tr><th class="text-muted">Build Time:</th><td>2026-09-29 14:21:27</td></tr>
+            <tr><th class="text-muted">Identity:</th><td><strong>BACKBONE</strong></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 bg-light rounded border">
+          <h6 class="fw-bold text-success mb-3">Memory & Storage</h6>
+          <table class="table table-sm table-borderless mb-0">
+            <tr><th class="text-muted">Total RAM:</th><td>1024.0 MiB</td></tr>
+            <tr><th class="text-muted">Free RAM:</th><td><span class="text-success fw-bold">940.7 MiB (91.8%)</span></td></tr>
+            <tr><th class="text-muted">Total HDD/NAND:</th><td>128.0 MiB</td></tr>
+            <tr><th class="text-muted">Free HDD/NAND:</th><td>111.4 MiB (87.0%)</td></tr>
+            <tr><th class="text-muted">Write Sector Since Reboot:</th><td>1,421</td></tr>
+            <tr><th class="text-muted">Bad Blocks:</th><td>0.0%</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-routerboard">
+    <div class="p-3">
+      <div class="p-3 bg-light rounded border">
+        <h6 class="fw-bold text-primary mb-3">Firmware Information</h6>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>RouterBOARD:</strong> Yes</p>
+            <p><strong>Model:</strong> RB3011UiAS</p>
+            <p><strong>Revision:</strong> r2</p>
+            <p><strong>Serial Number:</strong> <code>E14B0E638BF7</code></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Firmware Type:</strong> ipq8060</p>
+            <p><strong>Current Firmware:</strong> 7.24.4</p>
+            <p><strong>Upgrade Firmware:</strong> <span class="badge bg-info">7.24.5</span></p>
+            <button class="btn btn-sm btn-outline-primary">Upgrade Firmware</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-health">
+    <div class="p-3">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded border text-center">
+            <div class="text-muted mb-1">Supply Voltage</div>
+            <div class="display-5 fw-bold text-primary">23.9 V</div>
+            <span class="badge bg-success mt-2">Optimal (10V - 30V supported)</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded border text-center">
+            <div class="text-muted mb-1">Board Temperature</div>
+            <div class="display-5 fw-bold text-success">44 °C</div>
+            <span class="badge bg-success mt-2">Normal Operating Range</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-sys-users">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>User</th><th>Group</th><th>Allowed Address</th><th>Inactivity Timeout</th><th>Last Logged In</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>citramedia</strong></td><td><span class="badge bg-danger">full</span></td><td>0.0.0.0/0</td><td>10m</td><td>2026-10-22 15:06:41</td><td><span class="badge bg-success">Active</span></td></tr>
+          <tr><td>admin</td><td>full</td><td>0.0.0.0/0</td><td>10m</td><td>-</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

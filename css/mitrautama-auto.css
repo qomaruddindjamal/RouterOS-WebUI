@@ -1,0 +1,207 @@
+/**
+ * MitraUtama Auto Dynamic Time Theme Stylesheet
+ * Mengubah suasana visual antarmuka mengikuti siklus waktu harian:
+ * - Fajar (04:30 - 06:14) : Nuansa fajar sejuk, sentuhan pastel ungu keemasan lembut
+ * - Pagi  (06:15 - 11:29) : Nuansa pagi cerah jernih, biru langit & hijau segar
+ * - Siang (11:30 - 15:29) : Ultra-cerah, vibrant, kontras tajam & energik
+ * - Senja (15:30 - 18:29) : Sunset golden hour, nuansa hangat amber & oranye lembayung
+ * - Malam (18:30 - 04:29) : Malam tenang, nyaman di mata, kontras pekat & elegan
+ */
+
+/* =========================================================================
+   1. FAJAR (04:30 - 06:14)
+   ========================================================================= */
+[data-period="fajar"] {
+    --mu-primary: #6366f1;         /* Indigo soft */
+    --mu-primary-hover: #4f46e5;
+    --mu-primary-light: #e0e7ff;
+    --mu-primary-glow: rgba(99, 102, 241, 0.25);
+    
+    --mu-bg-main: #f5f3ff;         /* Lembut violet fajar */
+    --mu-bg-card: #ffffff;
+    --mu-bg-glass: rgba(255, 255, 255, 0.94);
+
+    --mu-border: #e0e7ff;
+}
+
+[data-period="fajar"] body {
+    background-image: 
+        radial-gradient(at 15% 15%, rgba(199, 210, 254, 0.5) 0px, transparent 40%),
+        radial-gradient(at 85% 85%, rgba(254, 215, 170, 0.4) 0px, transparent 45%),
+        radial-gradient(at 50% 50%, rgba(245, 243, 255, 0.7) 0px, transparent 100%);
+}
+
+[data-period="fajar"] .mu-logo-icon {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+}
+
+[data-period="fajar"] .mu-btn-submit {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+/* =========================================================================
+   2. PAGI (06:15 - 11:29)
+   ========================================================================= */
+[data-period="pagi"] {
+    --mu-primary: #0284c7;         /* Langit biru segar */
+    --mu-primary-hover: #0369a1;
+    --mu-primary-light: #e0f2fe;
+    --mu-primary-glow: rgba(2, 132, 199, 0.25);
+
+    --mu-accent: #10b981;
+    --mu-bg-main: #f0fdf4;         /* Hijau-biru embun pagi */
+    --mu-bg-card: #ffffff;
+    --mu-bg-glass: rgba(255, 255, 255, 0.95);
+    
+    --mu-border: #e2e8f0;
+}
+
+[data-period="pagi"] body {
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.2) 0px, transparent 45%),
+        radial-gradient(at 90% 80%, rgba(74, 222, 128, 0.15) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(240, 253, 244, 0.7) 0px, transparent 100%);
+}
+
+[data-period="pagi"] .mu-logo-icon {
+    background: linear-gradient(135deg, #0284c7 0%, #10b981 100%);
+}
+
+[data-period="pagi"] .mu-btn-submit {
+    background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%);
+}
+
+/* =========================================================================
+   3. SIANG (11:30 - 15:29) - Ultra Cerah
+   ========================================================================= */
+[data-period="siang"] {
+    --mu-primary: #0ea5e9;         /* Cyan bright */
+    --mu-primary-hover: #0284c7;
+    --mu-primary-light: #e0f2fe;
+    --mu-primary-glow: rgba(14, 165, 233, 0.3);
+
+    --mu-bg-main: #f8fafc;         /* Terang kristal */
+    --mu-bg-card: #ffffff;
+    --mu-bg-glass: rgba(255, 255, 255, 0.96);
+
+    --mu-border: #cbd5e1;
+}
+
+[data-period="siang"] body {
+    background-image: 
+        radial-gradient(at 20% 10%, rgba(254, 240, 138, 0.3) 0px, transparent 40%),
+        radial-gradient(at 80% 80%, rgba(56, 189, 248, 0.25) 0px, transparent 45%),
+        radial-gradient(at 50% 50%, #ffffff 0px, transparent 100%);
+}
+
+[data-period="siang"] .mu-logo-icon {
+    background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+}
+
+[data-period="siang"] .mu-btn-submit {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+/* =========================================================================
+   4. SENJA (15:30 - 18:29) - Sunset Golden Hour
+   ========================================================================= */
+[data-period="senja"] {
+    --mu-primary: #ea580c;         /* Oranye jingga senja */
+    --mu-primary-hover: #c2410c;
+    --mu-primary-light: #ffedd5;
+    --mu-primary-glow: rgba(234, 88, 12, 0.28);
+
+    --mu-bg-main: #fff7ed;         /* Hangat golden peach */
+    --mu-bg-card: #ffffff;
+    --mu-bg-glass: rgba(255, 255, 255, 0.95);
+
+    --mu-border: #fed7aa;
+}
+
+[data-period="senja"] body {
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(251, 146, 60, 0.25) 0px, transparent 45%),
+        radial-gradient(at 90% 70%, rgba(244, 63, 94, 0.2) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(255, 247, 237, 0.8) 0px, transparent 100%);
+}
+
+[data-period="senja"] .mu-logo-icon {
+    background: linear-gradient(135deg, #ea580c 0%, #e11d48 100%);
+}
+
+[data-period="senja"] .mu-btn-submit {
+    background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+}
+
+/* =========================================================================
+   5. MALAM (18:30 - 04:29) - Malam Tenang & Nyaman
+   ========================================================================= */
+[data-period="malam"] {
+    --mu-primary: #38bdf8;         /* Cyan langit malam */
+    --mu-primary-hover: #7dd3fc;
+    --mu-primary-light: rgba(56, 189, 248, 0.15);
+    --mu-primary-glow: rgba(56, 189, 248, 0.35);
+
+    --mu-bg-main: #0a0f1d;         /* Deep starlight midnight */
+    --mu-bg-card: #131c31;
+    --mu-bg-card-subtle: #0d1527;
+    --mu-bg-glass: rgba(19, 28, 49, 0.94);
+
+    --mu-text-main: #f8fafc;
+    --mu-text-muted: #94a3b8;
+    --mu-text-light: #64748b;
+
+    --mu-border: #1e293b;
+    --mu-border-focus: #38bdf8;
+}
+
+[data-period="malam"] body {
+    background-color: var(--mu-bg-main);
+    color: var(--mu-text-main);
+    background-image: 
+        radial-gradient(at 15% 15%, rgba(56, 189, 248, 0.15) 0px, transparent 40%),
+        radial-gradient(at 85% 85%, rgba(129, 140, 248, 0.12) 0px, transparent 45%),
+        radial-gradient(at 50% 50%, rgba(10, 15, 29, 0.85) 0px, transparent 100%);
+}
+
+[data-period="malam"] .mu-header {
+    background: rgba(10, 15, 29, 0.8);
+    border-bottom: 1px solid rgba(30, 41, 59, 0.8);
+}
+
+[data-period="malam"] .mu-input {
+    background: #0d1527;
+    color: #ffffff;
+    border-color: #334155;
+}
+
+[data-period="malam"] .mu-input:focus {
+    background: #1e293b;
+    border-color: var(--mu-primary);
+}
+
+[data-period="malam"] .mu-card {
+    border-color: #1e293b;
+    box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.7);
+}
+
+[data-period="malam"] .mu-tariff-card {
+    background: #0d1527;
+    border-color: #1e293b;
+}
+
+[data-period="malam"] .modal-box {
+    background: #131c31;
+    border-color: #1e293b;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+}
+
+[data-period="malam"] .modal-header,
+[data-period="malam"] .modal-footer {
+    border-color: #1e293b;
+}
+
+[data-period="malam"] .modal-close-btn {
+    background: #1e293b;
+    color: #94a3b8;
+}

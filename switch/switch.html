@@ -1,0 +1,79 @@
+<div class="mitrautama-subview" id="view-switch">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      <strong>Switch</strong> (QCA8337 Hardware Switch)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="switch-ports">Port</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-vlan">VLAN</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-rule">Rule</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="switch-host">Host</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-switch-ports">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead>
+          <tr>
+            <th>Port</th>
+            <th>Switch</th>
+            <th>VLAN Mode</th>
+            <th>VLAN Header</th>
+            <th>Default VLAN ID</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ether1</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-success">Running</span></td></tr>
+          <tr><td><strong>ether2</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether3</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether4</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether5</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>switch1-cpu</strong></td><td>switch1</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-info">CPU</span></td></tr>
+          <tr><td><strong>ether6</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether7</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether8</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether9</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether10</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>switch2-cpu</strong></td><td>switch2</td><td>disabled</td><td>leave-as-is</td><td>auto</td><td><span class="badge bg-info">CPU</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-vlan">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Switch</th><th>VLAN ID</th><th>Ports</th><th>Independent Learning</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" class="text-center text-muted py-3">No hardware switch VLAN entries configured.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-rule">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>#</th><th>Switch</th><th>MAC Protocol</th><th>Copy to CPU</th><th>Redirect to CPU</th><th>Mirror</th></tr></thead>
+        <tbody>
+          <tr><td>0 (Dynamic)</td><td>switch2</td><td><span class="badge bg-primary">romon</span></td><td>no</td><td><span class="badge bg-success">yes</span></td><td>no</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-switch-host">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>MAC Address</th><th>Port</th><th>VLAN ID</th><th>Dynamic</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" class="text-center text-muted py-3">Hardware host table populated automatically by switch chips.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

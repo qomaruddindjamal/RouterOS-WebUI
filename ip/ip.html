@@ -1,0 +1,155 @@
+<!-- Module: ip/ip.html -->
+<div class="mitrautama-view-section" id="view-ip-addresses" style="display: none;">
+    <!-- Winbox Window Header -->
+    <div class="mitrautama-win-header">
+        <div class="mitrautama-win-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span>Address List</span>
+        </div>
+    </div>
+
+    <!-- Sub-tabs IP -->
+    <div class="mitrautama-winbox-tabs">
+        <a href="#" class="mitrautama-winbox-tab active" data-tab-target="tab-pane-ip-addr">Addresses</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-ip-routes">Routes</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-ip-dhcp">DHCP Server</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-ip-pool">Pools</a>
+        <a href="#" class="mitrautama-winbox-tab" data-tab-target="tab-pane-ip-firewall">Firewall NAT</a>
+    </div>
+
+    <!-- Winbox Actions Toolbar -->
+    <div class="mitrautama-winbox-toolbar">
+        <div class="mitrautama-toolbar-actions">
+            <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire({title:'Tambah IP Address', html:'<input class=\'form-control mb-2\' placeholder=\'192.168.1.1/24\'><input class=\'form-control\' placeholder=\'1. WAN\'>'})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Enable IP', message:'IP diaktifkan', type:'success'})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Enable</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Disable IP', message:'IP dinonaktifkan', type:'warning'})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <span>Disable</span>
+            </button>
+            <button class="mitrautama-toolbar-btn text-danger" onclick="Swal.fire('Hapus IP', 'Konfirmasi hapus?', 'warning')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline></svg>
+                <span>Remove</span>
+            </button>
+        </div>
+        <div>
+            <input type="text" placeholder="Find IP..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
+        </div>
+    </div>
+
+    <!-- Tab Content Addresses -->
+    <div class="mitrautama-tab-pane" id="tab-pane-ip-addr" style="display: block;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Address</th>
+                        <th>Network</th>
+                        <th>Interface</th>
+                        <th>Actual Interface</th>
+                        <th>VRF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td><strong>10.10.92.254/24</strong></td>
+                        <td>10.10.92.0</td>
+                        <td>ether2</td>
+                        <td>ether2</td>
+                        <td>main</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>172.16.92.230/24</strong></td>
+                        <td>172.16.92.0</td>
+                        <td><span class="badge bg-primary">1. WAN</span></td>
+                        <td>1. WAN</td>
+                        <td>main</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>10.10.16.254/24</strong></td>
+                        <td>10.10.16.0</td>
+                        <td><span class="badge bg-success">2. LAN</span></td>
+                        <td>2. LAN</td>
+                        <td>main</td>
+                    </tr>
+                    <tr class="table-info">
+                        <td>3</td>
+                        <td><strong>10.10.77.2/30</strong> <em>(WireGuard Tunnel IP)</em></td>
+                        <td>10.10.77.0</td>
+                        <td><span class="badge bg-info">wg-chr</span></td>
+                        <td>wg-chr</td>
+                        <td>main</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content Routes -->
+    <div class="mitrautama-tab-pane" id="tab-pane-ip-routes" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead><tr><th>Flags</th><th>Dst. Address</th><th>Gateway</th><th>Immediate GW</th><th>Distance</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="fw-bold text-success">As</span></td><td><strong>0.0.0.0/0 (Default Route)</strong></td><td>172.16.92.254</td><td>172.16.92.254%1. WAN</td><td>1</td></tr>
+                    <tr><td><span class="fw-bold text-info">DAc</span></td><td>10.10.16.0/24</td><td>2. LAN</td><td>2. LAN</td><td>0</td></tr>
+                    <tr><td><span class="fw-bold text-info">DAc</span></td><td>10.10.77.0/30</td><td>wg-chr</td><td>wg-chr</td><td>0</td></tr>
+                    <tr><td><span class="fw-bold text-info">DAc</span></td><td>172.16.92.0/24</td><td>1. WAN</td><td>1. WAN</td><td>0</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content DHCP Server -->
+    <div class="mitrautama-tab-pane" id="tab-pane-ip-dhcp" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead><tr><th>Flags</th><th>Name</th><th>Interface</th><th>Lease Time</th><th>Address Pool</th></tr></thead>
+                <tbody>
+                    <tr class="text-muted">
+                        <td><span class="fw-bold text-warning">I</span></td>
+                        <td>dhcp1 <em>(Interface not running)</em></td>
+                        <td>ether2</td>
+                        <td>10m</td>
+                        <td>dhcp_pool10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content Pools -->
+    <div class="mitrautama-tab-pane" id="tab-pane-ip-pool" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead><tr><th>Name</th><th>Ranges</th><th>Next Pool</th></tr></thead>
+                <tbody>
+                    <tr><td>dhcp_pool10</td><td>10.10.92.1-10.10.92.253</td><td>none</td></tr>
+                    <tr><td>pool-hotspot</td><td>10.10.16.10-10.10.16.250</td><td>none</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab Content Firewall NAT -->
+    <div class="mitrautama-tab-pane" id="tab-pane-ip-firewall" style="display: none;">
+        <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
+            <table class="mitrautama-table">
+                <thead><tr><th>Chain</th><th>Action</th><th>Out Interface</th><th>Src. Address</th></tr></thead>
+                <tbody>
+                    <tr><td>srcnat</td><td><span class="badge bg-success">masquerade</span></td><td>1. WAN</td><td>10.10.16.0/24</td></tr>
+                    <tr><td>srcnat</td><td><span class="badge bg-success">masquerade</span></td><td>wg-chr</td><td>10.10.77.0/30</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

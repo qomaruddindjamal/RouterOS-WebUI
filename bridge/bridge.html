@@ -1,0 +1,54 @@
+<div class="mitrautama-subview" id="view-bridge">
+  <div class="mitrautama-window-header">
+    <div class="mitrautama-window-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <strong>Bridge</strong> (RB3011 Dual Switch Bridge)
+    </div>
+  </div>
+
+  <div class="mitrautama-subtabs-bar">
+    <button class="mitrautama-subtab active" data-mitrautama-subtab="bridge-list">Bridge</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="bridge-ports">Ports</button>
+    <button class="mitrautama-subtab" data-mitrautama-subtab="bridge-vlans">VLANs</button>
+  </div>
+
+  <div class="mitrautama-tab-content active" id="subtab-bridge-list">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Name</th><th>MAC Address</th><th>Fast Forward</th><th>Protocol Mode</th><th>IGMP Snooping</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. WAN</strong></td><td><code>2C:C8:1B:18:BE:35</code></td><td><span class="badge bg-success">yes</span></td><td>none</td><td>no</td><td><span class="badge bg-success">Running</span></td></tr>
+          <tr><td><strong>2. LAN</strong></td><td><code>2C:C8:1B:18:BE:2E</code></td><td><span class="badge bg-success">yes</span></td><td>none</td><td>no</td><td><span class="badge bg-success">Running</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-bridge-ports">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Interface</th><th>Bridge</th><th>Priority</th><th>HW Offload</th><th>PVID</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ether1</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether3</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether4</strong></td><td>2. LAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether7</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether8</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-warning text-dark">no</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+          <tr><td><strong>ether9</strong></td><td>1. WAN</td><td>0x80</td><td><span class="badge bg-success">yes</span></td><td>1</td><td><span class="badge bg-secondary">Inactive</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="mitrautama-tab-content" id="subtab-bridge-vlans">
+    <div class="mitrautama-table-responsive">
+      <table class="mitrautama-table">
+        <thead><tr><th>Bridge</th><th>VLAN IDs</th><th>Tagged</th><th>Untagged</th><th>Current Tagged</th><th>Current Untagged</th></tr></thead>
+        <tbody>
+          <tr><td>2. LAN</td><td>1</td><td></td><td>2. LAN</td><td></td><td>2. LAN, ether1, ether3, ether4</td></tr>
+          <tr><td>1. WAN</td><td>1</td><td></td><td>1. WAN</td><td></td><td>1. WAN, ether7, ether8, ether9</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

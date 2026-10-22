@@ -1,0 +1,482 @@
+/**
+ * MitraUtama All Minified Core Stylesheet (mitrautama-all-min.css)
+ * Desain Fixed Header, Fixed Footer, Collapsible Sidebar,
+ * Drop-right Flyout Submenus (Winbox Style), dan Tab Toolbar Winbox Asli.
+ */
+
+/* =========================================================================
+   1. FIXED APP LAYOUT & SHELL
+   ========================================================================= */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* App Shell menampung scrolling mandiri */
+}
+
+.mitrautama-app-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: var(--mu-bg-main, #f8fafc);
+}
+
+/* FIXED HEADER */
+.mitrautama-fixed-header {
+    height: 52px;
+    min-height: 52px;
+    background: var(--mu-bg-card, #ffffff);
+    border-bottom: 1px solid var(--mu-border, #e2e8f0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 1040;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* BODY CONTAINER (SIDEBAR + MAIN CONTENT) */
+.mitrautama-body-container {
+    display: flex;
+    flex: 1;
+    min-height: 0; /* Penting untuk scrollable flex child */
+    overflow: hidden;
+    position: relative;
+}
+
+/* FIXED FOOTER */
+.mitrautama-fixed-footer {
+    height: 32px;
+    min-height: 32px;
+    background: var(--mu-bg-card, #ffffff);
+    border-top: 1px solid var(--mu-border, #e2e8f0);
+    display: flex;
+    justify-content: flex-end; /* Rata Kanan */
+    align-items: center;
+    padding: 0 20px;
+    font-size: 0.775rem;
+    color: var(--mu-text-muted, #64748b);
+    z-index: 1040;
+    gap: 16px;
+}
+
+.mitrautama-fixed-footer .footer-left-info {
+    margin-right: auto; /* Mendorong info kanan sepenuhnya rata kanan */
+}
+
+/* =========================================================================
+   2. COLLAPSIBLE SIDEBAR & WINBOX MENU TREE
+   ========================================================================= */
+
+.mitrautama-sidebar {
+    width: 230px;
+    min-width: 230px;
+    background: var(--mu-bg-card, #ffffff);
+    border-right: 1px solid var(--mu-border, #e2e8f0);
+    display: flex;
+    flex-direction: column;
+    z-index: 1030;
+    position: relative;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: visible !important; /* Agar drop-right popover tidak terpotong */
+}
+
+/* State Sidebar Collapsed */
+.mitrautama-sidebar.collapsed {
+    width: 58px;
+    min-width: 58px;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-text,
+.mitrautama-sidebar.collapsed .mitrautama-submenu-chevron,
+.mitrautama-sidebar.collapsed .mitrautama-sidebar-title-text {
+    display: none !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-item {
+    justify-content: center;
+    padding: 8px 0;
+}
+
+.mitrautama-sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: visible;
+    padding: 6px;
+    list-style: none;
+    margin: 0;
+}
+
+.mitrautama-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    border-radius: 6px;
+    color: var(--mu-text-main, #0f172a);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    position: relative;
+}
+
+.mitrautama-menu-item:hover {
+    background: rgba(2, 132, 199, 0.08);
+    color: var(--mu-primary, #0284c7);
+}
+
+.mitrautama-menu-item.active {
+    background: var(--mu-primary, #0284c7);
+    color: #ffffff;
+    box-shadow: 0 2px 6px var(--mu-primary-glow, rgba(2, 132, 199, 0.25));
+}
+
+.mitrautama-menu-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* =========================================================================
+   3. DROP-RIGHT SUBMENU (FLYOUT POPOVER PERSIS WINBOX ASLI)
+   ========================================================================= */
+
+.mitrautama-menu-group {
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.mitrautama-submenu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mitrautama-submenu-chevron {
+    font-size: 0.7rem;
+    color: var(--mu-text-light, #94a3b8);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Flyout Popover Box */
+.mitrautama-submenu-list {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin-left: 2px;
+    min-width: 185px;
+    background: var(--mu-bg-card, #ffffff);
+    border: 1px solid var(--mu-border, #cbd5e1);
+    border-radius: 6px;
+    box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.2), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
+    padding: 4px;
+    list-style: none;
+    z-index: 1060;
+    display: none;
+    animation: dropRightFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tampilkan saat hover atau saat toggle diklik */
+.mitrautama-menu-group:hover > .mitrautama-submenu-list,
+.mitrautama-menu-group.open > .mitrautama-submenu-list {
+    display: block;
+}
+
+@keyframes dropRightFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.mitrautama-submenu-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--mu-text-main, #0f172a);
+    text-decoration: none;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    transition: all 0.12s ease;
+    white-space: nowrap;
+}
+
+.mitrautama-submenu-item:hover {
+    background: rgba(2, 132, 199, 0.1);
+    color: var(--mu-primary, #0284c7);
+}
+
+.mitrautama-submenu-item.active {
+    background: var(--mu-primary, #0284c7);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* =========================================================================
+   4. SCROLLABLE MAIN CONTENT AREA
+   ========================================================================= */
+
+.mitrautama-content-area {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--mu-bg-main, #f8fafc);
+    position: relative;
+    padding: 16px 20px;
+}
+
+/* =========================================================================
+   5. WINBOX WINDOW HEADER & ACTIONS TOOLBAR
+   ========================================================================= */
+
+.mitrautama-win-header {
+    background: #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+}
+
+.mitrautama-win-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* WINBOX SUB-TABS (Interface, Interface List, Ethernet, EoIP, dll) */
+.mitrautama-winbox-tabs {
+    display: flex;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    overflow-x: auto;
+    gap: 2px;
+    padding: 4px 6px 0 6px;
+}
+
+.mitrautama-winbox-tab {
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    background: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.mitrautama-winbox-tab:hover {
+    color: #0284c7;
+    background: #ffffff;
+}
+
+.mitrautama-winbox-tab.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-top: 2px solid #0284c7;
+    margin-bottom: -1px;
+    padding-bottom: 6px;
+}
+
+/* WINBOX ACTION TOOLBAR (Add +, Enable V, Disable X, Remove, Comment, Find) */
+.mitrautama-winbox-toolbar {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    gap: 8px;
+}
+
+.mitrautama-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mitrautama-toolbar-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+}
+
+.mitrautama-toolbar-btn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #0284c7;
+}
+
+/* =========================================================================
+   6. DARK MODE OVERRIDES
+   ========================================================================= */
+
+[data-theme="dark"] .mitrautama-fixed-header,
+[data-theme="dark"] .mitrautama-fixed-footer {
+    background: #111827;
+    border-color: #1f2937;
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .mitrautama-sidebar {
+    background: #111827;
+    border-right-color: #1f2937;
+}
+
+[data-theme="dark"] .mitrautama-content-area {
+    background: #0b1120;
+}
+
+[data-theme="dark"] .mitrautama-menu-item {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .mitrautama-menu-item:hover {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .mitrautama-submenu-list {
+    background: #151e32;
+    border-color: #1e293b;
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .mitrautama-submenu-item {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .mitrautama-submenu-item:hover {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+[data-theme="dark"] .mitrautama-win-header {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .mitrautama-win-title {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .mitrautama-winbox-tabs {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .mitrautama-winbox-tab {
+    background: #1e293b;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .mitrautama-winbox-tab.active {
+    background: #151e32;
+    color: #38bdf8;
+    border-top-color: #38bdf8;
+}
+
+[data-theme="dark"] .mitrautama-winbox-toolbar {
+    background: #151e32;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .mitrautama-toolbar-btn {
+    color: #cbd5e1;
+}
+
+[data-theme="dark"] .mitrautama-toolbar-btn:hover {
+    background: #1e293b;
+    border-color: #475569;
+    color: #38bdf8;
+}
+
+
+/* Perbaikan Alignment Menu Sidebar */
+.mitrautama-sidebar {
+    width: 230px !important;
+    min-width: 230px !important;
+}
+
+.mitrautama-sidebar.collapsed {
+    width: 58px !important;
+    min-width: 58px !important;
+}
+
+.mitrautama-menu-item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    text-align: left !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.mitrautama-menu-item .mitrautama-menu-label-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+}
+
+.mitrautama-menu-text {
+    flex: 1;
+    text-align: left !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mitrautama-submenu-chevron {
+    margin-left: auto !important;
+    font-size: 0.65rem !important;
+}
+
+.mitrautama-sidebar.collapsed .mitrautama-menu-item {
+    justify-content: center !important;
+    padding: 8px 0 !important;
+}
