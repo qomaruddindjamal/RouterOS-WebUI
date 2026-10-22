@@ -1,4 +1,4 @@
-﻿# RouterOS WebUI Automated Test Suite — Expanded Audit Edition (AUD-UI-07)
+# RouterOS WebUI Automated Test Suite — Expanded Audit Edition (AUD-UI-07)
 
 import os
 import json
@@ -17,6 +17,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
         """Pastikan semua modul HTML yang dijanjikan tersedia"""
         modules = [
             "index.html",
+            "login.html",
             "includes/header.html",
             "includes/sidebar.html",
             "includes/footer.html",
