@@ -767,9 +767,23 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         background: var(--mu-bg-card, #ffffff) !important;
     }
 
-    /* Di layar mobile, tombol hamburger selalu terlihat di header */
+    /* Di layar mobile, tombol hamburger selalu terlihat di depan icon brandcum/logo */
+    .mitrautama-header-left {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        gap: 10px !important;
+    }
+
     #sidebar-toggle-btn {
         display: inline-flex !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        order: 1 !important;
+    }
+
+    .mitrautama-header-home-btn {
+        order: 2 !important;
     }
 
     body.mitrautama-sidebar-collapsed .mu-brand-text {
