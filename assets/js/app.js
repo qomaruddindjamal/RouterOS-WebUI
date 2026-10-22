@@ -1104,15 +1104,19 @@ class NavigationManager {
         const firstPane = document.getElementById('terminal-session-1');
         if (firstPane) setupInputListener(firstPane);
 
-        // Add New Terminal Tab Button Listener
+        // Add New Terminal Tab Button Listener (Debounced single addition)
         const btnAddNew = document.getElementById('btn-add-new-terminal');
         const tabsContainer = document.getElementById('terminal-tabs-container');
         const sessionsContainer = document.getElementById('terminal-sessions-container');
 
         if (btnAddNew && tabsContainer && sessionsContainer) {
-            btnAddNew.addEventListener('click', (e) => {
+            let isAdding = false;
+            btnAddNew.onclick = (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                if (isAdding) return;
+                isAdding = true;
+
                 sessionCounter++;
                 const newId = sessionCounter;
 
@@ -1120,12 +1124,12 @@ class NavigationManager {
                 tabsContainer.querySelectorAll('.mitrane-tab-item').forEach(t => t.classList.remove('active'));
                 sessionsContainer.querySelectorAll('.terminal-session-pane').forEach(p => p.style.display = 'none');
 
-                // Create new Tab Element
+                // Create new Tab Element with small close button
                 const newTab = document.createElement('a');
                 newTab.href = '#';
                 newTab.className = 'mitrane-tab-item mitrautama-winbox-tab active';
                 newTab.setAttribute('data-terminal-tab', newId);
-                newTab.innerHTML = `<span>New Terminal (${newId})</span><span class="ms-2 text-muted close-tab-btn" title="Tutup Sesi" style="font-size: 0.75rem; cursor: pointer;">&times;</span>`;
+                newTab.innerHTML = `<span>New Terminal (${newId})</span><span class="mitrane-tab-close-btn close-tab-btn" title="Tutup Sesi Terminal" aria-label="Close Tab">&times;</span>`;
                 tabsContainer.appendChild(newTab);
 
                 // Create new Terminal Pane
@@ -1162,7 +1166,7 @@ class NavigationManager {
                 sessionsContainer.appendChild(newPane);
                 setupInputListener(newPane);
 
-                // Tab Click Switching
+                // Tab Click Switching and Closing
                 newTab.addEventListener('click', (ev) => {
                     if (ev.target.classList.contains('close-tab-btn')) {
                         ev.preventDefault();
@@ -1187,13 +1191,14 @@ class NavigationManager {
                 setTimeout(() => {
                     const inp = newPane.querySelector('.terminal-cli-input');
                     if (inp) inp.focus();
-                }, 50);
-            });
+                    isAdding = false;
+                }, 100);
+            };
 
             // Delegate clicking on existing first tab
             const firstTab = tabsContainer.querySelector('[data-terminal-tab="1"]');
             if (firstTab && firstPane) {
-                firstTab.addEventListener('click', (e) => {
+                firstTab.onclick = (e) => {
                     e.preventDefault();
                     tabsContainer.querySelectorAll('.mitrane-tab-item').forEach(t => t.classList.remove('active'));
                     sessionsContainer.querySelectorAll('.terminal-session-pane').forEach(p => p.style.display = 'none');
@@ -1201,7 +1206,7 @@ class NavigationManager {
                     firstPane.style.display = 'block';
                     const inp = firstPane.querySelector('.terminal-cli-input');
                     if (inp) inp.focus();
-                });
+                };
             }
         }
     }

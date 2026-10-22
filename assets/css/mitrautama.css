@@ -1464,3 +1464,36 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     border-top: 1px solid #1f2937 !important;
     color: #94a3b8 !important;
 }
+
+/* Close button styling on terminal tab */
+.mitrane-tab-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    margin-left: 6px;
+    margin-top: -2px;
+    border-radius: 3px;
+    color: #64748b;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mitrane-tab-close-btn:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .mitrane-tab-close-btn,
+[data-period="malam"] .mitrane-tab-close-btn {
+    color: #94a3b8;
+}
+
+[data-theme="dark"] .mitrane-tab-close-btn:hover,
+[data-period="malam"] .mitrane-tab-close-btn:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
