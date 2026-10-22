@@ -1907,3 +1907,85 @@ input[type=number] {
     margin: 0 !important;
     padding: 4px 12px !important;
 }
+
+/* =========================================================================
+   STRETCH VIEWPORT CONTAINER HINGGA MENEMPEL TEPAT DI ATAS FOOTER
+   ========================================================================= */
+.mitrautama-content-area {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: calc(100vh - 52px - 32px) !important;
+}
+
+.mitrautama-content-area.winbox-mode,
+.mitrautama-content-area:has(#view-interfaces:not([style*="none"])) {
+    padding: 0 !important;
+    overflow: hidden !important;
+    height: calc(100vh - 52px - 32px) !important;
+    max-height: calc(100vh - 52px - 32px) !important;
+}
+
+#interfaces-module-container,
+#ip-module-container,
+#wireguard-module-container,
+#wireless-module-container,
+#switch-module-container,
+#bridge-module-container,
+#system-module-container,
+#queues-module-container,
+#ppp-module-container {
+    width: 100% !important;
+    display: contents !important;
+}
+
+#view-interfaces {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#view-interfaces[style*="display: none"] {
+    display: none !important;
+}
+
+#view-interfaces .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#view-interfaces .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    overflow: auto !important;
+}
+
+#view-interfaces .mitrane-status-subsystem {
+    margin-top: auto !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 4px 12px !important;
+    box-sizing: border-box !important;
+}
