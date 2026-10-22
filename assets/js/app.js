@@ -1887,16 +1887,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (res.isConfirmed) {
                         Swal.fire({
                             title: 'Sesi Berakhir',
-                            text: 'Anda telah berhasil logout.',
+                            text: 'Anda telah berhasil logout. Mengarahkan ke halaman login...',
                             icon: 'success',
-                            timer: 1500,
+                            timer: 1200,
                             showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = 'login.html';
                         });
                     }
                 });
             } else {
                 if (confirm('Apakah Anda yakin ingin logout?')) {
-                    alert('Anda telah berhasil logout.');
+                    window.location.href = 'login.html';
                 }
             }
         }
