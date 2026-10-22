@@ -767,18 +767,12 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         background: var(--mu-bg-card, #ffffff) !important;
     }
 
-    /* Di layar mobile (<= 768px), tombol hamburger menggantikan icon logo RO di paling kiri dengan frame box */
+    /* Di layar mobile (<= 768px), tombol hamburger berada di samping kiri icon user profile */
     .mitrautama-fixed-header,
     body.mitrautama-sidebar-collapsed .mitrautama-fixed-header {
-        padding-left: 0px !important;
+        padding-left: 12px !important;
         padding-right: 12px !important;
-    }
-
-    .mitrautama-header-left,
-    .mitrautama-header-left #sidebar-toggle-btn,
-    body.mitrautama-sidebar-collapsed .mitrautama-header-left,
-    body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
-        margin-left: 0 !important;
+        justify-content: space-between !important;
     }
 
     .mitrautama-header-left,
@@ -789,9 +783,10 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         margin: 0 !important;
         padding: 0 !important;
         justify-content: flex-start !important;
-        gap: 0 !important;
+        flex: 1 1 auto !important;
     }
 
+    /* Tombol hamburger digeser ke sebelah kanan sebelum icon profil pengguna */
     #sidebar-toggle-btn,
     .mitrautama-header-left #sidebar-toggle-btn,
     body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
@@ -800,17 +795,15 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         height: 32px !important;
         min-width: 32px !important;
         min-height: 32px !important;
-        margin: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+        margin-left: auto !important;
+        margin-right: 8px !important;
         border: 2px solid #bfdbfe !important;
         border-radius: 6px !important;
         background: transparent !important;
-        order: 1 !important;
+        order: 2 !important;
         color: #475569 !important;
     }
 
-    /* Sembunyikan logo RO / Brandcum di layar mobile sehingga hamburger berdiri sendiri di sisi kiri */
     .mitrautama-header-home-btn,
     body.mitrautama-sidebar-collapsed .mitrautama-header-home-btn {
         display: none !important;
