@@ -1129,7 +1129,7 @@ class NavigationManager {
                 newTab.href = '#';
                 newTab.className = 'mitrane-tab-item mitrautama-winbox-tab active';
                 newTab.setAttribute('data-terminal-tab', newId);
-                newTab.innerHTML = `<span>New Terminal (${newId})</span><span class="mitrane-tab-close-btn close-tab-btn" title="Tutup Sesi Terminal" aria-label="Close Tab">&times;</span>`;
+                newTab.innerHTML = `<span>New Terminal</span><span class="mitrane-tab-close-btn close-tab-btn" title="Tutup Sesi Terminal" aria-label="Close Tab">&times;</span>`;
                 tabsContainer.appendChild(newTab);
 
                 // Create new Terminal Pane
