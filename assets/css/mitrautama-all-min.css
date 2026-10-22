@@ -839,25 +839,32 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         min-width: 250px !important;
     }
 
-    /* Submenu di Mobile menjadi Accordion / Collapsible Dropdown Vertikal */
-    .mitrautama-submenu-list,
-    .mitrautama-menu-group.open > .mitrautama-submenu-list {
+    /* Submenu di Mobile menjadi Dropdown Menu Vertikal ke bawah */
+    .mitrautama-submenu-list {
         position: static !important;
         display: none !important;
         width: 100% !important;
         min-width: 100% !important;
         max-height: none !important;
-        margin: 4px 0 6px 0 !important;
-        padding: 4px 0 4px 16px !important;
+        margin: 2px 0 4px 0 !important;
+        padding: 4px 0 4px 14px !important;
         border: none !important;
-        border-left: 2px solid #0284c7 !important;
+        border-left: 3px solid #0284c7 !important;
         border-radius: 0 !important;
-        background: rgba(2, 132, 199, 0.04) !important;
+        background: rgba(2, 132, 199, 0.05) !important;
         box-shadow: none !important;
+        animation: none !important;
+        left: auto !important;
+        top: auto !important;
     }
 
     .mitrautama-menu-group.open > .mitrautama-submenu-list {
         display: block !important;
+        position: static !important;
+    }
+
+    .mitrautama-menu-group .mitrautama-submenu-chevron {
+        transition: transform 0.2s ease !important;
     }
 
     .mitrautama-menu-group.open .mitrautama-submenu-chevron {

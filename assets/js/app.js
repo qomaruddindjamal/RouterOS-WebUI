@@ -764,6 +764,13 @@ class NavigationManager {
 
                 // Tutup semua popover flyout
                 document.querySelectorAll('.mitrautama-menu-group').forEach(g => g.classList.remove('open'));
+
+                // Saat mobile: tutup drawer sidebar langsung setelah menu diklik
+                if (window.innerWidth <= 768) {
+                    document.body.classList.remove('mitrautama-mobile-drawer-open');
+                    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                }
             });
         });
     }
@@ -831,6 +838,13 @@ class NavigationManager {
                 if (parentGroup) {
                     const parentMenu = parentGroup.querySelector('.mitrautama-menu-item');
                     if (parentMenu) parentMenu.classList.add('active');
+                }
+
+                // Saat mobile: tutup drawer sidebar langsung setelah sub-menu diklik
+                if (window.innerWidth <= 768) {
+                    document.body.classList.remove('mitrautama-mobile-drawer-open');
+                    const toggleBtn = document.getElementById('sidebar-toggle-btn');
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
                 }
             });
         });
