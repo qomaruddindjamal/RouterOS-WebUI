@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MitraUtama Dashboard Navigation & View Switcher
  * Mengontrol pembukaan Menu, Sub-Menu Drop-Right, Tab-Menu, Filter Tabel, Collapse Sidebar, dan Aksi SweetAlert
  * Menggunakan class dan selector awalan mitrautama-
@@ -190,7 +190,25 @@ export class NavigationManager {
             sec.style.display = 'none';
         });
 
-        const targetSection = document.getElementById(`view-${viewId}`);
+        // 1. Pemetaan Alias Route ke Modul Spesifik
+        const routeAliasMap = {
+            'ip': 'ip-addresses',
+            'switch': 'switch-ports',
+            'switch-ports': 'switch',
+            'switch-vlan': 'switch',
+            'switch-rule': 'switch',
+            'switch-host': 'switch',
+            'system-resources': 'system',
+            'system-routerboard': 'system',
+            'system-users': 'system',
+            'wireless-tables': 'wireless-tables',
+            'wireless-security': 'wireless-tables',
+            'wireless-registration': 'wireless-tables',
+            'wireless': 'wireless-tables'
+        };
+
+        const resolvedId = routeAliasMap[viewId] || viewId;
+        const targetSection = document.getElementById(iew- + resolvedId);
         if (targetSection) {
             targetSection.style.display = 'block';
             const container = document.querySelector('.mitrautama-content-area');
@@ -217,6 +235,12 @@ export class NavigationManager {
             type: 'success',
             duration: 2000
         });
+    }
+
+    activateSubTab(parentSection, subtabId) {
+        if (!parentSection) return;
+        const tabBtn = parentSection.querySelector('[data-mitrautama-subtab=\"' + subtabId + '\"], [data-tab-target=\"' + subtabId + '\"]');
+        if (tabBtn) tabBtn.click();
     }
 
     renderDynamicView(viewId, titleLabel) {

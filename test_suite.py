@@ -1,4 +1,4 @@
-# RouterOS WebUI Automated Test Suite — Expanded Audit Edition (AUD-UI-07)
+﻿# RouterOS WebUI Automated Test Suite — Expanded Audit Edition (AUD-UI-07)
 
 import os
 import json
@@ -203,6 +203,45 @@ class TestRouterOSWorkspace(unittest.TestCase):
         self.assertIn('.mitrautama-sidebar.collapsed', css)
         self.assertIn('.mitrautama-submenu-list', css)
         self.assertIn('left: 100%', css)
+
+
+    def test_master_implementation_local_assets_only(self):
+        """Verifikasi bahwa tidak ada CDN eksternal (http/https) di index.html"""
+        idx_path = os.path.join(WORKSPACE, "index.html")
+        with open(idx_path, "r", encoding="utf-8") as f:
+            html = f.read()
+        self.assertNotIn("https://cdn.jsdelivr.net", html)
+        self.assertIn("assets/css/bootstrap.min.css", html)
+        self.assertIn("assets/js/bootstrap.bundle.min.js", html)
+        self.assertIn("assets/js/chart.umd.min.js", html)
+
+    def test_master_implementation_mobile_drawer_and_responsive(self):
+        """Verifikasi mobile drawer backdrop, breakpoint 768px dan 480px di CSS"""
+        css_path = os.path.join(WORKSPACE, "assets", "css", "mitrautama-all-min.css")
+        with open(css_path, "r", encoding="utf-8") as f:
+            css = f.read()
+        self.assertIn(".mitrautama-mobile-backdrop", css)
+        self.assertIn("mitrautama-mobile-drawer-open", css)
+        self.assertIn("@media (max-width: 768px)", css)
+        self.assertIn("@media (max-width: 480px)", css)
+
+    def test_master_implementation_route_alias_mapping(self):
+        """Verifikasi registry pemetaan rute submenu drop-right di navigation.js"""
+        nav_path = os.path.join(WORKSPACE, "assets", "js", "navigation.js")
+        with open(nav_path, "r", encoding="utf-8") as f:
+            js = f.read()
+        self.assertIn("routeAliasMap", js)
+        self.assertIn("switch-ports", js)
+        self.assertIn("system-resources", js)
+        self.assertIn("activateSubTab", js)
+
+    def test_master_implementation_sidebar_flush_height(self):
+        """Verifikasi sidebar-container dan sidebar memiliki height 100% rata dengan dasar footer"""
+        css_path = os.path.join(WORKSPACE, "assets", "css", "mitrautama-all-min.css")
+        with open(css_path, "r", encoding="utf-8") as f:
+            css = f.read()
+        self.assertIn("#sidebar-container", css)
+        self.assertIn("height: 100% !important", css)
 
 if __name__ == "__main__":
     unittest.main()
