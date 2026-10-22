@@ -767,11 +767,11 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         background: var(--mu-bg-card, #ffffff) !important;
     }
 
-    /* Di layar mobile (<= 768px), tombol hamburger menempel rapi di tepi kiri sebelum logo brand */
+    /* Di layar mobile (<= 768px), tombol hamburger menggantikan icon logo RO di paling kiri dengan frame box */
     .mitrautama-fixed-header,
     body.mitrautama-sidebar-collapsed .mitrautama-fixed-header {
-        padding-left: 4px !important;
-        padding-right: 10px !important;
+        padding-left: 8px !important;
+        padding-right: 12px !important;
     }
 
     .mitrautama-header-left,
@@ -789,26 +789,31 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
         margin: 0 !important;
         padding: 0 !important;
         justify-content: flex-start !important;
-        gap: 6px !important;
+        gap: 0 !important;
     }
 
     #sidebar-toggle-btn,
     .mitrautama-header-left #sidebar-toggle-btn,
     body.mitrautama-sidebar-collapsed .mitrautama-header-left #sidebar-toggle-btn {
         display: inline-flex !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
         margin: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        border: 2px solid #bfdbfe !important;
+        border-radius: 6px !important;
+        background: transparent !important;
         order: 1 !important;
+        color: #475569 !important;
     }
 
-    .mitrautama-header-home-btn {
-        order: 2 !important;
-        margin: 0 !important;
-    }
-
-    body.mitrautama-sidebar-collapsed .mu-logo-icon {
-        margin: 0 !important;
+    /* Sembunyikan logo RO / Brandcum di layar mobile sehingga hamburger berdiri sendiri di sisi kiri */
+    .mitrautama-header-home-btn,
+    body.mitrautama-sidebar-collapsed .mitrautama-header-home-btn {
+        display: none !important;
     }
 
     body.mitrautama-sidebar-collapsed .mu-brand-text {
