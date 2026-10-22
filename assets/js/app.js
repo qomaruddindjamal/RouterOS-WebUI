@@ -802,6 +802,20 @@ class NavigationManager {
                     }
                 }
 
+                // Update total items footer counter dynamically based on tab badge count
+                const badge = tab.querySelector('.mitrane-tab-count-badge');
+                const totalFooter = parentView.querySelector('#mitrane-total-items') || document.querySelector('#mitrane-total-items');
+                if (totalFooter) {
+                    if (badge) {
+                        const countText = badge.textContent.trim();
+                        totalFooter.textContent = `${countText} items`;
+                    } else if (subtabName === 'interface') {
+                        totalFooter.textContent = '30 items';
+                    } else {
+                        totalFooter.textContent = '0 items';
+                    }
+                }
+
 
             });
         });
