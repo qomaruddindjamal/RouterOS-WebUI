@@ -865,3 +865,73 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     text-transform: none !important;
     letter-spacing: normal !important;
 }
+
+/* =========================================================================
+   WINBOX FULLSCREEN FLUSH LAYOUT (RATA HEADER, FOOTER, SIDEBAR & KANAN LAYAR)
+   ========================================================================= */
+.mitrautama-content-area.winbox-mode,
+.mitrautama-content-area:has(#view-interfaces:not([style*="none"])) {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+#view-interfaces {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#view-interfaces .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#view-interfaces .mitrane-tab-bar {
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-interfaces .mitrane-toolbar {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-interfaces .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    margin: 0 !important;
+    flex-grow: 1 !important;
+    height: 100% !important;
+    box-shadow: none !important;
+}
+
+#view-interfaces .mitrane-grid-table {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+#view-interfaces .mitrane-status-subsystem {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    margin: 0 !important;
+    padding: 4px 12px !important;
+}
