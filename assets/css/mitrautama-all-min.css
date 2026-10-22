@@ -746,6 +746,77 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
 
 /* Tablet & Mobile Screens (<= 768px) */
 @media (max-width: 768px) {
+    /* WinBox Toolbar Mobile Responsiveness (Clean Single-Line Scrollable) */
+    .mitrane-toolbar,
+    .mitrautama-winbox-toolbar {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 8px !important;
+        align-items: center !important;
+        padding: 4px 8px !important;
+        min-height: 38px !important;
+    }
+
+    .mitrane-toolbar::-webkit-scrollbar,
+    .mitrautama-winbox-toolbar::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .mitrane-action-group,
+    .mitrautama-toolbar-actions {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
+    .mitrane-btn-action,
+    .mitrautama-toolbar-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .mitrane-toolbar > div:last-child,
+    .mitrautama-winbox-toolbar > div:last-child {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        flex-shrink: 0 !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+
+    /* Tab Bar Mobile Horizontal Smooth Scroll */
+    .mitrane-tab-bar,
+    .mitrautama-winbox-tabs {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .mitrane-tab-bar::-webkit-scrollbar,
+    .mitrautama-winbox-tabs::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .mitrane-tab-item,
+    .mitrautama-winbox-tab,
+    .mitrane-window-title-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+    }
+
     #sidebar-container {
         position: fixed;
         top: 52px;
@@ -939,7 +1010,7 @@ body.mitrautama-mobile-drawer-open .mitrautama-mobile-backdrop {
     }
 
     .mitrautama-toolbar-actions {
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
     }
 
     .mitrautama-table-container {
