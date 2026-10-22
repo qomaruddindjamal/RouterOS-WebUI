@@ -101,12 +101,13 @@ export class JsonDataService {
             </tr>`;
         }).join('');
 
-        // Row Selection Listener
+        // Row Selection Listener (Single click selects, Double click opens modal)
         tableBody.querySelectorAll('tr').forEach(tr => {
             tr.addEventListener('click', (e) => {
                 const idx = parseInt(tr.getAttribute('data-mitrautama-row-index'), 10);
-                this.selectedIndex = (this.selectedIndex === idx) ? -1 : idx;
-                this.renderInterfacesTable(containerId, this.currentFilter);
+                this.selectedIndex = idx;
+                tableBody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
+                tr.classList.add('table-primary', 'selected');
                 this.notifySelectionChange();
             });
         });

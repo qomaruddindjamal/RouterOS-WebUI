@@ -19,8 +19,8 @@ export class ModuleLoader {
             'switch-module-container': 'packages/switch/switch.html',
             'bridge-module-container': 'packages/bridge/bridge.html',
             'system-module-container': 'packages/system/system.html',
-            'queues-module-container': 'packages/queues/queues.html',
-            'ppp-module-container': 'packages/ppp/ppp.html'
+            'queues-module-container': 'packages/qos/qos.html',
+            'ppp-module-container': 'packages/vpn/vpn.html'
         };
     }
 

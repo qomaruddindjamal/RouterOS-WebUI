@@ -21,6 +21,48 @@ export class ChartController {
         this.initTrafficChart();
         this.initCpuChart();
         this.startSimulatedRealtimeStream();
+        this.bindThemeChange();
+    }
+
+    isDarkMode() {
+        if (typeof document === 'undefined') return false;
+        const docTheme = document.documentElement.getAttribute('data-theme');
+        const docPeriod = document.documentElement.getAttribute('data-period');
+        return docTheme === 'dark' || docPeriod === 'malam';
+    }
+
+    getThemeColors() {
+        const isDark = this.isDarkMode();
+        return {
+            gridColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(226, 232, 240, 0.6)',
+            tickColor: isDark ? '#94a3b8' : '#64748b'
+        };
+    }
+
+    bindThemeChange() {
+        if (typeof window === 'undefined') return;
+        const updateColors = () => {
+            const colors = this.getThemeColors();
+            if (this.trafficChart) {
+                if (this.trafficChart.options.scales.y) {
+                    this.trafficChart.options.scales.y.grid.color = colors.gridColor;
+                    this.trafficChart.options.scales.y.ticks.color = colors.tickColor;
+                }
+                if (this.trafficChart.options.scales.x) {
+                    this.trafficChart.options.scales.x.ticks.color = colors.tickColor;
+                }
+                if (this.trafficChart.options.plugins.legend && this.trafficChart.options.plugins.legend.labels) {
+                    this.trafficChart.options.plugins.legend.labels.color = colors.tickColor;
+                }
+                this.trafficChart.update('none');
+            }
+            if (this.cpuChart && this.cpuChart.options.scales.y) {
+                this.cpuChart.options.scales.y.ticks.color = colors.tickColor;
+                this.cpuChart.update('none');
+            }
+        };
+        window.addEventListener('themeModeChange', updateColors);
+        window.addEventListener('themePeriodChange', updateColors);
     }
 
     destroyCharts() {
@@ -103,7 +145,7 @@ export class ChartController {
                     },
                     y: {
                         display: true,
-                        grid: { color: 'rgba(226, 232, 240, 0.6)' },
+                        grid: { color: this.getThemeColors().gridColor },
                         ticks: {
                             font: { size: 10 },
                             callback: (val) => val + ' Mbps'

@@ -24,8 +24,8 @@ class TestRouterOSWorkspace(unittest.TestCase):
             "packages/switch/switch.html",
             "packages/bridge/bridge.html",
             "packages/system/system.html",
-            "packages/queues/queues.html",
-            "packages/ppp/ppp.html",
+            "packages/qos/qos.html",
+            "packages/vpn/vpn.html",
             "packages/ip/ip.html",
             "packages/wireguard/wireguard.html",
             "packages/wireless/wireless.html"
@@ -148,7 +148,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
 
     def test_all_subviews_mitrane_window_class(self):
         """Verifikasi keseragaman arsitektur .mitrane-window pada modul utama"""
-        for mod in ["packages/interfaces/interfaces.html", "packages/queues/queues.html", "packages/ip/ip.html"]:
+        for mod in ["packages/interfaces/interfaces.html", "packages/qos/qos.html", "packages/ip/ip.html"]:
             path = os.path.join(WORKSPACE, mod)
             with open(path, "r", encoding="utf-8") as f:
                 content = f.read()

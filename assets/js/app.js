@@ -408,6 +408,48 @@ class ChartController {
         this.initTrafficChart();
         this.initCpuChart();
         this.startSimulatedRealtimeStream();
+        this.bindThemeChange();
+    }
+
+    isDarkMode() {
+        if (typeof document === 'undefined') return false;
+        const docTheme = document.documentElement.getAttribute('data-theme');
+        const docPeriod = document.documentElement.getAttribute('data-period');
+        return docTheme === 'dark' || docPeriod === 'malam';
+    }
+
+    getThemeColors() {
+        const isDark = this.isDarkMode();
+        return {
+            gridColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(226, 232, 240, 0.6)',
+            tickColor: isDark ? '#94a3b8' : '#64748b'
+        };
+    }
+
+    bindThemeChange() {
+        if (typeof window === 'undefined') return;
+        const updateColors = () => {
+            const colors = this.getThemeColors();
+            if (this.trafficChart) {
+                if (this.trafficChart.options.scales.y) {
+                    this.trafficChart.options.scales.y.grid.color = colors.gridColor;
+                    this.trafficChart.options.scales.y.ticks.color = colors.tickColor;
+                }
+                if (this.trafficChart.options.scales.x) {
+                    this.trafficChart.options.scales.x.ticks.color = colors.tickColor;
+                }
+                if (this.trafficChart.options.plugins.legend && this.trafficChart.options.plugins.legend.labels) {
+                    this.trafficChart.options.plugins.legend.labels.color = colors.tickColor;
+                }
+                this.trafficChart.update('none');
+            }
+            if (this.cpuChart && this.cpuChart.options.scales.y) {
+                this.cpuChart.options.scales.y.ticks.color = colors.tickColor;
+                this.cpuChart.update('none');
+            }
+        };
+        window.addEventListener('themeModeChange', updateColors);
+        window.addEventListener('themePeriodChange', updateColors);
     }
 
     destroyCharts() {
@@ -490,7 +532,7 @@ class ChartController {
                     },
                     y: {
                         display: true,
-                        grid: { color: 'rgba(226, 232, 240, 0.6)' },
+                        grid: { color: this.getThemeColors().gridColor },
                         ticks: {
                             font: { size: 10 },
                             callback: (val) => val + ' Mbps'
@@ -833,6 +875,8 @@ class NavigationManager {
         // 1. Pemetaan Alias Route ke Modul Spesifik
         const routeAliasMap = {
             'terminal': 'terminal',
+            'vpn': 'ppp',
+            'qos': 'queues',
             'ip': 'ip-addresses',
             'switch': 'switch-ports',
             'switch-ports': 'switch',
@@ -861,6 +905,30 @@ class NavigationManager {
                     container.classList.remove('winbox-mode');
                 }
             }
+        // 2. Auto-activate specific SubTab if navigating from submenu item
+        const subtabTargetMap = {
+            'switch-ports': 'switch-ports',
+            'switch-vlan': 'switch-vlan',
+            'switch-rule': 'switch-rule',
+            'switch-host': 'switch-host',
+            'switch-settings': 'switch-settings',
+            'switch-port-isolation': 'switch-port-isolation',
+            'system-resources': 'sys-resources',
+            'system-routerboard': 'sys-routerboard',
+            'system-users': 'sys-users',
+            'wireless-tables': 'wireless-tables',
+            'wireless-security': 'wireless-security',
+            'wireless-registration': 'wireless-registration',
+            'ip-addresses': 'ip-addr',
+            'ip-routes': 'ip-routes',
+            'ip-pool': 'ip-pool',
+            'ip-firewall': 'ip-firewall'
+        };
+
+        if (subtabTargetMap[viewId] && targetSection) {
+            this.activateSubTab(targetSection, subtabTargetMap[viewId]);
+        }
+
 
             // Dashboard Chart Lifecycle Integration
             if (viewId === 'dashboard' && window.chartController) {
@@ -1463,8 +1531,8 @@ class ModuleLoader {
             'switch-module-container': 'packages/switch/switch.html',
             'bridge-module-container': 'packages/bridge/bridge.html',
             'system-module-container': 'packages/system/system.html',
-            'queues-module-container': 'packages/queues/queues.html',
-            'ppp-module-container': 'packages/ppp/ppp.html'
+            'queues-module-container': 'packages/qos/qos.html',
+            'ppp-module-container': 'packages/vpn/vpn.html'
         };
     }
 
@@ -1844,49 +1912,145 @@ window.openInterfacePropertiesModal = function(item) {
     }
 };
 
-// Global Event Delegation agar klik baris interface SELALU membuka modal properties
+// Global Event Delegation: Klik 1x HANYA menyeleksi baris di SEMUA tabel list RouterOS
 document.addEventListener('click', (e) => {
-    const row = e.target.closest('#mitrane-interfaces-table tbody tr');
+    const row = e.target.closest('.mitrane-grid-table tbody tr, .mitrautama-table tbody tr');
     if (!row) return;
 
-    // Highlight row
+    // Highlight selected row in its parent table body
     const tbody = row.closest('tbody');
     if (tbody) {
         tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
         row.classList.add('table-primary', 'selected');
     }
 
-    // Ambil data jika ada data-mitrautama-row-index dan jsonDataService
-    const rowIndex = row.getAttribute('data-mitrautama-row-index');
-    if (rowIndex !== null && window.jsonDataService && window.jsonDataService.interfacesData && window.jsonDataService.interfacesData.interfaces) {
-        const idx = parseInt(rowIndex, 10);
-        if (!isNaN(idx) && window.jsonDataService.interfacesData.interfaces[idx]) {
-            window.jsonDataService.selectedIndex = idx;
-            window.jsonDataService.notifySelectionChange();
-            window.openInterfacePropertiesModal(window.jsonDataService.interfacesData.interfaces[idx]);
-            return;
+    // Sinkronisasi index seleksi jika berada pada tabel interfaces
+    if (row.closest('#mitrane-interfaces-table')) {
+        const rowIndex = row.getAttribute('data-mitrautama-row-index');
+        if (rowIndex !== null && window.jsonDataService) {
+            const idx = parseInt(rowIndex, 10);
+            if (!isNaN(idx)) {
+                window.jsonDataService.selectedIndex = idx;
+                window.jsonDataService.notifySelectionChange();
+            }
         }
     }
+});
 
-    // Fallback ekstraksi langsung dari cell HTML (bekerja baik pada file:/// saat fetch JSON tidak berjalan)
-    const strongEl = row.querySelector('strong');
-    const name = strongEl ? strongEl.textContent.trim() : 'ether1';
-    const subnameEl = row.querySelector('span.text-muted');
-    const subname = subnameEl ? subnameEl.textContent.replace(/[()]/g, '').trim() : name.toLowerCase();
+// Global Event Delegation: Klik 2x (Double-Click) membuka modal properties/detail (Persis Standar WinBox)
+document.addEventListener('dblclick', (e) => {
+    const row = e.target.closest('.mitrane-grid-table tbody tr, .mitrautama-table tbody tr');
+    if (!row) return;
+
+    // Pastikan baris ditandai terpilih
+    const tbody = row.closest('tbody');
+    if (tbody) {
+        tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
+        row.classList.add('table-primary', 'selected');
+    }
+
+    // 1. Jika pada Interfaces Table -> Buka Modal Interface Properties WinBox Replica
+    if (row.closest('#mitrane-interfaces-table')) {
+        const rowIndex = row.getAttribute('data-mitrautama-row-index');
+        if (rowIndex !== null && window.jsonDataService && window.jsonDataService.interfacesData && window.jsonDataService.interfacesData.interfaces) {
+            const idx = parseInt(rowIndex, 10);
+            if (!isNaN(idx) && window.jsonDataService.interfacesData.interfaces[idx]) {
+                window.jsonDataService.selectedIndex = idx;
+                window.jsonDataService.notifySelectionChange();
+                window.openInterfacePropertiesModal(window.jsonDataService.interfacesData.interfaces[idx]);
+                return;
+            }
+        }
+
+        // Fallback ekstraksi nilai dari kolom baris tabel
+        const strongEl = row.querySelector('strong');
+        const name = strongEl ? strongEl.textContent.trim() : 'ether1';
+        const subnameEl = row.querySelector('span.text-muted');
+        const subname = subnameEl ? subnameEl.textContent.replace(/[()]/g, '').trim() : name.toLowerCase();
+        const tds = row.querySelectorAll('td');
+        const type = tds[2] ? tds[2].textContent.trim() : 'Ethernet';
+        const actualMtu = tds[3] ? tds[3].textContent.trim() : '1500';
+        const l2Mtu = tds[4] ? tds[4].textContent.trim() : '1500';
+        const item = {
+            name: name,
+            subname: subname,
+            type: type,
+            status: 'running',
+            actualMtu: parseInt(actualMtu, 10) || 1500,
+            l2Mtu: parseInt(l2Mtu, 10) || 1500,
+            macAddress: '2C:C8:1B:18:BE:2E'
+        };
+        window.openInterfacePropertiesModal(item);
+        return;
+    }
+
+    // 2. Jika pada Bridge Table (Ports/VLANs) -> Buka Properties Bridge / Interface Properties
+    if (row.closest('#view-bridge') || row.closest('#mitrane-bridge-ports-table')) {
+        const tds = row.querySelectorAll('td');
+        const name = tds[1] ? tds[1].textContent.trim() : (tds[0] ? tds[0].textContent.trim() : 'bridge1');
+        const item = {
+            name: name,
+            subname: 'bridge-port',
+            type: 'Bridge',
+            status: 'running',
+            actualMtu: 1500,
+            l2Mtu: 1598,
+            macAddress: '6C:3B:6B:1A:E2:40'
+        };
+        window.openInterfacePropertiesModal(item);
+        return;
+    }
+
+    // 3. Jika pada VPN / PPP Table -> Buka Properties VPN Interface
+    if (row.closest('#view-ppp') || row.closest('#view-vpn') || row.closest('#mitrane-vpn-table')) {
+        const tds = row.querySelectorAll('td');
+        const name = tds[1] ? tds[1].textContent.trim() : (tds[0] ? tds[0].textContent.trim() : 'vpn-tunnel');
+        const type = tds[2] ? tds[2].textContent.trim() : 'PPTP-Client';
+        const item = {
+            name: name,
+            subname: 'vpn',
+            type: type,
+            status: 'running',
+            actualMtu: 1450,
+            l2Mtu: 1500,
+            macAddress: '00:00:5E:00:53:01'
+        };
+        window.openInterfacePropertiesModal(item);
+        return;
+    }
+
+    // 4. Jika pada WireGuard Table (Interfaces / Peers) -> Buka Properties WireGuard
+    if (row.closest('#view-wireguard') || row.closest('#mitrane-wg-table') || row.closest('#mitrane-wg-peers-table')) {
+        const tds = row.querySelectorAll('td');
+        const name = tds[1] ? tds[1].textContent.trim() : (tds[0] ? tds[0].textContent.trim() : 'wg0');
+        const item = {
+            name: name,
+            subname: 'wireguard',
+            type: 'WireGuard',
+            status: 'running',
+            actualMtu: 1420,
+            l2Mtu: 1420,
+            macAddress: 'none'
+        };
+        window.openInterfacePropertiesModal(item);
+        return;
+    }
+
+    // 5. Tabel list lainnya -> Fallback buka modal interface properties untuk record terkait
     const tds = row.querySelectorAll('td');
-    const type = tds[2] ? tds[2].textContent.trim() : 'Ethernet';
-    const actualMtu = tds[3] ? tds[3].textContent.trim() : '1500';
-    const l2Mtu = tds[4] ? tds[4].textContent.trim() : '1500';
-    const item = {
-        name: name,
-        subname: subname,
-        type: type,
-        status: 'running',
-        actualMtu: parseInt(actualMtu, 10) || 1500,
-        l2Mtu: parseInt(l2Mtu, 10) || 1500,
-        macAddress: '2C:C8:1B:18:BE:2E'
-    };
-    window.openInterfacePropertiesModal(item);
+    if (tds.length > 1) {
+        const title = tds[1] ? tds[1].textContent.trim() : tds[0].textContent.trim();
+        const item = {
+            name: title || 'Item-01',
+            subname: 'config',
+            type: 'Generic',
+            status: 'running',
+            actualMtu: 1500,
+            l2Mtu: 1500,
+            macAddress: '2C:C8:1B:18:BE:2E'
+        };
+        window.openInterfacePropertiesModal(item);
+    }
 });
 
 // Bind Apply and OK buttons
@@ -1961,6 +2125,110 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tbody) {
             tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
             row.classList.add('table-primary', 'selected');
+        }
+    });
+    // =========================================================================
+    // Universal Live Table Filter (Find Input) for All Views
+    // =========================================================================
+    function filterTableRows(container, query) {
+        if (!container) return;
+        const q = query.toLowerCase().trim();
+        // Cari tab content / pane aktif, atau fallback ke container itu sendiri
+        let activeScope = container.querySelector('.mitrautama-tab-content.active, .mitrautama-tab-pane.active');
+        if (!activeScope) {
+            activeScope = container;
+        }
+
+        const tables = activeScope.querySelectorAll('table.mitrane-grid-table, table.mitrautama-table');
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+            let matchCount = 0;
+            rows.forEach(tr => {
+                // Jangan sembunyikan pesan colspan 'no records'
+                if (tr.querySelector('td[colspan]')) {
+                    return;
+                }
+                const text = tr.textContent.toLowerCase();
+                if (!q || text.includes(q)) {
+                    tr.style.display = '';
+                    matchCount++;
+                } else {
+                    tr.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Event Delegation: Tangani SEMUA input Find / Search secara dinamis
+    document.addEventListener('input', (e) => {
+        const target = e.target;
+        if (!target) return;
+
+        // Cek jika input merupakan Find search box di toolbar
+        const isFindInput = target.matches('input[placeholder*="Find"], input[id*="search"], input[id*="find"]');
+        if (isFindInput) {
+            const viewSection = target.closest('.mitrautama-view-section') || target.closest('.mitrane-window') || target.closest('.mitrautama-content-area');
+            if (viewSection) {
+                filterTableRows(viewSection, target.value);
+            }
+        }
+    });
+
+    // Tangani reset pencarian pada tombol refresh di setiap view
+    document.addEventListener('click', (e) => {
+        const refreshBtn = e.target.closest('[id*="refresh"], .mitrane-toolbar-icon-btn[title*="Refresh"]');
+        if (refreshBtn) {
+            const viewSection = refreshBtn.closest('.mitrautama-view-section') || refreshBtn.closest('.mitrane-window');
+            if (viewSection) {
+                const searchInput = viewSection.querySelector('input[placeholder*="Find"], input[id*="search"], input[id*="find"]');
+                if (searchInput && searchInput.value) {
+                    searchInput.value = '';
+                    filterTableRows(viewSection, '');
+                }
+            }
+        }
+    });
+
+    // =========================================================================
+    // QoS Manager Accordion Tree View Toggle (+ / −)
+    // =========================================================================
+    document.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('.btn-queue-toggle');
+        if (!toggleBtn) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const nodeId = toggleBtn.getAttribute('data-queue-node');
+        if (!nodeId) return;
+
+        const isCurrentlyExpanded = toggleBtn.textContent.trim() === '−';
+        
+        // Toggle icon symbol
+        toggleBtn.textContent = isCurrentlyExpanded ? '+' : '−';
+
+        const table = toggleBtn.closest('table');
+        if (!table) return;
+
+        if (isCurrentlyExpanded) {
+            // Collapse: Sembunyikan semua children yang memiliki parent atau ancestor = nodeId
+            const children = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"], tr[data-queue-ancestor="${nodeId}"]`);
+            children.forEach(row => {
+                row.style.display = 'none';
+            });
+        } else {
+            // Expand: Tampilkan direct children
+            const directChildren = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"]`);
+            directChildren.forEach(row => {
+                row.style.display = '';
+                // Jika direct child adalah branch lain (memiliki btn-queue-toggle), cek apakah statusnya expanded
+                const childToggle = row.querySelector('.btn-queue-toggle');
+                if (childToggle && childToggle.textContent.trim() === '−') {
+                    const childNodeId = childToggle.getAttribute('data-queue-node');
+                    const grandChildren = table.querySelectorAll(`tr[data-queue-parent="${childNodeId}"]`);
+                    grandChildren.forEach(gc => gc.style.display = '');
+                }
+            });
         }
     });
 });

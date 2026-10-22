@@ -3,7 +3,7 @@
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar with WinBox Window controls -->
-    <div class="mitrane-tab-bar mitrautama-winbox-tabs d-flex justify-content-between align-items-center" id="mitrane-bridge-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-bridge-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
       <div class="d-flex align-items-center flex-nowrap">
         <!-- Title Button -->
         <button class="mitrane-window-title-btn" type="button">
@@ -28,16 +28,6 @@
         <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="bridge-nat">NAT</a>
         <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="bridge-hosts">Hosts</a>
         <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="bridge-mdb">MDB</a>
-      </div>
-
-      <!-- Window Action Controls on the Right -->
-      <div class="d-flex align-items-center gap-1 pe-1 flex-shrink-0">
-        <button type="button" class="mitrane-toolbar-icon-btn" title="Add Window" style="width: 22px; height: 20px;">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-        </button>
-        <button type="button" class="mitrane-toolbar-icon-btn" title="Close Window" style="width: 22px; height: 20px;">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
       </div>
     </div>
 
@@ -73,7 +63,7 @@
       <!-- Right Tools: Find Search Box, Filter, Refresh, Columns -->
       <div class="d-flex align-items-center gap-2">
         <div class="input-group input-group-sm" style="width: 170px;">
-          <span class="input-group-text bg-white border-end-0 py-0 px-2">
+          <span class="input-group-text border-end-0 py-0 px-2">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </span>
           <input type="text" id="mitrane-bridge-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">

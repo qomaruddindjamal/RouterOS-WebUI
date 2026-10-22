@@ -1,101 +1,176 @@
-<div class="mitrautama-view-section" id="view-system">
-  <div class="mitrautama-window-header">
-    <div class="mitrautama-window-title">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-      <strong>System Resources & Hardware</strong> (RB3011UiAS)
-    </div>
-  </div>
+<!-- Module: system/system.html (System MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-system" style="display: none;">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-system-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <!-- Title Button -->
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <line x1="9" y1="1" x2="9" y2="4"/>
+            <line x1="15" y1="1" x2="15" y2="4"/>
+            <line x1="9" y1="20" x2="9" y2="23"/>
+            <line x1="15" y1="20" x2="15" y2="23"/>
+            <line x1="20" y1="9" x2="23" y2="9"/>
+            <line x1="20" y1="14" x2="23" y2="14"/>
+            <line x1="1" y1="9" x2="4" y2="9"/>
+            <line x1="1" y1="14" x2="4" y2="14"/>
+          </svg>
+          <span>System</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
 
-  <div class="mitrautama-subtabs-bar">
-    <button class="mitrautama-subtab active" data-mitrautama-subtab="sys-resources">Resources</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-routerboard">RouterBOARD</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-health">Health</button>
-    <button class="mitrautama-subtab" data-mitrautama-subtab="sys-users">Users</button>
-  </div>
-
-  <div class="mitrautama-tab-content active" id="subtab-sys-resources">
-    <div class="row g-3 p-3">
-      <div class="col-md-6">
-        <div class="p-3 bg-light rounded border">
-          <h6 class="fw-bold text-primary mb-3">Hardware & OS</h6>
-          <table class="table table-sm table-borderless mb-0">
-            <tr><th class="text-muted">Board:</th><td><strong>RB3011UiAS-RM</strong></td></tr>
-            <tr><th class="text-muted">Architecture:</th><td>arm</td></tr>
-            <tr><th class="text-muted">CPU:</th><td>Qualcomm IPQ8064 (2 Cores @ 1.4 GHz)</td></tr>
-            <tr><th class="text-muted">RouterOS Version:</th><td><span class="badge bg-success">7.24.5 (stable)</span></td></tr>
-            <tr><th class="text-muted">Build Time:</th><td>2026-09-29 14:21:27</td></tr>
-            <tr><th class="text-muted">Identity:</th><td><strong>BACKBONE</strong></td></tr>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="p-3 bg-light rounded border">
-          <h6 class="fw-bold text-success mb-3">Memory & Storage</h6>
-          <table class="table table-sm table-borderless mb-0">
-            <tr><th class="text-muted">Total RAM:</th><td>1024.0 MiB</td></tr>
-            <tr><th class="text-muted">Free RAM:</th><td><span class="text-success fw-bold">940.7 MiB (91.8%)</span></td></tr>
-            <tr><th class="text-muted">Total HDD/NAND:</th><td>128.0 MiB</td></tr>
-            <tr><th class="text-muted">Free HDD/NAND:</th><td>111.4 MiB (87.0%)</td></tr>
-            <tr><th class="text-muted">Write Sector Since Reboot:</th><td>1,421</td></tr>
-            <tr><th class="text-muted">Bad Blocks:</th><td>0.0%</td></tr>
-          </table>
-        </div>
+        <!-- Sub-tabs: Resources, RouterBOARD, Health, Users -->
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="sys-resources">Resources</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="sys-routerboard">RouterBOARD</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="sys-health">Health</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="sys-users">Users</a>
       </div>
     </div>
-  </div>
 
-  <div class="mitrautama-tab-content" id="subtab-sys-routerboard">
-    <div class="p-3">
-      <div class="p-3 bg-light rounded border">
-        <h6 class="fw-bold text-primary mb-3">Firmware Information</h6>
-        <div class="row">
-          <div class="col-md-6">
-            <p><strong>RouterBOARD:</strong> Yes</p>
-            <p><strong>Model:</strong> RB3011UiAS</p>
-            <p><strong>Revision:</strong> r2</p>
-            <p><strong>Serial Number:</strong> <code>E14B0E638BF7</code></p>
-          </div>
-          <div class="col-md-6">
-            <p><strong>Firmware Type:</strong> ipq8060</p>
-            <p><strong>Current Firmware:</strong> 7.24.4</p>
-            <p><strong>Upgrade Firmware:</strong> <span class="badge bg-info">7.24.5</span></p>
-            <button class="btn btn-sm btn-outline-primary">Upgrade Firmware</button>
-          </div>
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-system-reboot" onclick="Swal.fire({title:'Reboot Router?', text:'Sistem akan memulai ulang RouterOS.', icon:'warning', showCancelButton:true, confirmButtonColor:'#ef4444', confirmButtonText:'Reboot'})">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+          <span>Reboot</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-system-backup" onclick="toastManager.show({title:'System Backup', message:'Membuat backup konfigurasi...', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          <span>Backup</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-system-refresh" onclick="toastManager.show({title:'System Resources', message:'Status sistem diperbarui.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <!-- Right Tools: Find Search Box, Filter, Columns -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="mitrane-system-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
         </div>
+
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Configure Columns" aria-label="Columns">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
       </div>
     </div>
-  </div>
 
-  <div class="mitrautama-tab-content" id="subtab-sys-health">
-    <div class="p-3">
-      <div class="row g-3">
+    <!-- 3. Sub-Tab Panes Content -->
+    <!-- Tab 1: Resources -->
+    <div class="mitrautama-tab-content active" id="subtab-sys-resources">
+      <div class="row g-3 p-3">
         <div class="col-md-6">
-          <div class="p-4 bg-light rounded border text-center">
-            <div class="text-muted mb-1">Supply Voltage</div>
-            <div class="display-5 fw-bold text-primary">23.9 V</div>
-            <span class="badge bg-success mt-2">Optimal (10V - 30V supported)</span>
+          <div class="p-3 rounded border" style="background-color: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important;">
+            <h6 class="fw-bold text-primary mb-3">Hardware &amp; OS</h6>
+            <table class="table table-sm table-borderless mb-0" style="color: var(--mu-text-main, #1e293b);">
+              <tr><th class="text-muted" style="width: 45%;">Board:</th><td><strong>RB3011UiAS-RM</strong></td></tr>
+              <tr><th class="text-muted">Architecture:</th><td>arm</td></tr>
+              <tr><th class="text-muted">CPU:</th><td>Qualcomm IPQ8064 (2 Cores @ 1.4 GHz)</td></tr>
+              <tr><th class="text-muted">RouterOS Version:</th><td><span class="badge bg-success">7.24.5 (stable)</span></td></tr>
+              <tr><th class="text-muted">Build Time:</th><td>2026-09-29 14:21:27</td></tr>
+              <tr><th class="text-muted">Identity:</th><td><strong>BACKBONE</strong></td></tr>
+            </table>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="p-4 bg-light rounded border text-center">
-            <div class="text-muted mb-1">Board Temperature</div>
-            <div class="display-5 fw-bold text-success">44 °C</div>
-            <span class="badge bg-success mt-2">Normal Operating Range</span>
+          <div class="p-3 rounded border" style="background-color: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important;">
+            <h6 class="fw-bold text-success mb-3">Memory &amp; Storage</h6>
+            <table class="table table-sm table-borderless mb-0" style="color: var(--mu-text-main, #1e293b);">
+              <tr><th class="text-muted" style="width: 45%;">Total RAM:</th><td>1024.0 MiB</td></tr>
+              <tr><th class="text-muted">Free RAM:</th><td><span class="text-success fw-bold">940.7 MiB (91.8%)</span></td></tr>
+              <tr><th class="text-muted">Total HDD/NAND:</th><td>128.0 MiB</td></tr>
+              <tr><th class="text-muted">Free HDD/NAND:</th><td>111.4 MiB (87.0%)</td></tr>
+              <tr><th class="text-muted">Write Sector Since Reboot:</th><td>1,421</td></tr>
+              <tr><th class="text-muted">Bad Blocks:</th><td>0.0%</td></tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="mitrautama-tab-content" id="subtab-sys-users">
-    <div class="mitrautama-table-responsive">
-      <table class="mitrautama-table">
-        <thead><tr><th>User</th><th>Group</th><th>Allowed Address</th><th>Inactivity Timeout</th><th>Last Logged In</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td><strong>citramedia</strong></td><td><span class="badge bg-danger">full</span></td><td>0.0.0.0/0</td><td>10m</td><td>2026-10-22 15:06:41</td><td><span class="badge bg-success">Active</span></td></tr>
-          <tr><td>admin</td><td>full</td><td>0.0.0.0/0</td><td>10m</td><td>-</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
-        </tbody>
-      </table>
+    <!-- Tab 2: RouterBOARD -->
+    <div class="mitrautama-tab-content" id="subtab-sys-routerboard" style="display: none;">
+      <div class="p-3">
+        <div class="p-3 rounded border" style="background-color: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important;">
+          <h6 class="fw-bold text-primary mb-3">Firmware Information</h6>
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>RouterBOARD:</strong> Yes</p>
+              <p><strong>Model:</strong> RB3011UiAS</p>
+              <p><strong>Revision:</strong> r2</p>
+              <p><strong>Serial Number:</strong> <code>E14B0E638BF7</code></p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Firmware Type:</strong> ipq8060</p>
+              <p><strong>Current Firmware:</strong> 7.24.4</p>
+              <p><strong>Upgrade Firmware:</strong> <span class="badge bg-info">7.24.5</span></p>
+              <button class="btn btn-sm btn-outline-primary" onclick="toastManager.show({title:'Upgrade', message:'Mengecek pembaruan firmware...', type:'info'})">Upgrade Firmware</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Tab 3: Health -->
+    <div class="mitrautama-tab-content" id="subtab-sys-health" style="display: none;">
+      <div class="p-3">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="p-4 rounded border text-center" style="background-color: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important;">
+              <div class="text-muted mb-1">Supply Voltage</div>
+              <div class="display-5 fw-bold text-primary">23.9 V</div>
+              <span class="badge bg-success mt-2">Optimal (10V - 30V supported)</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-4 rounded border text-center" style="background-color: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important;">
+              <div class="text-muted mb-1">Board Temperature</div>
+              <div class="display-5 fw-bold text-success">44 °C</div>
+              <span class="badge bg-success mt-2">Normal Operating Range</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Users -->
+    <div class="mitrautama-tab-content" id="subtab-sys-users" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead><tr><th>User</th><th>Group</th><th>Allowed Address</th><th>Inactivity Timeout</th><th>Last Logged In</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>citramedia</strong></td><td><span class="badge bg-danger">full</span></td><td>0.0.0.0/0</td><td>10m</td><td>2026-10-22 15:06:41</td><td><span class="badge bg-success">Active</span></td></tr>
+            <tr><td>admin</td><td>full</td><td>0.0.0.0/0</td><td>10m</td><td>-</td><td><span class="badge bg-secondary">Disabled</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Subsystem Status & Item Count Footer -->
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+      <div class="d-flex align-items-center flex-wrap">
+        <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">RB3011UiAS-RM</span>
+        <div class="mitrane-footer-legends d-flex align-items-center flex-wrap">
+          <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>CPU: <strong style="color: var(--mu-text-main, #1e293b);">IPQ8064 (2C)</strong></span></span>
+          <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #0284c7; display: inline-block; flex-shrink: 0;"></span><span>RAM: <strong style="color: var(--mu-text-main, #1e293b);">1024 MiB</strong></span></span>
+          <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8b5cf6; display: inline-block; flex-shrink: 0;"></span><span>Firmware: <strong style="color: var(--mu-text-main, #1e293b);">7.24.5</strong></span></span>
+        </div>
+      </div>
+      <div class="text-muted" style="font-size: 0.72rem;">RouterOS v7.24.5 System Architecture</div>
+    </div>
+
   </div>
 </div>

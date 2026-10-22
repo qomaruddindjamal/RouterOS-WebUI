@@ -2820,7 +2820,8 @@ input[type=number] {
 /* ==========================================================
  * WinBox Interface Properties Modal Replica
  * ========================================================== */
-#modal-interface-properties .modal-box {
+#modal-interface-properties .modal-box,
+.winbox-modal-container {
     max-width: 680px !important;
     width: 680px !important;
     border-radius: 6px !important;
@@ -2831,7 +2832,9 @@ input[type=number] {
 }
 
 [data-period="malam"] #modal-interface-properties .modal-box,
-[data-theme="dark"] #modal-interface-properties .modal-box {
+[data-theme="dark"] #modal-interface-properties .modal-box,
+[data-period="malam"] .winbox-modal-container,
+[data-theme="dark"] .winbox-modal-container {
     background: #1e293b !important;
     border-color: #334155 !important;
 }
@@ -2839,7 +2842,7 @@ input[type=number] {
 .winbox-modal-header {
     background: #dbe4ef !important;
     border-bottom: 1px solid #b8c7d9 !important;
-    padding: 3px 8px !important;
+    padding: 4px 8px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -2849,6 +2852,55 @@ input[type=number] {
 [data-theme="dark"] .winbox-modal-header {
     background: #0f172a !important;
     border-bottom-color: #334155 !important;
+}
+
+[data-period="malam"] .winbox-modal-title,
+[data-theme="dark"] .winbox-modal-title {
+    color: #f1f5f9 !important;
+}
+
+.winbox-subtabs-bar {
+    background: #f1f5f9;
+    border-bottom: 1px solid #cbd5e1 !important;
+}
+
+[data-period="malam"] .winbox-subtabs-bar,
+[data-theme="dark"] .winbox-subtabs-bar {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+}
+
+.winbox-modal-body {
+    background: #ffffff;
+    min-height: 380px;
+}
+
+[data-period="malam"] .winbox-modal-body,
+[data-theme="dark"] .winbox-modal-body {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+.winbox-modal-footer {
+    background: #f1f5f9;
+    border-top: 1px solid #cbd5e1 !important;
+}
+
+[data-period="malam"] .winbox-modal-footer,
+[data-theme="dark"] .winbox-modal-footer {
+    background: #0f172a !important;
+    border-top-color: #334155 !important;
+}
+
+.winbox-actions-column {
+    width: 140px;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 16px;
+}
+
+[data-period="malam"] .winbox-actions-column,
+[data-theme="dark"] .winbox-actions-column {
+    border-left-color: #334155 !important;
 }
 
 .winbox-subtab-btn {
@@ -2949,4 +3001,288 @@ input[type=number] {
     padding: 2px 8px;
     border-radius: 3px;
     letter-spacing: 0.5px;
+}
+
+/* ==========================================================
+ * Global Modal Overlay & Modal Box System (Strict Display None when Inactive)
+ * ========================================================== */
+.modal-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(15, 23, 42, 0.65) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    z-index: 9999 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.modal-overlay.active {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.modal-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid #cbd5e1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-overlay:not(.active) .modal-box {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+.modal-overlay.active .modal-box {
+    animation: modalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.96) translateY(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Allow smooth double-clicking on table rows without accidental text selection */
+.mitrautama-table tbody tr,
+.mitrane-grid-table tbody tr {
+    user-select: none !important;
+    cursor: pointer !important;
+}
+
+
+/* ==========================================================
+ * QoS Manager / Queues Module Styles - WinBox Replica
+ * ========================================================== */
+#view-queues:not([style*="none"]) {
+    padding: 0 !important;
+    overflow: hidden !important;
+    height: calc(100vh - 52px - 32px) !important;
+    max-height: calc(100vh - 52px - 32px) !important;
+}
+
+#view-queues {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+#view-queues[style*="display: none"] {
+    display: none !important;
+}
+
+#view-queues .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+#view-queues .mitrane-tab-bar {
+    border-radius: 0 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-queues .mitrane-toolbar {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+#view-queues .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    overflow: auto !important;
+}
+
+[data-period="malam"] #view-queues .mitrautama-table-container,
+[data-theme="dark"] #view-queues .mitrautama-table-container {
+    border-bottom: 1px solid #334155 !important;
+}
+
+#view-queues .mitrane-status-subsystem {
+    margin-top: auto !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    border-top: 1px solid #cbd5e1 !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding: 3px 8px !important;
+    box-sizing: border-box !important;
+    background: #f1f5f9 !important;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.04) !important;
+    z-index: 10 !important;
+}
+
+[data-period="malam"] #view-queues .mitrane-status-subsystem,
+[data-theme="dark"] #view-queues .mitrane-status-subsystem {
+    border-top: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================================
+   PERFECT WINBOX TAB BAR & HEADER ALIGNMENT
+   ========================================================================= */
+.mitrane-tab-bar {
+    display: flex !important;
+    align-items: flex-end !important;
+    background: #dbe4ef !important;
+    border-bottom: 1px solid #b8c7d9 !important;
+    padding: 4px 8px 0 8px !important;
+    gap: 3px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    min-height: 31px !important;
+    box-sizing: border-box !important;
+}
+
+[data-theme="dark"] .mitrane-tab-bar,
+[data-period="malam"] .mitrane-tab-bar {
+    background: #0f172a !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+.mitrane-window-title-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: #ffffff !important;
+    border: 1px solid #b8c7d9 !important;
+    border-bottom: 1px solid #ffffff !important;
+    border-radius: 5px 5px 0 0 !important;
+    padding: 4px 10px 5px 10px !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin-right: 6px !important;
+    margin-bottom: -1px !important;
+    cursor: default !important;
+    line-height: 1.2 !important;
+    height: 27px !important;
+    box-sizing: border-box !important;
+    z-index: 2 !important;
+}
+
+[data-theme="dark"] .mitrane-window-title-btn,
+[data-period="malam"] .mitrane-window-title-btn {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    border-bottom-color: #1e293b !important;
+    color: #f8fafc !important;
+}
+
+.mitrane-tab-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 4px 11px 4px 11px !important;
+    font-size: 0.775rem !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    background: #e2e8f0 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-bottom: none !important;
+    border-radius: 5px 5px 0 0 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+    height: 26px !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+    line-height: 1.2 !important;
+}
+
+.mitrane-tab-item:hover {
+    background: #ffffff !important;
+    color: #0284c7 !important;
+}
+
+.mitrane-tab-item.active {
+    background: #ffffff !important;
+    border-color: #b8c7d9 !important;
+    border-bottom: 1px solid #ffffff !important;
+    color: #0284c7 !important;
+    font-weight: 700 !important;
+    margin-bottom: -1px !important;
+    height: 27px !important;
+    padding-bottom: 5px !important;
+    z-index: 3 !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item,
+[data-period="malam"] .mitrane-tab-item {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item:hover,
+[data-period="malam"] .mitrane-tab-item:hover {
+    background: #243248 !important;
+    color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .mitrane-tab-item.active,
+[data-period="malam"] .mitrane-tab-item.active {
+    background: #151e32 !important;
+    border-color: #334155 !important;
+    border-bottom-color: #151e32 !important;
+    color: #38bdf8 !important;
+}
+
+.mitrane-toolbar {
+    min-height: 34px !important;
+    padding: 3px 8px !important;
+    box-sizing: border-box !important;
+    z-index: 1 !important;
 }

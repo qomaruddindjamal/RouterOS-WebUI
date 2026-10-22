@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -331,7 +331,7 @@
                         <li>
                             <a href="#" class="mitrautama-menu-item" data-mitrautama-view="queues">
                                 <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></span>
-                                <span class="mitrautama-menu-text">Queues</span>
+                                <span class="mitrautama-menu-text">QoS Manager</span>
                             </a>
                         </li>
 
@@ -2278,123 +2278,1145 @@
 
 </div>
                 <div id="queues-module-container">
-<div class="mitrautama-view-section" id="view-queues">
+<!-- Module: queues/queues.html (QoS Manager / Queues MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-queues" style="display: none;">
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar -->
-    <div class="mitrane-tab-bar mitrautama-winbox-tabs">
-      <button class="mitrane-window-title-btn" type="button">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-queues-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+            <button class="mitrane-window-title-btn" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="20" x2="18" y2="10"></line>
-          <line x1="12" y1="20" x2="12" y2="4"></line>
-          <line x1="6" y1="20" x2="6" y2="14"></line>
+          <path d="M4 19h16M4 15h16M4 11h16M4 7h16"/>
+          <circle cx="8" cy="11" r="2" fill="currentColor"/>
         </svg>
-        <span>Queues</span>
+        <span>QoS Manager</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </button>
 
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="queues-simple">Simple Queues</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-tree">Queue Tree</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">Queue Types</a>
+      <!-- Sub-tabs matching screenshot -->
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="queues-simple">Simple QoS</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-interface">QoS Interfaces</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-tree">QoS Tree</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">QoS Type</a>
     </div>
 
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-queues-new">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-queues-new" onclick="Swal.fire('QoS Queue', 'Tambah entri antrean QoS baru', 'info')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-enable">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-enable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean diaktifkan.', type:'success'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Enable</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-disable">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-disable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean dinonaktifkan.', type:'info'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           <span>Disable</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-remove">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-remove" onclick="Swal.fire('QoS Manager', 'Hapus entri antrean terpilih?', 'warning')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           <span>Remove</span>
         </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-comment">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Comment</span>
+        </button>
       </div>
 
+      <!-- Right Tools: Find Search Box, Filter, Columns -->
       <div class="d-flex align-items-center gap-2">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-refresh" title="Refresh Table">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-          <span>Refresh</span>
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="mitrane-queues-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
+        </div>
+
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" id="btn-queues-refresh" title="Refresh Table" aria-label="Refresh">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Configure Columns" aria-label="Columns">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
       </div>
     </div>
 
-    <!-- 3. Grid Table Content -->
-    <div class="mitrautama-tab-content active" id="subtab-queues-simple">
-      <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table mitrautama-table" id="table-queues-simple">
-          <thead>
-            <tr>
-              <th style="width: 28px;">#</th>
-              <th>Name</th>
-              <th>Target</th>
-              <th>Max Limit (Up/Down)</th>
-              <th>Priority</th>
-              <th>Queue Type</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>0</td>
-              <td><strong>ALL TRAFIC</strong></td>
-              <td>0.0.0.0/0</td>
-              <td>500M / 500M</td>
-              <td>8/8</td>
-              <td>pcq-upload / pcq-download</td>
-              <td><span class="badge bg-secondary">Disabled</span></td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td><strong>CLIENT-VIP</strong></td>
-              <td>172.16.92.0/24</td>
-              <td>100M / 100M</td>
-              <td>1/1</td>
-              <td>default-small</td>
-              <td><span class="badge bg-success">Active</span></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- 3. Main Work Area: Grid Table + Right WinBox Actions Sidebar -->
+    <div class="d-flex flex-grow-1 overflow-hidden" style="min-height: 0;">
+      
+      <!-- Sub-Tab Panes Content -->
+      <div class="flex-grow-1 d-flex flex-column overflow-hidden" style="min-width: 0;">
+        
+        <!-- Tab 1: Simple Queues -->
+        <div class="mitrautama-tab-content active flex-grow-1 d-flex flex-column overflow-hidden" id="subtab-queues-simple" style="display: flex;">
+          <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+                                                <table class="mitrane-grid-table mitrautama-table" id="table-queues-simple" style="white-space: nowrap;">
+              <thead>
+                <tr>
+                  <th style="width: 20px; text-align: center;"></th>
+                  <th style="width: 28px; text-align: center;">#</th>
+                  <th>Name</th>
+                  <th>Target</th>
+                  <th>Upload Max Limit</th>
+                  <th>Download Max Limit</th>
+                  <th>Packet Marks</th>
+                  <th>Upload Avg. Rate</th>
+                  <th>Download Avg. Rate</th>
+                  <th>Upload Avg. Packet Rate</th>
+                  <th>Download Avg. Packet Rate</th>
+                  <th>Upload</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="queue-row queue-root" data-queue-id="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">0</td>
+                  <td><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-all-trafic" style="cursor: pointer; display: inline-block; width: 12px; text-align: center; font-size: 13px; font-family: monospace; line-height: 1;">−</span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span class="fw-bold">ALL TRAFIC</span></td>
+                  <td>0.0.0.0/0</td>
+                  <td>500M</td>
+                  <td>500M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-branch" data-queue-id="node-distribusi" data-queue-parent="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">1</td>
+                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-distribusi" style="cursor: pointer; display: inline-block; width: 12px; text-align: center; font-size: 13px; font-family: monospace; line-height: 1;">−</span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span class="fw-semibold">A. DISTRIBUSI</span></td>
+                  <td>192.168.92.0/24,...</td>
+                  <td>100M</td>
+                  <td>100M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">4</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>1. SMKHK</span></td>
+                  <td>172.16.66.1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">5</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>2. MI MU1</span></td>
+                  <td>192.168.92.2</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">6</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>3. Jalal</span></td>
+                  <td>10.2.1.4</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">7</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>4. TK RAMU</span></td>
+                  <td>192.168.92.4</td>
+                  <td>2M</td>
+                  <td>2M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">8</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>5. Ilham</span></td>
+                  <td>192.168.92.5</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">9</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>6. MTs HK</span></td>
+                  <td>172.16.66.6</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">10</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>7. Mbak Kho</span></td>
+                  <td>172.16.66.7</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">11</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>8. Kak Hisyam</span></td>
+                  <td>172.16.66.8</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf table-primary selected" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">12</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>9. TB Makmur</span></td>
+                  <td>172.16.66.9</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">13</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>10. Pak Asrofi</span></td>
+                  <td>192.168.92.10</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">14</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>11. Rahayu Segawe</span></td>
+                  <td>192.168.92.11</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">15</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>12. Siska Makam Do'a</span></td>
+                  <td>192.168.92.12</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">16</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>13. Anik Mbomo</span></td>
+                  <td>10.2.1.13</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">17</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>14. Inur</span></td>
+                  <td>10.2.1.14</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">18</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>15. Aris Krisjhon</span></td>
+                  <td>10.2.1.15</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">19</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>16. Mustafid</span></td>
+                  <td>172.16.66.16</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">20</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>17. Firoh</span></td>
+                  <td>192.168.92.17</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">21</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>18. Eko Segawe</span></td>
+                  <td>10.2.1.18</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">22</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>19. PP ZHQ</span></td>
+                  <td>172.16.66.19</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">23</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>20. MI AL - HUDA</span></td>
+                  <td>172.16.66.20</td>
+                  <td>2M</td>
+                  <td>2M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">24</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>21. Mariyam Kajok</span></td>
+                  <td>192.168.92.21</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">25</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>22. Mala Tamansari</span></td>
+                  <td>10.10.16.22</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">26</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>23. Dayat Suwang</span></td>
+                  <td>10.2.1.23</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">27</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>24. Pak Syamsul</span></td>
+                  <td>172.16.66.24</td>
+                  <td>2M</td>
+                  <td>2M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">28</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>25. Hana makam Do'a</span></td>
+                  <td>192.168.92.25</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">29</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>26. Refano Jemblong</span></td>
+                  <td>192.168.92.26</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">30</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>27. Naura Geneng</span></td>
+                  <td>192.168.92.27</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">31</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>28. Faiq Suwot</span></td>
+                  <td>192.168.92.28</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">32</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>29. Pak Rozaq</span></td>
+                  <td>192.168.92.29</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">33</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>30. Erna</span></td>
+                  <td>192.168.92.30</td>
+                  <td>4M</td>
+                  <td>4M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">34</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>31. Adah Kali Cilik</span></td>
+                  <td>192.168.92.31</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">35</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>32. TK Study</span></td>
+                  <td>172.16.66.32</td>
+                  <td>2M</td>
+                  <td>2M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">36</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>33. Susi Zahro</span></td>
+                  <td>192.168.92.33</td>
+                  <td>3M</td>
+                  <td>3M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-branch" data-queue-id="node-home" data-queue-parent="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">37</td>
+                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-home" style="cursor: pointer; display: inline-block; width: 12px; text-align: center; font-size: 13px; font-family: monospace; line-height: 1;">−</span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span class="fw-semibold">B. HOME</span></td>
+                  <td>192.168.88.0/24</td>
+                  <td>50M</td>
+                  <td>50M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">38</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-01</span></td>
+                  <td>192.168.88.11</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">39</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-02</span></td>
+                  <td>192.168.88.12</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">40</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-03</span></td>
+                  <td>192.168.88.13</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">41</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-04</span></td>
+                  <td>192.168.88.14</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">42</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-05</span></td>
+                  <td>192.168.88.15</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">43</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-06</span></td>
+                  <td>192.168.88.16</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">44</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-07</span></td>
+                  <td>192.168.88.17</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">45</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-08</span></td>
+                  <td>192.168.88.18</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">46</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-09</span></td>
+                  <td>192.168.88.19</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">47</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-10</span></td>
+                  <td>192.168.88.20</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">48</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-11</span></td>
+                  <td>192.168.88.21</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">49</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-12</span></td>
+                  <td>192.168.88.22</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">50</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-13</span></td>
+                  <td>192.168.88.23</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">51</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-14</span></td>
+                  <td>192.168.88.24</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">52</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-15</span></td>
+                  <td>192.168.88.25</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">53</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-16</span></td>
+                  <td>192.168.88.26</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">54</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-17</span></td>
+                  <td>192.168.88.27</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">55</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-18</span></td>
+                  <td>192.168.88.28</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">56</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-19</span></td>
+                  <td>192.168.88.29</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">57</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-20</span></td>
+                  <td>192.168.88.30</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">58</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-21</span></td>
+                  <td>192.168.88.31</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">59</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-22</span></td>
+                  <td>192.168.88.32</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">60</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-23</span></td>
+                  <td>192.168.88.33</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">61</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-24</span></td>
+                  <td>192.168.88.34</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">62</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-25</span></td>
+                  <td>192.168.88.35</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">63</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-26</span></td>
+                  <td>192.168.88.36</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">64</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-27</span></td>
+                  <td>192.168.88.37</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">65</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-28</span></td>
+                  <td>192.168.88.38</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">66</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-29</span></td>
+                  <td>192.168.88.39</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">67</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-30</span></td>
+                  <td>192.168.88.40</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">68</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-31</span></td>
+                  <td>192.168.88.41</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">69</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-32</span></td>
+                  <td>192.168.88.42</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">70</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-33</span></td>
+                  <td>192.168.88.43</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">71</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-34</span></td>
+                  <td>192.168.88.44</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">72</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>Home-35</span></td>
+                  <td>192.168.88.45</td>
+                  <td>10M</td>
+                  <td>10M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-branch" data-queue-id="node-xuloh" data-queue-parent="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">73</td>
+                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-xuloh" style="cursor: pointer; display: inline-block; width: 12px; text-align: center; font-size: 13px; font-family: monospace; line-height: 1;">−</span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span class="fw-semibold">C. X-ULOH</span></td>
+                  <td>10.10.50.0/24</td>
+                  <td>30M</td>
+                  <td>30M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">74</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-01</span></td>
+                  <td>10.10.50.3</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">75</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-02</span></td>
+                  <td>10.10.50.4</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">76</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-03</span></td>
+                  <td>10.10.50.5</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">77</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-04</span></td>
+                  <td>10.10.50.6</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">78</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-05</span></td>
+                  <td>10.10.50.7</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">79</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-06</span></td>
+                  <td>10.10.50.8</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">80</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-07</span></td>
+                  <td>10.10.50.9</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">81</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-08</span></td>
+                  <td>10.10.50.10</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">82</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-09</span></td>
+                  <td>10.10.50.11</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">83</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-10</span></td>
+                  <td>10.10.50.12</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">84</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-11</span></td>
+                  <td>10.10.50.13</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">85</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-12</span></td>
+                  <td>10.10.50.14</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">86</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-13</span></td>
+                  <td>10.10.50.15</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">87</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-14</span></td>
+                  <td>10.10.50.16</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">88</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-15</span></td>
+                  <td>10.10.50.17</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">89</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-16</span></td>
+                  <td>10.10.50.18</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">90</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-17</span></td>
+                  <td>10.10.50.19</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">91</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-18</span></td>
+                  <td>10.10.50.20</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">92</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-19</span></td>
+                  <td>10.10.50.21</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">93</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-20</span></td>
+                  <td>10.10.50.22</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">94</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-21</span></td>
+                  <td>10.10.50.23</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">95</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-22</span></td>
+                  <td>10.10.50.24</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">96</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-23</span></td>
+                  <td>10.10.50.25</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">97</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-24</span></td>
+                  <td>10.10.50.26</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">98</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-25</span></td>
+                  <td>10.10.50.27</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">99</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-26</span></td>
+                  <td>10.10.50.28</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">100</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-27</span></td>
+                  <td>10.10.50.29</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">101</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-28</span></td>
+                  <td>10.10.50.30</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+                <tr class="queue-row queue-leaf" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
+                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">102</td>
+                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="11" viewBox="0 0 14 12" fill="none" class="me-1" style="vertical-align: middle;"><rect x="3" y="1" width="10" height="2" rx="0.5" fill="#10b981"/><rect x="1" y="5" width="12" height="2" rx="0.5" fill="#10b981"/><rect x="0" y="9" width="14" height="2" rx="0.5" fill="#10b981"/></svg><span>X-Uloh-29</span></td>
+                  <td>10.10.50.31</td>
+                  <td>5M</td>
+                  <td>5M</td>
+                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+                <!-- Tab 2: Interface Queues matching screenshot -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-interface" style="display: none;">
+          <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+            <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
+              <thead>
+                <tr>
+                  <th>Interface <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                  <th>Queue Type</th>
+                  <th>Active Queue Type</th>
+                  <th style="width: 100%;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1. WAN</td><td>no-queue</td><td>no-queue</td><td></td></tr>
+                <tr><td>2. LAN</td><td>no-queue</td><td>no-queue</td><td></td></tr>
+                <tr><td>ether1</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether2</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether3</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether4</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether5</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether6</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether7</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether8</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether9</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>ether10</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>lo</td><td>no-queue</td><td>no-queue</td><td></td></tr>
+                <tr><td>sfp1</td><td>only-hardware-queue</td><td>only-hardware-queue</td><td></td></tr>
+                <tr><td>wg-chr</td><td>no-queue</td><td>no-queue</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+                <!-- Tab 3: Queue Tree matching screenshot -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-tree" style="display: none;">
+          <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+            <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
+              <thead>
+                <tr>
+                  <th style="width: 24px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+                  <th>Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                  <th>Parent</th>
+                  <th>Packet ...</th>
+                  <th>Limit At (...</th>
+                  <th>Max Limit...</th>
+                  <th>Avg. Rate</th>
+                  <th>Queued Bytes</th>
+                  <th>Bytes</th>
+                  <th>Packets</th>
+                  <th style="width: 100%;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Empty queue tree as in screenshot -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+                <!-- Tab 4: Queue Types matching screenshot -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-types" style="display: none;">
+          <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
+            <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
+              <thead>
+                <tr>
+                  <th style="width: 24px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+                  <th>Type Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                  <th>Kind</th>
+                  <th style="width: 100%;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="text-center text-muted">*</td><td>default</td><td>pfifo</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>default-small</td><td>pfifo</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>ethernet-default</td><td>pfifo</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>hotspot-default</td><td>sfq</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>multi-queue-ethernet-d...</td><td>mq pfifo</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>only-hardware-queue</td><td>none</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>pcq-download-default</td><td>pcq</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>pcq-upload-default</td><td>pcq</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>synchronous-default</td><td>red</td><td></td></tr>
+                <tr><td class="text-center text-muted">*</td><td>wireless-default</td><td>sfq</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
+
+      <!-- Right WinBox Actions Sidebar matching screenshot -->
+      <div class="d-none d-md-flex flex-column border-start px-2 py-2 flex-shrink-0" style="width: 135px; background: var(--mu-surface, #ffffff); border-color: var(--mu-border, #e2e8f0) !important; font-size: 0.75rem;">
+        <div class="d-flex align-items-center gap-1 fw-bold text-muted mb-2">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <span>Actions</span>
+        </div>
+        <button type="button" class="btn btn-sm btn-light text-start py-1 px-2 border mb-1" style="font-size: 0.72rem;" onclick="toastManager.show({title:'Reset Counters', message:'Counters reset.', type:'info'})">Reset Counters</button>
+        <button type="button" class="btn btn-sm btn-light text-start py-1 px-2 border" style="font-size: 0.72rem;" onclick="toastManager.show({title:'Reset All Counters', message:'All counters reset.', type:'info'})">Reset All Counters</button>
+      </div>
+
     </div>
 
-    <div class="mitrautama-tab-content" id="subtab-queues-tree" style="display: none;">
-      <div class="p-3 text-center text-muted">
-        Tidak ada antrean bertingkat (Queue Tree) yang dikonfigurasi.
+        <!-- 4. Subsystem Status & Item Count Footer matching screenshot -->
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 2px 8px; font-size: 0.73rem; background: var(--mu-surface, #f8fafc); border-top: 1px solid var(--mu-border, #cbd5e1); flex-shrink: 0; min-height: 25px;">
+      <div class="d-flex align-items-center gap-0 border rounded" style="background: var(--mu-surface, #ffffff); border-color: var(--mu-border, #cbd5e1) !important; overflow: hidden; height: 21px;">
+        <!-- 179 capsule -->
+        <div class="d-flex align-items-center px-2 py-0 border-end" style="background: var(--mu-hover, #e2e8f0); color: var(--mu-text-main, #1e293b); font-weight: 600; font-size: 0.72rem; height: 100%;">
+          <span style="background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 10px;">179</span>
+          <span class="ms-1 text-success d-inline-flex align-items-center" style="font-size: 0.65rem;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span class="ms-1 text-muted" style="font-weight: 500;">1</span>
+          </span>
+        </div>
+        <!-- Live button -->
+        <div class="d-flex align-items-center px-2 py-0" style="color: var(--mu-text-main, #1e293b); font-weight: 600; font-size: 0.72rem; cursor: pointer;">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="#0284c7" class="me-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span style="color: #0284c7;">Live</span>
+        </div>
       </div>
-    </div>
 
-    <div class="mitrautama-tab-content" id="subtab-queues-types" style="display: none;">
-      <div class="flex-grow-1 overflow-auto">
-        <table class="mitrane-grid-table mitrautama-table">
-          <thead>
-            <tr><th>Type Name</th><th>Kind</th><th>Parameters</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>default</td><td>pfifo</td><td>pfifo-limit=50</td></tr>
-            <tr><td>default-small</td><td>pfifo</td><td>pfifo-limit=10</td></tr>
-            <tr><td>pcq-download-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
-            <tr><td>pcq-upload-default</td><td>pcq</td><td>rate=0 limit=50KiB total-limit=2000KiB</td></tr>
-          </tbody>
-        </table>
+      <div class="d-flex align-items-center gap-4 text-muted" style="font-size: 0.73rem; font-family: monospace;">
+        <span>0 B queued</span>
+        <span>0 packets queued</span>
       </div>
-    </div>
-
-    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem">
-      <span>Total: 2 queues</span>
-      <span class="text-muted">Bandwidth QoS Subsystem</span>
     </div>
 
   </div>
 </div>
-
 </div>
                 <div id="ppp-module-container">
 <!-- Module: ppp/ppp.html (VPN MITRANE Style Window) -->
@@ -3274,3 +4296,5 @@
 
 </body>
 </html>
+
+
