@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MitraUtama All Minified Core Stylesheet (mitrautama-all-min.css)
  * Desain Fixed Header, Fixed Footer, Collapsible Sidebar,
  * Drop-right Flyout Submenus (Winbox Style), dan Tab Toolbar Winbox Asli.
@@ -28,6 +28,7 @@ html, body {
 .mitrautama-fixed-header {
     height: 52px;
     min-height: 52px;
+    flex-wrap: nowrap !important;
     background: var(--mu-bg-card, #ffffff);
     border-bottom: 1px solid var(--mu-border, #e2e8f0);
     display: flex;
@@ -637,3 +638,17 @@ html, body {
 [data-theme="dark"] .mitrautama-chart-title {
     color: #f8fafc;
 }
+
+
+/* HEADER COMPONENT CLEAN FIXES */
+#header-container { width: 100%; height: 52px; min-height: 52px; position: relative; z-index: 1040; }
+.mitrautama-fixed-header { height: 52px !important; min-height: 52px !important; max-height: 52px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; flex-wrap: nowrap !important; padding: 0 16px !important; box-sizing: border-box !important; overflow: hidden !important; background: var(--mu-bg-card, #ffffff); border-bottom: 1px solid var(--mu-border, #e2e8f0); }
+.mitrautama-header-left { display: flex !important; align-items: center !important; gap: 12px !important; flex-shrink: 0 !important; height: 100% !important; }
+#sidebar-toggle-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; padding: 0 !important; margin: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 6px !important; border: 1px solid var(--mu-border, #cbd5e1) !important; background: transparent !important; color: var(--mu-text-main, #334155) !important; cursor: pointer !important; transition: all 0.2s ease !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
+#sidebar-toggle-btn:hover { background: rgba(0, 0, 0, 0.05) !important; color: var(--mu-primary, #0284c7) !important; }
+.mu-logo-icon { width: 30px !important; height: 30px !important; min-width: 30px !important; min-height: 30px !important; border-radius: 6px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 0.85rem !important; font-weight: 700 !important; line-height: 1 !important; flex-shrink: 0 !important; background: linear-gradient(135deg, var(--mu-primary, #0284c7) 0%, #38bdf8 100%) !important; color: #ffffff !important; }
+.mitrautama-header-home-btn { display: inline-flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important; color: inherit !important; }
+.mitrautama-header-brand-text { font-size: 0.95rem !important; font-weight: 700 !important; color: var(--mu-text-main, #0f172a) !important; line-height: 1.2 !important; white-space: nowrap !important; }
+[data-theme='dark'] .mitrautama-header-brand-text { color: #f8fafc !important; }
+[data-theme='dark'] #sidebar-toggle-btn { border-color: #334155 !important; color: #cbd5e1 !important; }
+[data-theme='dark'] #sidebar-toggle-btn:hover { background: rgba(255, 255, 255, 0.08) !important; color: #38bdf8 !important; }
