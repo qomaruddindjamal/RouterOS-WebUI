@@ -1917,4 +1917,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (applyBtn) {
         applyBtn.addEventListener('click', handleSave);
     }
+
+    // Bridge View Table Handlers (Filter, Selection, Refresh)
+    const bridgeSearch = document.getElementById('mitrane-bridge-search');
+    if (bridgeSearch) {
+        bridgeSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const activePane = document.querySelector('#view-bridge .mitrautama-tab-pane.active') || document.querySelector('#subtab-bridge-ports');
+            if (activePane) {
+                const rows = activePane.querySelectorAll('tbody tr');
+                rows.forEach(tr => {
+                    const text = tr.textContent.toLowerCase();
+                    tr.style.display = (!query || text.includes(query)) ? '' : 'none';
+                });
+            }
+        });
+    }
+
+    const bridgeRefreshBtn = document.getElementById('btn-bridge-refresh');
+    if (bridgeRefreshBtn) {
+        bridgeRefreshBtn.addEventListener('click', () => {
+            if (bridgeSearch) bridgeSearch.value = '';
+            document.querySelectorAll('#view-bridge tbody tr').forEach(tr => {
+                tr.style.display = '';
+                tr.classList.remove('table-primary', 'selected');
+            });
+            if (window.toastManager) {
+                window.toastManager.show({
+                    title: 'Bridge Table',
+                    message: 'Data tabel bridge disegarkan.',
+                    type: 'success',
+                    duration: 1500
+                });
+            }
+        });
+    }
+
+    // Row selection for Bridge tables
+    document.addEventListener('click', (e) => {
+        const row = e.target.closest('#view-bridge .mitrane-grid-table tbody tr');
+        if (!row) return;
+        const tbody = row.closest('tbody');
+        if (tbody) {
+            tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
+            row.classList.add('table-primary', 'selected');
+        }
+    });
 });
