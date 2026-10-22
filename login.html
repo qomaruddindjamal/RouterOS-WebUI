@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - MitraUtama RouterOS WebUI</title>
+    <title>Login - RouterOS WebUI</title>
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 
     <!-- Bootstrap 5.3.3 -->
@@ -25,7 +25,7 @@
 
     <style>
         :root {
-            --login-card-bg: rgba(255, 255, 255, 0.95);
+            --login-card-bg: rgba(255, 255, 255, 0.98);
             --login-card-border: #cbd5e1;
             --login-card-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 10px 20px -5px rgba(15, 23, 42, 0.06);
             --login-badge-bg: #e0f2fe;
@@ -44,10 +44,13 @@
         body.mitrautama-login-body {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, var(--mu-bg, #f1f5f9) 0%, #e2e8f0 100%);
             color: var(--mu-text-main, #0f172a);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px 16px;
             overflow-x: hidden;
             transition: background 0.3s ease, color 0.3s ease;
         }
@@ -57,70 +60,18 @@
             background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0f172a 100%);
         }
 
-        .mitrautama-login-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            position: relative;
-        }
-
         .mitrautama-login-card {
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             background: var(--login-card-bg);
             border: 1px solid var(--login-card-border);
             border-radius: 12px;
             box-shadow: var(--login-card-shadow);
             backdrop-filter: blur(10px);
-            padding: 32px 28px;
+            padding: 34px 28px 28px 28px;
             position: relative;
             z-index: 2;
             transition: all 0.3s ease;
-        }
-
-        .mitrautama-auth-nav {
-            display: flex;
-            background: rgba(148, 163, 184, 0.15);
-            padding: 4px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            gap: 4px;
-        }
-
-        .mitrautama-auth-tab {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px 12px;
-            font-size: 0.825rem;
-            font-weight: 600;
-            color: var(--mu-text-muted, #64748b);
-            background: transparent;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mitrautama-auth-tab:hover {
-            color: var(--mu-text-main, #0f172a);
-        }
-
-        .mitrautama-auth-tab.active {
-            background: var(--mu-surface, #ffffff);
-            color: #0284c7;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        }
-
-        [data-theme="dark"] .mitrautama-auth-tab.active,
-        [data-period="malam"] .mitrautama-auth-tab.active {
-            background: #0f172a;
-            color: #38bdf8;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .mitrautama-form-control {
@@ -212,209 +163,154 @@
             transform: translateY(0);
         }
 
-        .mitrautama-login-footer {
-            padding: 16px;
-            text-align: center;
-            font-size: 0.775rem;
-            color: var(--mu-text-muted, #64748b);
-            border-top: 1px solid var(--mu-border, #e2e8f0);
-            background: var(--mu-surface, #f8fafc);
-        }
-
-        [data-theme="dark"] .mitrautama-login-footer,
-        [data-period="malam"] .mitrautama-login-footer {
-            border-top-color: #334155;
-            background: #0f172a;
+        /* Top Corner Floating Theme Toggle */
+        .mitrautama-floating-theme {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
         }
 
         @media (max-width: 576px) {
             .mitrautama-login-card {
-                padding: 24px 18px;
+                padding: 24px 18px 20px 18px;
                 border-radius: 10px;
                 box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             }
-            .mitrautama-login-container {
-                padding: 16px 12px;
+            .mitrautama-floating-theme {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body class="mitrautama-login-body">
 
-    <!-- Top Floating Header for Identity & Theme Switcher -->
-    <nav class="navbar navbar-expand px-3 py-2 border-bottom" style="background: var(--mu-surface, #ffffff); border-color: var(--mu-border, #cbd5e1) !important;">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <a href="index.html" class="d-flex align-items-center gap-2 text-decoration-none">
-                <div class="mu-logo-icon" style="width: 32px; height: 32px; font-size: 0.95rem; background: #0284c7; color: #fff; font-weight: 800; border-radius: 6px; display: flex; align-items: center; justify-content: center;">RO</div>
-                <div class="d-flex flex-column">
-                    <span class="fw-bold" style="font-size: 0.95rem; line-height: 1.1; color: var(--mu-text-main, #0f172a);">RouterOS</span>
-                    <span class="text-muted" style="font-size: 0.7rem;">RB3011UiAS-RM (BACKBONE)</span>
-                </div>
-            </a>
+    <!-- Floating Theme Switcher Button -->
+    <div class="mitrautama-floating-theme">
+        <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center border shadow-sm" id="btn-theme-toggle" title="Ganti Tema" style="width: 34px; height: 34px; border-radius: 50%; background: var(--login-card-bg);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
 
-            <!-- Quick Theme Controls -->
-            <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1" id="btn-theme-toggle" title="Ganti Tema" style="font-size: 0.75rem; padding: 4px 10px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <span class="d-none d-sm-inline" id="theme-toggle-label">Tema</span>
-                </button>
+    <!-- Main Responsive Login Card (Centered, No Header, No Footer) -->
+    <div class="mitrautama-login-card">
+        
+        <!-- Branding Header -->
+        <div class="text-center mb-4">
+            <div class="d-inline-flex align-items-center justify-content-center p-2 rounded-circle mb-2" style="background: var(--login-badge-bg); color: var(--login-badge-text);">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+            </div>
+            <h4 class="fw-bold mb-1" style="color: var(--mu-text-main, #0f172a); font-size: 1.25rem;">MitraUtama WebUI</h4>
+            <div class="d-flex align-items-center justify-content-center gap-2">
+                <span class="badge" style="background: var(--login-badge-bg); color: var(--login-badge-text); font-weight: 600; font-size: 0.72rem;">RouterOS v7.24.5</span>
+                <span class="badge bg-secondary" style="font-size: 0.72rem;">BACKBONE</span>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Responsive Login Container -->
-    <main class="mitrautama-login-container">
-        <div class="mitrautama-login-card">
-            
-            <!-- Branding Header -->
-            <div class="text-center mb-4">
-                <div class="d-inline-flex align-items-center justify-content-center p-2 rounded-circle mb-2" style="background: var(--login-badge-bg); color: var(--login-badge-text);">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                    </svg>
-                </div>
-                <h4 class="fw-bold mb-1" style="color: var(--mu-text-main, #0f172a); font-size: 1.25rem;">MitraUtama WebUI</h4>
-                <div class="d-flex align-items-center justify-content-center gap-2">
-                    <span class="badge" style="background: var(--login-badge-bg); color: var(--login-badge-text); font-weight: 600; font-size: 0.72rem;">RouterOS v7.24.5</span>
-                    <span class="badge bg-secondary" style="font-size: 0.72rem;">BACKBONE</span>
+        <!-- Login Form (Username & Password) -->
+        <form id="mitrautama-login-form" name="login" action="login" method="post" autocomplete="on">
+            <input type="hidden" name="dst" value="$(link-orig)">
+            <input type="hidden" name="popup" value="true">
+
+            <!-- Input Username -->
+            <div class="mb-3">
+                <label for="username-input" class="form-label fw-semibold small mb-1" style="font-size: 0.8rem;">
+                    Username
+                </label>
+                <div class="mitrautama-input-group">
+                    <span class="mitrautama-input-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </span>
+                    <input type="text" class="mitrautama-form-control" id="username-input" name="username" placeholder="Masukkan Username" required autofocus>
                 </div>
             </div>
 
-            <!-- Auth Mode Switcher (Voucher vs Member/Admin) -->
-            <div class="mitrautama-auth-nav" role="tablist">
-                <button type="button" class="mitrautama-auth-tab active" id="tab-voucher" role="tab" aria-selected="true">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
-                    </svg>
-                    Voucher Hotspot
-                </button>
-                <button type="button" class="mitrautama-auth-tab" id="tab-member" role="tab" aria-selected="false">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    Member / Admin
-                </button>
-            </div>
-
-            <!-- Login Form (MikroTik RouterOS Standard CHAP & Fallback) -->
-            <form id="mitrautama-login-form" name="login" action="login" method="post" autocomplete="on">
-                <input type="hidden" name="dst" value="$(link-orig)">
-                <input type="hidden" name="popup" value="true">
-
-                <!-- Info Message -->
-                <div id="auth-info-text" class="text-muted small mb-3 text-center" style="font-size: 0.785rem; min-height: 22px;">
-                    Masukkan <strong>Kode Voucher</strong> yang tertera pada kartu internet Anda.
-                </div>
-
-                <!-- Input Username / Voucher Code -->
-                <div class="mb-3">
-                    <label for="username-input" class="form-label fw-semibold small mb-1" id="username-label" style="font-size: 0.8rem;">
-                        Kode Voucher / Akun:
+            <!-- Input Password -->
+            <div class="mb-3" id="password-field">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label for="password-input" class="form-label fw-semibold small mb-0" style="font-size: 0.8rem;">
+                        Password
                     </label>
-                    <div class="mitrautama-input-group">
-                        <span class="mitrautama-input-icon" id="user-input-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path>
-                                <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                                <line x1="15" y1="15" x2="15.01" y2="15"></line>
-                            </svg>
-                        </span>
-                        <input type="text" class="mitrautama-form-control" id="username-input" name="username" placeholder="Masukkan Kode Voucher" required autofocus>
-                    </div>
+                    <span class="text-muted" style="font-size: 0.72rem;">Case-sensitive</span>
                 </div>
-
-                <!-- Input Password (Visible on Member Mode) -->
-                <div class="mb-3" id="password-field" style="display: none;">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label for="password-input" class="form-label fw-semibold small mb-0" style="font-size: 0.8rem;">
-                            Kata Sandi:
-                        </label>
-                        <span class="text-muted" style="font-size: 0.72rem;">Case-sensitive</span>
-                    </div>
-                    <div class="mitrautama-input-group">
-                        <span class="mitrautama-input-icon">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                        </span>
-                        <input type="password" class="mitrautama-form-control" id="password-input" name="password" placeholder="Masukkan Kata Sandi" style="padding-right: 40px;">
-                        <button type="button" class="mitrautama-input-btn" id="toggle-password" title="Tampilkan/Sembunyikan Kata Sandi">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Remember / Auto Login & Case Mode -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="remember-me" checked>
-                        <label class="form-check-label small text-muted" for="remember-me" style="font-size: 0.785rem;">
-                            Ingat Sesi Ini
-                        </label>
-                    </div>
-                    <a href="index.html" class="text-decoration-none small" style="font-size: 0.785rem; color: #0284c7;">
-                        WebUI Dashboard &rarr;
-                    </a>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-mitrautama-primary" id="btn-login-submit">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                        <polyline points="10 17 15 12 10 7"></polyline>
-                        <line x1="15" y1="12" x2="3" y2="12"></line>
-                    </svg>
-                    <span>Masuk ke Jaringan</span>
-                </button>
-            </form>
-
-            <!-- Status Indicator / Hotspot Info -->
-            <div class="mt-4 pt-3 border-top text-center" style="border-color: var(--mu-border, #e2e8f0) !important;">
-                <div class="d-flex justify-content-center align-items-center gap-3 text-muted" style="font-size: 0.73rem;">
-                    <span class="d-flex align-items-center gap-1">
-                        <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #16a34a; display: inline-block;"></span>
-                        RADIUS Online
+                <div class="mitrautama-input-group">
+                    <span class="mitrautama-input-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
                     </span>
-                    <span class="d-flex align-items-center gap-1">
-                        <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #0284c7; display: inline-block;"></span>
-                        CHAP MD5 Active
-                    </span>
+                    <input type="password" class="mitrautama-form-control" id="password-input" name="password" placeholder="Masukkan Password" required style="padding-right: 40px;">
+                    <button type="button" class="mitrautama-input-btn" id="toggle-password" title="Tampilkan/Sembunyikan Kata Sandi">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
-        </div>
-    </main>
+            <!-- Remember Me & Back to Dashboard -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember-me" checked>
+                    <label class="form-check-label small text-muted" for="remember-me" style="font-size: 0.785rem;">
+                        Ingat Sesi Ini
+                    </label>
+                </div>
+                <a href="index.html" class="text-decoration-none small" style="font-size: 0.785rem; color: #0284c7;">
+                    WebUI Dashboard &rarr;
+                </a>
+            </div>
 
-    <!-- Footer -->
-    <footer class="mitrautama-login-footer">
-        <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2">
-            <span>&copy; ESF 2004 - 2026 &middot; MitraUtama RouterOS Management</span>
-            <span class="d-none d-sm-inline">&bull;</span>
-            <span>Identity: <strong>BACKBONE</strong></span>
-        </div>
-    </footer>
+            <!-- Submit Button -->
+            <button type="submit" class="btn-mitrautama-primary" id="btn-login-submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                <span>Masuk ke Jaringan</span>
+            </button>
+        </form>
 
-    <!-- Auth Script Wiring -->
+        <!-- Status Indicator / Hotspot Info -->
+        <div class="mt-4 pt-3 border-top text-center" style="border-color: var(--mu-border, #e2e8f0) !important;">
+            <div class="d-flex justify-content-center align-items-center gap-3 text-muted" style="font-size: 0.73rem;">
+                <span class="d-flex align-items-center gap-1">
+                    <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #16a34a; display: inline-block;"></span>
+                    RADIUS Online
+                </span>
+                <span class="d-flex align-items-center gap-1">
+                    <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #0284c7; display: inline-block;"></span>
+                    CHAP MD5 Active
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Wiring -->
     <script type="module">
-        import { authForm } from './assets/js/auth.js';
         import { themeManager } from './assets/js/theme.js';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -433,33 +329,41 @@
                 });
             }
 
-            // Form Submit Interceptor for RouterOS Simulation & Production Redirect
+            // Password Visibility Toggle
+            const togglePwd = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password-input');
+            if (togglePwd && passwordInput) {
+                togglePwd.addEventListener('click', () => {
+                    const isPass = passwordInput.getAttribute('type') === 'password';
+                    passwordInput.setAttribute('type', isPass ? 'text' : 'password');
+                    togglePwd.style.color = isPass ? '#0284c7' : 'var(--mu-text-muted, #94a3b8)';
+                });
+            }
+
+            // Form Submit Interceptor
             const loginForm = document.getElementById('mitrautama-login-form');
             if (loginForm) {
                 loginForm.addEventListener('submit', (e) => {
                     const username = document.getElementById('username-input').value.trim();
                     const password = document.getElementById('password-input').value;
-                    const mode = authForm.mode;
 
-                    if (!username) {
+                    if (!username || !password) {
                         e.preventDefault();
                         if (window.Swal) {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Input Tidak Boleh Kosong',
-                                text: mode === 'voucher' ? 'Silakan masukkan kode voucher Anda.' : 'Silakan masukkan username Anda.'
+                                title: 'Input Belum Lengkap',
+                                text: 'Silakan masukkan Username dan Password Anda.'
                             });
                         } else {
-                            alert('Silakan lengkapi form login.');
+                            alert('Silakan masukkan Username dan Password Anda.');
                         }
                         return;
                     }
 
-                    // Jika berada di live server hotspot MikroTik dengan variable $(chap-id), proses CHAP MD5
+                    // Jika berada di live server hotspot MikroTik dengan variable $(chap-id)
                     if (typeof hexMD5 === 'function' && window.chapId && window.chapChallenge) {
-                        // MikroTik Hotspot CHAP MD5 processing
                         const chapPass = hexMD5(window.chapId + password + window.chapChallenge);
-                        // form action will proceed naturally
                     } else {
                         // Environment WebUI Standalone / Dashboard Access Simulation
                         e.preventDefault();
