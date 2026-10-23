@@ -2176,8 +2176,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const table = btn.closest('table');
         if (!table) return;
 
-        const isCurrentlyClosed = (btn.textContent.trim() === '+');
-        btn.textContent = isCurrentlyClosed ? '−' : '+';
+        const chevron = btn.querySelector('.bridge-chevron');
+        const firstChild = table.querySelector(`tr[data-bridge-parent="${nodeId}"]`);
+        const isCurrentlyClosed = firstChild ? (firstChild.style.display === 'none') : true;
+
+        if (chevron) {
+            chevron.style.transform = isCurrentlyClosed ? 'rotate(90deg)' : 'rotate(0deg)';
+        }
 
         const childRows = table.querySelectorAll(`tr[data-bridge-parent="${nodeId}"]`);
         childRows.forEach(row => {
