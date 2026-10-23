@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <!-- ==================== SUBTAB: INTERFACE (Active) ==================== -->
+        <!-- ==================== SUBTAB: INTERFACE (Active) ==================== -->
     <div class="mitrautama-tab-pane active" id="subtab-vpn-interface" style="display: flex; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
       <!-- Table Container -->
       <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
@@ -123,6 +123,7 @@
             </tr>
           </thead>
           <tbody>
+            <!-- Standalone Provider WAN Client -->
             <tr>
               <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
               <td><span style="color: #b91c1c; margin-right: 4px; font-weight: bold;">&raquo;</span><strong>&lt;pppoe-user@citramedia.tech&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; on ETH1 (user@citramedia.tech)</span></td>
@@ -139,6 +140,546 @@
               <td>38</td>
               <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
             </tr>
+            <!-- Group Accordion: PPPoE Client Interfaces -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="PPPoE Clients" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="PPPoE Clients" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong style="color: #f97316;">PPPoE Client Interfaces</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN50-PPTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #f97316; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #f97316; border: 1px solid rgba(2, 132, 199, 0.3);">PPPoE Clients</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"></td>
+            </tr>
+            <!-- Child Interface: <pppoe-client01> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong>&lt;pppoe-client01&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out1)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">PPPoE Client</span></td>
+              <td>1480</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">12.5 KB/s</td>
+              <td class="text-primary fw-semibold">28.2 KB/s</td>
+              <td>16</td>
+              <td>24</td>
+              <td>12.5 KB/s</td>
+              <td>28.2 KB/s</td>
+              <td>16</td>
+              <td>24</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <pppoe-client02> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong>&lt;pppoe-client02&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out2)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">PPPoE Client</span></td>
+              <td>1480</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">16.5 KB/s</td>
+              <td class="text-primary fw-semibold">35.2 KB/s</td>
+              <td>22</td>
+              <td>32</td>
+              <td>16.5 KB/s</td>
+              <td>35.2 KB/s</td>
+              <td>22</td>
+              <td>32</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <pppoe-client03> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong>&lt;pppoe-client03&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out3)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">PPPoE Client</span></td>
+              <td>1480</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">20.5 KB/s</td>
+              <td class="text-primary fw-semibold">42.2 KB/s</td>
+              <td>28</td>
+              <td>40</td>
+              <td>20.5 KB/s</td>
+              <td>42.2 KB/s</td>
+              <td>28</td>
+              <td>40</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <pppoe-client04> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong>&lt;pppoe-client04&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out4)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">PPPoE Client</span></td>
+              <td>1480</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">24.5 KB/s</td>
+              <td class="text-primary fw-semibold">49.2 KB/s</td>
+              <td>34</td>
+              <td>48</td>
+              <td>24.5 KB/s</td>
+              <td>49.2 KB/s</td>
+              <td>34</td>
+              <td>48</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <pppoe-client05> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong>&lt;pppoe-client05&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out5)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">PPPoE Client</span></td>
+              <td>1480</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Group Accordion: SSTP Client Interfaces -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="SSTP Clients" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="SSTP Clients" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong style="color: #8b5cf6;">SSTP Client Interfaces</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN60-SSTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #8b5cf6; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #8b5cf6; border: 1px solid rgba(2, 132, 199, 0.3);">SSTP Clients</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"></td>
+            </tr>
+            <!-- Child Interface: <sstp-client01> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong>&lt;sstp-client01&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(sstp-out1)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">SSTP Client</span></td>
+              <td>1400</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">15.1 KB/s</td>
+              <td class="text-primary fw-semibold">32.4 KB/s</td>
+              <td>20</td>
+              <td>30</td>
+              <td>15.1 KB/s</td>
+              <td>32.4 KB/s</td>
+              <td>20</td>
+              <td>30</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <sstp-client02> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong>&lt;sstp-client02&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(sstp-out2)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">SSTP Client</span></td>
+              <td>1400</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">20.1 KB/s</td>
+              <td class="text-primary fw-semibold">41.4 KB/s</td>
+              <td>25</td>
+              <td>39</td>
+              <td>20.1 KB/s</td>
+              <td>41.4 KB/s</td>
+              <td>25</td>
+              <td>39</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <sstp-client03> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong>&lt;sstp-client03&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(sstp-out3)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">SSTP Client</span></td>
+              <td>1400</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">25.1 KB/s</td>
+              <td class="text-primary fw-semibold">50.4 KB/s</td>
+              <td>30</td>
+              <td>48</td>
+              <td>25.1 KB/s</td>
+              <td>50.4 KB/s</td>
+              <td>30</td>
+              <td>48</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <sstp-client04> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong>&lt;sstp-client04&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(sstp-out4)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">SSTP Client</span></td>
+              <td>1400</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">30.1 KB/s</td>
+              <td class="text-primary fw-semibold">59.4 KB/s</td>
+              <td>35</td>
+              <td>57</td>
+              <td>30.1 KB/s</td>
+              <td>59.4 KB/s</td>
+              <td>35</td>
+              <td>57</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <sstp-client05> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong>&lt;sstp-client05&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(sstp-out5)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">SSTP Client</span></td>
+              <td>1400</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Group Accordion: L2TP Client Interfaces -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="L2TP Clients" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="L2TP Clients" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong style="color: #eab308;">L2TP Client Interfaces</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN70-L2TP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #eab308; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #eab308; border: 1px solid rgba(2, 132, 199, 0.3);">L2TP Clients</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"></td>
+            </tr>
+            <!-- Child Interface: <l2tp-client01> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong>&lt;l2tp-client01&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out1)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">22.8 KB/s</td>
+              <td class="text-primary fw-semibold">48.3 KB/s</td>
+              <td>28</td>
+              <td>44</td>
+              <td>22.8 KB/s</td>
+              <td>48.3 KB/s</td>
+              <td>28</td>
+              <td>44</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <l2tp-client02> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong>&lt;l2tp-client02&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out2)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">28.8 KB/s</td>
+              <td class="text-primary fw-semibold">59.3 KB/s</td>
+              <td>35</td>
+              <td>56</td>
+              <td>28.8 KB/s</td>
+              <td>59.3 KB/s</td>
+              <td>35</td>
+              <td>56</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <l2tp-client03> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong>&lt;l2tp-client03&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out3)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">34.8 KB/s</td>
+              <td class="text-primary fw-semibold">70.3 KB/s</td>
+              <td>42</td>
+              <td>68</td>
+              <td>34.8 KB/s</td>
+              <td>70.3 KB/s</td>
+              <td>42</td>
+              <td>68</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <l2tp-client04> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong>&lt;l2tp-client04&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out4)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">40.8 KB/s</td>
+              <td class="text-primary fw-semibold">81.3 KB/s</td>
+              <td>49</td>
+              <td>80</td>
+              <td>40.8 KB/s</td>
+              <td>81.3 KB/s</td>
+              <td>49</td>
+              <td>80</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <l2tp-client05> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong>&lt;l2tp-client05&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out5)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">L2TP Client</span></td>
+              <td>1450</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Group Accordion: OpenVPN Client Interfaces -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="OpenVPN Clients" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="OpenVPN Clients" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong style="color: #06b6d4;">OpenVPN Client Interfaces</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN80-OPENVPN)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #06b6d4; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #06b6d4; border: 1px solid rgba(2, 132, 199, 0.3);">OpenVPN Clients</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"></td>
+            </tr>
+            <!-- Child Interface: <ovpn-client01> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong>&lt;ovpn-client01&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out1)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">OVPN Client</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">35.2 KB/s</td>
+              <td class="text-primary fw-semibold">55.6 KB/s</td>
+              <td>36</td>
+              <td>52</td>
+              <td>35.2 KB/s</td>
+              <td>55.6 KB/s</td>
+              <td>36</td>
+              <td>52</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <ovpn-client02> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong>&lt;ovpn-client02&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out2)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">OVPN Client</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">43.2 KB/s</td>
+              <td class="text-primary fw-semibold">69.6 KB/s</td>
+              <td>44</td>
+              <td>63</td>
+              <td>43.2 KB/s</td>
+              <td>69.6 KB/s</td>
+              <td>44</td>
+              <td>63</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <ovpn-client03> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong>&lt;ovpn-client03&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out3)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">OVPN Client</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">51.2 KB/s</td>
+              <td class="text-primary fw-semibold">83.6 KB/s</td>
+              <td>52</td>
+              <td>74</td>
+              <td>51.2 KB/s</td>
+              <td>83.6 KB/s</td>
+              <td>52</td>
+              <td>74</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <ovpn-client04> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong>&lt;ovpn-client04&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out4)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">OVPN Client</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">59.2 KB/s</td>
+              <td class="text-primary fw-semibold">97.6 KB/s</td>
+              <td>60</td>
+              <td>85</td>
+              <td>59.2 KB/s</td>
+              <td>97.6 KB/s</td>
+              <td>60</td>
+              <td>85</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <!-- Child Interface: <ovpn-client05> -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Clients" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong>&lt;ovpn-client05&gt;</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out5)</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">OVPN Client</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0 B/s</td>
+              <td>0 B/s</td>
+              <td>0</td>
+              <td>0</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -146,11 +687,13 @@
       <!-- Footer Subsystem -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
         <div class="d-flex align-items-center flex-wrap">
-          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">1 items at interface</span>
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">21 items at interface (4 groups)</span>
           <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-vpn-footer-legends">
-            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #0284c7; display: inline-block; flex-shrink: 0;"></span><span>PPPoE Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
-            </span>
-            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #f97316; display: inline-block; flex-shrink: 0;"></span><span>PPPoE: <strong style="color: var(--mu-text-main, #1e293b);">6</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8b5cf6; display: inline-block; flex-shrink: 0;"></span><span>SSTP: <strong style="color: var(--mu-text-main, #1e293b);">5</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>L2TP: <strong style="color: var(--mu-text-main, #1e293b);">5</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #06b6d4; display: inline-block; flex-shrink: 0;"></span><span>OpenVPN: <strong style="color: var(--mu-text-main, #1e293b);">5</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">17</strong></span></span>
           </div>
         </div>
         <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">
@@ -161,7 +704,7 @@
       </div>
     </div>
 
-        <!-- ==================== SUBTAB: PPPoE Servers ==================== -->
+    <!-- ==================== SUBTAB: PPPoE Servers ==================== -->
     <div class="mitrautama-tab-pane" id="subtab-vpn-pppoe-servers" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
       <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
