@@ -2152,23 +2152,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Bridge Accordion Toggle Handler
+    // Bridge Tree / Accordion Toggle Handler (QoS Style: + / -)
     document.addEventListener('click', (e) => {
-        const toggleRow = e.target.closest('.mitrautama-bridge-accordion-toggle');
-        if (toggleRow) {
-            const targetId = toggleRow.getAttribute('data-bridge-target');
-            if (targetId) {
-                const detailRow = document.getElementById(targetId);
-                const chevron = toggleRow.querySelector('.mitrautama-accordion-chevron');
-                if (detailRow) {
-                    const isHidden = (detailRow.style.display === 'none');
-                    detailRow.style.display = isHidden ? '' : 'none';
-                    if (chevron) {
-                        chevron.style.transform = isHidden ? 'rotate(90deg)' : 'rotate(0deg)';
-                    }
-                }
-            }
+        // Klik pada tombol toggle (+ / -) atau pada baris root bridge
+        const toggleBtn = e.target.closest('.btn-bridge-toggle');
+        const rootRow = e.target.closest('.bridge-root-row');
+        
+        let nodeId = null;
+        let btn = null;
+
+        if (toggleBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            nodeId = toggleBtn.getAttribute('data-bridge-node');
+            btn = toggleBtn;
+        } else if (rootRow) {
+            btn = rootRow.querySelector('.btn-bridge-toggle');
+            if (btn) nodeId = btn.getAttribute('data-bridge-node');
         }
+
+        if (!nodeId || !btn) return;
+
+        const table = btn.closest('table');
+        if (!table) return;
+
+        const isCurrentlyClosed = (btn.textContent.trim() === '+');
+        btn.textContent = isCurrentlyClosed ? '−' : '+';
+
+        const childRows = table.querySelectorAll(`tr[data-bridge-parent="${nodeId}"]`);
+        childRows.forEach(row => {
+            row.style.display = isCurrentlyClosed ? '' : 'none';
+        });
     });
 
     const bridgeRefreshBtn = document.getElementById('btn-bridge-refresh');
