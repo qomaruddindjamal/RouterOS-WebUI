@@ -1,7 +1,27 @@
 {
-  "total": 31,
+  "total": 33,
   "lastUpdated": "2026-10-22T23:10:00Z",
   "interfaces": [
+    {
+      "id": "iface_wan",
+      "name": "1. WAN",
+      "subname": "1. wan",
+      "type": "Bridge",
+      "status": "running",
+      "actualMtu": 1500,
+      "l2Mtu": 1500,
+      "tx": "15.2 KB/s",
+      "rx": "9.3 KB/s",
+      "txPkt": 21,
+      "rxPkt": 16,
+      "fpTx": "15.2 KB/s",
+      "fpRx": "9.3 KB/s",
+      "fpTxPkt": 21,
+      "fpRxPkt": 16,
+      "defaultName": "1. WAN",
+      "isMaster": true,
+      "parent": null
+    },
     {
       "id": "iface_1",
       "name": "ETH1",
@@ -19,7 +39,8 @@
       "fpTxPkt": 3,
       "fpRxPkt": 4,
       "macAddress": "2C:C8:1B:18:BE:0A",
-      "defaultName": "enp1s0"
+      "defaultName": "enp1s0",
+      "parent": null
     },
     {
       "id": "iface_2",
@@ -38,7 +59,8 @@
       "fpTxPkt": 18,
       "fpRxPkt": 12,
       "macAddress": "2C:C8:1B:18:BE:0B",
-      "defaultName": "enp2s0"
+      "defaultName": "enp2s0",
+      "parent": null
     },
     {
       "id": "iface_3",
@@ -57,7 +79,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:0C",
-      "defaultName": "enp3s0"
+      "defaultName": "enp3s0",
+      "parent": null
     },
     {
       "id": "iface_4",
@@ -76,7 +99,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:0D",
-      "defaultName": "enp4s0"
+      "defaultName": "enp4s0",
+      "parent": "2. LAN"
     },
     {
       "id": "iface_5",
@@ -95,7 +119,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:0E",
-      "defaultName": "enp5s0"
+      "defaultName": "enp5s0",
+      "parent": null
     },
     {
       "id": "iface_6",
@@ -114,7 +139,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:0F",
-      "defaultName": "enp6s0"
+      "defaultName": "enp6s0",
+      "parent": null
     },
     {
       "id": "iface_7",
@@ -133,7 +159,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:10",
-      "defaultName": "enp7s0"
+      "defaultName": "enp7s0",
+      "parent": "1. WAN"
     },
     {
       "id": "iface_8",
@@ -152,7 +179,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:11",
-      "defaultName": "enp8s0"
+      "defaultName": "enp8s0",
+      "parent": "1. WAN"
     },
     {
       "id": "iface_9",
@@ -171,7 +199,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:12",
-      "defaultName": "enp9s0"
+      "defaultName": "enp9s0",
+      "parent": "1. WAN"
     },
     {
       "id": "iface_10",
@@ -190,7 +219,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:13",
-      "defaultName": "enp10s0"
+      "defaultName": "enp10s0",
+      "parent": null
     },
     {
       "id": "iface_11",
@@ -209,7 +239,8 @@
       "fpTxPkt": 112,
       "fpRxPkt": 94,
       "macAddress": "2C:C8:1B:18:BE:14",
-      "defaultName": "sfp-sfpplus1"
+      "defaultName": "sfp-sfpplus1",
+      "parent": null
     },
     {
       "id": "iface_12",
@@ -228,7 +259,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:15",
-      "defaultName": "sfp-sfpplus2"
+      "defaultName": "sfp-sfpplus2",
+      "parent": null
     },
     {
       "id": "iface_13",
@@ -247,7 +279,8 @@
       "fpTxPkt": 64,
       "fpRxPkt": 48,
       "macAddress": "2C:C8:1B:18:BE:16",
-      "defaultName": "wlan1"
+      "defaultName": "wlan1",
+      "parent": null
     },
     {
       "id": "iface_14",
@@ -266,7 +299,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:17",
-      "defaultName": "wlan2"
+      "defaultName": "wlan2",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_15",
@@ -285,7 +319,8 @@
       "fpTxPkt": 42,
       "fpRxPkt": 56,
       "macAddress": "2C:C8:1B:18:BE:18",
-      "defaultName": "2. LAN"
+      "defaultName": "2. LAN",
+      "parent": null
     },
     {
       "id": "iface_16",
@@ -304,7 +339,8 @@
       "fpTxPkt": 8,
       "fpRxPkt": 8,
       "macAddress": "2C:C8:1B:18:BE:19",
-      "defaultName": "lo"
+      "defaultName": "lo",
+      "parent": null
     },
     {
       "id": "iface_17",
@@ -323,7 +359,8 @@
       "fpTxPkt": 5,
       "fpRxPkt": 4,
       "macAddress": "2C:C8:1B:18:BE:1A",
-      "defaultName": "vlan10"
+      "defaultName": "vlan10",
+      "parent": "ETH2"
     },
     {
       "id": "iface_18",
@@ -342,7 +379,8 @@
       "fpTxPkt": 96,
       "fpRxPkt": 75,
       "macAddress": "2C:C8:1B:18:BE:1B",
-      "defaultName": "vlan20"
+      "defaultName": "vlan20",
+      "parent": "ETH2"
     },
     {
       "id": "iface_19",
@@ -361,7 +399,8 @@
       "fpTxPkt": 8,
       "fpRxPkt": 11,
       "macAddress": "2C:C8:1B:18:BE:1C",
-      "defaultName": "vlan30"
+      "defaultName": "vlan30",
+      "parent": "ETH3"
     },
     {
       "id": "iface_20",
@@ -380,7 +419,8 @@
       "fpTxPkt": 24,
       "fpRxPkt": 31,
       "macAddress": "2C:C8:1B:18:BE:1D",
-      "defaultName": "vlan40"
+      "defaultName": "vlan40",
+      "parent": "ETH3"
     },
     {
       "id": "iface_21",
@@ -399,7 +439,8 @@
       "fpTxPkt": 21,
       "fpRxPkt": 24,
       "macAddress": "2C:C8:1B:18:BE:1E",
-      "defaultName": "wg-backbone"
+      "defaultName": "wg-backbone",
+      "parent": null
     },
     {
       "id": "iface_22",
@@ -418,7 +459,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:1F",
-      "defaultName": "eoip-vps"
+      "defaultName": "eoip-vps",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_23",
@@ -437,7 +479,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:20",
-      "defaultName": "ipip-vps"
+      "defaultName": "ipip-vps",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_24",
@@ -456,7 +499,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:21",
-      "defaultName": "gre-vps"
+      "defaultName": "gre-vps",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_25",
@@ -475,7 +519,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:22",
-      "defaultName": "vxlan100"
+      "defaultName": "vxlan100",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_26",
@@ -494,7 +539,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:23",
-      "defaultName": "ppp0"
+      "defaultName": "ppp0",
+      "parent": null
     },
     {
       "id": "iface_27",
@@ -513,7 +559,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:24",
-      "defaultName": "sstp-out1"
+      "defaultName": "sstp-out1",
+      "parent": null
     },
     {
       "id": "iface_28",
@@ -532,7 +579,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:25",
-      "defaultName": "gre0"
+      "defaultName": "gre0",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_29",
@@ -551,7 +599,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:26",
-      "defaultName": "gretap0"
+      "defaultName": "gretap0",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_30",
@@ -570,7 +619,8 @@
       "fpTxPkt": 0,
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:27",
-      "defaultName": "erspan0"
+      "defaultName": "erspan0",
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_pppoe1",
@@ -590,7 +640,28 @@
       "fpRxPkt": 38,
       "macAddress": "2C:C8:1B:18:BE:0A",
       "defaultName": "<pppoe-user@citramedia.tech>",
-      "user": "user@citramedia.tech"
+      "user": "user@citramedia.tech",
+      "parent": "ETH1"
+    },
+    {
+      "id": "iface_overlay",
+      "name": "3. OVERLAY & TUNNELS",
+      "subname": "overlay",
+      "type": "List / OVERLAY",
+      "status": "running",
+      "actualMtu": 1500,
+      "l2Mtu": 1500,
+      "tx": "15.2 KB/s",
+      "rx": "9.3 KB/s",
+      "txPkt": 21,
+      "rxPkt": 16,
+      "fpTx": "15.2 KB/s",
+      "fpRx": "9.3 KB/s",
+      "fpTxPkt": 21,
+      "fpRxPkt": 16,
+      "defaultName": "3. OVERLAY & TUNNELS",
+      "isMaster": true,
+      "parent": null
     }
   ]
 }

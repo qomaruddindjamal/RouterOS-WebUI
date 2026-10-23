@@ -1407,88 +1407,64 @@ class JsonDataService {
         return null;
     }
 
-        renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
+            renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
         const tableBody = document.querySelector(`#${containerId} tbody`);
         if (!tableBody || !this.interfacesData) return;
 
         this.currentFilter = filterText;
         const term = (filterText || '').toLowerCase();
 
-        // 1. Bridges Paling Atas (1. WAN & 2. LAN)
-        const bridgeGroups = [
-            {
-                id: 'iface-group-wan',
-                title: '1. WAN',
-                color: '#0284c7',
-                members: ['ETH7', 'ETH8', 'ETH9'],
-                type: 'Bridge'
-            },
-            {
-                id: 'iface-group-bridge1',
-                title: '2. LAN',
-                parentName: '2. LAN',
-                color: '#16a34a',
-                members: ['ETH4'],
-                type: 'Bridge'
+        // Daftar port anggota bridge untuk flag cheklis ganda (hijau + biru)
+        const bridgePortNames = new Set();
+        this.interfacesData.interfaces.forEach(it => {
+            if (it.parent && (it.parent.includes('WAN') || it.parent.includes('LAN') || it.parent.toLowerCase().includes('bridge'))) {
+                bridgePortNames.add(it.name);
             }
-        ];
+        });
 
-        // 2. Interface Port Induk (ETH1 -> pppoe-out1, ETH2 -> VLAN10 & 20, ETH3 -> VLAN30 & 40)
-        const portParentGroups = [
-            {
-                id: 'iface-group-eth1',
-                parentName: 'ETH1',
-                color: '#0284c7',
-                members: ['<pppoe-user@citramedia.tech>']
-            },
-            {
-                id: 'iface-group-eth2',
-                parentName: 'ETH2',
-                color: '#6366f1',
-                members: ['VLAN10-MGMT', 'VLAN20-OFFICE']
-            },
-            {
-                id: 'iface-group-eth3',
-                parentName: 'ETH3',
-                color: '#eab308',
-                members: ['VLAN30-GUEST', 'VLAN40-HOTSPOT']
-            }
-        ];
+        // 1. Grouping dinamis parent -> children dari data interfaces.json
+        const childrenByParent = {};
+        const roots = [];
 
-        // 3. Standalone Interfaces Lainnya (setelah ETH1, ETH2, ETH3)
-        const standaloneNames = ['ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN', 'LO'];
-
-        // 4. Kelompok Tunnels / Overlay (Paling Bawah)
-        const otherGroups = [
-            {
-                id: 'iface-group-tunnels',
-                title: '3. OVERLAY & TUNNELS',
-                color: '#8b5cf6',
-                members: ['WLAN2', 'EOIP-VPS', 'IPIP-VPS', 'GRE-VPS', 'VXLAN100', 'GRE0', 'GRETAP0', 'ERSPAN0'],
-                type: 'List / OVERLAY'
-            }
-        ];
-
-        // Daftar port anggota bridge untuk flag cheklis 2 (hijau + biru)
-        const bridgePortNames = new Set(['ETH4', 'ETH7', 'ETH8', 'ETH9']);
-
-        // Buat map pencarian interface berdasarkan name
-        const ifaceMap = {};
         this.interfacesData.interfaces.forEach((item, idx) => {
-            ifaceMap[item.name] = { item, idx };
+            if (item.parent) {
+                if (!childrenByParent[item.parent]) {
+                    childrenByParent[item.parent] = [];
+                }
+                childrenByParent[item.parent].push({ item, idx });
+            } else {
+                roots.push({ item, idx });
+            }
+        });
+
+        // Urutan preferensi tampil root agar rapi seperti layout Winbox/RouterOS:
+        // Bridge (1. WAN, 2. LAN) -> Ethernet fisik/PPPoE (ETH1..ETH10, SFP) -> Wireless/VPN/Loopback -> Overlay & Tunnels
+        const preferredOrder = [
+            '1. WAN', '2. LAN',
+            'ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10',
+            'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE',
+            'SSTP-VPN', 'LO', '3. OVERLAY & TUNNELS'
+        ];
+
+        roots.sort((a, b) => {
+            const idxA = preferredOrder.indexOf(a.item.name);
+            const idxB = preferredOrder.indexOf(b.item.name);
+            if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+            if (idxA !== -1) return -1;
+            if (idxB !== -1) return 1;
+            return a.idx - b.idx;
         });
 
         let totalRendered = 0;
-        let htmlParts = [];
+        const htmlParts = [];
 
-        // Helper untuk render row child interface
-        const renderChildRow = (item, idx, parentId, childDisplay) => {
+        // Helper render child row
+        const renderChildRow = (item, idx, parentName, childDisplay) => {
             const isRunning = item.status === 'running';
             const isBridgeMember = bridgePortNames.has(item.name);
 
             let iconSvg;
             if (isBridgeMember) {
-                // Cheklis 2 WhatsApp Style: Hijau (Running) + Biru (Bridge Member / Slave)
                 iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
             } else if (isRunning) {
                 iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
@@ -1496,16 +1472,17 @@ class JsonDataService {
                 iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
             }
 
-            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+            const txRateClass = (item.tx && item.tx !== '0 B/s') ? 'mitrane-rate-active' : 'text-muted';
+            const rxRateClass = (item.rx && item.rx !== '0 B/s') ? 'text-primary fw-semibold' : 'text-muted';
             const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
 
-            const safeName = this.escapeHtml(item.name);
-            const safeSubname = this.escapeHtml(item.subname);
-            const safeType = this.escapeHtml(item.type);
+            const safeName = this.escapeHtml(item.name || '');
+            const safeSubname = this.escapeHtml(item.subname || '');
+            const safeType = this.escapeHtml(item.type || 'Ethernet');
+            const safeParentAttr = this.escapeHtml(parentName);
 
             return `
-            <tr class="iface-tree-row iface-child-row ${isSelected}" data-iface-parent="${parentId}" data-mitrautama-row-index="${idx}" style="${childDisplay} cursor: pointer;">
+            <tr class="iface-tree-row iface-child-row ${isSelected}" data-iface-parent="${safeParentAttr}" data-mitrautama-row-index="${idx}" style="${childDisplay} cursor: pointer;">
                 <td class="text-center" style="width: 28px;">${iconSvg}</td>
                 <td>
                     <span style="display:inline-block; width: 18px;"></span>
@@ -1514,306 +1491,134 @@ class JsonDataService {
                     <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
                 </td>
                 <td><span class="mitrane-badge-type">${safeType}</span></td>
-                <td>${item.actualMtu}</td>
-                <td>${item.l2Mtu}</td>
-                <td class="${txRateClass}">${item.tx}</td>
-                <td class="${rxRateClass}">${item.rx}</td>
-                <td>${item.txPkt}</td>
-                <td>${item.rxPkt}</td>
-                <td>${item.fpTx}</td>
-                <td>${item.fpRx}</td>
-                <td>${item.fpTxPkt}</td>
-                <td>${item.fpRxPkt}</td>
+                <td>${item.actualMtu ?? 1500}</td>
+                <td>${item.l2Mtu ?? 1500}</td>
+                <td class="${txRateClass}">${item.tx ?? '0 B/s'}</td>
+                <td class="${rxRateClass}">${item.rx ?? '0 B/s'}</td>
+                <td>${item.txPkt ?? 0}</td>
+                <td>${item.rxPkt ?? 0}</td>
+                <td>${item.fpTx ?? (item.tx ?? '0 B/s')}</td>
+                <td>${item.fpRx ?? (item.rx ?? '0 B/s')}</td>
+                <td>${item.fpTxPkt ?? (item.txPkt ?? 0)}</td>
+                <td>${item.fpRxPkt ?? (item.rxPkt ?? 0)}</td>
             </tr>`;
         };
 
-        // Helper untuk render standalone interface row
-        const renderStandaloneRow = (name) => {
-            const entry = ifaceMap[name];
-            if (!entry) return;
-            const { item, idx } = entry;
-            const matches = !term ||
-                            item.name.toLowerCase().includes(term) ||
-                            item.subname.toLowerCase().includes(term) ||
-                            item.type.toLowerCase().includes(term);
-            if (!matches) return;
+        // Render setiap root (dan anak-anaknya jika ada)
+        roots.forEach(({ item: rItem, idx: rIdx }) => {
+            const children = childrenByParent[rItem.name] || [];
+            const hasChildren = children.length > 0;
 
-            totalRendered++;
-            const isRunning = item.status === 'running';
-            const isBridgeMember = bridgePortNames.has(item.name);
-
-            let iconSvg;
-            if (isBridgeMember) {
-                iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-            } else if (isRunning) {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            } else {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-            }
-
-            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
-
-            const safeName = this.escapeHtml(item.name);
-            const safeSubname = this.escapeHtml(item.subname);
-            const safeType = this.escapeHtml(item.type);
-
-            htmlParts.push(`
-            <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${idx}" style="cursor: pointer;">
-                <td class="text-center" style="width: 28px;">${iconSvg}</td>
-                <td>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                    <strong>${safeName}</strong>
-                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                </td>
-                <td><span class="mitrane-badge-type">${safeType}</span></td>
-                <td>${item.actualMtu}</td>
-                <td>${item.l2Mtu}</td>
-                <td class="${txRateClass}">${item.tx}</td>
-                <td class="${rxRateClass}">${item.rx}</td>
-                <td>${item.txPkt}</td>
-                <td>${item.rxPkt}</td>
-                <td>${item.fpTx}</td>
-                <td>${item.fpRx}</td>
-                <td>${item.fpTxPkt}</td>
-                <td>${item.fpRxPkt}</td>
-            </tr>`);
-        };
-
-        // =========================================================================
-        // A. Render Bridges Paling Atas (1. WAN & 2. LAN)
-        // =========================================================================
-        bridgeGroups.forEach(bGrp => {
-            const bEntry = bGrp.parentName ? ifaceMap[bGrp.parentName] : null;
-            const bIdx = bEntry ? bEntry.idx : -1;
-            const bItem = bEntry ? bEntry.item : {
-                name: bGrp.title,
-                subname: bGrp.title.toLowerCase(),
-                type: 'Bridge',
-                status: 'running',
-                actualMtu: 1500,
-                l2Mtu: 1500,
-                tx: '15.2 KB/s',
-                rx: '9.3 KB/s',
-                txPkt: 21,
-                rxPkt: 16,
-                fpTx: '15.2 KB/s',
-                fpRx: '9.3 KB/s',
-                fpTxPkt: 21,
-                fpRxPkt: 16
-            };
-
-            const matchingMembers = [];
-            bGrp.members.forEach(mName => {
-                const entry = ifaceMap[mName];
-                if (!entry) return;
-                const it = entry.item;
-                const matches = !term ||
-                                it.name.toLowerCase().includes(term) ||
-                                it.subname.toLowerCase().includes(term) ||
-                                it.type.toLowerCase().includes(term) ||
-                                bGrp.title.toLowerCase().includes(term);
-                if (matches) matchingMembers.push(entry);
-            });
-
-            const parentMatches = !term ||
-                                  bGrp.title.toLowerCase().includes(term) ||
-                                  bItem.name.toLowerCase().includes(term) ||
-                                  bItem.subname.toLowerCase().includes(term);
-
-            if (!term || parentMatches || matchingMembers.length > 0) {
-                totalRendered += (bEntry ? 1 : 0) + matchingMembers.length;
-                const isClosed = !term;
-                const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
-                const childDisplay = isClosed ? 'display: none;' : '';
-                const memberCount = matchingMembers.length;
-
-                const isRunning = bItem.status === 'running';
-                const iconSvg = isRunning 
-                    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
-                    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-
-                const txRateClass = bItem.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-                const rxRateClass = bItem.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-                const isSelected = (bIdx !== -1 && this.selectedIndex === bIdx) ? 'table-primary selected' : '';
-
-                const safeName = this.escapeHtml(bGrp.title);
-                const safeSubname = this.escapeHtml(bItem.subname);
-                const safeType = this.escapeHtml(bGrp.type);
-
-                const dataIdxAttr = bIdx !== -1 ? `data-mitrautama-row-index="${bIdx}"` : '';
-
-                htmlParts.push(`
-                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${bGrp.id}" ${dataIdxAttr} style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
-                    <td class="text-center" style="width: 28px;">${iconSvg}</td>
-                    <td>
-                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${bGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
-                            <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${bGrp.color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>
-                        <strong style="color: ${bGrp.color};">${safeName}</strong>
-                        <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${bGrp.color}; color: #ffffff;">${memberCount}</span>
-                    </td>
-                    <td><span class="mitrane-badge-type">${safeType}</span></td>
-                    <td>${bItem.actualMtu}</td>
-                    <td>${bItem.l2Mtu}</td>
-                    <td class="${txRateClass}">${bItem.tx}</td>
-                    <td class="${rxRateClass}">${bItem.rx}</td>
-                    <td>${bItem.txPkt}</td>
-                    <td>${bItem.rxPkt}</td>
-                    <td>${bItem.fpTx}</td>
-                    <td>${bItem.fpRx}</td>
-                    <td>${bItem.fpTxPkt}</td>
-                    <td>${bItem.fpRxPkt}</td>
-                </tr>`);
-
-                matchingMembers.forEach(({ item, idx }) => {
-                    htmlParts.push(renderChildRow(item, idx, bGrp.id, childDisplay));
-                });
-            }
-        });
-
-        // =========================================================================
-        // B. Render Port Induk: ETH1 (induk pppoe-out1), ETH2 (induk VLAN10,20), ETH3 (induk VLAN30,40)
-        // =========================================================================
-        portParentGroups.forEach(pGrp => {
-            const pEntry = ifaceMap[pGrp.parentName];
-            if (!pEntry) return;
-            const { item: pItem, idx: pIdx } = pEntry;
-
+            // Filter term matching
             const matchingChildren = [];
-            pGrp.members.forEach(mName => {
-                const entry = ifaceMap[mName];
-                if (!entry) return;
-                const it = entry.item;
-                const matches = !term ||
-                                it.name.toLowerCase().includes(term) ||
-                                it.subname.toLowerCase().includes(term) ||
-                                it.type.toLowerCase().includes(term) ||
-                                pItem.name.toLowerCase().includes(term);
-                if (matches) matchingChildren.push(entry);
+            children.forEach(c => {
+                const cItem = c.item;
+                const cMatch = !term ||
+                               (cItem.name && cItem.name.toLowerCase().includes(term)) ||
+                               (cItem.subname && cItem.subname.toLowerCase().includes(term)) ||
+                               (cItem.type && cItem.type.toLowerCase().includes(term)) ||
+                               rItem.name.toLowerCase().includes(term);
+                if (cMatch) matchingChildren.push(c);
             });
 
             const parentMatches = !term ||
-                                  pItem.name.toLowerCase().includes(term) ||
-                                  pItem.subname.toLowerCase().includes(term);
+                                  (rItem.name && rItem.name.toLowerCase().includes(term)) ||
+                                  (rItem.subname && rItem.subname.toLowerCase().includes(term)) ||
+                                  (rItem.type && rItem.type.toLowerCase().includes(term));
 
             if (!term || parentMatches || matchingChildren.length > 0) {
                 totalRendered += 1 + matchingChildren.length;
                 const isClosed = !term;
                 const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
                 const childDisplay = isClosed ? 'display: none;' : '';
-                const memberCount = matchingChildren.length;
+                const memberCount = children.length;
 
-                const isRunning = pItem.status === 'running';
+                const isRunning = rItem.status === 'running';
                 const iconSvg = isRunning 
                     ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
                     : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
 
-                const txRateClass = pItem.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-                const rxRateClass = pItem.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-                const isSelected = this.selectedIndex === pIdx ? 'table-primary selected' : '';
+                const txRateClass = (rItem.tx && rItem.tx !== '0 B/s') ? 'mitrane-rate-active' : 'text-muted';
+                const rxRateClass = (rItem.rx && rItem.rx !== '0 B/s') ? 'text-primary fw-semibold' : 'text-muted';
+                const isSelected = this.selectedIndex === rIdx ? 'table-primary selected' : '';
 
-                const safeName = this.escapeHtml(pItem.name);
-                const safeSubname = this.escapeHtml(pItem.subname);
-                const safeType = this.escapeHtml(pItem.type);
+                const safeName = this.escapeHtml(rItem.name || '');
+                const safeSubname = this.escapeHtml(rItem.subname || '');
+                const safeType = this.escapeHtml(rItem.type || 'Ethernet');
+                const safeNodeAttr = this.escapeHtml(rItem.name || '');
 
-                htmlParts.push(`
-                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${pGrp.id}" data-mitrautama-row-index="${pIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
-                    <td class="text-center" style="width: 28px;">${iconSvg}</td>
-                    <td>
-                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${pGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
-                            <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                        <strong style="color: ${pGrp.color};">${safeName}</strong>
-                        <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${pGrp.color}; color: #ffffff;">${memberCount}</span>
-                    </td>
-                    <td><span class="mitrane-badge-type">${safeType}</span></td>
-                    <td>${pItem.actualMtu}</td>
-                    <td>${pItem.l2Mtu}</td>
-                    <td class="${txRateClass}">${pItem.tx}</td>
-                    <td class="${rxRateClass}">${pItem.rx}</td>
-                    <td>${pItem.txPkt}</td>
-                    <td>${pItem.rxPkt}</td>
-                    <td>${pItem.fpTx}</td>
-                    <td>${pItem.fpRx}</td>
-                    <td>${pItem.fpTxPkt}</td>
-                    <td>${pItem.fpRxPkt}</td>
-                </tr>`);
+                // Warna tema root berbasis tipe/grup secara global/desain generik
+                let groupColor = '#0284c7';
+                if (rItem.name.includes('LAN')) groupColor = '#16a34a';
+                else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) groupColor = '#8b5cf6';
+                else if (rItem.name === 'ETH2') groupColor = '#6366f1';
+                else if (rItem.name === 'ETH3') groupColor = '#eab308';
 
-                matchingChildren.forEach(({ item, idx }) => {
-                    htmlParts.push(renderChildRow(item, idx, pGrp.id, childDisplay));
-                });
-            }
-        });
-
-        // =========================================================================
-        // C. Render Standalone Interfaces Lainnya (Port di luar bridge & non-parent)
-        // =========================================================================
-        standaloneNames.forEach(name => {
-            renderStandaloneRow(name);
-        });
-
-        // =========================================================================
-        // D. Render Kelompok Overlay & Tunnels (Paling Bawah)
-        // =========================================================================
-        otherGroups.forEach(grp => {
-            const matchingMembers = [];
-            grp.members.forEach(mName => {
-                const entry = ifaceMap[mName];
-                if (!entry) return;
-                const it = entry.item;
-                const matches = !term || 
-                                it.name.toLowerCase().includes(term) || 
-                                it.subname.toLowerCase().includes(term) || 
-                                it.type.toLowerCase().includes(term) ||
-                                grp.title.toLowerCase().includes(term);
-                if (matches) {
-                    matchingMembers.push(entry);
+                // Tipe icon untuk root: folder/bridge icon jika root punya anak atau bridge, nic icon jika Ethernet standalone
+                let rootIconSvg;
+                if (rItem.type === 'Bridge' || rItem.name.includes('WAN') || rItem.name.includes('LAN')) {
+                    rootIconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>`;
+                } else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) {
+                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`;
+                } else {
+                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`;
                 }
-            });
 
-            if (term && matchingMembers.length === 0) return;
+                if (hasChildren) {
+                    // Render Root Row dengan Accordion Toggle & Badge Counter
+                    htmlParts.push(`
+                    <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${safeNodeAttr}" data-mitrautama-row-index="${rIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+                        <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                        <td>
+                            <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${safeNodeAttr}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </span>
+                            ${rootIconSvg}
+                            <strong style="color: ${groupColor};">${safeName}</strong>
+                            <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                            <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${groupColor}; color: #ffffff;">${memberCount}</span>
+                        </td>
+                        <td><span class="mitrane-badge-type">${safeType}</span></td>
+                        <td>${rItem.actualMtu ?? 1500}</td>
+                        <td>${rItem.l2Mtu ?? 1500}</td>
+                        <td class="${txRateClass}">${rItem.tx ?? '0 B/s'}</td>
+                        <td class="${rxRateClass}">${rItem.rx ?? '0 B/s'}</td>
+                        <td>${rItem.txPkt ?? 0}</td>
+                        <td>${rItem.rxPkt ?? 0}</td>
+                        <td>${rItem.fpTx ?? (rItem.tx ?? '0 B/s')}</td>
+                        <td>${rItem.fpRx ?? (rItem.rx ?? '0 B/s')}</td>
+                        <td>${rItem.fpTxPkt ?? (rItem.txPkt ?? 0)}</td>
+                        <td>${rItem.fpRxPkt ?? (rItem.rxPkt ?? 0)}</td>
+                    </tr>`);
 
-            const isClosed = !term;
-            const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
-            const childDisplay = isClosed ? 'display: none;' : '';
-            const memberCount = matchingMembers.length;
-            totalRendered += memberCount;
-
-            htmlParts.push(`
-            <tr class="iface-tree-row iface-root-row" data-iface-node="${grp.id}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
-                <td class="text-center" style="width: 28px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </td>
-                <td>
-                    <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${grp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
-                        <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                    </span>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${grp.color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                    <strong style="color: ${grp.color};">${grp.title}</strong>
-                    <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${grp.color}; color: #ffffff;">${memberCount}</span>
-                </td>
-                <td><span class="mitrane-badge-type">${grp.type}</span></td>
-                <td>1500</td>
-                <td>1500</td>
-                <td class="mitrane-rate-active">15.2 KB/s</td>
-                <td class="text-primary fw-semibold">9.3 KB/s</td>
-                <td>21</td>
-                <td>16</td>
-                <td>15.2 KB/s</td>
-                <td>9.3 KB/s</td>
-                <td>21</td>
-                <td>16</td>
-            </tr>`);
-
-            matchingMembers.forEach(({ item, idx }) => {
-                htmlParts.push(renderChildRow(item, idx, grp.id, childDisplay));
-            });
+                    // Render child rows
+                    matchingChildren.forEach(({ item, idx }) => {
+                        htmlParts.push(renderChildRow(item, idx, rItem.name, childDisplay));
+                    });
+                } else {
+                    // Render Standalone Row tanpa Accordion Toggle
+                    htmlParts.push(`
+                    <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${rIdx}" style="cursor: pointer;">
+                        <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                        <td>
+                            ${rootIconSvg}
+                            <strong>${safeName}</strong>
+                            <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                        </td>
+                        <td><span class="mitrane-badge-type">${safeType}</span></td>
+                        <td>${rItem.actualMtu ?? 1500}</td>
+                        <td>${rItem.l2Mtu ?? 1500}</td>
+                        <td class="${txRateClass}">${rItem.tx ?? '0 B/s'}</td>
+                        <td class="${rxRateClass}">${rItem.rx ?? '0 B/s'}</td>
+                        <td>${rItem.txPkt ?? 0}</td>
+                        <td>${rItem.rxPkt ?? 0}</td>
+                        <td>${rItem.fpTx ?? (rItem.tx ?? '0 B/s')}</td>
+                        <td>${rItem.fpRx ?? (rItem.rx ?? '0 B/s')}</td>
+                        <td>${rItem.fpTxPkt ?? (rItem.txPkt ?? 0)}</td>
+                        <td>${rItem.fpRxPkt ?? (rItem.rxPkt ?? 0)}</td>
+                    </tr>`);
+                }
+            }
         });
 
         tableBody.innerHTML = htmlParts.join('');
@@ -2611,7 +2416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // Interfaces Accordion Tree View Toggle (Chevron >)
+        // Interfaces Accordion Tree View Toggle (Generic: matches data-iface-node with data-iface-parent)
     // =========================================================================
     document.addEventListener('click', (e) => {
         const toggleBtn = e.target.closest('.btn-iface-toggle');
@@ -2636,7 +2441,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!table) return;
 
         const chevron = btn.querySelector('.iface-chevron');
-        const childRows = table.querySelectorAll('tr[data-iface-parent="' + nodeId + '"]');
+        // Support any special characters in nodeId safely
+        const escapedNodeId = (window.CSS && CSS.escape) ? CSS.escape(nodeId) : nodeId.replace(/["\\]/g, '\\$&');
+        const childRows = table.querySelectorAll(`tr[data-iface-parent="${escapedNodeId}"]`);
+        if (!childRows || childRows.length === 0) return;
+
         const firstChild = childRows[0];
         const isCurrentlyClosed = firstChild ? (firstChild.style.display === 'none') : true;
 
