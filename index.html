@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MitraUtama WebUI - MikroTik RouterOS RB3011 (BACKBONE)</title>
+    <title>RouterOS WebUI</title>
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 
     <!-- Bootstrap 5.3.3 (Versi Terbaru) -->
@@ -38,23 +38,27 @@
     </script>
 
     <!-- CSS MitraUtama Modular (Awalan mitrautama-) -->
+    <link rel="stylesheet" id="theme-stylesheet" href="assets/css/mitrautama.css">
+    <link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css">
     <script>
         (function() {
-            var mode = localStorage.getItem('mitra_theme_mode') || 'auto';
-            var d = new Date();
-            var timeVal = d.getHours() * 60 + d.getMinutes();
-            var isNight = !(timeVal >= 4 * 60 && timeVal < 18 * 60);
-            var isDark = mode === 'dark' || (mode === 'auto' && isNight);
-            var themeHref = isDark ? 'assets/css/mitrautama-dark.css' : 'assets/css/mitrautama.css';
-            var autoDisabled = mode !== 'auto';
-            document.write('<link rel="stylesheet" id="theme-stylesheet" href="' + themeHref + '">');
-            document.write('<link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css"' + (autoDisabled ? ' disabled' : '') + '>');
+            try {
+                var mode = localStorage.getItem('mitra_theme_mode') || 'auto';
+                var d = new Date();
+                var timeVal = d.getHours() * 60 + d.getMinutes();
+                var isNight = !(timeVal >= 4 * 60 && timeVal < 18 * 60);
+                var isDark = mode === 'dark' || (mode === 'auto' && isNight);
+                var themeEl = document.getElementById('theme-stylesheet');
+                var autoEl = document.getElementById('auto-theme-stylesheet');
+                if (themeEl && isDark) {
+                    themeEl.href = 'assets/css/mitrautama-dark.css';
+                }
+                if (autoEl && mode !== 'auto') {
+                    autoEl.disabled = true;
+                }
+            } catch(e) {}
         })();
     </script>
-    <noscript>
-        <link rel="stylesheet" id="theme-stylesheet" href="assets/css/mitrautama.css">
-        <link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css">
-    </noscript>
     <link rel="stylesheet" href="assets/css/mitrautama-tabel.css">
     <link rel="stylesheet" href="assets/css/mitrautama-tost.css">
     <link rel="stylesheet" href="assets/css/mitrautama-all-min.css?v=1792747003">
