@@ -4116,3 +4116,44 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar {
     color: #cbd5e1 !important;
 }
 
+
+
+/* Traffic Graph Box & Read-only Statistics Box Harmonization in WinBox Modals */
+.winbox-graph-box {
+    background: #fafafa;
+    border-color: #cbd5e1 !important;
+}
+
+.winbox-stats-box {
+    background: #ffffff;
+    border-color: #cbd5e1 !important;
+    color: #475569 !important;
+}
+
+[data-theme="dark"] .winbox-graph-box,
+[data-period="malam"] .winbox-graph-box,
+[data-theme="dark"] .winbox-modal-body .winbox-graph-box,
+[data-period="malam"] .winbox-modal-body .winbox-graph-box {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .winbox-stats-box,
+[data-period="malam"] .winbox-stats-box,
+[data-theme="dark"] .winbox-modal-body .winbox-stats-box,
+[data-period="malam"] .winbox-modal-body .winbox-stats-box,
+[data-theme="dark"] .modal-box .border.rounded,
+[data-period="malam"] .modal-box .border.rounded,
+[data-theme="dark"] .winbox-modal-box .border.rounded,
+[data-period="malam"] .winbox-modal-box .border.rounded {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .winbox-graph-box span,
+[data-period="malam"] .winbox-graph-box span {
+    color: #cbd5e1 !important;
+}
+

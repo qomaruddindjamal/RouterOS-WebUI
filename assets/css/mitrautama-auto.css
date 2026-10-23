@@ -613,3 +613,26 @@
     color: #f1f5f9 !important;
 }
 
+
+
+/* Traffic Graph Box & Read-only Statistics Box Harmonization (Malam) */
+[data-period="malam"] .winbox-graph-box,
+[data-period="malam"] .winbox-modal-body .winbox-graph-box {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #94a3b8 !important;
+}
+
+[data-period="malam"] .winbox-stats-box,
+[data-period="malam"] .winbox-modal-body .winbox-stats-box,
+[data-period="malam"] .modal-box .border.rounded,
+[data-period="malam"] .winbox-modal-box .border.rounded {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+
+[data-period="malam"] .winbox-graph-box span {
+    color: #cbd5e1 !important;
+}
+
