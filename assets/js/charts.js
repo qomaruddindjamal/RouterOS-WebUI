@@ -77,12 +77,11 @@ export class ChartController {
     }
 
     initTrafficChart() {
-        if (typeof Chart === 'undefined') return;
         const ctx = document.getElementById('trafficChart');
         if (!ctx) return;
 
         if (this.trafficChart) {
-            try { this.trafficChart.destroy(); } catch (e) {}
+            this.trafficChart.destroy();
             this.trafficChart = null;
         }
 
@@ -158,12 +157,11 @@ export class ChartController {
     }
 
     initCpuChart() {
-        if (typeof Chart === 'undefined') return;
         const ctx = document.getElementById('cpuChart');
         if (!ctx) return;
 
         if (this.cpuChart) {
-            try { this.cpuChart.destroy(); } catch (e) {}
+            this.cpuChart.destroy();
             this.cpuChart = null;
         }
 
