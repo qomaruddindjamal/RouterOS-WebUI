@@ -4157,3 +4157,52 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar {
     color: #cbd5e1 !important;
 }
 
+
+
+/* QoS / WinBox Footer Status Live Capsule Harmonization */
+.winbox-status-live-capsule {
+    background: #ffffff;
+    border-color: #cbd5e1 !important;
+}
+
+.winbox-status-count-badge {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-right-color: #cbd5e1 !important;
+}
+
+.winbox-count-pill {
+    background: rgba(0, 0, 0, 0.06);
+    color: inherit;
+}
+
+.winbox-status-live-btn {
+    background: transparent;
+    color: #1e293b;
+}
+
+[data-theme="dark"] .winbox-status-live-capsule,
+[data-period="malam"] .winbox-status-live-capsule {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+[data-theme="dark"] .winbox-status-count-badge,
+[data-period="malam"] .winbox-status-count-badge {
+    background: #0f172a !important;
+    border-right-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .winbox-count-pill,
+[data-period="malam"] .winbox-count-pill {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .winbox-status-live-btn,
+[data-period="malam"] .winbox-status-live-btn {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+

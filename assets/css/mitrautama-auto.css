@@ -636,3 +636,27 @@
     color: #cbd5e1 !important;
 }
 
+
+
+/* QoS Footer Status Live Capsule Auto (Malam) Mode */
+[data-period="malam"] .winbox-status-live-capsule {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+[data-period="malam"] .winbox-status-count-badge {
+    background: #0f172a !important;
+    border-right-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-period="malam"] .winbox-count-pill {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .winbox-status-live-btn {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+}
+
