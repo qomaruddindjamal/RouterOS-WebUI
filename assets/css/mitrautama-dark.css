@@ -561,3 +561,77 @@ div[style*="background: var(--mu-surface"],
     border-color: #475569 !important;
     color: #38bdf8 !important;
 }
+
+
+/* WinBox Modal Dialog Dark Theme */
+.winbox-modal-box,
+.modal-box {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+.winbox-modal-header {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+.winbox-subtabs-bar {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+}
+
+.winbox-subtab-btn {
+    color: #94a3b8;
+}
+
+.winbox-subtab-btn.active {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    border-bottom-color: #1e293b !important;
+    color: #38bdf8 !important;
+}
+
+.winbox-modal-body {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+.winbox-modal-body div[style*="background: #ffffff"],
+.winbox-modal-body div[style*="background:#ffffff"],
+.winbox-modal-body [style*="background: #f8fafc"],
+.winbox-modal-body [style*="background:#f8fafc"] {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+.winbox-actions-column {
+    background: #1e293b !important;
+    border-left-color: #334155 !important;
+}
+
+.winbox-actions-column span {
+    color: #cbd5e1 !important;
+}
+
+.winbox-action-link {
+    color: #38bdf8 !important;
+}
+
+.winbox-modal-footer {
+    background: #0f172a !important;
+    border-top-color: #334155 !important;
+}
+
+.winbox-form-label {
+    color: #cbd5e1 !important;
+}
+
+.winbox-form-input {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+

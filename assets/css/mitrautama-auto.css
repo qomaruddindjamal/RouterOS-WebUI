@@ -539,3 +539,77 @@
     border-color: #475569 !important;
     color: #38bdf8 !important;
 }
+
+
+/* WinBox Modal Dialog Auto (Malam) Theme */
+[data-period="malam"] .winbox-modal-box,
+[data-period="malam"] .modal-box {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-period="malam"] .winbox-modal-header {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-period="malam"] .winbox-subtabs-bar {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+}
+
+[data-period="malam"] .winbox-subtab-btn {
+    color: #94a3b8;
+}
+
+[data-period="malam"] .winbox-subtab-btn.active {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    border-bottom-color: #1e293b !important;
+    color: #38bdf8 !important;
+}
+
+[data-period="malam"] .winbox-modal-body {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-period="malam"] .winbox-modal-body div[style*="background: #ffffff"],
+[data-period="malam"] .winbox-modal-body div[style*="background:#ffffff"],
+[data-period="malam"] .winbox-modal-body [style*="background: #f8fafc"],
+[data-period="malam"] .winbox-modal-body [style*="background:#f8fafc"] {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-period="malam"] .winbox-actions-column {
+    background: #1e293b !important;
+    border-left-color: #334155 !important;
+}
+
+[data-period="malam"] .winbox-actions-column span {
+    color: #cbd5e1 !important;
+}
+
+[data-period="malam"] .winbox-action-link {
+    color: #38bdf8 !important;
+}
+
+[data-period="malam"] .winbox-modal-footer {
+    background: #0f172a !important;
+    border-top-color: #334155 !important;
+}
+
+[data-period="malam"] .winbox-form-label {
+    color: #cbd5e1 !important;
+}
+
+[data-period="malam"] .winbox-form-input {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+

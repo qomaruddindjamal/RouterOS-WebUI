@@ -4040,3 +4040,79 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar {
     min-width: 58px !important;
     max-width: 58px !important;
 }
+
+
+/* WinBox Modal Dialog Theme Harmonization */
+.winbox-modal-box {
+    max-width: 680px !important;
+    width: 680px !important;
+    background: #f8fafc;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+[data-theme="dark"] .winbox-modal-box,
+[data-period="malam"] .winbox-modal-box,
+[data-theme="dark"] .modal-box,
+[data-period="malam"] .modal-box {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .winbox-modal-header,
+[data-period="malam"] .winbox-modal-header {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .winbox-subtabs-bar,
+[data-period="malam"] .winbox-subtabs-bar {
+    background: #0f172a !important;
+    border-bottom-color: #334155 !important;
+}
+
+[data-theme="dark"] .winbox-modal-body,
+[data-period="malam"] .winbox-modal-body {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .winbox-modal-body div[style*="background: #ffffff"],
+[data-period="malam"] .winbox-modal-body div[style*="background: #ffffff"],
+[data-theme="dark"] .winbox-modal-body div[style*="background:#ffffff"],
+[data-period="malam"] .winbox-modal-body div[style*="background:#ffffff"],
+[data-theme="dark"] .winbox-modal-body [style*="background: #f8fafc"],
+[data-period="malam"] .winbox-modal-body [style*="background: #f8fafc"],
+[data-theme="dark"] .winbox-modal-body [style*="background:#f8fafc"] {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .winbox-actions-column,
+[data-period="malam"] .winbox-actions-column {
+    background: #1e293b !important;
+    border-left-color: #334155 !important;
+}
+
+[data-theme="dark"] .winbox-actions-column span[style*="color: #334155"],
+[data-period="malam"] .winbox-actions-column span[style*="color: #334155"],
+[data-theme="dark"] .winbox-actions-column span {
+    color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .winbox-modal-footer,
+[data-period="malam"] .winbox-modal-footer {
+    background: #0f172a !important;
+    border-top-color: #334155 !important;
+}
+
+[data-theme="dark"] .winbox-form-label,
+[data-period="malam"] .winbox-form-label {
+    color: #cbd5e1 !important;
+}
+

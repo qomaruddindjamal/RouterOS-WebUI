@@ -2073,7 +2073,7 @@
 </div>
 
     <div id="modal-interface-properties" class="modal-overlay">
-        <div class="modal-box" style="max-width: 680px; width: 680px; background: #f8fafc; border: 1px solid #94a3b8; border-radius: 6px; box-shadow: 0 12px 36px rgba(0,0,0,0.25);">
+        <div class="modal-box winbox-modal-box">
             <!-- Modal Title Bar -->
             <div class="winbox-modal-header d-flex justify-content-between align-items-center" style="background: #dbe4ef; border-bottom: 1px solid #b8c7d9; padding: 4px 8px;">
                 <div class="d-flex align-items-center gap-2">
@@ -2097,7 +2097,7 @@
             </div>
 
             <!-- Modal Sub-tabs -->
-            <div class="d-flex align-items-center gap-1 px-2 pt-2 border-bottom flex-wrap" style="background: #f1f5f9;">
+            <div class="d-flex align-items-center gap-1 px-2 pt-2 border-bottom flex-wrap winbox-subtabs-bar">
                 <button type="button" class="winbox-subtab-btn active" data-subtab="general">General</button>
                 <button type="button" class="winbox-subtab-btn" data-subtab="ethernet">Ethernet</button>
                 <button type="button" class="winbox-subtab-btn" data-subtab="loop-protect">Loop Protect</button>
@@ -2109,7 +2109,7 @@
             </div>
 
             <!-- Modal Body (Two Column Layout: Form Fields + Actions Column) -->
-            <div class="p-3 d-flex gap-4" style="background: #ffffff; min-height: 380px;">
+            <div class="p-3 d-flex gap-4 winbox-modal-body">
                 <!-- Left: Form Fields -->
                 <div class="flex-grow-1">
                     <!-- Enabled Checkbox -->
@@ -2210,7 +2210,7 @@
                 </div>
 
                 <!-- Right: Actions Column matching screenshot -->
-                <div style="width: 140px; border-left: 1px solid #e2e8f0; padding-left: 16px;" class="d-flex flex-column">
+                <div class="d-flex flex-column winbox-actions-column">
                     <div class="d-flex align-items-center gap-1 mb-2">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         <span style="font-size: 0.75rem; font-weight: 700; color: #334155;">Actions</span>
@@ -2226,7 +2226,7 @@
             </div>
 
             <!-- Modal Footer: SLAVE badge on left, Cancel / Apply / OK buttons on right -->
-            <div class="p-2 border-top d-flex justify-content-between align-items-center" style="background: #f1f5f9;">
+            <div class="p-2 border-top d-flex justify-content-between align-items-center winbox-modal-footer">
                 <div>
                     <span class="winbox-badge-slave" id="modal-iface-slave-badge">SLAVE</span>
                 </div>

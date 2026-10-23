@@ -2862,8 +2862,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Open Simple Queue modal on table row click
-    document.addEventListener('click', (e) => {
+    // 2. Open Simple Queue modal on table row double-click
+    document.addEventListener('dblclick', (e) => {
         const tr = e.target.closest('#table-queues-simple tbody tr');
         if (!tr) return;
         if (e.target.closest('.btn-queue-toggle')) return;
