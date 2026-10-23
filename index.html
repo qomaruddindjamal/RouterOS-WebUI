@@ -12,9 +12,48 @@
     <!-- SweetAlert2 CSS -->
     <link href="assets/css/sweetalert2.min.css" rel="stylesheet">
 
+    <!-- Early Theme Detection & Pre-activation (Prevent Flash of Light Theme on Refresh) -->
+    <script>
+        (function() {
+            try {
+                var mode = localStorage.getItem('mitra_theme_mode') || 'auto';
+                var d = new Date();
+                var timeVal = d.getHours() * 60 + d.getMinutes();
+                var period = 'malam';
+                if (timeVal >= 4 * 60 + 30 && timeVal < 6 * 60 + 15) period = 'fajar';
+                else if (timeVal >= 6 * 60 + 15 && timeVal < 11 * 60 + 30) period = 'pagi';
+                else if (timeVal >= 11 * 60 + 30 && timeVal < 15 * 60 + 30) period = 'siang';
+                else if (timeVal >= 15 * 60 + 30 && timeVal < 18 * 60 + 30) period = 'senja';
+
+                if (mode === 'dark' || (mode === 'auto' && period === 'malam')) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+                if (mode === 'auto') {
+                    document.documentElement.setAttribute('data-period', period);
+                }
+            } catch (e) {}
+        })();
+    </script>
     <!-- CSS MitraUtama Modular (Awalan mitrautama-) -->
-    <link rel="stylesheet" id="theme-stylesheet" href="assets/css/mitrautama.css?v=1792747003">
-    <link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css">
+    <script>
+        (function() {
+            var mode = localStorage.getItem('mitra_theme_mode') || 'auto';
+            var d = new Date();
+            var timeVal = d.getHours() * 60 + d.getMinutes();
+            var isNight = !(timeVal >= 4 * 60 + 30 && timeVal < 18 * 60 + 30);
+            var isDark = mode === 'dark' || (mode === 'auto' && isNight);
+            var themeHref = isDark ? 'assets/css/mitrautama-dark.css' : 'assets/css/mitrautama.css';
+            var autoDisabled = mode !== 'auto';
+            document.write('<link rel="stylesheet" id="theme-stylesheet" href="' + themeHref + '">');
+            document.write('<link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css"' + (autoDisabled ? ' disabled' : '') + '>');
+        })();
+    </script>
+    <noscript>
+        <link rel="stylesheet" id="theme-stylesheet" href="assets/css/mitrautama.css">
+        <link rel="stylesheet" id="auto-theme-stylesheet" href="assets/css/mitrautama-auto.css">
+    </noscript>
     <link rel="stylesheet" href="assets/css/mitrautama-tabel.css">
     <link rel="stylesheet" href="assets/css/mitrautama-tost.css">
     <link rel="stylesheet" href="assets/css/mitrautama-all-min.css?v=1792747003">
