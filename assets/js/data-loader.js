@@ -141,7 +141,7 @@ export class JsonDataService {
                     </span>
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${grp.color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                     <strong style="color: ${grp.color};">${grp.title}</strong>
-                    <span class="badge ms-1" style="font-size: 0.68rem; padding: 1px 6px; background-color: ${grp.color}; color: #ffffff;">${memberCount} Interfaces</span>
+                    <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${grp.color}; color: #ffffff;">${memberCount}</span>
                 </td>
                 <td><span class="mitrane-badge-type">${grp.type}</span></td>
                 <td>1500</td>
