@@ -84,11 +84,12 @@ export class ThemeManager {
         // Sync dark stylesheet and attribute if night period
         const themeLink = document.getElementById('theme-stylesheet');
         if (themeLink) {
+            const timestamp = Date.now();
             if (periodInfo.name === 'malam') {
-                themeLink.href = 'assets/css/mitrautama-dark.css';
+                themeLink.href = 'assets/css/mitrautama-dark.css?v=' + timestamp;
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
-                themeLink.href = 'assets/css/mitrautama.css';
+                themeLink.href = 'assets/css/mitrautama.css?v=' + timestamp;
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         }
@@ -110,13 +111,14 @@ export class ThemeManager {
 
         if (!themeLink || !autoLink) return;
 
+        const timestamp = Date.now();
         if (mode === 'dark') {
-            themeLink.href = 'assets/css/mitrautama-dark.css';
+            themeLink.href = 'assets/css/mitrautama-dark.css?v=' + timestamp;
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (mode === 'light') {
-            themeLink.href = 'assets/css/mitrautama.css';
+            themeLink.href = 'assets/css/mitrautama.css?v=' + timestamp;
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'light');
@@ -138,3 +140,5 @@ export class ThemeManager {
 }
 
 export const themeManager = new ThemeManager();
+
+window.themeManager = themeManager;

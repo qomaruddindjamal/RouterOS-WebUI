@@ -85,11 +85,12 @@ class ThemeManager {
         // Sync dark stylesheet and attribute if night period
         const themeLink = document.getElementById('theme-stylesheet');
         if (themeLink) {
+            const timestamp = Date.now();
             if (periodInfo.name === 'malam') {
-                themeLink.href = 'assets/css/mitrautama-dark.css';
+                themeLink.href = 'assets/css/mitrautama-dark.css?v=' + timestamp;
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
-                themeLink.href = 'assets/css/mitrautama.css';
+                themeLink.href = 'assets/css/mitrautama.css?v=' + timestamp;
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         }
@@ -111,13 +112,14 @@ class ThemeManager {
 
         if (!themeLink || !autoLink) return;
 
+        const timestamp = Date.now();
         if (mode === 'dark') {
-            themeLink.href = 'assets/css/mitrautama-dark.css';
+            themeLink.href = 'assets/css/mitrautama-dark.css?v=' + timestamp;
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (mode === 'light') {
-            themeLink.href = 'assets/css/mitrautama.css';
+            themeLink.href = 'assets/css/mitrautama.css?v=' + timestamp;
             autoLink.disabled = true;
             document.documentElement.removeAttribute('data-period');
             document.documentElement.setAttribute('data-theme', 'light');
@@ -139,6 +141,7 @@ class ThemeManager {
 }
 
 const themeManager = new ThemeManager();
+window.themeManager = themeManager;
 
 // === MODULE: theme-ui.js ===
 /**
@@ -158,14 +161,17 @@ class ThemeUIController {
     }
 
     bindButtons() {
-        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // Event delegation on document to handle dynamically loaded elements (e.g. from moduleLoader/includes/header.html)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-theme-set], [data-mitrautama-theme]');
+            if (btn) {
                 e.preventDefault();
                 const mode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
-                themeManager.setTheme(mode);
-                this.updateActiveButton(mode);
-            });
+                if (mode) {
+                    themeManager.setTheme(mode);
+                    this.updateActiveButton(mode);
+                }
+            }
         });
         this.updateActiveButton(themeManager.currentMode);
     }
@@ -200,11 +206,14 @@ class ThemeUIController {
         window.addEventListener('themeModeChange', (e) => {
             this.updateActiveButton(e.detail.mode);
         });
+        window.addEventListener('modulesLoaded', () => {
+            this.updateActiveButton(themeManager.currentMode);
+        });
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ThemeUIController();
+    window.themeUIController = new ThemeUIController();
 });
 
 // === MODULE: toast.js ===

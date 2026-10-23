@@ -16,14 +16,17 @@ export class ThemeUIController {
     }
 
     bindButtons() {
-        const buttons = document.querySelectorAll('[data-theme-set], [data-mitrautama-theme]');
-        buttons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        // Event delegation on document to handle dynamically loaded elements (e.g. from moduleLoader/includes/header.html)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-theme-set], [data-mitrautama-theme]');
+            if (btn) {
                 e.preventDefault();
                 const mode = btn.getAttribute('data-theme-set') || btn.getAttribute('data-mitrautama-theme');
-                themeManager.setTheme(mode);
-                this.updateActiveButton(mode);
-            });
+                if (mode) {
+                    themeManager.setTheme(mode);
+                    this.updateActiveButton(mode);
+                }
+            }
         });
         this.updateActiveButton(themeManager.currentMode);
     }
@@ -58,9 +61,12 @@ export class ThemeUIController {
         window.addEventListener('themeModeChange', (e) => {
             this.updateActiveButton(e.detail.mode);
         });
+        window.addEventListener('modulesLoaded', () => {
+            this.updateActiveButton(themeManager.currentMode);
+        });
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new ThemeUIController();
+    window.themeUIController = new ThemeUIController();
 });
