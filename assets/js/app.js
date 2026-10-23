@@ -1454,6 +1454,16 @@ class JsonDataService {
             return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="${style}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
         }
 
+        // 6b. L2TP Client / Tunnel - Key & Lock Link
+        if (type.includes('L2TP') || name.includes('L2TP')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="${style}"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>`;
+        }
+
+        // 6c. OpenVPN / OVPN Client - Shield Globe / Network Node
+        if (type.includes('OVPN') || type.includes('OPENVPN') || name.includes('OVPN') || name.includes('OPENVPN')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="${style}"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+        }
+
         // 7. EoIP & IPIP - Network Bridge / Tunnel Pipe
         if (type.includes('EOIP') || type.includes('IPIP') || name.includes('EOIP') || name.includes('IPIP')) {
             return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" class="me-1" style="${style}"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="8" x2="16" y2="12"></line><line x1="12" y1="16" x2="16" y2="12"></line></svg>`;
@@ -1540,8 +1550,8 @@ class JsonDataService {
         let totalRendered = 0;
         const htmlParts = [];
 
-        // Helper render child row
-        const renderChildRow = (item, idx, parentName, childDisplay) => {
+        // Helper render child row (supports recursive sub-children/grand-children)
+        const renderChildRow = (item, idx, parentName, childDisplay, depth = 1) => {
             const isRunning = item.status === 'running';
             const isBridgeMember = bridgePortNames.has(item.name);
 
@@ -1562,12 +1572,49 @@ class JsonDataService {
             const safeSubname = this.escapeHtml(item.subname || '');
             const safeType = this.escapeHtml(item.type || 'Ethernet');
             const safeParentAttr = this.escapeHtml(parentName);
+            const indentWidth = depth * 18;
 
-            return `
+            const subChildren = childrenByParent[item.name] || [];
+            const hasSubChildren = subChildren.length > 0;
+            const subNodeAttr = this.escapeHtml(item.name || '');
+            const subMemberCount = subChildren.length;
+
+            let rowHtml = '';
+            if (hasSubChildren) {
+                rowHtml = `
+            <tr class="iface-tree-row iface-child-row iface-root-row ${isSelected}" data-iface-parent="${safeParentAttr}" data-iface-node="${subNodeAttr}" data-mitrautama-row-index="${idx}" style="${childDisplay} cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+                <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                <td>
+                    <span style="display:inline-block; width: ${indentWidth}px;"></span>
+                    <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${subNodeAttr}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                        <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </span>
+                    ${this.getInterfaceIconSvg(item, true)}
+                    <strong style="color: #ec4899;">${safeName}</strong>
+                    ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
+                    <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #ec4899; color: #ffffff;">${subMemberCount}</span>
+                </td>
+                <td><span class="mitrane-badge-type">${safeType}</span></td>
+                <td>${item.actualMtu ?? 1500}</td>
+                <td>${item.l2Mtu ?? 1500}</td>
+                <td class="${txRateClass}">${item.tx ?? '0 B/s'}</td>
+                <td class="${rxRateClass}">${item.rx ?? '0 B/s'}</td>
+                <td>${item.txPkt ?? 0}</td>
+                <td>${item.rxPkt ?? 0}</td>
+                <td>${item.fpTx ?? (item.tx ?? '0 B/s')}</td>
+                <td>${item.fpRx ?? (item.rx ?? '0 B/s')}</td>
+                <td>${item.fpTxPkt ?? (item.txPkt ?? 0)}</td>
+                <td>${item.fpRxPkt ?? (item.rxPkt ?? 0)}</td>
+            </tr>`;
+                subChildren.forEach(sc => {
+                    rowHtml += renderChildRow(sc.item, sc.idx, item.name, 'display: none;', depth + 1);
+                });
+            } else {
+                rowHtml = `
             <tr class="iface-tree-row iface-child-row ${isSelected}" data-iface-parent="${safeParentAttr}" data-mitrautama-row-index="${idx}" style="${childDisplay} cursor: pointer;">
                 <td class="text-center" style="width: 28px;">${iconSvg}</td>
                 <td>
-                    <span style="display:inline-block; width: 18px;"></span>
+                    <span style="display:inline-block; width: ${indentWidth}px;"></span>
                     ${this.getInterfaceIconSvg(item, true)}
                     <strong>${safeName}</strong>
                     ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
@@ -1584,6 +1631,8 @@ class JsonDataService {
                 <td>${item.fpTxPkt ?? (item.txPkt ?? 0)}</td>
                 <td>${item.fpRxPkt ?? (item.rxPkt ?? 0)}</td>
             </tr>`;
+            }
+            return rowHtml;
         };
 
         // Render setiap root (dan anak-anaknya jika ada)
@@ -2531,6 +2580,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         childRows.forEach(row => {
             row.style.display = isCurrentlyClosed ? '' : 'none';
+            // If parent is being collapsed, also collapse any open child accordions recursively
+            if (!isCurrentlyClosed) {
+                const subNodeId = row.getAttribute('data-iface-node');
+                if (subNodeId) {
+                    const subChevron = row.querySelector('.iface-chevron');
+                    if (subChevron) subChevron.style.transform = 'rotate(0deg)';
+                    const escapedSub = (window.CSS && CSS.escape) ? CSS.escape(subNodeId) : subNodeId.replace(/["\\]/g, '\\$&');
+                    const subRows = table.querySelectorAll(`tr[data-iface-parent="${escapedSub}"]`);
+                    subRows.forEach(sr => sr.style.display = 'none');
+                }
+            }
         });
     });
 
@@ -2569,6 +2629,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const childRows = table.querySelectorAll(`tr[data-bridge-parent="${nodeId}"]`);
         childRows.forEach(row => {
             row.style.display = isCurrentlyClosed ? '' : 'none';
+            // If parent is being collapsed, also collapse any open child accordions recursively
+            if (!isCurrentlyClosed) {
+                const subNodeId = row.getAttribute('data-iface-node');
+                if (subNodeId) {
+                    const subChevron = row.querySelector('.iface-chevron');
+                    if (subChevron) subChevron.style.transform = 'rotate(0deg)';
+                    const escapedSub = (window.CSS && CSS.escape) ? CSS.escape(subNodeId) : subNodeId.replace(/["\\]/g, '\\$&');
+                    const subRows = table.querySelectorAll(`tr[data-iface-parent="${escapedSub}"]`);
+                    subRows.forEach(sr => sr.style.display = 'none');
+                }
+            }
         });
     });
 

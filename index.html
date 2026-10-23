@@ -1202,14 +1202,18 @@
             <td>0</td>
             <td>0</td>
           </tr>
-          <!-- Child Interface: VLAN50-PPTP (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="ETH5" data-mitrautama-row-index="31" style="display: none; cursor: pointer;">
+                    <!-- Child Interface: VLAN50-PPTP (Parent: ETH5, Induk 5 Clients) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row iface-root-row" data-iface-parent="ETH5" data-iface-node="VLAN50-PPTP" data-mitrautama-row-index="31" style="display: none; cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="VLAN50-PPTP" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              <strong>VLAN50-PPTP</strong>
+              <strong style="color: #ec4899;">VLAN50-PPTP</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(pptp-server)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #ec4899; color: #ffffff;">5</span>
             </td>
             <td><span class="mitrane-badge-type">VLAN</span></td>
             <td>1500</td>
@@ -1223,14 +1227,123 @@
             <td>18</td>
             <td>14</td>
           </tr>
-          <!-- Child Interface: VLAN60-SSTP (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="ETH5" data-mitrautama-row-index="32" style="display: none; cursor: pointer;">
+          <!-- Grand-Child Interface: <pppoe-client01> (Under VLAN50-PPTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN50-PPTP" data-mitrautama-row-index="35" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+              <strong>&lt;pppoe-client01&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out1)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">12.5 KB/s</td>
+            <td class="text-primary fw-semibold">28.2 KB/s</td>
+            <td>16</td>
+            <td>24</td>
+            <td>12.5 KB/s</td>
+            <td>28.2 KB/s</td>
+            <td>16</td>
+            <td>24</td>
+          </tr>
+          <!-- Grand-Child Interface: <pppoe-client02> (Under VLAN50-PPTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN50-PPTP" data-mitrautama-row-index="36" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+              <strong>&lt;pppoe-client02&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out2)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">16.5 KB/s</td>
+            <td class="text-primary fw-semibold">35.2 KB/s</td>
+            <td>22</td>
+            <td>32</td>
+            <td>16.5 KB/s</td>
+            <td>35.2 KB/s</td>
+            <td>22</td>
+            <td>32</td>
+          </tr>
+          <!-- Grand-Child Interface: <pppoe-client03> (Under VLAN50-PPTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN50-PPTP" data-mitrautama-row-index="37" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+              <strong>&lt;pppoe-client03&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out3)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">20.5 KB/s</td>
+            <td class="text-primary fw-semibold">42.2 KB/s</td>
+            <td>28</td>
+            <td>40</td>
+            <td>20.5 KB/s</td>
+            <td>42.2 KB/s</td>
+            <td>28</td>
+            <td>40</td>
+          </tr>
+          <!-- Grand-Child Interface: <pppoe-client04> (Under VLAN50-PPTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN50-PPTP" data-mitrautama-row-index="38" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+              <strong>&lt;pppoe-client04&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out4)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">24.5 KB/s</td>
+            <td class="text-primary fw-semibold">49.2 KB/s</td>
+            <td>34</td>
+            <td>48</td>
+            <td>24.5 KB/s</td>
+            <td>49.2 KB/s</td>
+            <td>34</td>
+            <td>48</td>
+          </tr>
+          <!-- Grand-Child Interface: <pppoe-client05> (Under VLAN50-PPTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN50-PPTP" data-mitrautama-row-index="39" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+              <strong>&lt;pppoe-client05&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out5)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
+            <td>1480</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <!-- Child Interface: VLAN60-SSTP (Parent: ETH5, Induk 5 Clients) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row iface-root-row" data-iface-parent="ETH5" data-iface-node="VLAN60-SSTP" data-mitrautama-row-index="32" style="display: none; cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="VLAN60-SSTP" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              <strong>VLAN60-SSTP</strong>
+              <strong style="color: #ec4899;">VLAN60-SSTP</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(sstp-server)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #ec4899; color: #ffffff;">5</span>
             </td>
             <td><span class="mitrane-badge-type">VLAN</span></td>
             <td>1500</td>
@@ -1244,14 +1357,123 @@
             <td>42</td>
             <td>46</td>
           </tr>
-          <!-- Child Interface: VLAN70-L2TP (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="ETH5" data-mitrautama-row-index="33" style="display: none; cursor: pointer;">
+          <!-- Grand-Child Interface: <sstp-client01> (Under VLAN60-SSTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN60-SSTP" data-mitrautama-row-index="40" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <strong>&lt;sstp-client01&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(sstp-out1)</span>
+            </td>
+            <td><span class="mitrane-badge-type">SSTP</span></td>
+            <td>1400</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">15.1 KB/s</td>
+            <td class="text-primary fw-semibold">32.4 KB/s</td>
+            <td>20</td>
+            <td>30</td>
+            <td>15.1 KB/s</td>
+            <td>32.4 KB/s</td>
+            <td>20</td>
+            <td>30</td>
+          </tr>
+          <!-- Grand-Child Interface: <sstp-client02> (Under VLAN60-SSTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN60-SSTP" data-mitrautama-row-index="41" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <strong>&lt;sstp-client02&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(sstp-out2)</span>
+            </td>
+            <td><span class="mitrane-badge-type">SSTP</span></td>
+            <td>1400</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">20.1 KB/s</td>
+            <td class="text-primary fw-semibold">41.4 KB/s</td>
+            <td>25</td>
+            <td>39</td>
+            <td>20.1 KB/s</td>
+            <td>41.4 KB/s</td>
+            <td>25</td>
+            <td>39</td>
+          </tr>
+          <!-- Grand-Child Interface: <sstp-client03> (Under VLAN60-SSTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN60-SSTP" data-mitrautama-row-index="42" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <strong>&lt;sstp-client03&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(sstp-out3)</span>
+            </td>
+            <td><span class="mitrane-badge-type">SSTP</span></td>
+            <td>1400</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">25.1 KB/s</td>
+            <td class="text-primary fw-semibold">50.4 KB/s</td>
+            <td>30</td>
+            <td>48</td>
+            <td>25.1 KB/s</td>
+            <td>50.4 KB/s</td>
+            <td>30</td>
+            <td>48</td>
+          </tr>
+          <!-- Grand-Child Interface: <sstp-client04> (Under VLAN60-SSTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN60-SSTP" data-mitrautama-row-index="43" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <strong>&lt;sstp-client04&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(sstp-out4)</span>
+            </td>
+            <td><span class="mitrane-badge-type">SSTP</span></td>
+            <td>1400</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">30.1 KB/s</td>
+            <td class="text-primary fw-semibold">59.4 KB/s</td>
+            <td>35</td>
+            <td>57</td>
+            <td>30.1 KB/s</td>
+            <td>59.4 KB/s</td>
+            <td>35</td>
+            <td>57</td>
+          </tr>
+          <!-- Grand-Child Interface: <sstp-client05> (Under VLAN60-SSTP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN60-SSTP" data-mitrautama-row-index="44" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <strong>&lt;sstp-client05&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(sstp-out5)</span>
+            </td>
+            <td><span class="mitrane-badge-type">SSTP</span></td>
+            <td>1400</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <!-- Child Interface: VLAN70-L2TP (Parent: ETH5, Induk 5 Clients) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row iface-root-row" data-iface-parent="ETH5" data-iface-node="VLAN70-L2TP" data-mitrautama-row-index="33" style="display: none; cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="VLAN70-L2TP" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              <strong>VLAN70-L2TP</strong>
+              <strong style="color: #ec4899;">VLAN70-L2TP</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(l2tp-server)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #ec4899; color: #ffffff;">5</span>
             </td>
             <td><span class="mitrane-badge-type">VLAN</span></td>
             <td>1500</td>
@@ -1265,14 +1487,123 @@
             <td>920</td>
             <td>115</td>
           </tr>
-          <!-- Child Interface: VLAN80-OPENVPN (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="ETH5" data-mitrautama-row-index="34" style="display: none; cursor: pointer;">
+          <!-- Grand-Child Interface: <l2tp-client01> (Under VLAN70-L2TP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN70-L2TP" data-mitrautama-row-index="45" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              <strong>&lt;l2tp-client01&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out1)</span>
+            </td>
+            <td><span class="mitrane-badge-type">L2TP</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">22.8 KB/s</td>
+            <td class="text-primary fw-semibold">48.3 KB/s</td>
+            <td>28</td>
+            <td>44</td>
+            <td>22.8 KB/s</td>
+            <td>48.3 KB/s</td>
+            <td>28</td>
+            <td>44</td>
+          </tr>
+          <!-- Grand-Child Interface: <l2tp-client02> (Under VLAN70-L2TP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN70-L2TP" data-mitrautama-row-index="46" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              <strong>&lt;l2tp-client02&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out2)</span>
+            </td>
+            <td><span class="mitrane-badge-type">L2TP</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">28.8 KB/s</td>
+            <td class="text-primary fw-semibold">59.3 KB/s</td>
+            <td>35</td>
+            <td>56</td>
+            <td>28.8 KB/s</td>
+            <td>59.3 KB/s</td>
+            <td>35</td>
+            <td>56</td>
+          </tr>
+          <!-- Grand-Child Interface: <l2tp-client03> (Under VLAN70-L2TP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN70-L2TP" data-mitrautama-row-index="47" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              <strong>&lt;l2tp-client03&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out3)</span>
+            </td>
+            <td><span class="mitrane-badge-type">L2TP</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">34.8 KB/s</td>
+            <td class="text-primary fw-semibold">70.3 KB/s</td>
+            <td>42</td>
+            <td>68</td>
+            <td>34.8 KB/s</td>
+            <td>70.3 KB/s</td>
+            <td>42</td>
+            <td>68</td>
+          </tr>
+          <!-- Grand-Child Interface: <l2tp-client04> (Under VLAN70-L2TP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN70-L2TP" data-mitrautama-row-index="48" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              <strong>&lt;l2tp-client04&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out4)</span>
+            </td>
+            <td><span class="mitrane-badge-type">L2TP</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">40.8 KB/s</td>
+            <td class="text-primary fw-semibold">81.3 KB/s</td>
+            <td>49</td>
+            <td>80</td>
+            <td>40.8 KB/s</td>
+            <td>81.3 KB/s</td>
+            <td>49</td>
+            <td>80</td>
+          </tr>
+          <!-- Grand-Child Interface: <l2tp-client05> (Under VLAN70-L2TP) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN70-L2TP" data-mitrautama-row-index="49" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+              <strong>&lt;l2tp-client05&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(l2tp-out5)</span>
+            </td>
+            <td><span class="mitrane-badge-type">L2TP</span></td>
+            <td>1450</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <!-- Child Interface: VLAN80-OPENVPN (Parent: ETH5, Induk 5 Clients) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row iface-root-row" data-iface-parent="ETH5" data-iface-node="VLAN80-OPENVPN" data-mitrautama-row-index="34" style="display: none; cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="VLAN80-OPENVPN" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-              <strong>VLAN80-OPENVPN</strong>
+              <strong style="color: #ec4899;">VLAN80-OPENVPN</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(ovpn-server)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #ec4899; color: #ffffff;">5</span>
             </td>
             <td><span class="mitrane-badge-type">VLAN</span></td>
             <td>1500</td>
@@ -1285,6 +1616,111 @@
             <td>67.4 KB/s</td>
             <td>65</td>
             <td>82</td>
+          </tr>
+          <!-- Grand-Child Interface: <ovpn-client01> (Under VLAN80-OPENVPN) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN80-OPENVPN" data-mitrautama-row-index="50" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <strong>&lt;ovpn-client01&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out1)</span>
+            </td>
+            <td><span class="mitrane-badge-type">OVPN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">35.2 KB/s</td>
+            <td class="text-primary fw-semibold">55.6 KB/s</td>
+            <td>36</td>
+            <td>52</td>
+            <td>35.2 KB/s</td>
+            <td>55.6 KB/s</td>
+            <td>36</td>
+            <td>52</td>
+          </tr>
+          <!-- Grand-Child Interface: <ovpn-client02> (Under VLAN80-OPENVPN) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN80-OPENVPN" data-mitrautama-row-index="51" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <strong>&lt;ovpn-client02&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out2)</span>
+            </td>
+            <td><span class="mitrane-badge-type">OVPN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">43.2 KB/s</td>
+            <td class="text-primary fw-semibold">69.6 KB/s</td>
+            <td>44</td>
+            <td>63</td>
+            <td>43.2 KB/s</td>
+            <td>69.6 KB/s</td>
+            <td>44</td>
+            <td>63</td>
+          </tr>
+          <!-- Grand-Child Interface: <ovpn-client03> (Under VLAN80-OPENVPN) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN80-OPENVPN" data-mitrautama-row-index="52" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <strong>&lt;ovpn-client03&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out3)</span>
+            </td>
+            <td><span class="mitrane-badge-type">OVPN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">51.2 KB/s</td>
+            <td class="text-primary fw-semibold">83.6 KB/s</td>
+            <td>52</td>
+            <td>74</td>
+            <td>51.2 KB/s</td>
+            <td>83.6 KB/s</td>
+            <td>52</td>
+            <td>74</td>
+          </tr>
+          <!-- Grand-Child Interface: <ovpn-client04> (Under VLAN80-OPENVPN) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN80-OPENVPN" data-mitrautama-row-index="53" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <strong>&lt;ovpn-client04&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out4)</span>
+            </td>
+            <td><span class="mitrane-badge-type">OVPN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">59.2 KB/s</td>
+            <td class="text-primary fw-semibold">97.6 KB/s</td>
+            <td>60</td>
+            <td>85</td>
+            <td>59.2 KB/s</td>
+            <td>97.6 KB/s</td>
+            <td>60</td>
+            <td>85</td>
+          </tr>
+          <!-- Grand-Child Interface: <ovpn-client05> (Under VLAN80-OPENVPN) (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="VLAN80-OPENVPN" data-mitrautama-row-index="54" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+            <td>
+              <span style="display:inline-block; width: 36px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <strong>&lt;ovpn-client05&gt;</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(ovpn-out5)</span>
+            </td>
+            <td><span class="mitrane-badge-type">OVPN</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
           </tr>
           <!-- Standalone Interface: ETH6 (Root Level / Di Luar Bridge) -->
           <tr class="iface-tree-row iface-standalone-row" data-mitrautama-row-index="5" style="cursor: pointer;">
@@ -2372,7 +2808,7 @@
     <!-- 4. Subsystem Status & Item Count Footer -->
         <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
       <div class="d-flex align-items-center flex-wrap">
-        <span id="mitrane-total-items" class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">35 items</span>
+        <span id="mitrane-total-items" class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">55 items</span>
         <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-footer-legends">
           <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Ethernet: <strong style="color: var(--mu-text-main, #1e293b);">14</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #ec4899; display: inline-block; flex-shrink: 0;"></span><span>VLAN: <strong style="color: var(--mu-text-main, #1e293b);">8</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #06b6d4; display: inline-block; flex-shrink: 0;"></span><span>GRE: <strong style="color: var(--mu-text-main, #1e293b);">3</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>Wireless: <strong style="color: var(--mu-text-main, #1e293b);">2</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #3b82f6; display: inline-block; flex-shrink: 0;"></span><span>Bridge: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8b5cf6; display: inline-block; flex-shrink: 0;"></span><span>WireGuard: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #f97316; display: inline-block; flex-shrink: 0;"></span><span>EoIP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #6366f1; display: inline-block; flex-shrink: 0;"></span><span>IPIP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; display: inline-block; flex-shrink: 0;"></span><span>VXLAN: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #64748b; display: inline-block; flex-shrink: 0;"></span><span>Loopback: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #ef4444; display: inline-block; flex-shrink: 0;"></span><span>SSTP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
         </div>
@@ -6231,7 +6667,7 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <!-- 100% Local Application Script (Works seamlessly on file:/// and http://) -->
-    <script src="assets/js/app.js?v=1792754180"></script>
+    <script src="assets/js/app.js?v=1792754864"></script>
 
     <!-- WINBOX INTERFACE PROPERTIES MODAL (Strict WinBox Replica) -->
     <div id="modal-interface-properties" class="modal-overlay">
