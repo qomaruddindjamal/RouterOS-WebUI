@@ -1909,6 +1909,7 @@ class ModuleLoader {
             'tools-module-container': 'packages/tools/tools.html',
             'mesh-module-container': 'packages/mesh/mesh.html',
             'dot1x-module-container': 'packages/dot1x/dot1x.html',
+            'terminal-module-container': 'packages/terminal/terminal.html',
             'xray-module-container': 'packages/xray/xray.html',
             'kvm-module-container': 'packages/kvm/kvm.html',
             'devices-module-container': 'packages/devices/devices.html'
