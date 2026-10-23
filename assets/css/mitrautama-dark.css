@@ -541,3 +541,23 @@ div[style*="background: var(--mu-surface"],
 .p-3.rounded.border table th.text-muted {
     color: #94a3b8 !important;
 }
+
+/* QoS Actions Column and Action Buttons */
+#view-queues .border-start {
+    background: #111827 !important;
+    border-left-color: #1e293b !important;
+}
+
+.btn-light,
+#view-queues .btn-light {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+.btn-light:hover,
+#view-queues .btn-light:hover {
+    background-color: #243248 !important;
+    border-color: #475569 !important;
+    color: #38bdf8 !important;
+}

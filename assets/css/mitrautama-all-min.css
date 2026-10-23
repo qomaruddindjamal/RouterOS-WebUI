@@ -3633,6 +3633,31 @@ input[type=number] {
     color: #94a3b8 !important;
 }
 
+/* QoS Manager Actions Column and Action Buttons in Dark Mode */
+[data-theme="dark"] #view-queues .border-start,
+[data-period="malam"] #view-queues .border-start {
+    background: #111827 !important;
+    border-left-color: #1e293b !important;
+}
+
+[data-theme="dark"] .btn-light,
+[data-period="malam"] .btn-light,
+[data-theme="dark"] #view-queues .btn-light,
+[data-period="malam"] #view-queues .btn-light {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .btn-light:hover,
+[data-period="malam"] .btn-light:hover,
+[data-theme="dark"] #view-queues .btn-light:hover,
+[data-period="malam"] #view-queues .btn-light:hover {
+    background-color: #243248 !important;
+    border-color: #475569 !important;
+    color: #38bdf8 !important;
+}
+
 
 /* =========================================================================
    PERFECT WINBOX TAB BAR & HEADER ALIGNMENT
