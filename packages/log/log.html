@@ -1,0 +1,93 @@
+<!-- Module: log/log.html (Log MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-log" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-log-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Log</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="log-all">Log <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">5</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Log System', message:'Log buffer refreshed.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Log Clear', message:'Buffer log dibersihkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Clear</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Log..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Table Content -->
+    <div class="mitrautama-tab-content active" id="subtab-log-all">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Time</th>
+              <th style="width: 110px;">Topics</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>18:48:12</code></td>
+              <td><span class="badge bg-primary">pppoe, info</span></td>
+              <td><code>&lt;pppoe-client01&gt;: connected, assigned 10.50.0.10</code></td>
+            </tr>
+            <tr>
+              <td><code>18:45:00</code></td>
+              <td><span class="badge bg-info">system, info</span></td>
+              <td><code>RouterOS 7.24.5 system started</code></td>
+            </tr>
+            <tr>
+              <td><code>18:40:22</code></td>
+              <td><span class="badge bg-success">interface, info</span></td>
+              <td><code>ether1 link up (speed 1Gbps, full duplex)</code></td>
+            </tr>
+            <tr>
+              <td><code>18:35:10</code></td>
+              <td><span class="badge bg-secondary">wireguard, info</span></td>
+              <td><code>wg0 handshake completed with peer [WG-Peer-HQ]</code></td>
+            </tr>
+            <tr>
+              <td><code>18:30:05</code></td>
+              <td><span class="badge bg-warning text-dark">dhcp, info</span></td>
+              <td><code>dhcp-client on ether1: acquired IP 172.16.92.230/24</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">5 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">System Log Buffer: Memory (1000 lines)</span>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,161 @@
+<!-- Module: xray/xray.html (Xray-Core MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-xray" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-xray-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span>Xray-Core</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="xray-inbounds">Inbounds <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-outbounds">Outbounds</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-routing">Routing Rules</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-status">Service Status</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Xray-Core', 'Tambah Inbound / Outbound Xray-Core baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Xray-Core', message:'Layanan Xray-Core diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Xray-Core', message:'Layanan Xray-Core dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Xray..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-xray-inbounds">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Protocol</th>
+              <th>Port</th>
+              <th>Security</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>vless-in-443</strong></td>
+              <td><code>VLESS</code></td>
+              <td>443</td>
+              <td>Reality (TLS)</td>
+              <td><span class="badge bg-success">Listening</span></td>
+            </tr>
+            <tr>
+              <td><strong>vmess-in-8080</strong></td>
+              <td><code>VMess</code></td>
+              <td>8080</td>
+              <td>WebSocket (WS)</td>
+              <td><span class="badge bg-success">Listening</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-outbounds" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Protocol</th>
+              <th>Address</th>
+              <th>Port</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>direct-out</strong></td>
+              <td>freedom</td>
+              <td>0.0.0.0/0</td>
+              <td>*</td>
+            </tr>
+            <tr>
+              <td><strong>blocked-out</strong></td>
+              <td>blackhole</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-routing" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Rule #</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Outbound Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>field</td>
+              <td>geoip:private</td>
+              <td>direct-out</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>field</td>
+              <td>geosite:category-ads-all</td>
+              <td>blocked-out</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-status" style="display: none;">
+      <div class="p-3">
+        <div class="card p-3 border-0 bg-light">
+          <div class="d-flex align-items-center mb-2">
+            <span class="mitrautama-status-dot-active me-2" title="Active"></span>
+            <strong>Xray-Core Daemon: RUNNING</strong>
+          </div>
+          <div class="text-muted" style="font-size: 0.8rem;">
+            Version: Xray-Core 1.8.24 (vless, vmess, trojan, shadowsocks)<br>
+            Uptime: 4d 18h 32m<br>
+            Active Inbounds: 2 | Total Inbound Traffic: 4.8 GiB
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 inbounds active</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Xray-Core Engine v1.8.24</span>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<!-- Module: routing/routing.html (Routing BGP/OSPF MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-routing" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-routing-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+          <span>Routing</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="routing-bgp">BGP Sessions <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="routing-ospf">OSPF Neighbors <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Routing Peer', 'Tambah peer BGP atau instance OSPF baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Routing Session', message:'Sesi routing diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Routing Session', message:'Sesi routing dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Routing..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <!-- Tab 1: BGP Sessions -->
+    <div class="mitrautama-tab-content active" id="subtab-routing-bgp">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Remote AS</th>
+              <th>Remote Address</th>
+              <th>State</th>
+              <th>Uptime</th>
+              <th>Prefix Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>BGP-Peer-Telkom-Upstream</strong></td>
+              <td><code>AS7713</code></td>
+              <td>103.10.x.1</td>
+              <td><span class="badge bg-success">Established</span></td>
+              <td>14d 08:22:10</td>
+              <td><strong>12</strong></td>
+            </tr>
+            <tr>
+              <td><strong>BGP-Peer-Indosat-Backup</strong></td>
+              <td><code>AS4761</code></td>
+              <td>114.5.x.1</td>
+              <td><span class="badge bg-success">Established</span></td>
+              <td>14d 08:20:05</td>
+              <td><strong>8</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: OSPF Neighbors -->
+    <div class="mitrautama-tab-content" id="subtab-routing-ospf" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Router ID</th>
+              <th>Address</th>
+              <th>Interface</th>
+              <th>State</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>10.10.10.2</strong></td>
+              <td>10.10.10.2</td>
+              <td><code>vlan50-core</code></td>
+              <td><span class="badge bg-success">Full (DR)</span></td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Dynamic Routing Engine: Active</span>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<!-- Module: ipv6/ipv6.html (IPv6 MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-ipv6" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-ipv6-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span>IPv6</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="ipv6-addresses">Addresses <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ipv6-routes">Routes <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ipv6-firewall">Firewall</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('IPv6 Address', 'Tambah alamat IPv6 baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'IPv6 Address', message:'Status IPv6 address diperbarui.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'IPv6 Address', message:'Alamat dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter IPv6..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <!-- Tab 1: Addresses -->
+    <div class="mitrautama-tab-content active" id="subtab-ipv6-addresses">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>From Pool</th>
+              <th>Interface</th>
+              <th>Actual Interface</th>
+              <th>Advertise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2001:db8:cafe:1::1/64</strong></td>
+              <td class="text-muted">-</td>
+              <td><code>ether2-LAN</code></td>
+              <td><code>ether2-LAN</code></td>
+              <td><span class="badge bg-success">yes</span></td>
+            </tr>
+            <tr>
+              <td><strong>fe80::1/64</strong></td>
+              <td class="text-muted">-</td>
+              <td><code>ether1-WAN</code></td>
+              <td><code>ether1-WAN</code></td>
+              <td><span class="badge bg-secondary">no</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: Routes -->
+    <div class="mitrautama-tab-content" id="subtab-ipv6-routes" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Dst. Address</th>
+              <th>Gateway</th>
+              <th>Distance</th>
+              <th>Routing Table</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>::/0</strong></td>
+              <td><code>fe80::gateway%ether1-WAN</code></td>
+              <td>1</td>
+              <td>main</td>
+              <td><span class="badge bg-success">Active, Reachable</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 3: Firewall -->
+    <div class="mitrautama-tab-content" id="subtab-ipv6-firewall" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Chain</th>
+              <th>Src. Address</th>
+              <th>Dst. Address</th>
+              <th>Protocol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge bg-success">accept</span></td>
+              <td>input</td>
+              <td>::/0</td>
+              <td>::/0</td>
+              <td>icmpv6</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg-success">accept</span></td>
+              <td>input</td>
+              <td>::/0</td>
+              <td>::/0</td>
+              <td>connection-state: established,related</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">IPv6 Protocol Stack: Active</span>
+    </div>
+
+  </div>
+</div>

@@ -937,6 +937,8 @@ class NavigationManager {
             'ip-dhcp-client': { view: 'ip-addresses', subtab: 'ip-dhcp' },
             'ip-pool': { view: 'ip-addresses', subtab: 'ip-pool' },
             'ip-firewall': { view: 'ip-addresses', subtab: 'ip-firewall' },
+            'ip-dns': { view: 'ip-addresses', subtab: 'ip-routes' },
+            'ip-hotspot': { view: 'ip-addresses', subtab: 'ip-dhcp' },
             'switch': { view: 'switch', subtab: 'switch-ports' },
             'switch-ports': { view: 'switch', subtab: 'switch-ports' },
             'switch-vlan': { view: 'switch', subtab: 'switch-vlan' },
@@ -959,7 +961,26 @@ class NavigationManager {
             'xolt-onus': { view: 'xolt', subtab: 'xolt-onus' },
             'xolt-optical': { view: 'xolt', subtab: 'xolt-optical' },
             'xolt-dba': { view: 'xolt', subtab: 'xolt-dba' },
-            'xolt-vlans': { view: 'xolt', subtab: 'xolt-vlans' }
+            'xolt-vlans': { view: 'xolt', subtab: 'xolt-vlans' },
+            'ipv6-addresses': { view: 'ipv6', subtab: 'ipv6-addresses' },
+            'ipv6-routes': { view: 'ipv6', subtab: 'ipv6-routes' },
+            'ipv6-firewall': { view: 'ipv6', subtab: 'ipv6-firewall' },
+            'ipv6': { view: 'ipv6', subtab: 'ipv6-addresses' },
+            'routing-bgp': { view: 'routing', subtab: 'routing-bgp' },
+            'routing-ospf': { view: 'routing', subtab: 'routing-ospf' },
+            'routing': { view: 'routing', subtab: 'routing-bgp' },
+            'mpls': { view: 'mpls', subtab: 'mpls-interfaces' },
+            'mpls-ldp': { view: 'mpls', subtab: 'mpls-ldp' },
+            'log': { view: 'log', subtab: 'log-all' },
+            'files': { view: 'files', subtab: 'files-all' },
+            'radius': { view: 'radius', subtab: 'radius-servers' },
+            'tools-torch': { view: 'tools-torch', subtab: 'tools-torch-tab' },
+            'tools': { view: 'tools-torch', subtab: 'tools-torch-tab' },
+            'mesh': { view: 'mesh', subtab: 'mesh-interfaces' },
+            'dot1x': { view: 'dot1x', subtab: 'dot1x-server' },
+            'xray': { view: 'xray', subtab: 'xray-inbounds' },
+            'kvm': { view: 'kvm', subtab: 'kvm-guests' },
+            'devices': { view: 'devices', subtab: 'devices-usb' },
         };
 
         const routeEntry = routeConfigMap[viewId] || { view: viewId };
@@ -1878,7 +1899,19 @@ class ModuleLoader {
             'bridge-module-container': 'packages/bridge/bridge.html',
             'system-module-container': 'packages/system/system.html',
             'queues-module-container': 'packages/qos/qos.html',
-            'ppp-module-container': 'packages/vpn/vpn.html'
+            'ppp-module-container': 'packages/vpn/vpn.html',
+            'ipv6-module-container': 'packages/ipv6/ipv6.html',
+            'routing-module-container': 'packages/routing/routing.html',
+            'mpls-module-container': 'packages/mpls/mpls.html',
+            'log-module-container': 'packages/log/log.html',
+            'files-module-container': 'packages/files/files.html',
+            'radius-module-container': 'packages/radius/radius.html',
+            'tools-module-container': 'packages/tools/tools.html',
+            'mesh-module-container': 'packages/mesh/mesh.html',
+            'dot1x-module-container': 'packages/dot1x/dot1x.html',
+            'xray-module-container': 'packages/xray/xray.html',
+            'kvm-module-container': 'packages/kvm/kvm.html',
+            'devices-module-container': 'packages/devices/devices.html'
         };
     }
 

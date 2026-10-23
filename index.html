@@ -7714,6 +7714,1381 @@
                     </div>
                 </div>
 
+                
+
+                <!-- ipv6-module-container -->
+                <div id="ipv6-module-container">
+<!-- Module: ipv6/ipv6.html (IPv6 MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-ipv6" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-ipv6-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span>IPv6</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="ipv6-addresses">Addresses <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ipv6-routes">Routes <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="ipv6-firewall">Firewall</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('IPv6 Address', 'Tambah alamat IPv6 baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'IPv6 Address', message:'Status IPv6 address diperbarui.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'IPv6 Address', message:'Alamat dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter IPv6..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <!-- Tab 1: Addresses -->
+    <div class="mitrautama-tab-content active" id="subtab-ipv6-addresses">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Address</th>
+              <th>From Pool</th>
+              <th>Interface</th>
+              <th>Actual Interface</th>
+              <th>Advertise</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>2001:db8:cafe:1::1/64</strong></td>
+              <td class="text-muted">-</td>
+              <td><code>ether2-LAN</code></td>
+              <td><code>ether2-LAN</code></td>
+              <td><span class="badge bg-success">yes</span></td>
+            </tr>
+            <tr>
+              <td><strong>fe80::1/64</strong></td>
+              <td class="text-muted">-</td>
+              <td><code>ether1-WAN</code></td>
+              <td><code>ether1-WAN</code></td>
+              <td><span class="badge bg-secondary">no</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: Routes -->
+    <div class="mitrautama-tab-content" id="subtab-ipv6-routes" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Dst. Address</th>
+              <th>Gateway</th>
+              <th>Distance</th>
+              <th>Routing Table</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>::/0</strong></td>
+              <td><code>fe80::gateway%ether1-WAN</code></td>
+              <td>1</td>
+              <td>main</td>
+              <td><span class="badge bg-success">Active, Reachable</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 3: Firewall -->
+    <div class="mitrautama-tab-content" id="subtab-ipv6-firewall" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Chain</th>
+              <th>Src. Address</th>
+              <th>Dst. Address</th>
+              <th>Protocol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge bg-success">accept</span></td>
+              <td>input</td>
+              <td>::/0</td>
+              <td>::/0</td>
+              <td>icmpv6</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg-success">accept</span></td>
+              <td>input</td>
+              <td>::/0</td>
+              <td>::/0</td>
+              <td>connection-state: established,related</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">IPv6 Protocol Stack: Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- routing-module-container -->
+                <div id="routing-module-container">
+<!-- Module: routing/routing.html (Routing BGP/OSPF MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-routing" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-routing-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+          <span>Routing</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="routing-bgp">BGP Sessions <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="routing-ospf">OSPF Neighbors <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Routing Peer', 'Tambah peer BGP atau instance OSPF baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Routing Session', message:'Sesi routing diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Routing Session', message:'Sesi routing dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Routing..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <!-- Tab 1: BGP Sessions -->
+    <div class="mitrautama-tab-content active" id="subtab-routing-bgp">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Remote AS</th>
+              <th>Remote Address</th>
+              <th>State</th>
+              <th>Uptime</th>
+              <th>Prefix Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>BGP-Peer-Telkom-Upstream</strong></td>
+              <td><code>AS7713</code></td>
+              <td>103.10.x.1</td>
+              <td><span class="badge bg-success">Established</span></td>
+              <td>14d 08:22:10</td>
+              <td><strong>12</strong></td>
+            </tr>
+            <tr>
+              <td><strong>BGP-Peer-Indosat-Backup</strong></td>
+              <td><code>AS4761</code></td>
+              <td>114.5.x.1</td>
+              <td><span class="badge bg-success">Established</span></td>
+              <td>14d 08:20:05</td>
+              <td><strong>8</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 2: OSPF Neighbors -->
+    <div class="mitrautama-tab-content" id="subtab-routing-ospf" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Router ID</th>
+              <th>Address</th>
+              <th>Interface</th>
+              <th>State</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>10.10.10.2</strong></td>
+              <td>10.10.10.2</td>
+              <td><code>vlan50-core</code></td>
+              <td><span class="badge bg-success">Full (DR)</span></td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Dynamic Routing Engine: Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- mpls-module-container -->
+                <div id="mpls-module-container">
+<!-- Module: mpls/mpls.html (MPLS MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-mpls" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-mpls-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>MPLS</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="mpls-interfaces">MPLS Interfaces</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="mpls-ldp">LDP Neighbors</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('MPLS', 'Tambah interface MPLS', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'MPLS', message:'MPLS interface diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'MPLS', message:'MPLS interface dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter MPLS..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-mpls-interfaces">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Interface</th>
+              <th>MPLS MTU</th>
+              <th>Dynamic Label</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ether1-WAN</strong></td>
+              <td><code>1508</code></td>
+              <td>yes</td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+            <tr>
+              <td><strong>vlan50-PPTP</strong></td>
+              <td><code>1508</code></td>
+              <td>yes</td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-mpls-ldp" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Transport Address</th>
+              <th>LDP ID</th>
+              <th>State</th>
+              <th>Uptime</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>10.255.255.1</code></td>
+              <td>10.255.255.1:0</td>
+              <td><span class="badge bg-success">Operational</span></td>
+              <td>3d 14:02:11</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">MPLS Forwarding: Enabled</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- log-module-container -->
+                <div id="log-module-container">
+<!-- Module: log/log.html (Log MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-log" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-log-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Log</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="log-all">Log <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">5</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Log System', message:'Log buffer refreshed.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Refresh</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Log Clear', message:'Buffer log dibersihkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          <span>Clear</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Log..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Table Content -->
+    <div class="mitrautama-tab-content active" id="subtab-log-all">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Time</th>
+              <th style="width: 110px;">Topics</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>18:48:12</code></td>
+              <td><span class="badge bg-primary">pppoe, info</span></td>
+              <td><code>&lt;pppoe-client01&gt;: connected, assigned 10.50.0.10</code></td>
+            </tr>
+            <tr>
+              <td><code>18:45:00</code></td>
+              <td><span class="badge bg-info">system, info</span></td>
+              <td><code>RouterOS 7.24.5 system started</code></td>
+            </tr>
+            <tr>
+              <td><code>18:40:22</code></td>
+              <td><span class="badge bg-success">interface, info</span></td>
+              <td><code>ether1 link up (speed 1Gbps, full duplex)</code></td>
+            </tr>
+            <tr>
+              <td><code>18:35:10</code></td>
+              <td><span class="badge bg-secondary">wireguard, info</span></td>
+              <td><code>wg0 handshake completed with peer [WG-Peer-HQ]</code></td>
+            </tr>
+            <tr>
+              <td><code>18:30:05</code></td>
+              <td><span class="badge bg-warning text-dark">dhcp, info</span></td>
+              <td><code>dhcp-client on ether1: acquired IP 172.16.92.230/24</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">5 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">System Log Buffer: Memory (1000 lines)</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- files-module-container -->
+                <div id="files-module-container">
+<!-- Module: files/files.html (Files MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-files" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-files-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>File List</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="files-all">Files <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">4</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="Swal.fire('Upload File', 'Pilih file untuk diunggah ke storage RouterOS.', 'info')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <span>Upload</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="Swal.fire('Backup Config', 'Membuat file cadangan .backup RouterOS...', 'success')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+          <span>Backup</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'File Deleted', message:'Pilih file untuk dihapus.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Delete</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Files..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Table Content -->
+    <div class="mitrautama-tab-content active" id="subtab-files-all">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Creation Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>backup-daily-routeros.backup</strong></td>
+              <td><span class="badge bg-primary">backup</span></td>
+              <td><code>1.4 MiB</code></td>
+              <td class="text-muted">2026-10-23 04:00:15</td>
+            </tr>
+            <tr>
+              <td><strong>autosupout.rif</strong></td>
+              <td><span class="badge bg-secondary">support</span></td>
+              <td><code>512 KiB</code></td>
+              <td class="text-muted">2026-10-22 11:20:00</td>
+            </tr>
+            <tr>
+              <td><strong>flash/skins</strong></td>
+              <td><span class="badge bg-info">directory</span></td>
+              <td><code>-</code></td>
+              <td class="text-muted">2026-10-20 09:15:30</td>
+            </tr>
+            <tr>
+              <td><strong>client_cert.crt</strong></td>
+              <td><span class="badge bg-success">certificate</span></td>
+              <td><code>4.2 KiB</code></td>
+              <td class="text-muted">2026-10-21 16:40:02</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">4 items</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Disk Free: 112.5 MiB / Total: 128.0 MiB</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- radius-module-container -->
+                <div id="radius-module-container">
+<!-- Module: radius/radius.html (RADIUS Client MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-radius" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-radius-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span>RADIUS</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="radius-servers">Servers <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('RADIUS Server', 'Tambah server AAA RADIUS baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'RADIUS', message:'Server RADIUS diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'RADIUS', message:'Server RADIUS dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter RADIUS..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-radius-servers">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Address</th>
+              <th>Auth Port</th>
+              <th>Acct Port</th>
+              <th>Timeout</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge bg-primary">ppp, hotspot</span></td>
+              <td><code>10.10.10.1</code></td>
+              <td>1812</td>
+              <td>1813</td>
+              <td>300 ms</td>
+              <td><span class="badge bg-success">Online (Connected)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">1 item</span>
+      <span class="text-muted" style="font-size: 0.72rem;">AAA Authentication: Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- tools-module-container -->
+                <div id="tools-module-container">
+<!-- Module: tools/tools.html (Tools Torch MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-tools-torch" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-tools-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+          <span>Tools: Torch</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="tools-torch-tab">Realtime Traffic Monitor</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Torch', message:'Monitoring lalu lintas data aktif.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Start</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Torch', message:'Monitoring lalu lintas data dihentikan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Stop</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <select class="form-select form-select-sm" style="height: 24px; font-size: 0.75rem; width: 140px; padding-top: 1px; padding-bottom: 1px;">
+          <option>ether1-WAN</option>
+          <option>ether2-LAN</option>
+          <option>bridge1</option>
+          <option>vlan50-PPTP</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-tools-torch-tab">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Src. Address</th>
+              <th>Dst. Address</th>
+              <th>Protocol</th>
+              <th>Port</th>
+              <th>Tx Rate</th>
+              <th>Rx Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>10.50.0.10</code></td>
+              <td><code>142.250.190.46</code></td>
+              <td><span class="badge bg-primary">tcp</span></td>
+              <td>443 (https)</td>
+              <td><span class="text-success fw-bold">1.2 Mbps</span></td>
+              <td><span class="text-primary fw-bold">8.4 Mbps</span></td>
+            </tr>
+            <tr>
+              <td><code>10.60.0.11</code></td>
+              <td><code>1.1.1.1</code></td>
+              <td><span class="badge bg-secondary">udp</span></td>
+              <td>53 (dns)</td>
+              <td>12.4 kbps</td>
+              <td>24.8 kbps</td>
+            </tr>
+            <tr>
+              <td><code>10.70.0.12</code></td>
+              <td><code>157.240.22.35</code></td>
+              <td><span class="badge bg-primary">tcp</span></td>
+              <td>443 (https)</td>
+              <td>450 kbps</td>
+              <td>2.1 Mbps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">3 sessions active</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Torch Probe: ether1-WAN</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- mesh-module-container -->
+                <div id="mesh-module-container">
+<!-- Module: mesh/mesh.html (Wireless Mesh MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-mesh" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-mesh-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Mesh</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="mesh-interfaces">Mesh Interfaces</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="mesh-fdb">FDB</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Mesh Interface', 'Tambah konfigurasi Mesh baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Mesh', message:'Interface Mesh diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Mesh', message:'Interface Mesh dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Mesh..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-mesh-interfaces">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>MTU</th>
+              <th>MAC Address</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>mesh1-backhaul</strong></td>
+              <td>HWMP</td>
+              <td>1500</td>
+              <td><code>6C:3B:6B:A1:22:90</code></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-mesh-fdb" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>MAC Address</th>
+              <th>Interface</th>
+              <th>Next Hop</th>
+              <th>Metric</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>48:8F:5A:11:44:02</code></td>
+              <td>wlan1-mesh</td>
+              <td><code>48:8F:5A:11:44:02</code></td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">1 item</span>
+      <span class="text-muted" style="font-size: 0.72rem;">HWMP Routing: Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- dot1x-module-container -->
+                <div id="dot1x-module-container">
+<!-- Module: dot1x/dot1x.html (Dot1X MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-dot1x" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-dot1x-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Dot1X</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="dot1x-server">Server</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="dot1x-client">Client</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Dot1X', 'Tambah konfigurasi 802.1X', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Dot1X', message:'802.1X diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Dot1X', message:'802.1X dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Dot1X..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-dot1x-server">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Interface</th>
+              <th>Auth Types</th>
+              <th>RADIUS MAC Auth</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ether3</strong></td>
+              <td>mac-auth, eap</td>
+              <td>yes</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-dot1x-client" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Interface</th>
+              <th>EAP Methods</th>
+              <th>Identity</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ether4</strong></td>
+              <td>eap-peap</td>
+              <td>admin-dot1x</td>
+              <td><span class="badge bg-secondary">Disabled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">1 item</span>
+      <span class="text-muted" style="font-size: 0.72rem;">IEEE 802.1X Port Security: Enabled</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                
+
+                <!-- Xray Module Container -->
+                <div id="xray-module-container">
+<!-- Module: xray/xray.html (Xray-Core MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-xray" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-xray-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span>Xray-Core</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="xray-inbounds">Inbounds <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-outbounds">Outbounds</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-routing">Routing Rules</a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="xray-status">Service Status</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('Xray-Core', 'Tambah Inbound / Outbound Xray-Core baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Xray-Core', message:'Layanan Xray-Core diaktifkan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Xray-Core', message:'Layanan Xray-Core dinonaktifkan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Xray..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-xray-inbounds">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Protocol</th>
+              <th>Port</th>
+              <th>Security</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>vless-in-443</strong></td>
+              <td><code>VLESS</code></td>
+              <td>443</td>
+              <td>Reality (TLS)</td>
+              <td><span class="badge bg-success">Listening</span></td>
+            </tr>
+            <tr>
+              <td><strong>vmess-in-8080</strong></td>
+              <td><code>VMess</code></td>
+              <td>8080</td>
+              <td>WebSocket (WS)</td>
+              <td><span class="badge bg-success">Listening</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-outbounds" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Protocol</th>
+              <th>Address</th>
+              <th>Port</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>direct-out</strong></td>
+              <td>freedom</td>
+              <td>0.0.0.0/0</td>
+              <td>*</td>
+            </tr>
+            <tr>
+              <td><strong>blocked-out</strong></td>
+              <td>blackhole</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-routing" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Rule #</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Outbound Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>field</td>
+              <td>geoip:private</td>
+              <td>direct-out</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>field</td>
+              <td>geosite:category-ads-all</td>
+              <td>blocked-out</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-xray-status" style="display: none;">
+      <div class="p-3">
+        <div class="card p-3 border-0 bg-light">
+          <div class="d-flex align-items-center mb-2">
+            <span class="mitrautama-status-dot-active me-2" title="Active"></span>
+            <strong>Xray-Core Daemon: RUNNING</strong>
+          </div>
+          <div class="text-muted" style="font-size: 0.8rem;">
+            Version: Xray-Core 1.8.24 (vless, vmess, trojan, shadowsocks)<br>
+            Uptime: 4d 18h 32m<br>
+            Active Inbounds: 2 | Total Inbound Traffic: 4.8 GiB
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 inbounds active</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Xray-Core Engine v1.8.24</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- KVM Module Container -->
+                <div id="kvm-module-container">
+<!-- Module: kvm/kvm.html (KVM Virtual Machines MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-kvm" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-kvm-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <span>KVM</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="kvm-guests">Virtual Machines <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">1</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="kvm-interfaces">KVM Interfaces</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" onclick="Swal.fire('KVM Guest', 'Tambah Virtual Machine KVM baru', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'KVM Guest', message:'Virtual machine dinyalakan.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Start</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'KVM Guest', message:'Virtual machine dimatikan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Stop</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter KVM..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-kvm-guests">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>CPU Cores</th>
+              <th>RAM</th>
+              <th>Disk Image</th>
+              <th>State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Alpine-DNS-Server</strong></td>
+              <td>1 Core</td>
+              <td>256 MiB</td>
+              <td><code>alpine-virt.img</code></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-kvm-interfaces" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Interface</th>
+              <th>VM Guest</th>
+              <th>Bridge</th>
+              <th>MAC Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>vnet0</code></td>
+              <td>Alpine-DNS-Server</td>
+              <td>bridge1</td>
+              <td><code>52:54:00:12:34:56</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">1 guest</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Hardware Virtualization: KVM Intel/AMD Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
+                <!-- Devices Module Container -->
+                <div id="devices-module-container">
+<!-- Module: devices/devices.html (Devices & Peripherals MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-devices" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-devices-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <line x1="9" y1="1" x2="9" y2="4"></line>
+            <line x1="15" y1="1" x2="15" y2="4"></line>
+            <line x1="9" y1="20" x2="9" y2="23"></line>
+            <line x1="15" y1="20" x2="15" y2="23"></line>
+            <line x1="20" y1="9" x2="23" y2="9"></line>
+            <line x1="20" y1="14" x2="23" y2="14"></line>
+            <line x1="1" y1="9" x2="4" y2="9"></line>
+            <line x1="1" y1="14" x2="4" y2="14"></line>
+          </svg>
+          <span>Devices</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="devices-usb">USB Devices <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="devices-pcie">PCIe Devices</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Devices', message:'Daftar perangkat dipindai ulang.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Rescan</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Devices..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-devices-usb">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Vendor</th>
+              <th>Name</th>
+              <th>Speed</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1-1</strong></td>
+              <td>0x12d1 (Huawei)</td>
+              <td>ME906s LTE Modem</td>
+              <td>480 Mbps</td>
+              <td><span class="badge bg-success">Ready</span></td>
+            </tr>
+            <tr>
+              <td><strong>1-2</strong></td>
+              <td>0x0781 (SanDisk)</td>
+              <td>Ultra USB 3.0 Flash Drive (32GB)</td>
+              <td>5000 Mbps</td>
+              <td><span class="badge bg-success">Mounted</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-devices-pcie" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Slot</th>
+              <th>Vendor</th>
+              <th>Device</th>
+              <th>Subsystem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>00:01.0</code></td>
+              <td>Qualcomm Atheros</td>
+              <td>QCA8337 Gigabit Switch</td>
+              <td>MikroTik RouterBOARD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 devices attached</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Hardware Bus: USB 3.0 / PCIe Active</span>
+    </div>
+
+  </div>
+</div>
+
+                </div>
+
                 </main>
 
                 <!-- 4. FIXED FOOTER CONTAINER (Modular: includes/footer.html) -->

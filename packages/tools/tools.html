@@ -1,0 +1,96 @@
+<!-- Module: tools/tools.html (Tools Torch MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-tools-torch" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-tools-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+          <span>Tools: Torch</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="tools-torch-tab">Realtime Traffic Monitor</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn text-success" onclick="toastManager.show({title:'Torch', message:'Monitoring lalu lintas data aktif.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Start</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn text-danger" onclick="toastManager.show({title:'Torch', message:'Monitoring lalu lintas data dihentikan.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Stop</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <select class="form-select form-select-sm" style="height: 24px; font-size: 0.75rem; width: 140px; padding-top: 1px; padding-bottom: 1px;">
+          <option>ether1-WAN</option>
+          <option>ether2-LAN</option>
+          <option>bridge1</option>
+          <option>vlan50-PPTP</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-tools-torch-tab">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Src. Address</th>
+              <th>Dst. Address</th>
+              <th>Protocol</th>
+              <th>Port</th>
+              <th>Tx Rate</th>
+              <th>Rx Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>10.50.0.10</code></td>
+              <td><code>142.250.190.46</code></td>
+              <td><span class="badge bg-primary">tcp</span></td>
+              <td>443 (https)</td>
+              <td><span class="text-success fw-bold">1.2 Mbps</span></td>
+              <td><span class="text-primary fw-bold">8.4 Mbps</span></td>
+            </tr>
+            <tr>
+              <td><code>10.60.0.11</code></td>
+              <td><code>1.1.1.1</code></td>
+              <td><span class="badge bg-secondary">udp</span></td>
+              <td>53 (dns)</td>
+              <td>12.4 kbps</td>
+              <td>24.8 kbps</td>
+            </tr>
+            <tr>
+              <td><code>10.70.0.12</code></td>
+              <td><code>157.240.22.35</code></td>
+              <td><span class="badge bg-primary">tcp</span></td>
+              <td>443 (https)</td>
+              <td>450 kbps</td>
+              <td>2.1 Mbps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">3 sessions active</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Torch Probe: ether1-WAN</span>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<!-- Module: devices/devices.html (Devices & Peripherals MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-devices" style="display: none;">
+  <div class="mitrane-window">
+
+    <!-- 1. Window Tab Bar with WinBox Window controls -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-devices-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <div class="d-flex align-items-center flex-nowrap">
+        <button class="mitrane-window-title-btn" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <line x1="9" y1="1" x2="9" y2="4"></line>
+            <line x1="15" y1="1" x2="15" y2="4"></line>
+            <line x1="9" y1="20" x2="9" y2="23"></line>
+            <line x1="15" y1="20" x2="15" y2="23"></line>
+            <line x1="20" y1="9" x2="23" y2="9"></line>
+            <line x1="20" y1="14" x2="23" y2="14"></line>
+            <line x1="1" y1="9" x2="4" y2="9"></line>
+            <line x1="1" y1="14" x2="4" y2="14"></line>
+          </svg>
+          <span>Devices</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="devices-usb">USB Devices <span class="badge bg-secondary ms-1 mitrane-tab-count-badge">2</span></a>
+        <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="devices-pcie">PCIe Devices</a>
+      </div>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" onclick="toastManager.show({title:'Devices', message:'Daftar perangkat dipindai ulang.', type:'success'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+          <span>Rescan</span>
+        </button>
+      </div>
+
+      <div class="mitrane-filter-box d-flex align-items-center">
+        <input type="text" class="form-control form-control-sm mitrautama-filter-input" placeholder="Find / Filter Devices..." style="width: 160px; height: 24px; font-size: 0.75rem;">
+      </div>
+    </div>
+
+    <!-- 3. Tab Contents -->
+    <div class="mitrautama-tab-content active" id="subtab-devices-usb">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Vendor</th>
+              <th>Name</th>
+              <th>Speed</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1-1</strong></td>
+              <td>0x12d1 (Huawei)</td>
+              <td>ME906s LTE Modem</td>
+              <td>480 Mbps</td>
+              <td><span class="badge bg-success">Ready</span></td>
+            </tr>
+            <tr>
+              <td><strong>1-2</strong></td>
+              <td>0x0781 (SanDisk)</td>
+              <td>Ultra USB 3.0 Flash Drive (32GB)</td>
+              <td>5000 Mbps</td>
+              <td><span class="badge bg-success">Mounted</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mitrautama-tab-content" id="subtab-devices-pcie" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table">
+          <thead>
+            <tr>
+              <th>Slot</th>
+              <th>Vendor</th>
+              <th>Device</th>
+              <th>Subsystem</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>00:01.0</code></td>
+              <td>Qualcomm Atheros</td>
+              <td>QCA8337 Gigabit Switch</td>
+              <td>MikroTik RouterBOARD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Window Status Bar Footer -->
+    <div class="mitrane-status-subsystem py-1 px-3 d-flex justify-content-between align-items-center" style="font-size: 0.75rem; border-top: 1px solid rgba(0,0,0,0.08);">
+      <span class="text-muted">2 devices attached</span>
+      <span class="text-muted" style="font-size: 0.72rem;">Hardware Bus: USB 3.0 / PCIe Active</span>
+    </div>
+
+  </div>
+</div>
