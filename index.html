@@ -756,7 +756,7 @@
       <!-- Right Tools: Find Search Box, Filter, Refresh, Columns -->
       <div class="d-flex align-items-center gap-2">
         <div class="input-group input-group-sm" style="width: 170px;">
-          <span class="input-group-text bg-white border-end-0 py-0 px-2">
+          <span class="input-group-text border-end-0 py-0 px-2">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </span>
           <input type="text" id="mitrane-interface-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
@@ -774,8 +774,11 @@
       </div>
     </div>
 
-    <!-- 3. Grid Table Container (Loaded from interfaces/interfaces.json) -->
-    <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <!-- 3. Window Body (Subtabs Content) -->
+    <!-- Subtab 1: Interface (All) -->
+    <div class="mitrautama-tab-content active" id="subtab-interface">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+
       <table class="mitrane-grid-table mitrautama-table" id="mitrane-interfaces-table">
         <thead>
           <tr>
@@ -1247,6 +1250,667 @@
           </tr>
         </tbody>
       </table>
+          </div>
+    </div>
+
+    <!-- Subtab 2: Interface List -->
+    <div class="mitrautama-tab-content" id="subtab-interface-list" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-interface-list">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>List Name</th>
+              <th>Interface Member</th>
+              <th>Include / Exclude</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong class="text-primary">WAN</strong></td>
+              <td>ETH1 (enp1s0)</td>
+              <td><span class="badge bg-success">include</span></td>
+              <td class="text-muted">Internet Gateway Uplink</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong class="text-success">LAN</strong></td>
+              <td>ETH2, ETH3, ETH4, ETH5, BRIDGE1</td>
+              <td><span class="badge bg-success">include</span></td>
+              <td class="text-muted">Local Area Network Clients</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong class="text-info">MANAGEMENT</strong></td>
+              <td>VLAN10-MGMT, LO</td>
+              <td><span class="badge bg-success">include</span></td>
+              <td class="text-muted">Out-of-band & System Admin</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong class="text-warning">GUEST</strong></td>
+              <td>VLAN30-GUEST, WLAN2</td>
+              <td><span class="badge bg-success">include</span></td>
+              <td class="text-muted">Public Captive Portal Isolated</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 3: Ethernet -->
+    <div class="mitrautama-tab-content" id="subtab-ethernet" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-ethernet">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>MAC Address</th>
+              <th>Speed</th>
+              <th>Duplex</th>
+              <th>Auto Negotiation</th>
+              <th>Tx Rate</th>
+              <th>Rx Rate</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH1</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp1s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0A</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">1.0 KB/s</td>
+              <td class="text-primary fw-semibold">641 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH2</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp2s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0B</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">14.2 KB/s</td>
+              <td class="text-primary fw-semibold">8.7 KB/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH3</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp3s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0C</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">12.1 KB/s</td>
+              <td class="text-primary fw-semibold">7.4 KB/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH4</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp4s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0D</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">3.4 KB/s</td>
+              <td class="text-primary fw-semibold">1.2 KB/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH5</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp5s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0E</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">512 B/s</td>
+              <td class="text-primary fw-semibold">256 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH6</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp6s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:0F</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">0 B/s</td>
+              <td class="text-primary fw-semibold">0 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH7</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp7s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:10</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">0 B/s</td>
+              <td class="text-primary fw-semibold">0 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH8</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp8s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:11</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">0 B/s</td>
+              <td class="text-primary fw-semibold">0 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH9</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp9s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:12</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">0 B/s</td>
+              <td class="text-primary fw-semibold">0 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>ETH10</strong> <span class="text-muted" style="font-size: 0.72rem;">(enp10s0)</span></td>
+              <td><code>2C:C8:1B:18:BE:13</code></td>
+              <td><span class="badge bg-success">1 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">0 B/s</td>
+              <td class="text-primary fw-semibold">0 B/s</td>
+              <td><span class="badge bg-success">Link Up</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>SFP-PLUS1</strong> <span class="text-muted" style="font-size: 0.72rem;">(sfp-sfpplus1)</span></td>
+              <td><code>2C:C8:1B:18:BE:14</code></td>
+              <td><span class="badge bg-primary">10 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td class="mitrane-rate-active">45.8 KB/s</td>
+              <td class="text-primary fw-semibold">22.4 KB/s</td>
+              <td><span class="badge bg-success">SFP+ Ready</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td><strong>SFP-PLUS2</strong> <span class="text-muted" style="font-size: 0.72rem;">(sfp-sfpplus2)</span></td>
+              <td><code>2C:C8:1B:18:BE:15</code></td>
+              <td><span class="badge bg-secondary">10 Gbps</span></td>
+              <td>full-duplex</td>
+              <td><span class="text-muted">no</span></td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td><span class="badge bg-secondary">No SFP</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 4: EoIP Tunnel -->
+    <div class="mitrautama-tab-content" id="subtab-eoip-tunnel" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-eoip-tunnel">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>MTU</th>
+              <th>Remote Address</th>
+              <th>Tunnel ID</th>
+              <th>Keepalive</th>
+              <th>Tx Rate</th>
+              <th>Rx Rate</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>EOIP-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(eoip-vps)</span></td>
+              <td>1500</td>
+              <td><code>103.147.154.2</code></td>
+              <td><span class="badge bg-info">10</span></td>
+              <td>10s, 10 retries</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td><span class="badge bg-success">Established</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 5: IP Tunnel (IPIP) -->
+    <div class="mitrautama-tab-content" id="subtab-ip-tunnel" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-ip-tunnel">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>MTU</th>
+              <th>Local Address</th>
+              <th>Remote Address</th>
+              <th>DSCP</th>
+              <th>Clamp MSS</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>IPIP-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(ipip-vps)</span></td>
+              <td>1480</td>
+              <td><code>192.168.1.100</code></td>
+              <td><code>103.147.154.2</code></td>
+              <td>inherit</td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 6: GRE Tunnel -->
+    <div class="mitrautama-tab-content" id="subtab-gre-tunnel" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-gre-tunnel">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>MTU</th>
+              <th>Local Address</th>
+              <th>Remote Address</th>
+              <th>Keepalive</th>
+              <th>IPsec Secret</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>GRE-VPS</strong> <span class="text-muted" style="font-size: 0.72rem;">(gre-vps)</span></td>
+              <td>1476</td>
+              <td><code>0.0.0.0</code></td>
+              <td><code>103.147.154.2</code></td>
+              <td>10s, 10 retries</td>
+              <td><span class="text-muted">none</span></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td><strong>GRE0</strong> <span class="text-muted" style="font-size: 0.72rem;">(gre0)</span></td>
+              <td>1476</td>
+              <td><code>0.0.0.0</code></td>
+              <td><code>0.0.0.0</code></td>
+              <td>10s, 10 retries</td>
+              <td><span class="text-muted">none</span></td>
+              <td><span class="badge bg-secondary">Disabled</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
+              <td><strong>GRETAP0</strong> <span class="text-muted" style="font-size: 0.72rem;">(gretap0)</span></td>
+              <td>1462</td>
+              <td><code>0.0.0.0</code></td>
+              <td><code>0.0.0.0</code></td>
+              <td>10s, 10 retries</td>
+              <td><span class="text-muted">none</span></td>
+              <td><span class="badge bg-secondary">Disabled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 7: VLAN -->
+    <div class="mitrautama-tab-content" id="subtab-vlan" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vlan">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>VLAN ID</th>
+              <th>Interface</th>
+              <th>MTU</th>
+              <th>ARP</th>
+              <th>Tx Rate</th>
+              <th>Rx Rate</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>VLAN10-MGMT</strong> <span class="text-muted" style="font-size: 0.72rem;">(vlan10)</span></td>
+              <td><span class="badge bg-primary">10</span></td>
+              <td>ETH2 (enp2s0)</td>
+              <td>1500</td>
+              <td>enabled</td>
+              <td class="mitrane-rate-active">8.4 KB/s</td>
+              <td class="text-primary fw-semibold">4.2 KB/s</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>VLAN20-OFFICE</strong> <span class="text-muted" style="font-size: 0.72rem;">(vlan20)</span></td>
+              <td><span class="badge bg-success">20</span></td>
+              <td>ETH2 (enp2s0)</td>
+              <td>1500</td>
+              <td>enabled</td>
+              <td class="mitrane-rate-active">5.8 KB/s</td>
+              <td class="text-primary fw-semibold">4.5 KB/s</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>VLAN30-GUEST</strong> <span class="text-muted" style="font-size: 0.72rem;">(vlan30)</span></td>
+              <td><span class="badge bg-warning">30</span></td>
+              <td>ETH3 (enp3s0)</td>
+              <td>1500</td>
+              <td>enabled</td>
+              <td class="text-muted">0 B/s</td>
+              <td class="text-muted">0 B/s</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>VLAN40-HOTSPOT</strong> <span class="text-muted" style="font-size: 0.72rem;">(vlan40)</span></td>
+              <td><span class="badge bg-danger">40</span></td>
+              <td>ETH3 (enp3s0)</td>
+              <td>1500</td>
+              <td>enabled</td>
+              <td class="mitrane-rate-active">1.2 KB/s</td>
+              <td class="text-primary fw-semibold">980 B/s</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 8: Bridge -->
+    <div class="mitrautama-tab-content" id="subtab-bridge" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-bridge">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Actual MTU</th>
+              <th>L2 MTU</th>
+              <th>MAC Address</th>
+              <th>STP</th>
+              <th>VLAN Filtering</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>BRIDGE1</strong> <span class="text-muted" style="font-size: 0.72rem;">(bridge1)</span></td>
+              <td>1500</td>
+              <td>1500</td>
+              <td><code>2C:C8:1B:18:BE:0A</code></td>
+              <td><span class="badge bg-info">rstp</span></td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 9: VXLAN -->
+    <div class="mitrautama-tab-content" id="subtab-vxlan" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vxlan">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>VNI</th>
+              <th>Port</th>
+              <th>MTU</th>
+              <th>MAC Address</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>VXLAN100</strong> <span class="text-muted" style="font-size: 0.72rem;">(vxlan100)</span></td>
+              <td><span class="badge bg-primary">100</span></td>
+              <td>4789</td>
+              <td>1500</td>
+              <td><code>2C:C8:1B:18:BE:20</code></td>
+              <td><span class="badge bg-success">Running</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 10: VRF -->
+    <div class="mitrautama-tab-content" id="subtab-vrf" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vrf">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Routing Table</th>
+              <th>Interfaces</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>main</strong></td>
+              <td><code>main</code></td>
+              <td>ETH1, ETH2, ETH3, BRIDGE1</td>
+              <td class="text-muted">Default Routing Table</td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>vrf-mgmt</strong></td>
+              <td><code>mgmt</code></td>
+              <td>VLAN10-MGMT</td>
+              <td class="text-muted">Isolated Management VRF</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 11: VRRP -->
+    <div class="mitrautama-tab-content" id="subtab-vrrp" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vrrp">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Interface</th>
+              <th>VRID</th>
+              <th>Priority</th>
+              <th>Interval</th>
+              <th>Authentication</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>vrrp1</strong></td>
+              <td>ETH1 (enp1s0)</td>
+              <td><span class="badge bg-primary">50</span></td>
+              <td>100</td>
+              <td>1s</td>
+              <td>simple (AH)</td>
+              <td><span class="badge bg-success">Master</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 12: LACC / Bonding -->
+    <div class="mitrautama-tab-content" id="subtab-lacc" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-lacc">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Bond Name</th>
+              <th>Mode</th>
+              <th>Slaves</th>
+              <th>Primary</th>
+              <th>Link Monitoring</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>bond0</strong></td>
+              <td><span class="badge bg-primary">802.3ad (LACP)</span></td>
+              <td>ETH9, ETH10</td>
+              <td>ETH9</td>
+              <td>mii (100ms)</td>
+              <td><span class="badge bg-success">Up (2 Gbps)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 13: MACsec -->
+    <div class="mitrautama-tab-content" id="subtab-macsec" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-macsec">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Profile Name</th>
+              <th>Interface</th>
+              <th>Cipher</th>
+              <th>Key ID (CKN)</th>
+              <th>Replay Protect</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>macsec-core</strong></td>
+              <td>SFP-PLUS1</td>
+              <td><span class="badge bg-dark">GCM-AES-128</span></td>
+              <td><code>01A4B892...</code></td>
+              <td><span class="text-success fw-bold">yes</span></td>
+              <td><span class="badge bg-success">Secured</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 14: MACVLAN -->
+    <div class="mitrautama-tab-content" id="subtab-macvlan" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-macvlan">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Interface</th>
+              <th>Mode</th>
+              <th>MAC Address</th>
+              <th>MTU</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>macvlan1</strong></td>
+              <td>ETH2 (enp2s0)</td>
+              <td>bridge</td>
+              <td><code>00:16:3E:AA:BB:CC</code></td>
+              <td>1500</td>
+              <td><span class="badge bg-success">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 15: vEther -->
+    <div class="mitrautama-tab-content" id="subtab-vether" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vether">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Virtual Peer</th>
+              <th>MAC Address</th>
+              <th>MTU</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>veth-container1</strong></td>
+              <td>veth-host1</td>
+              <td><code>02:00:5E:01:02:03</code></td>
+              <td>1500</td>
+              <td><span class="badge bg-success">Connected</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Subtab 16: vEther Tunnel -->
+    <div class="mitrautama-tab-content" id="subtab-vether-tunnel" style="display: none;">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
+        <table class="mitrane-grid-table mitrautama-table" id="table-vether-tunnel">
+          <thead>
+            <tr>
+              <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+              <th>Name</th>
+              <th>Tunnel End-Point</th>
+              <th>VNI / Tag</th>
+              <th>MTU</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>vether-tun1</strong></td>
+              <td>10.255.0.1</td>
+              <td><span class="badge bg-info">1001</span></td>
+              <td>1450</td>
+              <td><span class="badge bg-success">Up</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- 4. Subsystem Status & Item Count Footer -->
@@ -1262,7 +1926,6 @@
 
   </div>
 </div>
-
 </div>
                 <div id="ip-module-container">
 <!-- Module: ip/ip.html -->
