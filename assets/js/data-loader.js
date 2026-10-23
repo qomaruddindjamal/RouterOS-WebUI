@@ -60,7 +60,7 @@ export class JsonDataService {
         const term = (filterText || '').toLowerCase();
 
         // 1. Standalone Interfaces (Port yang belum dimasukkan ke bridge / di luar keanggotaan)
-        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1'];
+        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'];
 
         // 2. Bridge Accordion: BRIDGE1 (2. LAN) hanya membawahi ether4
         const bridgeDef = {
@@ -76,7 +76,7 @@ export class JsonDataService {
                 id: 'iface-group-wan',
                 title: '1. WAN',
                 color: '#0284c7',
-                members: ['ETH7', 'ETH8', 'ETH9', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'],
+                members: ['ETH7', 'ETH8', 'ETH9'],
                 type: 'List / WAN'
             },
             {
