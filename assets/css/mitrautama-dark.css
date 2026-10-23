@@ -548,6 +548,12 @@ div[style*="background: var(--mu-surface"],
     border-left-color: #1e293b !important;
 }
 
+#view-qos .border-start .text-muted,
+#view-qos .border-start .text-muted svg {
+    color: #94a3b8 !important;
+    stroke: #94a3b8 !important;
+}
+
 .btn-light,
 #view-qos .btn-light {
     background-color: #1e293b !important;
