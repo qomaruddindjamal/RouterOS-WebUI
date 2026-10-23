@@ -170,7 +170,7 @@
         <div class="mitrautama-body-container">
             <!-- SIDEBAR CONTAINER (Modular: includes/sidebar.html) -->
             <div id="sidebar-container">
-                <aside class="mitrautama-sidebar" id="sidebarMenu">
+<aside class="mitrautama-sidebar" id="sidebarMenu">
                     <ul class="mitrautama-sidebar-menu">
                         <!-- Quick Set -->
                         <li>
@@ -201,7 +201,7 @@
                                     </span>
                                     <span class="mitrautama-menu-text">Wireless</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="wireless-tables">Wireless Tables</a></li>
@@ -259,10 +259,19 @@
                                     </span>
                                     <span class="mitrautama-menu-text">Switch</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-host">Host</a></li>
+                        <!-- Xray-Core -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="xray">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Xray-Core</span>
+                            </a>
+                        </li>
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-port-isolation">Port Isolation</a></li>
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-ports">Ports</a></li>
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="switch-rule">Rule</a></li>
@@ -280,6 +289,15 @@
                                 <span class="mitrautama-menu-text">Mesh</span>
                             </a>
                         </li>
+                        <!-- Devices -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="devices">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">Devices</span>
+                            </a>
+                        </li>
 
                         <!-- IP (Drop-Right) -->
                         <li class="mitrautama-menu-group">
@@ -290,7 +308,7 @@
                                     </span>
                                     <span class="mitrautama-menu-text">IP</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ip-addresses">Addresses</a></li>
@@ -311,7 +329,7 @@
                                     <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"></path></svg></span>
                                     <span class="mitrautama-menu-text">IPv6</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="ipv6-addresses">Addresses</a></li>
@@ -327,7 +345,7 @@
                                     <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path></svg></span>
                                     <span class="mitrautama-menu-text">MPLS</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="mpls-interfaces">Interfaces</a></li>
@@ -342,7 +360,7 @@
                                     <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"></polyline><line x1="4" y1="20" x2="21" y2="3"></line></svg></span>
                                     <span class="mitrautama-menu-text">Routing</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="routing-bgp">BGP</a></li>
@@ -357,10 +375,19 @@
                                     <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
                                     <span class="mitrautama-menu-text">System</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-resources">Resources &amp; Health</a></li>
+                        <!-- KVM -->
+                        <li>
+                            <a href="#" class="mitrautama-menu-item" data-mitrautama-view="kvm">
+                                <span class="mitrautama-menu-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                </span>
+                                <span class="mitrautama-menu-text">KVM</span>
+                            </a>
+                        </li>
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-routerboard">RouterBOARD</a></li>
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-view="system-users">Users</a></li>
                             </ul>
@@ -421,7 +448,7 @@
                                     <span class="mitrautama-menu-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
                                     <span class="mitrautama-menu-text">Tools</span>
                                 </span>
-                                <span class="mitrautama-submenu-chevron">▶</span>
+                                <svg class="mitrautama-submenu-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </a>
                             <ul class="mitrautama-submenu-list">
                                 <li><a href="#" class="mitrautama-submenu-item" data-mitrautama-modal-open="modal-ping">Ping Tool</a></li>
