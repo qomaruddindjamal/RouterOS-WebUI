@@ -2174,6 +2174,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // =========================================================================
+    // Interfaces Accordion Tree View Toggle (Chevron >)
+    // =========================================================================
+    document.addEventListener('click', (e) => {
+        const toggleBtn = e.target.closest('.btn-iface-toggle');
+        const rootRow = e.target.closest('.iface-root-row');
+        
+        let nodeId = null;
+        let btn = null;
+
+        if (toggleBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            nodeId = toggleBtn.getAttribute('data-iface-node');
+            btn = toggleBtn;
+        } else if (rootRow) {
+            btn = rootRow.querySelector('.btn-iface-toggle');
+            if (btn) nodeId = btn.getAttribute('data-iface-node');
+        }
+
+        if (!nodeId || !btn) return;
+
+        const table = btn.closest('table');
+        if (!table) return;
+
+        const chevron = btn.querySelector('.iface-chevron');
+        const childRows = table.querySelectorAll('tr[data-iface-parent="' + nodeId + '"]');
+        const firstChild = childRows[0];
+        const isCurrentlyClosed = firstChild ? (firstChild.style.display === 'none') : true;
+
+        if (chevron) {
+            chevron.style.transform = isCurrentlyClosed ? 'rotate(90deg)' : 'rotate(0deg)';
+        }
+
+        childRows.forEach(row => {
+            row.style.display = isCurrentlyClosed ? '' : 'none';
+        });
+    });
+
     // Bridge Tree / Accordion Toggle Handler (QoS Style: + / -)
     document.addEventListener('click', (e) => {
         // Klik pada tombol toggle (+ / -) atau pada baris root bridge
