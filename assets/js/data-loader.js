@@ -59,26 +59,27 @@ export class JsonDataService {
         this.currentFilter = filterText;
         const term = (filterText || '').toLowerCase();
 
-        // 1. Standalone Interfaces (Port yang belum dimasukkan ke bridge / di luar keanggotaan)
-        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'];
-
-        // 2. Bridge Accordion: BRIDGE1 (2. LAN) hanya membawahi ether4
-        const bridgeDef = {
-            id: 'iface-group-bridge1',
-            parentName: '2. LAN',
-            color: '#16a34a',
-            members: ['ETH4']
-        };
-
-        // 3. Kelompok Interface Standar lainnya (Bridge WAN ether7-9 & Uplinks, MGMT, GUEST)
-        const otherGroups = [
+        // 1. Bridges Paling Atas (1. WAN & 2. LAN)
+        const bridgeGroups = [
             {
                 id: 'iface-group-wan',
                 title: '1. WAN',
                 color: '#0284c7',
                 members: ['ETH7', 'ETH8', 'ETH9'],
-                type: 'List / WAN'
+                type: 'Bridge'
             },
+            {
+                id: 'iface-group-bridge1',
+                title: '2. LAN',
+                parentName: '2. LAN',
+                color: '#16a34a',
+                members: ['ETH4'],
+                type: 'Bridge'
+            }
+        ];
+
+        // 2. Kelompok Interface Standar lainnya
+        const otherGroups = [
             {
                 id: 'iface-group-mgmt',
                 title: '3. MANAGEMENT (Admin & Core)',
@@ -94,6 +95,9 @@ export class JsonDataService {
                 type: 'List / OVERLAY'
             }
         ];
+
+        // 3. Standalone Interfaces (Port di luar bridge)
+        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'];
 
         // Daftar port anggota bridge untuk flag cheklis 2 (hijau + biru)
         const bridgePortNames = new Set(['ETH4', 'ETH7', 'ETH8', 'ETH9']);
@@ -114,7 +118,7 @@ export class JsonDataService {
 
             let iconSvg;
             if (isBridgeMember) {
-                // Cheklis 2: Hijau (Running) + Biru (Bridge Member / Slave)
+                // Cheklis 2 WhatsApp Style: Hijau (Running) + Biru (Bridge Member / Slave)
                 iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
             } else if (isRunning) {
                 iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
@@ -154,70 +158,30 @@ export class JsonDataService {
         };
 
         // =========================================================================
-        // A. Render Standalone Interfaces (Root level tanpa chevron accordion)
+        // A. Render Bridges Paling Atas (1. WAN & 2. LAN)
         // =========================================================================
-        standaloneNames.forEach(name => {
-            const entry = ifaceMap[name];
-            if (!entry) return;
-            const { item, idx } = entry;
-            const matches = !term ||
-                            item.name.toLowerCase().includes(term) ||
-                            item.subname.toLowerCase().includes(term) ||
-                            item.type.toLowerCase().includes(term);
-            if (!matches) return;
+        bridgeGroups.forEach(bGrp => {
+            const bEntry = bGrp.parentName ? ifaceMap[bGrp.parentName] : null;
+            const bIdx = bEntry ? bEntry.idx : -1;
+            const bItem = bEntry ? bEntry.item : {
+                name: bGrp.title,
+                subname: bGrp.title.toLowerCase(),
+                type: 'Bridge',
+                status: 'running',
+                actualMtu: 1500,
+                l2Mtu: 1500,
+                tx: '15.2 KB/s',
+                rx: '9.3 KB/s',
+                txPkt: 21,
+                rxPkt: 16,
+                fpTx: '15.2 KB/s',
+                fpRx: '9.3 KB/s',
+                fpTxPkt: 21,
+                fpRxPkt: 16
+            };
 
-            totalRendered++;
-            const isRunning = item.status === 'running';
-            const isBridgeMember = bridgePortNames.has(item.name);
-
-            let iconSvg;
-            if (isBridgeMember) {
-                // Cheklis 2: Hijau (Running) + Biru (Bridge Member / Slave)
-                iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-            } else if (isRunning) {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            } else {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-            }
-
-            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
-
-            const safeName = this.escapeHtml(item.name);
-            const safeSubname = this.escapeHtml(item.subname);
-            const safeType = this.escapeHtml(item.type);
-
-            htmlParts.push(`
-            <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${idx}" style="cursor: pointer;">
-                <td class="text-center" style="width: 28px;">${iconSvg}</td>
-                <td>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                    <strong>${safeName}</strong>
-                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                </td>
-                <td><span class="mitrane-badge-type">${safeType}</span></td>
-                <td>${item.actualMtu}</td>
-                <td>${item.l2Mtu}</td>
-                <td class="${txRateClass}">${item.tx}</td>
-                <td class="${rxRateClass}">${item.rx}</td>
-                <td>${item.txPkt}</td>
-                <td>${item.rxPkt}</td>
-                <td>${item.fpTx}</td>
-                <td>${item.fpRx}</td>
-                <td>${item.fpTxPkt}</td>
-                <td>${item.fpRxPkt}</td>
-            </tr>`);
-        });
-
-        // =========================================================================
-        // B. Render Bridge Accordion (BRIDGE1 sebagai master / parent closed)
-        // =========================================================================
-        const bridgeEntry = ifaceMap[bridgeDef.parentName];
-        if (bridgeEntry) {
-            const { item: bItem, idx: bIdx } = bridgeEntry;
-            const matchingBridgeMembers = [];
-            bridgeDef.members.forEach(mName => {
+            const matchingMembers = [];
+            bGrp.members.forEach(mName => {
                 const entry = ifaceMap[mName];
                 if (!entry) return;
                 const it = entry.item;
@@ -225,21 +189,21 @@ export class JsonDataService {
                                 it.name.toLowerCase().includes(term) ||
                                 it.subname.toLowerCase().includes(term) ||
                                 it.type.toLowerCase().includes(term) ||
-                                bItem.name.toLowerCase().includes(term);
-                if (matches) matchingBridgeMembers.push(entry);
+                                bGrp.title.toLowerCase().includes(term);
+                if (matches) matchingMembers.push(entry);
             });
 
-            const bridgeParentMatches = !term ||
-                                        bItem.name.toLowerCase().includes(term) ||
-                                        bItem.subname.toLowerCase().includes(term) ||
-                                        bItem.type.toLowerCase().includes(term);
+            const parentMatches = !term ||
+                                  bGrp.title.toLowerCase().includes(term) ||
+                                  bItem.name.toLowerCase().includes(term) ||
+                                  bItem.subname.toLowerCase().includes(term);
 
-            if (!term || bridgeParentMatches || matchingBridgeMembers.length > 0) {
-                totalRendered += 1 + matchingBridgeMembers.length;
+            if (!term || parentMatches || matchingMembers.length > 0) {
+                totalRendered += (bEntry ? 1 : 0) + matchingMembers.length;
                 const isClosed = !term;
                 const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
                 const childDisplay = isClosed ? 'display: none;' : '';
-                const memberCount = matchingBridgeMembers.length;
+                const memberCount = matchingMembers.length;
 
                 const isRunning = bItem.status === 'running';
                 const iconSvg = isRunning 
@@ -248,24 +212,25 @@ export class JsonDataService {
 
                 const txRateClass = bItem.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
                 const rxRateClass = bItem.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-                const isSelected = this.selectedIndex === bIdx ? 'table-primary selected' : '';
+                const isSelected = (bIdx !== -1 && this.selectedIndex === bIdx) ? 'table-primary selected' : '';
 
-                const safeName = this.escapeHtml(bItem.name);
+                const safeName = this.escapeHtml(bGrp.title);
                 const safeSubname = this.escapeHtml(bItem.subname);
-                const safeType = this.escapeHtml(bItem.type);
+                const safeType = this.escapeHtml(bGrp.type);
 
-                // Parent Bridge Row
+                const dataIdxAttr = bIdx !== -1 ? `data-mitrautama-row-index="${bIdx}"` : '';
+
                 htmlParts.push(`
-                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${bridgeDef.id}" data-mitrautama-row-index="${bIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${bGrp.id}" ${dataIdxAttr} style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
                     <td class="text-center" style="width: 28px;">${iconSvg}</td>
                     <td>
-                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${bridgeDef.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${bGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
                             <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
                         </span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${bridgeDef.color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>
-                        <strong style="color: ${bridgeDef.color};">${safeName}</strong>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${bGrp.color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>
+                        <strong style="color: ${bGrp.color};">${safeName}</strong>
                         <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${bridgeDef.color}; color: #ffffff;">${memberCount}</span>
+                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${bGrp.color}; color: #ffffff;">${memberCount}</span>
                     </td>
                     <td><span class="mitrane-badge-type">${safeType}</span></td>
                     <td>${bItem.actualMtu}</td>
@@ -280,15 +245,14 @@ export class JsonDataService {
                     <td>${bItem.fpRxPkt}</td>
                 </tr>`);
 
-                // Bridge Member Rows
-                matchingBridgeMembers.forEach(({ item, idx }) => {
-                    htmlParts.push(renderChildRow(item, idx, bridgeDef.id, childDisplay));
+                matchingMembers.forEach(({ item, idx }) => {
+                    htmlParts.push(renderChildRow(item, idx, bGrp.id, childDisplay));
                 });
             }
-        }
+        });
 
         // =========================================================================
-        // C. Render Kelompok Interface Lainnya (WAN, MGMT, GUEST)
+        // B. Render Kelompok Interface Lainnya (MGMT, GUEST)
         // =========================================================================
         otherGroups.forEach(grp => {
             const matchingMembers = [];
@@ -343,6 +307,62 @@ export class JsonDataService {
             matchingMembers.forEach(({ item, idx }) => {
                 htmlParts.push(renderChildRow(item, idx, grp.id, childDisplay));
             });
+        });
+
+        // =========================================================================
+        // C. Render Standalone Interfaces (Port di luar bridge)
+        // =========================================================================
+        standaloneNames.forEach(name => {
+            const entry = ifaceMap[name];
+            if (!entry) return;
+            const { item, idx } = entry;
+            const matches = !term ||
+                            item.name.toLowerCase().includes(term) ||
+                            item.subname.toLowerCase().includes(term) ||
+                            item.type.toLowerCase().includes(term);
+            if (!matches) return;
+
+            totalRendered++;
+            const isRunning = item.status === 'running';
+            const isBridgeMember = bridgePortNames.has(item.name);
+
+            let iconSvg;
+            if (isBridgeMember) {
+                iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            } else if (isRunning) {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            } else {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            }
+
+            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
+            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
+
+            const safeName = this.escapeHtml(item.name);
+            const safeSubname = this.escapeHtml(item.subname);
+            const safeType = this.escapeHtml(item.type);
+
+            htmlParts.push(`
+            <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${idx}" style="cursor: pointer;">
+                <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                <td>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                    <strong>${safeName}</strong>
+                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                </td>
+                <td><span class="mitrane-badge-type">${safeType}</span></td>
+                <td>${item.actualMtu}</td>
+                <td>${item.l2Mtu}</td>
+                <td class="${txRateClass}">${item.tx}</td>
+                <td class="${rxRateClass}">${item.rx}</td>
+                <td>${item.txPkt}</td>
+                <td>${item.rxPkt}</td>
+                <td>${item.fpTx}</td>
+                <td>${item.fpRx}</td>
+                <td>${item.fpTxPkt}</td>
+                <td>${item.fpRxPkt}</td>
+            </tr>`);
         });
 
         tableBody.innerHTML = htmlParts.join('');
