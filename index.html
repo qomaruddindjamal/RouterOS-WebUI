@@ -727,10 +727,46 @@
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn btn-new" id="btn-interface-new" data-mitrautama-modal-open="modal-add-interface">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          <span>New</span>
-        </button>
+        <div class="mitrautama-new-dropdown" id="dropdown-new-interface-container">
+          <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-interface-new" aria-expanded="false" title="Add Interface">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>New</span>
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ms-1"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="mitrautama-new-dropdown-menu" id="menu-interface-new">
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="EoIP Tunnel">EoIP Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="IP Tunnel">IP Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="GRE Tunnel">GRE Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="VLAN">VLAN</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="VXLAN">VXLAN</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="VRRP">VRRP</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="MACsec">MACsec</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="MACVLAN">MACVLAN</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="Bonding">Bonding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="Bridge">Bridge</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="Mesh">Mesh</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="VPLS">VPLS</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="WireGuard">WireGuard</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="WiFi">WiFi</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPP Server">PPP Server</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPP Client">PPP Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPTP Server Binding">PPTP Server Binding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPTP Client">PPTP Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="SSTP Server Binding">SSTP Server Binding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="SSTP Client">SSTP Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="L2TP Server Binding">L2TP Server Binding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="L2TP Client">L2TP Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="OVPN Server Binding">OVPN Server Binding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="OVPN Client">OVPN Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPPoE Server Binding">PPPoE Server Binding</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="PPPoE Client">PPPoE Client</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="L2TP Ethernet">L2TP Ethernet</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="6to4 Tunnel">6to4 Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="IPIPv6 Tunnel">IPIPv6 Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="EoIPv6 Tunnel">EoIPv6 Tunnel</button>
+            <button type="button" class="mitrautama-new-dropdown-item" data-iface-type="GRE6 Tunnel">GRE6 Tunnel</button>
+          </div>
+        </div>
         <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn mitrautama-toolbar-btn" id="btn-interface-enable">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Enable</span>

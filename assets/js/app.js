@@ -2013,6 +2013,86 @@ class ModuleLoader {
                 });
             }
 
+// Bind Interfaces New Button Dropdown Menu
+            const btnNewIface = document.getElementById('btn-interface-new');
+            const menuNewIface = document.getElementById('menu-interface-new');
+
+            if (btnNewIface && menuNewIface) {
+                btnNewIface.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isShown = menuNewIface.classList.contains('show');
+                    if (isShown) {
+                        menuNewIface.classList.remove('show');
+                        btnNewIface.setAttribute('aria-expanded', 'false');
+                    } else {
+                        menuNewIface.classList.add('show');
+                        btnNewIface.setAttribute('aria-expanded', 'true');
+                    }
+                });
+
+                // Klik salah satu tipe interface di menu dropdown
+                menuNewIface.querySelectorAll('.mitrautama-new-dropdown-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        menuNewIface.classList.remove('show');
+                        btnNewIface.setAttribute('aria-expanded', 'false');
+
+                        const selectedType = item.getAttribute('data-iface-type') || 'VLAN';
+                        
+                        // Set tipe yang dipilih di modal add interface
+                        const typeSelect = document.getElementById('select-new-iface-type');
+                        if (typeSelect) {
+                            typeSelect.value = selectedType;
+                        }
+
+                        // Berikan default prefix nama interface yang intuitif
+                        const nameInput = document.getElementById('input-new-iface-name');
+                        if (nameInput) {
+                            let prefix = 'iface1';
+                            if (selectedType === 'EoIP Tunnel') prefix = 'eoip-tunnel1';
+                            else if (selectedType === 'IP Tunnel') prefix = 'ipip1';
+                            else if (selectedType === 'GRE Tunnel') prefix = 'gre-tunnel1';
+                            else if (selectedType === 'VLAN') prefix = 'vlan1';
+                            else if (selectedType === 'VXLAN') prefix = 'vxlan1';
+                            else if (selectedType === 'VRRP') prefix = 'vrrp1';
+                            else if (selectedType === 'MACsec') prefix = 'macsec1';
+                            else if (selectedType === 'MACVLAN') prefix = 'macvlan1';
+                            else if (selectedType === 'Bonding') prefix = 'bonding1';
+                            else if (selectedType === 'Bridge') prefix = 'bridge1';
+                            else if (selectedType === 'Mesh') prefix = 'mesh1';
+                            else if (selectedType === 'VPLS') prefix = 'vpls1';
+                            else if (selectedType === 'WireGuard') prefix = 'wg1';
+                            else if (selectedType === 'WiFi') prefix = 'wifi1';
+                            else if (selectedType.includes('PPPoE Client')) prefix = '<pppoe-out2>';
+                            else if (selectedType.includes('PPPoE')) prefix = 'pppoe-server1';
+                            else if (selectedType.includes('L2TP Client')) prefix = 'l2tp-out1';
+                            else if (selectedType.includes('L2TP')) prefix = 'l2tp-server1';
+                            else if (selectedType.includes('OVPN')) prefix = 'ovpn-out1';
+                            else if (selectedType.includes('SSTP')) prefix = 'sstp-out1';
+                            else if (selectedType.includes('PPTP')) prefix = 'pptp-out1';
+                            else if (selectedType.includes('6to4')) prefix = '6to4-tunnel1';
+                            else if (selectedType.includes('IPIPv6')) prefix = 'ipipv6-tunnel1';
+                            else if (selectedType.includes('EoIPv6')) prefix = 'eoipv6-tunnel1';
+                            else if (selectedType.includes('GRE6')) prefix = 'gre6-tunnel1';
+                            nameInput.value = prefix;
+                        }
+
+                        // Buka modal create interface
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-add-interface');
+                        }
+                    });
+                });
+
+                // Tutup dropdown jika klik di luar
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('#dropdown-new-interface-container')) {
+                        menuNewIface.classList.remove('show');
+                        btnNewIface.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
             // Bind Refresh Button
             const refreshBtn = document.getElementById('btn-interface-refresh');
             if (refreshBtn) {

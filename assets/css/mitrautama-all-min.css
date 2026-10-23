@@ -3726,3 +3726,82 @@ input[type=number] {
     text-align: center;
     line-height: 1.4;
 }
+
+
+/* WinBox Interfaces New Dropdown Menu */
+.mitrautama-new-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.mitrautama-new-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    min-width: 190px;
+    max-height: 480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 3px 0;
+    margin: 2px 0 0;
+    font-size: 0.76rem;
+    color: #1e293b;
+    text-align: left;
+    list-style: none;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mitrautama-new-dropdown-menu.show {
+    display: block;
+}
+
+.mitrautama-new-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 3px 12px;
+    clear: both;
+    font-weight: 400;
+    color: #1e293b;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.1s, color 0.1s;
+}
+
+.mitrautama-new-dropdown-item:hover,
+.mitrautama-new-dropdown-item:focus {
+    color: #ffffff;
+    background-color: #0284c7;
+    outline: none;
+}
+
+[data-theme="dark"] .mitrautama-new-dropdown-menu,
+[data-period="malam"] .mitrautama-new-dropdown-menu {
+    background-color: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .mitrautama-new-dropdown-item,
+[data-period="malam"] .mitrautama-new-dropdown-item {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .mitrautama-new-dropdown-item:hover,
+[data-period="malam"] .mitrautama-new-dropdown-item:hover,
+[data-theme="dark"] .mitrautama-new-dropdown-item:focus,
+[data-period="malam"] .mitrautama-new-dropdown-item:focus {
+    color: #ffffff;
+    background-color: #0284c7;
+}
