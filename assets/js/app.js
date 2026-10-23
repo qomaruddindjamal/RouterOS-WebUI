@@ -1451,8 +1451,8 @@ class JsonDataService {
         const preferredOrder = [
             '1. WAN', '2. LAN',
             'ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10',
-            'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'PPP0', 'WG-BACKBONE',
-            'SSTP-VPN', 'LO', '3. OVERLAY & TUNNELS'
+            'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'PPP0',
+            'LO', '3. OVERLAY & TUNNELS'
         ];
 
         roots.sort((a, b) => {

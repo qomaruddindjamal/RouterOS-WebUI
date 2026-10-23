@@ -440,7 +440,7 @@
       "fpRxPkt": 24,
       "macAddress": "2C:C8:1B:18:BE:1E",
       "defaultName": "wg-backbone",
-      "parent": null
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_22",
@@ -560,7 +560,7 @@
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:24",
       "defaultName": "sstp-out1",
-      "parent": null
+      "parent": "3. OVERLAY & TUNNELS"
     },
     {
       "id": "iface_28",
