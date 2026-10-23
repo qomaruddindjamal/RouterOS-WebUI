@@ -789,27 +789,157 @@
             <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
               <thead>
                 <tr>
-                  <th style="width: 24px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+                  <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
                   <th>Name <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
                   <th>Parent</th>
-                  <th>Packet ...</th>
-                  <th>Limit At (...</th>
-                  <th>Max Limit...</th>
+                  <th>Packet Marks</th>
+                  <th>Limit At</th>
+                  <th>Max Limit</th>
                   <th>Avg. Rate</th>
                   <th>Queued Bytes</th>
                   <th>Bytes</th>
                   <th>Packets</th>
-                  <th style="width: 100%;"></th>
+                  <th>Queue Type</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Empty queue tree as in screenshot -->
+                <!-- 1. Root Parent with children: GLOBAL-DOWNLOAD (Default Open) -->
+                <tr class="queue-row queue-root" data-queue-id="tree-global-down">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="tree-global-down" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <strong class="text-primary">1. GLOBAL-DOWNLOAD</strong>
+                  </td>
+                  <td>global</td>
+                  <td><span class="text-muted">none</span></td>
+                  <td>0 bps</td>
+                  <td><span class="fw-bold">100M</span></td>
+                  <td>4.8 Mbps</td>
+                  <td>0 B</td>
+                  <td>1.45 GiB</td>
+                  <td>1,120,432</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- Child 1.1: Web-Browsing (Open) -->
+                <tr class="queue-row queue-leaf" data-queue-parent="tree-global-down">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span style="display:inline-block; width: 32px;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>HTTP-Browsing-Down</span>
+                  </td>
+                  <td>1. GLOBAL-DOWNLOAD</td>
+                  <td><code>mark-http-down</code></td>
+                  <td>20M</td>
+                  <td>60M</td>
+                  <td>2.1 Mbps</td>
+                  <td>0 B</td>
+                  <td>780 MiB</td>
+                  <td>582,109</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- Child 1.2: Streaming-Down (Open) -->
+                <tr class="queue-row queue-leaf" data-queue-parent="tree-global-down">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span style="display:inline-block; width: 32px;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Video-Streaming-Down</span>
+                  </td>
+                  <td>1. GLOBAL-DOWNLOAD</td>
+                  <td><code>mark-stream-down</code></td>
+                  <td>15M</td>
+                  <td>30M</td>
+                  <td>2.7 Mbps</td>
+                  <td>0 B</td>
+                  <td>670 MiB</td>
+                  <td>538,323</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- 2. Root Parent with children: GLOBAL-UPLOAD (Default Open) -->
+                <tr class="queue-row queue-root" data-queue-id="tree-global-up">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="tree-global-up" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <strong class="text-primary">2. GLOBAL-UPLOAD</strong>
+                  </td>
+                  <td>global</td>
+                  <td><span class="text-muted">none</span></td>
+                  <td>0 bps</td>
+                  <td><span class="fw-bold">50M</span></td>
+                  <td>850 Kbps</td>
+                  <td>0 B</td>
+                  <td>320 MiB</td>
+                  <td>245,612</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- Child 2.1: DNS-ICMP-Up (Open) -->
+                <tr class="queue-row queue-leaf" data-queue-parent="tree-global-up">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span style="display:inline-block; width: 32px;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>High-Priority-Up (ICMP/DNS)</span>
+                  </td>
+                  <td>2. GLOBAL-UPLOAD</td>
+                  <td><code>mark-icmp-dns</code></td>
+                  <td>5M</td>
+                  <td>10M</td>
+                  <td>120 Kbps</td>
+                  <td>0 B</td>
+                  <td>45 MiB</td>
+                  <td>68,230</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- Child 2.2: General-Up (Open) -->
+                <tr class="queue-row queue-leaf" data-queue-parent="tree-global-up">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span style="display:inline-block; width: 32px;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>General-Clients-Up</span>
+                  </td>
+                  <td>2. GLOBAL-UPLOAD</td>
+                  <td><code>mark-client-up</code></td>
+                  <td>10M</td>
+                  <td>40M</td>
+                  <td>730 Kbps</td>
+                  <td>0 B</td>
+                  <td>275 MiB</td>
+                  <td>177,382</td>
+                  <td>default</td>
+                </tr>
+
+                <!-- 3. Parent Tunggal TANPA Child: ICMP-STANDALONE (No Accordion / Non-active toggle) -->
+                <tr class="queue-row queue-leaf" data-queue-id="tree-icmp-direct">
+                  <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                  <td>
+                    <span style="display:inline-block; width: 22px;"></span>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <strong class="text-primary">3. ICMP-STANDALONE</strong>
+                  </td>
+                  <td>global</td>
+                  <td><code>mark-ping-direct</code></td>
+                  <td>2M</td>
+                  <td>5M</td>
+                  <td>14 Kbps</td>
+                  <td>0 B</td>
+                  <td>8.2 MiB</td>
+                  <td>12,400</td>
+                  <td>default</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-                <!-- Tab 4: Queue Types matching screenshot -->
         <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-types" style="display: none;">
           <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
             <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
