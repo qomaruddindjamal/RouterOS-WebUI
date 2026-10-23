@@ -2282,44 +2282,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // QoS Manager Accordion Tree View Toggle (+ / −)
+    // QoS Manager Accordion Tree View Toggle (Chevron >)
     // =========================================================================
     document.addEventListener('click', (e) => {
         const toggleBtn = e.target.closest('.btn-queue-toggle');
-        if (!toggleBtn) return;
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        const nodeId = toggleBtn.getAttribute('data-queue-node');
-        if (!nodeId) return;
-
-        const isCurrentlyExpanded = toggleBtn.textContent.trim() === '−';
+        const queueRow = e.target.closest('.queue-root, .queue-branch');
         
-        // Toggle icon symbol
-        toggleBtn.textContent = isCurrentlyExpanded ? '+' : '−';
+        let nodeId = null;
+        let btn = null;
 
-        const table = toggleBtn.closest('table');
+        if (toggleBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            nodeId = toggleBtn.getAttribute('data-queue-node');
+            btn = toggleBtn;
+        } else if (queueRow) {
+            btn = queueRow.querySelector('.btn-queue-toggle');
+            if (btn) nodeId = btn.getAttribute('data-queue-node');
+        }
+
+        if (!nodeId || !btn) return;
+
+        const table = btn.closest('table');
         if (!table) return;
 
-        if (isCurrentlyExpanded) {
-            // Collapse: Sembunyikan semua children yang memiliki parent atau ancestor = nodeId
-            const children = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"], tr[data-queue-ancestor="${nodeId}"]`);
-            children.forEach(row => {
-                row.style.display = 'none';
-            });
-        } else {
-            // Expand: Tampilkan direct children
-            const directChildren = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"]`);
+        const chevron = btn.querySelector('.queue-chevron');
+        const directChildren = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"]`);
+        const firstChild = directChildren[0];
+        const isCurrentlyClosed = firstChild ? (firstChild.style.display === 'none') : true;
+
+        if (chevron) {
+            chevron.style.transform = isCurrentlyClosed ? 'rotate(90deg)' : 'rotate(0deg)';
+        }
+
+        if (isCurrentlyClosed) {
+            // Expand direct children
             directChildren.forEach(row => {
                 row.style.display = '';
-                // Jika direct child adalah branch lain (memiliki btn-queue-toggle), cek apakah statusnya expanded
+                // Jika direct child adalah branch yang sudah terbuka, tampilkan juga cucunya
                 const childToggle = row.querySelector('.btn-queue-toggle');
-                if (childToggle && childToggle.textContent.trim() === '−') {
+                const childChevron = childToggle ? childToggle.querySelector('.queue-chevron') : null;
+                if (childChevron && childChevron.style.transform === 'rotate(90deg)') {
                     const childNodeId = childToggle.getAttribute('data-queue-node');
                     const grandChildren = table.querySelectorAll(`tr[data-queue-parent="${childNodeId}"]`);
                     grandChildren.forEach(gc => gc.style.display = '');
                 }
+            });
+        } else {
+            // Collapse: sembunyikan semua descendants
+            const children = table.querySelectorAll(`tr[data-queue-parent="${nodeId}"], tr[data-queue-ancestor="${nodeId}"]`);
+            children.forEach(row => {
+                row.style.display = 'none';
             });
         }
     });
