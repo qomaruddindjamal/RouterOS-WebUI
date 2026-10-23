@@ -6110,7 +6110,7 @@
       </div>
     </div>
 
-    <!-- ==================== SUBTAB: Secrets ==================== -->
+        <!-- ==================== SUBTAB: Secrets ==================== -->
     <div class="mitrautama-tab-pane" id="subtab-vpn-secrets" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
       <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
@@ -6126,23 +6126,364 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="mitrane-table-empty-row">
-              <td colspan="7" class="text-center p-0" style="border: none;">
-                <div class="mitrane-empty-state-box">
-                  <div class="mitrane-empty-state-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  </div>
-                  <div class="mitrane-empty-state-title">No Local VPN Secrets</div>
-                  <div class="mitrane-empty-state-desc">No PPP server secrets configured locally. Provider client accounts are managed under Interfaces.</div>
-                </div>
+            <!-- Group Accordion: PPPoE Server Secrets -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="PPPoE Secrets" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="PPPoE Secrets" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong style="color: #f97316;">PPPoE Server Secrets</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN50-PPTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #f97316; color: #ffffff;">5</span>
               </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #f97316; border: 1px solid rgba(2, 132, 199, 0.3);">PPPoE Secrets</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.x.1</code></td>
+              <td><code>10.10.x.0/24</code></td>
+              <td class="text-muted">-</td>
+            </tr>
+            <!-- Child Secret: client01@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client01@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.50.1</code></td>
+              <td><code>10.10.50.101</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: client02@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client02@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.50.1</code></td>
+              <td><code>10.10.50.102</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: client03@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client03@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.50.1</code></td>
+              <td><code>10.10.50.103</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: client04@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client04@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.50.1</code></td>
+              <td><code>10.10.50.104</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: client05@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client05@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.50.1</code></td>
+              <td><code>10.10.50.105</code></td>
+              <td class="text-muted">never</td>
+            </tr>
+            <!-- Group Accordion: SSTP Server Secrets -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="SSTP Secrets" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="SSTP Secrets" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong style="color: #8b5cf6;">SSTP Server Secrets</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN60-SSTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #8b5cf6; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #8b5cf6; border: 1px solid rgba(2, 132, 199, 0.3);">SSTP Secrets</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.x.1</code></td>
+              <td><code>10.10.x.0/24</code></td>
+              <td class="text-muted">-</td>
+            </tr>
+            <!-- Child Secret: sstp-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.60.1</code></td>
+              <td><code>10.10.60.101</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: sstp-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.60.1</code></td>
+              <td><code>10.10.60.102</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: sstp-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.60.1</code></td>
+              <td><code>10.10.60.103</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: sstp-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.60.1</code></td>
+              <td><code>10.10.60.104</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: sstp-user05 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user05</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.60.1</code></td>
+              <td><code>10.10.60.105</code></td>
+              <td class="text-muted">never</td>
+            </tr>
+            <!-- Group Accordion: L2TP Server Secrets -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="L2TP Secrets" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="L2TP Secrets" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong style="color: #eab308;">L2TP Server Secrets</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN70-L2TP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #eab308; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #eab308; border: 1px solid rgba(2, 132, 199, 0.3);">L2TP Secrets</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.x.1</code></td>
+              <td><code>10.10.x.0/24</code></td>
+              <td class="text-muted">-</td>
+            </tr>
+            <!-- Child Secret: l2tp-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.70.1</code></td>
+              <td><code>10.10.70.101</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: l2tp-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.70.1</code></td>
+              <td><code>10.10.70.102</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: l2tp-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.70.1</code></td>
+              <td><code>10.10.70.103</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: l2tp-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.70.1</code></td>
+              <td><code>10.10.70.104</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: l2tp-user05 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user05</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.70.1</code></td>
+              <td><code>10.10.70.105</code></td>
+              <td class="text-muted">never</td>
+            </tr>
+            <!-- Group Accordion: OpenVPN Server Secrets -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="OpenVPN Secrets" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="OpenVPN Secrets" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong style="color: #06b6d4;">OpenVPN Server Secrets</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN80-OPENVPN)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #06b6d4; color: #ffffff;">5</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #06b6d4; border: 1px solid rgba(2, 132, 199, 0.3);">OpenVPN Secrets</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.x.1</code></td>
+              <td><code>10.10.x.0/24</code></td>
+              <td class="text-muted">-</td>
+            </tr>
+            <!-- Child Secret: ovpn-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.80.1</code></td>
+              <td><code>10.10.80.101</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: ovpn-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.80.1</code></td>
+              <td><code>10.10.80.102</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: ovpn-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.80.1</code></td>
+              <td><code>10.10.80.103</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: ovpn-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.80.1</code></td>
+              <td><code>10.10.80.104</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
+            </tr>
+            <!-- Child Secret: ovpn-user05 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Secrets" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user05</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.80.1</code></td>
+              <td><code>10.10.80.105</code></td>
+              <td class="text-muted">never</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
-        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem</div>
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">20 items (4 server groups)</span>
+        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem (PPPoE, SSTP, L2TP, OpenVPN)</div>
       </div>
     </div>
 
@@ -6631,7 +6972,7 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <!-- 100% Local Application Script (Works seamlessly on file:/// and http://) -->
-    <script src="assets/js/app.js?v=1792755210"></script>
+    <script src="assets/js/app.js?v=1792755511"></script>
 
     <!-- WINBOX INTERFACE PROPERTIES MODAL (Strict WinBox Replica) -->
     <div id="modal-interface-properties" class="modal-overlay">
