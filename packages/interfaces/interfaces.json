@@ -1,5 +1,5 @@
 {
-  "total": 57,
+  "total": 56,
   "lastUpdated": "2026-10-22T23:10:00Z",
   "interfaces": [
     {
@@ -601,26 +601,6 @@
       "macAddress": "2C:C8:1B:18:BE:22",
       "defaultName": "vxlan100",
       "parent": "3. OVERLAY & TUNNELS"
-    },
-    {
-      "id": "iface_26",
-      "name": "PPP0",
-      "subname": "ppp0",
-      "type": "PPP",
-      "status": "running",
-      "actualMtu": 1450,
-      "l2Mtu": 1500,
-      "tx": "0 B/s",
-      "rx": "0 B/s",
-      "txPkt": 0,
-      "rxPkt": 0,
-      "fpTx": "0 B/s",
-      "fpRx": "0 B/s",
-      "fpTxPkt": 0,
-      "fpRxPkt": 0,
-      "macAddress": "2C:C8:1B:18:BE:23",
-      "defaultName": "ppp0",
-      "parent": null
     },
     {
       "id": "iface_27",
