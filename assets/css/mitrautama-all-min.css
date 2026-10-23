@@ -2081,73 +2081,9 @@ input[type=number] {
 /* =========================================================================
    WINBOX FULLSCREEN FLUSH LAYOUT (RATA HEADER, FOOTER, SIDEBAR & KANAN LAYAR)
    ========================================================================= */
-.mitrautama-content-area.winbox-mode,
-.mitrautama-content-area:has(#view-interfaces:not([style*="none"])) {
+.mitrautama-content-area.winbox-mode {
     padding: 0 !important;
     overflow: hidden !important;
-}
-
-#view-interfaces {
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-}
-
-#view-interfaces .mitrane-window {
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 0 !important;
-    border: none !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-
-#view-interfaces .mitrane-tab-bar {
-    border-radius: 0 !important;
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-}
-
-#view-interfaces .mitrane-toolbar {
-    position: relative !important;
-    z-index: 100 !important;
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-}
-
-#view-interfaces .mitrautama-table-container {
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: none !important;
-    margin: 0 !important;
-    flex-grow: 1 !important;
-    height: 100% !important;
-    box-shadow: none !important;
-}
-
-#view-interfaces .mitrane-grid-table {
-    width: 100% !important;
-    margin-bottom: 0 !important;
-}
-
-#view-interfaces .mitrane-status-subsystem {
-    border-radius: 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: none !important;
-    margin: 0 !important;
-    padding: 4px 12px !important;
 }
 
 /* =========================================================================
@@ -2195,7 +2131,8 @@ input[type=number] {
     display: contents !important;
 }
 
-#view-interfaces {
+.mitrautama-content-area.winbox-mode [id^="view-"],
+.mitrautama-content-area.winbox-mode .mitrautama-view-section {
     width: 100% !important;
     height: 100% !important;
     min-height: 100% !important;
@@ -2207,11 +2144,13 @@ input[type=number] {
     box-sizing: border-box !important;
 }
 
-#view-interfaces[style*="display: none"] {
+.mitrautama-content-area.winbox-mode [id^="view-"][style*="display: none"],
+.mitrautama-content-area.winbox-mode .mitrautama-view-section[style*="display: none"] {
     display: none !important;
 }
 
-#view-interfaces .mitrane-window {
+.mitrautama-content-area.winbox-mode [id^="view-"] .mitrane-window,
+.mitrautama-content-area.winbox-mode .mitrane-window {
     width: 100% !important;
     height: 100% !important;
     min-height: 100% !important;
@@ -2224,7 +2163,8 @@ input[type=number] {
     flex-direction: column !important;
 }
 
-#view-interfaces .mitrautama-table-container {
+.mitrautama-content-area.winbox-mode [id^="view-"] .mitrautama-table-container,
+.mitrautama-content-area.winbox-mode .mitrautama-table-container {
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -2236,7 +2176,8 @@ input[type=number] {
     overflow: auto !important;
 }
 
-#view-interfaces .mitrane-status-subsystem {
+.mitrautama-content-area.winbox-mode [id^="view-"] .mitrane-status-subsystem,
+.mitrautama-content-area.winbox-mode .mitrane-status-subsystem {
     margin-top: auto !important;
     width: 100% !important;
     flex-shrink: 0 !important;
