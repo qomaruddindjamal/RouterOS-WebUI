@@ -1721,16 +1721,15 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
 
 .mitrautama-new-dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 2px);
     left: 0;
     z-index: 1050;
     display: none;
     min-width: 190px;
-    max-height: 480px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    max-height: none;
+    overflow: visible;
     padding: 3px 0;
-    margin: 2px 0 0;
+    margin: 0;
     font-size: 0.76rem;
     color: #1e293b;
     text-align: left;
@@ -1739,7 +1738,7 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     background-clip: padding-box;
     border: 1px solid #94a3b8;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .mitrautama-new-dropdown-menu.show {
