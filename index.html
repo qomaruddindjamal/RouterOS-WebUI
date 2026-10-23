@@ -5496,28 +5496,7 @@
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <!-- Quick Server Buttons -->
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-pptp" onclick="Swal.fire('PPTP Server', 'Konfigurasi Server PPTP', 'info')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <span>PPTP Server</span>
-        </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-sstp" onclick="Swal.fire('SSTP Server', 'Konfigurasi Server SSTP SSL', 'info')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <span>SSTP Server</span>
-        </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-l2tp" onclick="Swal.fire('L2TP Server', 'Konfigurasi Server L2TP / IPsec', 'info')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
-          <span>L2TP Server</span>
-        </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-ovpn" onclick="Swal.fire('OpenVPN Server', 'Konfigurasi Server OpenVPN', 'info')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-          <span>OpenVPN Server</span>
-        </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-booster" onclick="Swal.fire('Cloud Speed Booster', 'Pengaturan Akselerasi Tunnel Cloud Speed Booster', 'info')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>Booster Server</span>
-        </button>
-
+        <!-- Standard Actions (New, Enable, Disable, Remove, Comment) -->
         <!-- Standard Actions -->
         <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-vpn-new" onclick="Swal.fire('VPN Interface', 'Tambah koneksi VPN Interface baru', 'info')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
@@ -5538,6 +5517,29 @@
         <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-comment">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           <span>Comment</span>
+        </button>
+
+        <!-- Quick Server Buttons (PPTP Server, SSTP Server, L2TP Server, OpenVPN Server, Booster) -->
+        <!-- Quick Server Buttons -->
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-pptp" onclick="Swal.fire('PPTP Server', 'Konfigurasi Server PPTP', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>PPTP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-sstp" onclick="Swal.fire('SSTP Server', 'Konfigurasi Server SSTP SSL', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>SSTP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-l2tp" onclick="Swal.fire('L2TP Server', 'Konfigurasi Server L2TP / IPsec', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+          <span>L2TP Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-ovpn" onclick="Swal.fire('OpenVPN Server', 'Konfigurasi Server OpenVPN', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span>OpenVPN Server</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-vpn-booster" onclick="Swal.fire('Cloud Speed Booster', 'Pengaturan Akselerasi Tunnel Cloud Speed Booster', 'info')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Booster Server</span>
         </button>
       </div>
 
@@ -5728,21 +5730,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-              <td><strong>user@citramedia.tech</strong></td>
-              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.3);">pppoe</span></td>
-              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
-              <td><code>10.10.66.1</code></td>
-              <td><code>10.10.66.101</code></td>
-              <td class="text-muted">jan/01/2026 00:00:00</td>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Local VPN Secrets</div>
+                  <div class="mitrane-empty-state-desc">No PPP server secrets configured locally. Provider client accounts are managed under Interfaces.</div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">1 items</span>
-        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem (1 active secret: user@citramedia.tech)</div>
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem</div>
       </div>
     </div>
 
@@ -6231,7 +6235,7 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <!-- 100% Local Application Script (Works seamlessly on file:/// and http://) -->
-    <script src="assets/js/app.js?v=1792752057"></script>
+    <script src="assets/js/app.js?v=1792753584"></script>
 
     <!-- WINBOX INTERFACE PROPERTIES MODAL (Strict WinBox Replica) -->
     <div id="modal-interface-properties" class="modal-overlay">
