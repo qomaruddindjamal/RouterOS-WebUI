@@ -28,18 +28,18 @@ class ThemeManager {
     /**
      * Hitung waktu fajar, pagi, siang, senja, malam
      * Waktu Indonesia / Tropis:
-     * - Fajar (Dawn): 04:30 - 06:14 (Cahaya lembut fajar keemasan pastel)
-     * - Pagi (Morning): 06:15 - 11:29 (Cerah segar biru langit & putih hangat)
-     * - Siang (Afternoon): 11:30 - 15:29 (Ultra-bright, kontras tajam, cerah maksimal)
-     * - Senja (Dusk / Golden Sunset): 15:30 - 18:29 (Hangat jingga lembayung)
-     * - Malam (Night): 18:30 - 04:29 (Deep night, biru pekat nyaman elegan)
+     * - Fajar (Dawn): 04:00 - 06:14 (Cahaya lembut keemasan pastel)
+     * - Pagi (Morning): 06:15 - 11:29 (Cerah segar biru langit)
+     * - Siang (Afternoon): 11:30 - 15:59 (Ultra-bright kontras tajam)
+     * - Senja (Dusk): 16:00 - 17:59 (Hangat jingga lembayung sunset)
+     * - Malam (Night): 18:00 - 03:59 (Deep night dark mode)
      */
     getTimePeriod(date = new Date()) {
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const timeVal = hours * 60 + minutes;
 
-        if (timeVal >= 4 * 60 + 30 && timeVal < 6 * 60 + 15) {
+        if (timeVal >= 4 * 60 && timeVal < 6 * 60 + 15) {
             return {
                 name: 'fajar',
                 label: 'Fajar (Dawn)',
@@ -53,14 +53,14 @@ class ThemeManager {
                 icon: '☀️',
                 greeting: 'Selamat Pagi'
             };
-        } else if (timeVal >= 11 * 60 + 30 && timeVal < 15 * 60 + 30) {
+        } else if (timeVal >= 11 * 60 + 30 && timeVal < 16 * 60) {
             return {
                 name: 'siang',
                 label: 'Siang (Afternoon)',
                 icon: '🌞',
                 greeting: 'Selamat Siang'
             };
-        } else if (timeVal >= 15 * 60 + 30 && timeVal < 18 * 60 + 30) {
+        } else if (timeVal >= 16 * 60 && timeVal < 18 * 60) {
             return {
                 name: 'senja',
                 label: 'Senja (Dusk)',
