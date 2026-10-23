@@ -1451,7 +1451,7 @@ class JsonDataService {
         const preferredOrder = [
             '1. WAN', '2. LAN',
             'ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10',
-            'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE',
+            'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'PPP0', 'WG-BACKBONE',
             'SSTP-VPN', 'LO', '3. OVERLAY & TUNNELS'
         ];
 
@@ -1569,6 +1569,8 @@ class JsonDataService {
                     rootIconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>`;
                 } else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) {
                     rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`;
+                } else if (rItem.type === 'Wireless' || rItem.name.startsWith('WLAN')) {
+                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" class="me-1" style="vertical-align: middle;"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
                 } else {
                     rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`;
                 }
