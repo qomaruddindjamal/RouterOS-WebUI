@@ -100,22 +100,22 @@
                 <tr class="queue-row queue-root" data-queue-id="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">0</td>
-                  <td><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-all-trafic" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s;"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-bold">ALL TRAFIC</span></td>
+                  <td><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-all-trafic" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-bold">ALL TRAFIC</span></td>
                   <td>0.0.0.0/0</td>
                   <td>500M</td>
                   <td>500M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-branch" data-queue-id="node-distribusi" style="display: none;" data-queue-parent="node-all-trafic">
+                <tr class="queue-row queue-branch" data-queue-id="node-distribusi" data-queue-parent="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">1</td>
-                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-distribusi" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s;"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">A. DISTRIBUSI</span></td>
+                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-distribusi" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">A. DISTRIBUSI</span></td>
                   <td>192.168.92.0/24,...</td>
                   <td>100M</td>
                   <td>100M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">4</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>1. SMKHK</span></td>
@@ -124,7 +124,7 @@
                   <td>0</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">5</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>2. MI MU1</span></td>
@@ -133,7 +133,7 @@
                   <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">6</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>3. Jalal</span></td>
@@ -142,7 +142,7 @@
                   <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">7</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>4. TK RAMU</span></td>
@@ -151,7 +151,7 @@
                   <td>2M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">8</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>5. Ilham</span></td>
@@ -160,7 +160,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">9</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>6. MTs HK</span></td>
@@ -169,7 +169,7 @@
                   <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">10</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>7. Mbak Kho</span></td>
@@ -178,7 +178,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">11</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>8. Kak Hisyam</span></td>
@@ -187,7 +187,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf table-primary selected" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf table-primary selected" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">12</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>9. TB Makmur</span></td>
@@ -196,7 +196,7 @@
                   <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">13</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>10. Pak Asrofi</span></td>
@@ -205,7 +205,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">14</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>11. Rahayu Segawe</span></td>
@@ -214,7 +214,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">15</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>12. Siska Makam Do'a</span></td>
@@ -223,7 +223,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">16</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>13. Anik Mbomo</span></td>
@@ -232,7 +232,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">17</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>14. Inur</span></td>
@@ -241,7 +241,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">18</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>15. Aris Krisjhon</span></td>
@@ -250,7 +250,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">19</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>16. Mustafid</span></td>
@@ -259,7 +259,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">20</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>17. Firoh</span></td>
@@ -268,7 +268,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">21</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>18. Eko Segawe</span></td>
@@ -277,7 +277,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">22</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>19. PP ZHQ</span></td>
@@ -286,7 +286,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">23</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>20. MI AL - HUDA</span></td>
@@ -295,7 +295,7 @@
                   <td>2M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">24</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>21. Mariyam Kajok</span></td>
@@ -304,7 +304,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">25</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>22. Mala Tamansari</span></td>
@@ -313,7 +313,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">26</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>23. Dayat Suwang</span></td>
@@ -322,7 +322,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">27</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>24. Pak Syamsul</span></td>
@@ -331,7 +331,7 @@
                   <td>2M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">28</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>25. Hana makam Do'a</span></td>
@@ -340,7 +340,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">29</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>26. Refano Jemblong</span></td>
@@ -349,7 +349,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">30</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>27. Naura Geneng</span></td>
@@ -358,7 +358,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">31</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>28. Faiq Suwot</span></td>
@@ -367,7 +367,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">32</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>29. Pak Rozaq</span></td>
@@ -376,7 +376,7 @@
                   <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">33</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>30. Erna</span></td>
@@ -385,7 +385,7 @@
                   <td>4M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">34</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>31. Adah Kali Cilik</span></td>
@@ -394,7 +394,7 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">35</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>32. TK Study</span></td>
@@ -403,7 +403,7 @@
                   <td>2M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-distribusi" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">36</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>33. Susi Zahro</span></td>
@@ -412,16 +412,16 @@
                   <td>3M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-branch" data-queue-id="node-home" style="display: none;" data-queue-parent="node-all-trafic">
+                <tr class="queue-row queue-branch" data-queue-id="node-home" data-queue-parent="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">37</td>
-                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-home" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s;"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">B. HOME</span></td>
+                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-home" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">B. HOME</span></td>
                   <td>192.168.88.0/24</td>
                   <td>50M</td>
                   <td>50M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">38</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-01</span></td>
@@ -430,7 +430,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">39</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-02</span></td>
@@ -439,7 +439,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">40</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-03</span></td>
@@ -448,7 +448,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">41</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-04</span></td>
@@ -457,7 +457,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">42</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-05</span></td>
@@ -466,7 +466,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">43</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-06</span></td>
@@ -475,7 +475,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">44</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-07</span></td>
@@ -484,7 +484,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">45</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-08</span></td>
@@ -493,7 +493,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">46</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-09</span></td>
@@ -502,7 +502,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">47</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-10</span></td>
@@ -511,7 +511,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">48</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-11</span></td>
@@ -520,7 +520,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">49</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-12</span></td>
@@ -529,7 +529,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">50</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-13</span></td>
@@ -538,7 +538,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">51</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-14</span></td>
@@ -547,7 +547,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">52</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-15</span></td>
@@ -556,7 +556,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">53</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-16</span></td>
@@ -565,7 +565,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">54</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-17</span></td>
@@ -574,7 +574,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">55</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-18</span></td>
@@ -583,7 +583,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">56</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-19</span></td>
@@ -592,7 +592,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">57</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-20</span></td>
@@ -601,7 +601,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">58</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-21</span></td>
@@ -610,7 +610,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">59</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-22</span></td>
@@ -619,7 +619,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">60</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-23</span></td>
@@ -628,7 +628,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">61</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-24</span></td>
@@ -637,7 +637,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">62</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-25</span></td>
@@ -646,7 +646,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">63</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-26</span></td>
@@ -655,7 +655,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">64</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-27</span></td>
@@ -664,7 +664,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">65</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-28</span></td>
@@ -673,7 +673,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">66</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-29</span></td>
@@ -682,7 +682,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">67</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-30</span></td>
@@ -691,7 +691,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">68</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-31</span></td>
@@ -700,7 +700,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">69</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-32</span></td>
@@ -709,7 +709,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">70</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-33</span></td>
@@ -718,7 +718,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">71</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-34</span></td>
@@ -727,7 +727,7 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-parent="node-home" data-queue-ancestor="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">72</td>
                   <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>Home-35</span></td>
@@ -736,274 +736,13 @@
                   <td>10M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
-                <tr class="queue-row queue-branch" data-queue-id="node-xuloh" style="display: none;" data-queue-parent="node-all-trafic">
+                <tr class="queue-row queue-leaf" data-queue-id="node-xuloh" data-queue-parent="node-all-trafic">
                   <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
                   <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">73</td>
-                  <td><span style="display:inline-block; width: 14px;"></span><span class="btn-queue-toggle text-muted fw-bold me-1 user-select-none" data-queue-node="node-xuloh" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;"><svg class="queue-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s;"><polyline points="9 18 15 12 9 6"></polyline></svg></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">C. X-ULOH</span></td>
+                  <td><span style="display:inline-block; width: 32px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span class="fw-semibold">C. X-ULOH</span></td>
                   <td>10.10.50.0/24</td>
                   <td>30M</td>
                   <td>30M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">74</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-01</span></td>
-                  <td>10.10.50.3</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">75</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-02</span></td>
-                  <td>10.10.50.4</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">76</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-03</span></td>
-                  <td>10.10.50.5</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">77</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-04</span></td>
-                  <td>10.10.50.6</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">78</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-05</span></td>
-                  <td>10.10.50.7</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">79</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-06</span></td>
-                  <td>10.10.50.8</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">80</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-07</span></td>
-                  <td>10.10.50.9</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">81</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-08</span></td>
-                  <td>10.10.50.10</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">82</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-09</span></td>
-                  <td>10.10.50.11</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">83</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-10</span></td>
-                  <td>10.10.50.12</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">84</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-11</span></td>
-                  <td>10.10.50.13</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">85</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-12</span></td>
-                  <td>10.10.50.14</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">86</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-13</span></td>
-                  <td>10.10.50.15</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">87</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-14</span></td>
-                  <td>10.10.50.16</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">88</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-15</span></td>
-                  <td>10.10.50.17</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">89</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-16</span></td>
-                  <td>10.10.50.18</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">90</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-17</span></td>
-                  <td>10.10.50.19</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">91</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-18</span></td>
-                  <td>10.10.50.20</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">92</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-19</span></td>
-                  <td>10.10.50.21</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">93</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-20</span></td>
-                  <td>10.10.50.22</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">94</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-21</span></td>
-                  <td>10.10.50.23</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">95</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-22</span></td>
-                  <td>10.10.50.24</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">96</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-23</span></td>
-                  <td>10.10.50.25</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">97</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-24</span></td>
-                  <td>10.10.50.26</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">98</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-25</span></td>
-                  <td>10.10.50.27</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">99</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-26</span></td>
-                  <td>10.10.50.28</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">100</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-27</span></td>
-                  <td>10.10.50.29</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">101</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-28</span></td>
-                  <td>10.10.50.30</td>
-                  <td>5M</td>
-                  <td>5M</td>
-                  <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
-                </tr>
-                <tr class="queue-row queue-leaf" style="display: none;" data-queue-parent="node-xuloh" data-queue-ancestor="node-all-trafic">
-                  <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
-                  <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">102</td>
-                  <td><span style="display:inline-block; width: 34px;"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg><span>X-Uloh-29</span></td>
-                  <td>10.10.50.31</td>
-                  <td>5M</td>
-                  <td>5M</td>
                   <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
                 </tr>
               </tbody>
