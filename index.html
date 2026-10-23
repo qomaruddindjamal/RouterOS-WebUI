@@ -928,33 +928,32 @@
             <td>0</td>
             <td>0</td>
           </tr>
-          <!-- Group Parent: 3. MANAGEMENT (Admin & Core) (Default Closed) -->
-          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-mgmt" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
-            <td class="text-center" style="width: 28px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </td>
+          <!-- Port Parent Accordion: ETH2 (Induk VLAN10 & VLAN20) (Default Closed) -->
+          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-eth2" data-mitrautama-row-index="1" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
-              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-mgmt" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-eth2" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
                 <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-              <strong style="color: #6366f1;">3. MANAGEMENT (Admin & Core)</strong>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+              <strong style="color: #6366f1;">ETH2</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(enp2s0)</span>
               <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #6366f1; color: #ffffff;">2</span>
             </td>
-            <td><span class="mitrane-badge-type">List / MGMT</span></td>
+            <td><span class="mitrane-badge-type">Ethernet</span></td>
             <td>1500</td>
             <td>1500</td>
-            <td class="mitrane-rate-active">15.2 KB/s</td>
-            <td class="text-primary fw-semibold">9.3 KB/s</td>
-            <td>21</td>
-            <td>16</td>
-            <td>15.2 KB/s</td>
-            <td>9.3 KB/s</td>
-            <td>21</td>
-            <td>16</td>
+            <td class="mitrane-rate-active">14.2 KB/s</td>
+            <td class="text-primary fw-semibold">8.7 KB/s</td>
+            <td>18</td>
+            <td>12</td>
+            <td>14.2 KB/s</td>
+            <td>8.7 KB/s</td>
+            <td>18</td>
+            <td>12</td>
           </tr>
           <!-- Child Interface: VLAN10-MGMT (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-mgmt" data-mitrautama-row-index="16" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth2" data-mitrautama-row-index="16" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -975,7 +974,7 @@
             <td>4</td>
           </tr>
           <!-- Child Interface: VLAN20-OFFICE (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-mgmt" data-mitrautama-row-index="17" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth2" data-mitrautama-row-index="17" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -995,33 +994,32 @@
             <td>96</td>
             <td>75</td>
           </tr>
-          <!-- Group Parent: 4. GUEST & TUNNELS (Overlay / VPN) (Default Closed) -->
-          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-guest" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
-            <td class="text-center" style="width: 28px;">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </td>
+          <!-- Port Parent Accordion: ETH3 (Induk VLAN30 & VLAN40) (Default Closed) -->
+          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-eth3" data-mitrautama-row-index="2" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
-              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-guest" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-eth3" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
                 <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-              <strong style="color: #eab308;">4. GUEST & TUNNELS (Overlay / VPN)</strong>
-              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #eab308; color: #ffffff;">10</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+              <strong style="color: #eab308;">ETH3</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(enp3s0)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #eab308; color: #ffffff;">2</span>
             </td>
-            <td><span class="mitrane-badge-type">List / OVERLAY</span></td>
+            <td><span class="mitrane-badge-type">Ethernet</span></td>
             <td>1500</td>
             <td>1500</td>
-            <td class="mitrane-rate-active">15.2 KB/s</td>
-            <td class="text-primary fw-semibold">9.3 KB/s</td>
-            <td>21</td>
-            <td>16</td>
-            <td>15.2 KB/s</td>
-            <td>9.3 KB/s</td>
-            <td>21</td>
-            <td>16</td>
+            <td class="text-muted">0 B/s</td>
+            <td class="text-muted">0 B/s</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0 B/s</td>
+            <td>0 B/s</td>
+            <td>0</td>
+            <td>0</td>
           </tr>
           <!-- Child Interface: VLAN30-GUEST (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="18" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth3" data-mitrautama-row-index="18" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1042,7 +1040,7 @@
             <td>11</td>
           </tr>
           <!-- Child Interface: VLAN40-HOTSPOT (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="19" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth3" data-mitrautama-row-index="19" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1062,8 +1060,33 @@
             <td>24</td>
             <td>31</td>
           </tr>
+          <!-- Group Parent: 3. OVERLAY & TUNNELS (Default Closed) -->
+          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-tunnels" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+            <td class="text-center" style="width: 28px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </td>
+            <td>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-tunnels" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+              <strong style="color: #8b5cf6;">3. OVERLAY & TUNNELS</strong>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #8b5cf6; color: #ffffff;">8</span>
+            </td>
+            <td><span class="mitrane-badge-type">List / OVERLAY</span></td>
+            <td>1500</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">15.2 KB/s</td>
+            <td class="text-primary fw-semibold">9.3 KB/s</td>
+            <td>21</td>
+            <td>16</td>
+            <td>15.2 KB/s</td>
+            <td>9.3 KB/s</td>
+            <td>21</td>
+            <td>16</td>
+          </tr>
           <!-- Child Interface: WLAN2 (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="13" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="13" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1084,7 +1107,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: EOIP-VPS (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="21" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="21" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1105,7 +1128,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: IPIP-VPS (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="22" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="22" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1126,7 +1149,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: GRE-VPS (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="23" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="23" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1147,7 +1170,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: VXLAN100 (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="24" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="24" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1168,7 +1191,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: GRE0 (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="27" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="27" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1189,7 +1212,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: GRETAP0 (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="28" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="28" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1210,7 +1233,7 @@
             <td>0</td>
           </tr>
           <!-- Child Interface: ERSPAN0 (Default Hidden) -->
-          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-guest" data-mitrautama-row-index="29" style="display: none; cursor: pointer;">
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-tunnels" data-mitrautama-row-index="29" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
@@ -1249,46 +1272,6 @@
             <td>641 B/s</td>
             <td>3</td>
             <td>4</td>
-          </tr>
-          <!-- Standalone Interface: ETH2 (Root Level / Di Luar Bridge) -->
-          <tr class="iface-tree-row iface-standalone-row" data-mitrautama-row-index="1" style="cursor: pointer;">
-            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-            <td>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-              <strong>ETH2</strong>
-              <span class="text-muted" style="font-size: 0.72rem;">(enp2s0)</span>
-            </td>
-            <td><span class="mitrane-badge-type">Ethernet</span></td>
-            <td>1500</td>
-            <td>1500</td>
-            <td class="mitrane-rate-active">14.2 KB/s</td>
-            <td class="text-primary fw-semibold">8.7 KB/s</td>
-            <td>18</td>
-            <td>12</td>
-            <td>14.2 KB/s</td>
-            <td>8.7 KB/s</td>
-            <td>18</td>
-            <td>12</td>
-          </tr>
-          <!-- Standalone Interface: ETH3 (Root Level / Di Luar Bridge) -->
-          <tr class="iface-tree-row iface-standalone-row" data-mitrautama-row-index="2" style="cursor: pointer;">
-            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-            <td>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-              <strong>ETH3</strong>
-              <span class="text-muted" style="font-size: 0.72rem;">(enp3s0)</span>
-            </td>
-            <td><span class="mitrane-badge-type">Ethernet</span></td>
-            <td>1500</td>
-            <td>1500</td>
-            <td class="text-muted">0 B/s</td>
-            <td class="text-muted">0 B/s</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0 B/s</td>
-            <td>0 B/s</td>
-            <td>0</td>
-            <td>0</td>
           </tr>
           <!-- Standalone Interface: ETH5 (Root Level / Di Luar Bridge) -->
           <tr class="iface-tree-row iface-standalone-row" data-mitrautama-row-index="4" style="cursor: pointer;">

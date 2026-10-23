@@ -1433,26 +1433,35 @@ class JsonDataService {
             }
         ];
 
-        // 2. Kelompok Interface Standar lainnya
-        const otherGroups = [
+        // 2. Interface Port Induk VLAN (ETH2 induk VLAN10 & 20, ETH3 induk VLAN30 & 40)
+        const vlanParentGroups = [
             {
-                id: 'iface-group-mgmt',
-                title: '3. MANAGEMENT (Admin & Core)',
+                id: 'iface-group-eth2',
+                parentName: 'ETH2',
                 color: '#6366f1',
-                members: ['VLAN10-MGMT', 'VLAN20-OFFICE'],
-                type: 'List / MGMT'
+                members: ['VLAN10-MGMT', 'VLAN20-OFFICE']
             },
             {
-                id: 'iface-group-guest',
-                title: '4. GUEST & TUNNELS (Overlay / VPN)',
+                id: 'iface-group-eth3',
+                parentName: 'ETH3',
                 color: '#eab308',
-                members: ['VLAN30-GUEST', 'VLAN40-HOTSPOT', 'WLAN2', 'EOIP-VPS', 'IPIP-VPS', 'GRE-VPS', 'VXLAN100', 'GRE0', 'GRETAP0', 'ERSPAN0'],
+                members: ['VLAN30-GUEST', 'VLAN40-HOTSPOT']
+            }
+        ];
+
+        // 3. Kelompok Tunnels / Overlay lainnya
+        const otherGroups = [
+            {
+                id: 'iface-group-tunnels',
+                title: '3. OVERLAY & TUNNELS',
+                color: '#8b5cf6',
+                members: ['WLAN2', 'EOIP-VPS', 'IPIP-VPS', 'GRE-VPS', 'VXLAN100', 'GRE0', 'GRETAP0', 'ERSPAN0'],
                 type: 'List / OVERLAY'
             }
         ];
 
-        // 3. Standalone Interfaces (Port di luar bridge)
-        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN', 'LO'];
+        // 4. Standalone Interfaces (Port di luar bridge & non-parent)
+        const standaloneNames = ['ETH1', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN', 'LO'];
 
         // Daftar port anggota bridge untuk flag cheklis 2 (hijau + biru)
         const bridgePortNames = new Set(['ETH4', 'ETH7', 'ETH8', 'ETH9']);
@@ -1607,7 +1616,83 @@ class JsonDataService {
         });
 
         // =========================================================================
-        // B. Render Kelompok Interface Lainnya (MGMT, GUEST)
+        // B. Render Interface Port Induk VLAN (ETH2 -> VLAN10, VLAN20 & ETH3 -> VLAN30, VLAN40)
+        // =========================================================================
+        vlanParentGroups.forEach(vGrp => {
+            const pEntry = ifaceMap[vGrp.parentName];
+            if (!pEntry) return;
+            const { item: pItem, idx: pIdx } = pEntry;
+
+            const matchingVlans = [];
+            vGrp.members.forEach(mName => {
+                const entry = ifaceMap[mName];
+                if (!entry) return;
+                const it = entry.item;
+                const matches = !term ||
+                                it.name.toLowerCase().includes(term) ||
+                                it.subname.toLowerCase().includes(term) ||
+                                it.type.toLowerCase().includes(term) ||
+                                pItem.name.toLowerCase().includes(term);
+                if (matches) matchingVlans.push(entry);
+            });
+
+            const parentMatches = !term ||
+                                  pItem.name.toLowerCase().includes(term) ||
+                                  pItem.subname.toLowerCase().includes(term);
+
+            if (!term || parentMatches || matchingVlans.length > 0) {
+                totalRendered += 1 + matchingVlans.length;
+                const isClosed = !term;
+                const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
+                const childDisplay = isClosed ? 'display: none;' : '';
+                const memberCount = matchingVlans.length;
+
+                const isRunning = pItem.status === 'running';
+                const iconSvg = isRunning 
+                    ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+                    : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+
+                const txRateClass = pItem.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
+                const rxRateClass = pItem.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+                const isSelected = this.selectedIndex === pIdx ? 'table-primary selected' : '';
+
+                const safeName = this.escapeHtml(pItem.name);
+                const safeSubname = this.escapeHtml(pItem.subname);
+                const safeType = this.escapeHtml(pItem.type);
+
+                htmlParts.push(`
+                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${vGrp.id}" data-mitrautama-row-index="${pIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+                    <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                    <td>
+                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${vGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                            <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                        <strong style="color: ${vGrp.color};">${safeName}</strong>
+                        <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${vGrp.color}; color: #ffffff;">${memberCount}</span>
+                    </td>
+                    <td><span class="mitrane-badge-type">${safeType}</span></td>
+                    <td>${pItem.actualMtu}</td>
+                    <td>${pItem.l2Mtu}</td>
+                    <td class="${txRateClass}">${pItem.tx}</td>
+                    <td class="${rxRateClass}">${pItem.rx}</td>
+                    <td>${pItem.txPkt}</td>
+                    <td>${pItem.rxPkt}</td>
+                    <td>${pItem.fpTx}</td>
+                    <td>${pItem.fpRx}</td>
+                    <td>${pItem.fpTxPkt}</td>
+                    <td>${pItem.fpRxPkt}</td>
+                </tr>`);
+
+                matchingVlans.forEach(({ item, idx }) => {
+                    htmlParts.push(renderChildRow(item, idx, vGrp.id, childDisplay));
+                });
+            }
+        });
+
+        // =========================================================================
+        // C. Render Kelompok Overlay / Tunnels Lainnya
         // =========================================================================
         otherGroups.forEach(grp => {
             const matchingMembers = [];
@@ -1665,7 +1750,7 @@ class JsonDataService {
         });
 
         // =========================================================================
-        // C. Render Standalone Interfaces (Port di luar bridge)
+        // D. Render Standalone Interfaces (Port di luar bridge & non-parent)
         // =========================================================================
         standaloneNames.forEach(name => {
             const entry = ifaceMap[name];
