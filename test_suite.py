@@ -21,6 +21,7 @@ class TestRouterOSWorkspace(unittest.TestCase):
             "includes/header.html",
             "includes/sidebar.html",
             "includes/footer.html",
+            "packages/xolt/xolt.html",
             "packages/interfaces/interfaces.html",
             "packages/switch/switch.html",
             "packages/bridge/bridge.html",

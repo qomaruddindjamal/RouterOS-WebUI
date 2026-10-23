@@ -12,6 +12,7 @@ export class ModuleLoader {
             'header-container': 'includes/header.html',
             'sidebar-container': 'includes/sidebar.html',
             'footer-container': 'includes/footer.html',
+            'xolt-module-container': 'packages/xolt/xolt.html',
             'interfaces-module-container': 'packages/interfaces/interfaces.html',
             'ip-module-container': 'packages/ip/ip.html',
             'wireguard-module-container': 'packages/wireguard/wireguard.html',

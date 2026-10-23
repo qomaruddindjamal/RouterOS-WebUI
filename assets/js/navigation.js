@@ -229,7 +229,12 @@ export class NavigationManager {
             'wireless-tables': 'wireless-tables',
             'wireless-security': 'wireless-tables',
             'wireless-registration': 'wireless-tables',
-            'wireless': 'wireless-tables'
+            'wireless': 'wireless-tables',
+            'xolt': 'xolt',
+            'xolt-onus': 'xolt',
+            'xolt-optical': 'xolt',
+            'xolt-dba': 'xolt',
+            'xolt-vlans': 'xolt'
         };
 
         const resolvedId = routeAliasMap[viewId] || viewId;
@@ -239,7 +244,7 @@ export class NavigationManager {
             const container = document.querySelector('.mitrautama-content-area');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
-                if (resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
+                if (resolvedId === 'xolt' || resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
                     container.classList.add('winbox-mode');
                 } else {
                     container.classList.remove('winbox-mode');

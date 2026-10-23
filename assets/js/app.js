@@ -930,7 +930,12 @@ class NavigationManager {
             'wireless-tables': 'wireless-tables',
             'wireless-security': 'wireless-tables',
             'wireless-registration': 'wireless-tables',
-            'wireless': 'wireless-tables'
+            'wireless': 'wireless-tables',
+            'xolt': 'xolt',
+            'xolt-onus': 'xolt',
+            'xolt-optical': 'xolt',
+            'xolt-dba': 'xolt',
+            'xolt-vlans': 'xolt'
         };
 
         const resolvedId = routeAliasMap[viewId] || viewId;
@@ -940,7 +945,7 @@ class NavigationManager {
             const container = document.querySelector('.mitrautama-content-area');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
-                if (resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
+                if (resolvedId === 'xolt' || resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
                     container.classList.add('winbox-mode');
                 } else {
                     container.classList.remove('winbox-mode');
@@ -958,6 +963,11 @@ class NavigationManager {
             'system-routerboard': 'sys-routerboard',
             'system-users': 'sys-users',
             'wireless-tables': 'wireless-tables',
+            'xolt': 'xolt-pon-ports',
+            'xolt-onus': 'xolt-onus',
+            'xolt-optical': 'xolt-optical',
+            'xolt-dba': 'xolt-dba',
+            'xolt-vlans': 'xolt-vlans',
             'wireless-security': 'wireless-security',
             'wireless-registration': 'wireless-registration',
             'ip-addresses': 'ip-addr',
@@ -1565,6 +1575,7 @@ class ModuleLoader {
             'header-container': 'includes/header.html',
             'sidebar-container': 'includes/sidebar.html',
             'footer-container': 'includes/footer.html',
+            'xolt-module-container': 'packages/xolt/xolt.html',
             'interfaces-module-container': 'packages/interfaces/interfaces.html',
             'ip-module-container': 'packages/ip/ip.html',
             'wireguard-module-container': 'packages/wireguard/wireguard.html',
