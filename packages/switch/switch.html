@@ -149,7 +149,17 @@
         <table class="mitrane-grid-table mitrautama-table">
           <thead><tr><th>MAC Address</th><th>Port</th><th>VLAN ID</th><th>Dynamic</th></tr></thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-3">Hardware host table populated automatically by switch chips.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Hardware Host Entries</div>
+                  <div class="mitrane-empty-state-desc">Hardware host table populated automatically by active switch chips.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
