@@ -473,11 +473,12 @@ class ChartController {
     }
 
     initTrafficChart() {
+        if (typeof Chart === 'undefined') return;
         const ctx = document.getElementById('trafficChart');
         if (!ctx) return;
 
         if (this.trafficChart) {
-            this.trafficChart.destroy();
+            try { this.trafficChart.destroy(); } catch (e) {}
             this.trafficChart = null;
         }
 
@@ -553,11 +554,12 @@ class ChartController {
     }
 
     initCpuChart() {
+        if (typeof Chart === 'undefined') return;
         const ctx = document.getElementById('cpuChart');
         if (!ctx) return;
 
         if (this.cpuChart) {
-            this.cpuChart.destroy();
+            try { this.cpuChart.destroy(); } catch (e) {}
             this.cpuChart = null;
         }
 
@@ -676,31 +678,36 @@ if (typeof window !== 'undefined') {
 class NavigationManager {
     constructor() {
         this.activeView = 'dashboard'; // Defaultkan langsung ke interfaces agar langsung muncul
+        this.isEventsBound = false;
         this.init();
     }
 
     init() {
-        this.bindSidebarCollapse();
-        this.bindSidebarMenus();
-        this.bindDropRightSubMenus();
-        this.bindWinboxSubTabs();
-        this.bindActionButtons();
-        this.bindQuickSweetAlerts();
-        this.bindTerminalEvents();
+        if (!this.isEventsBound) {
+            this.bindSidebarCollapse();
+            this.bindSidebarMenus();
+            this.bindDropRightSubMenus();
+            this.bindWinboxSubTabs();
+            this.bindActionButtons();
+            this.bindQuickSweetAlerts();
+            this.bindTerminalEvents();
+
+            // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
+            window.addEventListener('hashchange', () => {
+                const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+                if (currentHash && currentHash !== this.activeView) {
+                    this.switchView(currentHash);
+                }
+            });
+
+            this.isEventsBound = true;
+        }
 
         // Pastikan view awal aktif (Restore dari Hash URL atau LocalStorage saat refresh)
         const initialHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
         const savedView = localStorage.getItem('mitrautama_active_view');
         const defaultView = initialHash || savedView || 'dashboard';
         this.switchView(defaultView);
-
-        // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
-        window.addEventListener('hashchange', () => {
-            const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
-            if (currentHash && currentHash !== this.activeView) {
-                this.switchView(currentHash);
-            }
-        });
     }
 
     bindSidebarCollapse() {
@@ -770,8 +777,8 @@ class NavigationManager {
     }
 
     bindSidebarMenus() {
-        // Direct click pada menu item utama
-        const mainLinks = document.querySelectorAll('.mitrautama-menu-item[data-mitrautama-view]');
+        // Direct click pada menu item utama dan tombol brand/home header
+        const mainLinks = document.querySelectorAll('.mitrautama-menu-item[data-mitrautama-view], .mitrautama-header-home-btn[data-mitrautama-view]');
         mainLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -780,7 +787,12 @@ class NavigationManager {
                 this.switchView(viewId, title);
 
                 document.querySelectorAll('.mitrautama-menu-item, .mitrautama-submenu-item').forEach(m => m.classList.remove('active'));
-                link.classList.add('active');
+                if (link.classList.contains('mitrautama-menu-item')) {
+                    link.classList.add('active');
+                } else {
+                    const dashboardMenuItem = document.querySelector('.mitrautama-menu-item[data-mitrautama-view="dashboard"]');
+                    if (dashboardMenuItem) dashboardMenuItem.classList.add('active');
+                }
 
                 // Tutup semua popover flyout
                 document.querySelectorAll('.mitrautama-menu-group').forEach(g => g.classList.remove('open'));

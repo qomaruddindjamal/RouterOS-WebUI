@@ -9,31 +9,36 @@ import { toastManager } from './toast.js';
 export class NavigationManager {
     constructor() {
         this.activeView = 'dashboard'; // Defaultkan langsung ke interfaces agar langsung muncul
+        this.isEventsBound = false;
         this.init();
     }
 
     init() {
-        this.bindSidebarCollapse();
-        this.bindSidebarMenus();
-        this.bindDropRightSubMenus();
-        this.bindWinboxSubTabs();
-        this.bindActionButtons();
-        this.bindQuickSweetAlerts();
-        this.bindTerminalEvents();
+        if (!this.isEventsBound) {
+            this.bindSidebarCollapse();
+            this.bindSidebarMenus();
+            this.bindDropRightSubMenus();
+            this.bindWinboxSubTabs();
+            this.bindActionButtons();
+            this.bindQuickSweetAlerts();
+            this.bindTerminalEvents();
+
+            // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
+            window.addEventListener('hashchange', () => {
+                const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+                if (currentHash && currentHash !== this.activeView) {
+                    this.switchView(currentHash);
+                }
+            });
+
+            this.isEventsBound = true;
+        }
 
         // Pastikan view awal aktif (Restore dari Hash URL atau LocalStorage saat refresh)
         const initialHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
         const savedView = localStorage.getItem('mitrautama_active_view');
         const defaultView = initialHash || savedView || 'dashboard';
         this.switchView(defaultView);
-
-        // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
-        window.addEventListener('hashchange', () => {
-            const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
-            if (currentHash && currentHash !== this.activeView) {
-                this.switchView(currentHash);
-            }
-        });
     }
 
     bindSidebarCollapse() {
