@@ -288,7 +288,7 @@ export class NavigationManager {
             const container = document.querySelector('.mitrautama-content-area');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
-                if (resolvedId === 'xolt' || resolvedId === 'terminal' || resolvedId === 'interfaces' || resolvedId === 'ip' || resolvedId === 'wireguard' || resolvedId === 'wireless-tables' || resolvedId === 'switch' || resolvedId === 'bridge' || resolvedId === 'system' || resolvedId === 'queues' || resolvedId === 'ppp') {
+                if (resolvedId !== 'dashboard') {
                     container.classList.add('winbox-mode');
                 } else {
                     container.classList.remove('winbox-mode');
