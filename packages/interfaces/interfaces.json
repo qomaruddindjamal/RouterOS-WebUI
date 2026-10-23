@@ -300,7 +300,7 @@
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:17",
       "defaultName": "wlan2",
-      "parent": "3. OVERLAY & TUNNELS"
+      "parent": null
     },
     {
       "id": "iface_15",
