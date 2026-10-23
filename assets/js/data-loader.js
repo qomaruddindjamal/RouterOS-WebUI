@@ -60,23 +60,23 @@ export class JsonDataService {
         const term = (filterText || '').toLowerCase();
 
         // 1. Standalone Interfaces (Port yang belum dimasukkan ke bridge / di luar keanggotaan)
-        const standaloneNames = ['ETH1', 'ETH2', 'ETH3'];
+        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1'];
 
-        // 2. Bridge Accordion: BRIDGE1 sebagai Parent yang membawahi port anggotanya
+        // 2. Bridge Accordion: BRIDGE1 (2. LAN) hanya membawahi ether4
         const bridgeDef = {
             id: 'iface-group-bridge1',
             parentName: 'BRIDGE1',
             color: '#16a34a',
-            members: ['ETH4', 'ETH5', 'ETH6', 'ETH7', 'ETH8', 'ETH9', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1']
+            members: ['ETH4']
         };
 
-        // 3. Kelompok Interface Standar lainnya
+        // 3. Kelompok Interface Standar lainnya (Bridge WAN ether7-9 & Uplinks, MGMT, GUEST)
         const otherGroups = [
             {
                 id: 'iface-group-wan',
-                title: '1. WAN & TUNNELS (Internet Uplinks)',
+                title: '1. WAN (Bridge & Uplinks)',
                 color: '#0284c7',
-                members: ['PPP0', 'WG-BACKBONE', 'SSTP-VPN'],
+                members: ['ETH7', 'ETH8', 'ETH9', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'],
                 type: 'List / WAN'
             },
             {
@@ -95,6 +95,9 @@ export class JsonDataService {
             }
         ];
 
+        // Daftar port anggota bridge untuk flag cheklis 2 (hijau + biru)
+        const bridgePortNames = new Set(['ETH4', 'ETH7', 'ETH8', 'ETH9']);
+
         // Buat map pencarian interface berdasarkan name
         const ifaceMap = {};
         this.interfacesData.interfaces.forEach((item, idx) => {
@@ -107,9 +110,20 @@ export class JsonDataService {
         // Helper untuk render row child interface
         const renderChildRow = (item, idx, parentId, childDisplay) => {
             const isRunning = item.status === 'running';
-            const iconSvg = isRunning 
-                ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
-                : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            const isBridgeMember = bridgePortNames.has(item.name);
+
+            let iconSvg;
+            if (isBridgeMember) {
+                // Cheklis 2: Hijau (Running) + Biru (Bridge Member / Slave)
+                iconSvg = `<span style="display: inline-flex; align-items: center; justify-content: center; gap: 2px;" title="Running, Bridge Port">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>`;
+            } else if (isRunning) {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            } else {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            }
 
             const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
             const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
@@ -157,9 +171,20 @@ export class JsonDataService {
 
             totalRendered++;
             const isRunning = item.status === 'running';
-            const iconSvg = isRunning 
-                ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
-                : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            const isBridgeMember = bridgePortNames.has(item.name);
+
+            let iconSvg;
+            if (isBridgeMember) {
+                // Cheklis 2: Hijau (Running) + Biru (Bridge Member / Slave)
+                iconSvg = `<span style="display: inline-flex; align-items: center; justify-content: center; gap: 2px;" title="Running, Bridge Port">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </span>`;
+            } else if (isRunning) {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            } else {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            }
 
             const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
             const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
