@@ -19,3 +19,10 @@ router_snapshot.json
 *.backup
 *.key
 *.pem
+
+# Excluded internal & development files
+docs/
+md5.js
+test_suite.py
+config.json
+AGENTS.md
