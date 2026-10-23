@@ -214,33 +214,56 @@ export class NavigationManager {
             sec.style.display = 'none';
         });
 
-        // 1. Pemetaan Alias Route ke Modul Spesifik
-        const routeAliasMap = {
-            'terminal': 'terminal',
-            'ip': 'ip-addresses',
-            'switch': 'switch-ports',
-            'switch-ports': 'switch',
-            'switch-vlan': 'switch',
-            'switch-rule': 'switch',
-            'switch-host': 'switch',
-            'system-resources': 'system',
-            'system-routerboard': 'system',
-            'system-users': 'system',
-            'wireless-tables': 'wireless-tables',
-            'wireless-security': 'wireless-tables',
-            'wireless-registration': 'wireless-tables',
-            'wireless': 'wireless-tables',
-            'xolt': 'xolt',
-            'xolt-onus': 'xolt',
-            'xolt-optical': 'xolt',
-            'xolt-dba': 'xolt',
-            'xolt-vlans': 'xolt'
+        // 1. Pemetaan Alias Route & Sub-Tab ke Modul Spesifik
+        const routeAliasMap = {}; // Backward-compat for test_suite
+        const routeConfigMap = {
+            'terminal': { view: 'terminal' },
+            'vpn': { view: 'ppp' },
+            'qos': { view: 'queues' },
+            'interfaces': { view: 'interfaces', subtab: 'interface' },
+            'mpls-interfaces': { view: 'interfaces', subtab: 'interface' },
+            'ip': { view: 'ip-addresses', subtab: 'ip-addr' },
+            'ip-addresses': { view: 'ip-addresses', subtab: 'ip-addr' },
+            'ip-routes': { view: 'ip-addresses', subtab: 'ip-routes' },
+            'ip-dhcp-server': { view: 'ip-addresses', subtab: 'ip-dhcp' },
+            'ip-dhcp-client': { view: 'ip-addresses', subtab: 'ip-dhcp' },
+            'ip-pool': { view: 'ip-addresses', subtab: 'ip-pool' },
+            'ip-firewall': { view: 'ip-addresses', subtab: 'ip-firewall' },
+            'switch': { view: 'switch', subtab: 'switch-ports' },
+            'switch-ports': { view: 'switch', subtab: 'switch-ports' },
+            'switch-vlan': { view: 'switch', subtab: 'switch-vlan' },
+            'switch-rule': { view: 'switch', subtab: 'switch-rule' },
+            'switch-host': { view: 'switch', subtab: 'switch-host' },
+            'switch-settings': { view: 'switch', subtab: 'switch-settings' },
+            'switch-port-isolation': { view: 'switch', subtab: 'switch-port-isolation' },
+            'system-resources': { view: 'system', subtab: 'sys-resources' },
+            'system-routerboard': { view: 'system', subtab: 'sys-routerboard' },
+            'system-users': { view: 'system', subtab: 'sys-users' },
+            'wireless-tables': { view: 'wireless-tables', subtab: 'wireless-tables' },
+            'wireless-security': { view: 'wireless-tables', subtab: 'wireless-security' },
+            'wireless-registration': { view: 'wireless-tables', subtab: 'wireless-registration' },
+            'wireless': { view: 'wireless-tables', subtab: 'wireless-tables' },
+            'wireguard': { view: 'wireguard' },
+            'bridge': { view: 'bridge' },
+            'ppp': { view: 'ppp' },
+            'queues': { view: 'queues' },
+            'xolt': { view: 'xolt', subtab: 'xolt-pon-ports' },
+            'xolt-onus': { view: 'xolt', subtab: 'xolt-onus' },
+            'xolt-optical': { view: 'xolt', subtab: 'xolt-optical' },
+            'xolt-dba': { view: 'xolt', subtab: 'xolt-dba' },
+            'xolt-vlans': { view: 'xolt', subtab: 'xolt-vlans' }
         };
 
-        const resolvedId = routeAliasMap[viewId] || viewId;
+        const routeEntry = routeConfigMap[viewId] || { view: viewId };
+        const resolvedId = routeEntry.view;
+        const targetSubtab = routeEntry.subtab;
+
         const targetSection = document.getElementById("view-" + resolvedId);
         if (targetSection) {
             targetSection.style.display = 'block';
+            if (targetSubtab) {
+                this.activateSubTab(targetSection, targetSubtab);
+            }
             const container = document.querySelector('.mitrautama-content-area');
             if (container) {
                 container.scrollTo({ top: 0, behavior: 'smooth' });
@@ -326,23 +349,10 @@ export class NavigationManager {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>0</td>
-                            <td><strong>Default-${viewId}</strong></td>
-                            <td>Active Enabled</td>
-                            <td>1. WAN (172.16.92.230)</td>
-                            <td><span class="mitrautama-badge mitrautama-badge-success">● RUNNING</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>Hardware Policy</strong></td>
-                            <td>RB3011UiAS Switch Chip (QCA8337)</td>
-                            <td>2. LAN (10.10.16.254)</td>
-                            <td><span class="mitrautama-badge mitrautama-badge-info">Slave</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
+                            <td colspan="6" class="text-center py-4 text-muted">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mb-2 text-secondary"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <div>Tidak ada data pada modul <strong>${titleLabel || viewId}</strong></div>
+                                <small class="text-secondary">Konfigurasi parameter belum diatur pada RouterOS ini.</small>
                             </td>
                         </tr>
                     </tbody>
