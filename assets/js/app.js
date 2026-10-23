@@ -1439,7 +1439,7 @@ class JsonDataService {
                 id: 'iface-group-mgmt',
                 title: '3. MANAGEMENT (Admin & Core)',
                 color: '#6366f1',
-                members: ['VLAN10-MGMT', 'VLAN20-OFFICE', 'LO'],
+                members: ['VLAN10-MGMT', 'VLAN20-OFFICE'],
                 type: 'List / MGMT'
             },
             {
@@ -1452,7 +1452,7 @@ class JsonDataService {
         ];
 
         // 3. Standalone Interfaces (Port di luar bridge)
-        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'];
+        const standaloneNames = ['ETH1', 'ETH2', 'ETH3', 'ETH5', 'ETH6', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN', 'LO'];
 
         // Daftar port anggota bridge untuk flag cheklis 2 (hijau + biru)
         const bridgePortNames = new Set(['ETH4', 'ETH7', 'ETH8', 'ETH9']);
