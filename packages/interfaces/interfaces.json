@@ -574,9 +574,9 @@
     },
     {
       "id": "iface_pppoe1",
-      "name": "pppoe-out1",
+      "name": "<pppoe-user@citramedia.tech>",
       "subname": "user@citramedia.tech",
-      "type": "PPPoE",
+      "type": "PPPoE Client",
       "status": "running",
       "actualMtu": 1492,
       "l2Mtu": 1500,
@@ -589,7 +589,7 @@
       "fpTxPkt": 24,
       "fpRxPkt": 38,
       "macAddress": "2C:C8:1B:18:BE:0A",
-      "defaultName": "pppoe-out1",
+      "defaultName": "<pppoe-user@citramedia.tech>",
       "user": "user@citramedia.tech"
     }
   ]

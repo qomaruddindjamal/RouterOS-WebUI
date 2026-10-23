@@ -1439,7 +1439,7 @@ class JsonDataService {
                 id: 'iface-group-eth1',
                 parentName: 'ETH1',
                 color: '#0284c7',
-                members: ['pppoe-out1']
+                members: ['<pppoe-user@citramedia.tech>']
             },
             {
                 id: 'iface-group-eth2',

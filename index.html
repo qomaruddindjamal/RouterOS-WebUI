@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
@@ -928,7 +928,7 @@
             <td>0</td>
             <td>0</td>
           </tr>
-          <!-- Port Parent Accordion: ETH1 (Induk pppoe-out1) (Default Closed) -->
+          <!-- Port Parent Accordion: ETH1 (Induk <pppoe-user@citramedia.tech>) (Default Closed) -->
           <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-eth1" data-mitrautama-row-index="0" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
@@ -952,16 +952,16 @@
             <td>3</td>
             <td>4</td>
           </tr>
-          <!-- Child Interface: pppoe-out1 (Default Hidden) -->
+          <!-- Child Interface: <pppoe-user@citramedia.tech> (Default Hidden) -->
           <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth1" data-mitrautama-row-index="30" style="display: none; cursor: pointer;">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
               <span style="display:inline-block; width: 18px;"></span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-              <strong>pppoe-out1</strong>
+              <strong>&lt;pppoe-user@citramedia.tech&gt;</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(user@citramedia.tech)</span>
             </td>
-            <td><span class="mitrane-badge-type">PPPoE</span></td>
+            <td><span class="mitrane-badge-type">PPPoE Client</span></td>
             <td>1492</td>
             <td>1500</td>
             <td class="mitrane-rate-active">18.4 KB/s</td>
@@ -5382,6 +5382,22 @@
           <tbody>
             <tr>
               <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><span style="color: #b91c1c; margin-right: 4px; font-weight: bold;">&raquo;</span><strong>&lt;pppoe-user@citramedia.tech&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; on ETH1 (user@citramedia.tech)</span></td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.3);">PPPoE Client</span></td>
+              <td>1492</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">18.4 KB/s</td>
+              <td class="text-primary fw-semibold">42.1 KB/s</td>
+              <td>24</td>
+              <td>38</td>
+              <td>18.4 KB/s</td>
+              <td>42.1 KB/s</td>
+              <td>24</td>
+              <td>38</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
               <td><strong>&lt;ppp0&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; Active Tunnel (10.10.66.100 -&gt; 10.10.66.254)</span></td>
               <td><span class="mitrane-type-badge">L2TP Client</span></td>
               <td>1450</td>
@@ -5403,10 +5419,11 @@
       <!-- Footer Subsystem -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
         <div class="d-flex align-items-center flex-wrap">
-          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">1 items at interface</span>
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">2 items at interface</span>
           <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-vpn-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #0284c7; display: inline-block; flex-shrink: 0;"></span><span>PPPoE Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
             <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>L2TP Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
-            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">2</strong></span></span>
           </div>
         </div>
         <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">

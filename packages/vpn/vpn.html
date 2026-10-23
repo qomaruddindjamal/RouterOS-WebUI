@@ -123,6 +123,22 @@
           <tbody>
             <tr>
               <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><span style="color: #b91c1c; margin-right: 4px; font-weight: bold;">&raquo;</span><strong>&lt;pppoe-user@citramedia.tech&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; on ETH1 (user@citramedia.tech)</span></td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.3);">PPPoE Client</span></td>
+              <td>1492</td>
+              <td>1500</td>
+              <td class="mitrane-rate-active">18.4 KB/s</td>
+              <td class="text-primary fw-semibold">42.1 KB/s</td>
+              <td>24</td>
+              <td>38</td>
+              <td>18.4 KB/s</td>
+              <td>42.1 KB/s</td>
+              <td>24</td>
+              <td>38</td>
+              <td class="text-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></td>
+            </tr>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
               <td><strong>&lt;ppp0&gt;</strong> <span class="text-muted" style="font-size: 0.72rem;">; Active Tunnel (10.10.66.100 -&gt; 10.10.66.254)</span></td>
               <td><span class="mitrane-type-badge">L2TP Client</span></td>
               <td>1450</td>
@@ -144,10 +160,11 @@
       <!-- Footer Subsystem -->
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
         <div class="d-flex align-items-center flex-wrap">
-          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">1 items at interface</span>
+          <span class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">2 items at interface</span>
           <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-vpn-footer-legends">
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #0284c7; display: inline-block; flex-shrink: 0;"></span><span>PPPoE Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
             <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>L2TP Client: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
-            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
+            <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Running: <strong style="color: var(--mu-text-main, #1e293b);">2</strong></span></span>
           </div>
         </div>
         <div class="d-flex align-items-center" style="font-size: 0.72rem; color: #16a34a; font-weight: 500;">
@@ -246,23 +263,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="mitrane-table-empty-row">
-              <td colspan="7" class="text-center p-0" style="border: none;">
-                <div class="mitrane-empty-state-box">
-                  <div class="mitrane-empty-state-icon">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  </div>
-                  <div class="mitrane-empty-state-title">No VPN Secrets Available</div>
-                  <div class="mitrane-empty-state-desc">No local user credentials configured for PPPoE, L2TP, or PPTP clients.</div>
-                </div>
-              </td>
+            <tr>
+              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td><strong>user@citramedia.tech</strong></td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #0284c7; border: 1px solid rgba(2, 132, 199, 0.3);">pppoe</span></td>
+              <td><span class="badge bg-secondary" style="font-size: 0.7rem;">default-encryption</span></td>
+              <td><code>10.10.66.1</code></td>
+              <td><code>10.10.66.101</code></td>
+              <td class="text-muted">jan/01/2026 00:00:00</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">0 items</span>
-        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem</div>
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">1 items</span>
+        <div class="text-muted" style="font-size: 0.72rem;">VPN Secrets Subsystem (1 active secret: user@citramedia.tech)</div>
       </div>
     </div>
 
