@@ -1416,7 +1416,80 @@ class JsonDataService {
         return null;
     }
 
-            renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
+            getInterfaceIconSvg(item, isChild = false) {
+        const name = (item.name || '').toUpperCase();
+        const type = (item.type || '').toUpperCase();
+        const size = isChild ? 12 : 13;
+        const style = isChild 
+            ? 'vertical-align: middle; display: inline-block;' 
+            : 'vertical-align: middle; margin-right: 4px; display: inline-block;';
+
+        // 1. Wireless (WLAN1, WLAN2)
+        if (type.includes('WIRELESS') || name.startsWith('WLAN')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" class="me-1" style="${style}"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
+        }
+
+        // 2. VLAN (VLAN10, VLAN20, dll) - Distinct Tag / Layers icon
+        if (type.includes('VLAN') || name.startsWith('VLAN')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2.2" class="me-1" style="${style}"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`;
+        }
+
+        // 3. SFP / Fiber Optical (SFP-PLUS1, SFP-PLUS2)
+        if (name.includes('SFP')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="${style}"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line></svg>`;
+        }
+
+        // 4. WireGuard (WG-BACKBONE) - Shield Security Key
+        if (type.includes('WIREGUARD') || name.startsWith('WG')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" class="me-1" style="${style}"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`;
+        }
+
+        // 5. PPPoE / PPP (PPPoE Client, PPP0) - Key / Dial-up lock
+        if (type.includes('PPPOE') || type.includes('PPP') || name.includes('PPPOE') || name.startsWith('PPP')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="${style}"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>`;
+        }
+
+        // 6. SSTP VPN - Secure Lock
+        if (type.includes('SSTP') || name.includes('SSTP')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="${style}"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+        }
+
+        // 7. EoIP & IPIP - Network Bridge / Tunnel Pipe
+        if (type.includes('EOIP') || type.includes('IPIP') || name.includes('EOIP') || name.includes('IPIP')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.2" class="me-1" style="${style}"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="8" y1="12" x2="16" y2="12"></line><line x1="12" y1="8" x2="16" y2="12"></line><line x1="12" y1="16" x2="16" y2="12"></line></svg>`;
+        }
+
+        // 8. GRE & GRETAP - Fast Transfer / Routing arrows
+        if (type.includes('GRE') || name.includes('GRE')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.2" class="me-1" style="${style}"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>`;
+        }
+
+        // 9. VXLAN & ERSPAN - Cloud Tunnel
+        if (type.includes('VXLAN') || type.includes('ERSPAN') || name.includes('VXLAN') || name.includes('ERSPAN')) {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2.2" class="me-1" style="${style}"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`;
+        }
+
+        // 10. Loopback (LO)
+        if (type.includes('LOOPBACK') || name === 'LO') {
+            return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" class="me-1" style="${style}"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>`;
+        }
+
+        // 11. Bridge / Master
+        if (type === 'BRIDGE' || name === '1. WAN' || name === '2. LAN') {
+            const color = name === '2. LAN' ? '#16a34a' : '#0284c7';
+            return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="${style}"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>`;
+        }
+
+        // 12. Overlay & Tunnels Parent
+        if (name.includes('OVERLAY') || name.includes('TUNNELS')) {
+            return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" class="me-1" style="${style}"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`;
+        }
+
+        // 13. Default Ethernet (ETH1 s/d ETH10) - Port dual-jack icon
+        return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="${style}"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`;
+    }
+
+    renderInterfacesTable(containerId = 'mitrane-interfaces-table', filterText = '') {
         const tableBody = document.querySelector(`#${containerId} tbody`);
         if (!tableBody || !this.interfacesData) return;
 
@@ -1495,7 +1568,7 @@ class JsonDataService {
                 <td class="text-center" style="width: 28px;">${iconSvg}</td>
                 <td>
                     <span style="display:inline-block; width: 18px;"></span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                    ${this.getInterfaceIconSvg(item, true)}
                     <strong>${safeName}</strong>
                     ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
                 </td>
@@ -1563,17 +1636,8 @@ class JsonDataService {
                 else if (rItem.name === 'ETH2') groupColor = '#6366f1';
                 else if (rItem.name === 'ETH3') groupColor = '#eab308';
 
-                // Tipe icon untuk root: folder/bridge icon jika root punya anak atau bridge, nic icon jika Ethernet standalone
-                let rootIconSvg;
-                if (rItem.type === 'Bridge' || rItem.name === '1. WAN' || rItem.name === '2. LAN') {
-                    rootIconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>`;
-                } else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) {
-                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`;
-                } else if (rItem.type === 'Wireless' || rItem.name.startsWith('WLAN')) {
-                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2" class="me-1" style="vertical-align: middle;"><path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path><path d="M7.76 16.24a6 6 0 0 1 0-8.48"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.48"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>`;
-                } else {
-                    rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>`;
-                }
+                // Tipe icon untuk root berbasis tipe interface
+                const rootIconSvg = this.getInterfaceIconSvg(rItem, false);
 
                 if (hasChildren) {
                     // Render Root Row dengan Accordion Toggle & Badge Counter
