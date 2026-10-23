@@ -2167,16 +2167,30 @@ input[type=number] {
     max-height: calc(100vh - 52px - 32px) !important;
 }
 
-#xolt-module-container,
+[id$="-module-container"],
 #interfaces-module-container,
 #ip-module-container,
 #wireguard-module-container,
 #wireless-module-container,
+#xolt-module-container,
 #switch-module-container,
+#xray-module-container,
+#mesh-module-container,
+#devices-module-container,
 #bridge-module-container,
 #system-module-container,
+#kvm-module-container,
 #queues-module-container,
-#ppp-module-container {
+#ppp-module-container,
+#terminal-module-container,
+#ipv6-module-container,
+#routing-module-container,
+#mpls-module-container,
+#log-module-container,
+#files-module-container,
+#radius-module-container,
+#tools-module-container,
+#dot1x-module-container {
     width: 100% !important;
     display: contents !important;
 }
@@ -3544,17 +3558,9 @@ input[type=number] {
    UNIVERSAL WINBOX FLUSH LAYOUT: SEMUA VIEW & FOOTER CARD MENEMPEL RATA ATAS FOOTER
    ========================================================================= */
 .mitrautama-content-area.winbox-mode > div:not([style*="display: none"]),
+.mitrautama-content-area.winbox-mode [id$="-module-container"] > div:not([style*="display: none"]),
 .mitrautama-content-area.winbox-mode .mitrautama-view-section:not([style*="display: none"]),
-#view-xolt:not([style*="display: none"]),
-#view-interfaces:not([style*="display: none"]),
-#view-ip-addresses:not([style*="display: none"]),
-#view-wireguard:not([style*="display: none"]),
-#view-wireless-tables:not([style*="display: none"]),
-#view-switch:not([style*="display: none"]),
-#view-bridge:not([style*="display: none"]),
-#view-system:not([style*="display: none"]),
-#view-queues:not([style*="display: none"]),
-#view-ppp:not([style*="display: none"]) {
+.mitrautama-content-area.winbox-mode [id^="view-"]:not([style*="display: none"]) {
     width: 100% !important;
     height: 100% !important;
     min-height: 100% !important;
@@ -3567,16 +3573,7 @@ input[type=number] {
 }
 
 .mitrautama-content-area.winbox-mode .mitrane-window,
-#view-xolt .mitrane-window,
-#view-interfaces .mitrane-window,
-#view-ip-addresses .mitrane-window,
-#view-wireguard .mitrane-window,
-#view-wireless-tables .mitrane-window,
-#view-switch .mitrane-window,
-#view-bridge .mitrane-window,
-#view-system .mitrane-window,
-#view-queues .mitrane-window,
-#view-ppp .mitrane-window {
+.mitrautama-content-area.winbox-mode [id^="view-"] .mitrane-window {
     width: 100% !important;
     height: 100% !important;
     min-height: 100% !important;
@@ -3627,16 +3624,7 @@ input[type=number] {
 }
 
 .mitrautama-content-area.winbox-mode .mitrane-status-subsystem,
-#view-xolt .mitrane-status-subsystem,
-#view-interfaces .mitrane-status-subsystem,
-#view-ip-addresses .mitrane-status-subsystem,
-#view-wireguard .mitrane-status-subsystem,
-#view-wireless-tables .mitrane-status-subsystem,
-#view-switch .mitrane-status-subsystem,
-#view-bridge .mitrane-status-subsystem,
-#view-system .mitrane-status-subsystem,
-#view-queues .mitrane-status-subsystem,
-#view-ppp .mitrane-status-subsystem {
+.mitrautama-content-area.winbox-mode [id^="view-"] .mitrane-status-subsystem {
     margin-top: auto !important;
     width: 100% !important;
     flex-shrink: 0 !important;

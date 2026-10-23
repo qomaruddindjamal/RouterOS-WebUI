@@ -108,20 +108,26 @@ export class NavigationManager {
                 if (parentGroup && !isOpen) {
                     parentGroup.classList.add('open');
 
-                    // Hitung posisi vertikal fixed flyout dropright agar tidak terpotong overflow container
-                    if (subList) {
+                    const isMobile = window.innerWidth <= 768;
+                    if (!isMobile && subList) {
+                        // Desktop: Flyout drop-right fixed positioning
                         const rect = toggle.getBoundingClientRect();
                         subList.style.position = 'fixed';
-                        subList.style.left = ${rect.right + 4}px;
-                        subList.style.top = ${rect.top}px;
+                        subList.style.left = (rect.right + 4) + "px";
+                        subList.style.top = rect.top + "px";
                         subList.style.zIndex = '9999';
 
-                        // Pastikan tidak meluap keluar batas bawah layar
                         const listRect = subList.getBoundingClientRect();
                         if (listRect.bottom > window.innerHeight) {
                             const diff = listRect.bottom - window.innerHeight + 10;
-                            subList.style.top = ${Math.max(10, rect.top - diff)}px;
+                            subList.style.top = Math.max(10, rect.top - diff) + "px";
                         }
+                    } else if (isMobile && subList) {
+                        // Mobile: Reset fixed coordinates to allow smooth in-line accordion dropdown
+                        subList.style.position = '';
+                        subList.style.left = '';
+                        subList.style.top = '';
+                        subList.style.zIndex = '';
                     }
                 }
             });
