@@ -59,12 +59,32 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
       </div>
+
+      <!-- Right Tools: Find Search Box, Filter, Refresh, Columns -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" class="form-control form-control-sm border-start-0 py-0 mitrautama-filter-input" placeholder="Find / Filter...">
+        </div>
+
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Refresh Table" aria-label="Refresh">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Configure Columns" aria-label="Columns">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
     </div>
 
     <!-- 3. Sub-Tab Panes -->
     <!-- Tab 1: Addresses -->
     <div class="mitrautama-tab-content active" id="subtab-ip-addr">
-      <div class="flex-grow-1 overflow-auto">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr>
@@ -88,7 +108,7 @@
 
     <!-- Tab 2: Routes -->
     <div class="mitrautama-tab-content" id="subtab-ip-routes" style="display: none;">
-      <div class="flex-grow-1 overflow-auto">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Flags</th><th>Dst. Address</th><th>Gateway</th><th>Immediate GW</th><th>Distance</th></tr>
@@ -105,7 +125,7 @@
 
     <!-- Tab 3: DHCP Server -->
     <div class="mitrautama-tab-content" id="subtab-ip-dhcp" style="display: none;">
-      <div class="flex-grow-1 overflow-auto">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Flags</th><th>Name</th><th>Interface</th><th>Lease Time</th><th>Address Pool</th></tr>
@@ -125,7 +145,7 @@
 
     <!-- Tab 4: Pools -->
     <div class="mitrautama-tab-content" id="subtab-ip-pool" style="display: none;">
-      <div class="flex-grow-1 overflow-auto">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Name</th><th>Ranges</th><th>Next Pool</th></tr>
@@ -140,7 +160,7 @@
 
     <!-- Tab 5: Firewall NAT -->
     <div class="mitrautama-tab-content" id="subtab-ip-firewall" style="display: none;">
-      <div class="flex-grow-1 overflow-auto">
+      <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0 0 6px 6px; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
           <thead>
             <tr><th>Chain</th><th>Action</th><th>Out Interface</th><th>Src. Address</th></tr>
