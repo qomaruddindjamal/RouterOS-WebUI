@@ -469,3 +469,75 @@ tr.iface-root-row:hover td {
 .dropdown-menu[aria-labelledby="userMenuDropdown"] .fw-bold {
     color: #f8fafc !important;
 }
+/* SweetAlert2 Modal Dark Theme */
+.swal2-popup {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7) !important;
+}
+
+.swal2-title {
+    color: #f8fafc !important;
+}
+
+.swal2-html-container,
+.swal2-content {
+    color: #94a3b8 !important;
+}
+
+.swal2-icon.swal2-info {
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
+}
+
+.swal2-icon.swal2-warning {
+    border-color: #fbbf24 !important;
+    color: #fbbf24 !important;
+}
+
+.swal2-icon.swal2-success {
+    border-color: #34d399 !important;
+    color: #34d399 !important;
+}
+
+.swal2-icon.swal2-error {
+    border-color: #f87171 !important;
+    color: #f87171 !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #0284c7 !important;
+    border-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+.swal2-styled.swal2-cancel {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+    color: #cbd5e1 !important;
+}
+
+/* Cards & Surfaces in Dark Mode */
+.p-3.rounded.border,
+.p-4.rounded.border,
+div[style*="background-color: var(--mu-surface"],
+div[style*="background: var(--mu-surface"],
+.card.bg-light,
+.card {
+    background-color: #151e32 !important;
+    background: #151e32 !important;
+    border-color: #1e293b !important;
+    color: #f8fafc !important;
+}
+
+.p-3.rounded.border table,
+.p-3.rounded.border table td,
+.p-3.rounded.border table th {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+.p-3.rounded.border table th.text-muted {
+    color: #94a3b8 !important;
+}

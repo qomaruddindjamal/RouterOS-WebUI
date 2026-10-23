@@ -137,6 +137,8 @@
    5. MALAM (18:30 - 04:29) - Malam Tenang & Nyaman
    ========================================================================= */
 [data-period="malam"] {
+    --mu-surface: #151e32;
+    --mu-surface-muted: #151e32;
     --mu-primary: #38bdf8;         /* Cyan langit malam */
     --mu-primary-hover: #7dd3fc;
     --mu-primary-light: rgba(56, 189, 248, 0.15);
@@ -461,4 +463,59 @@
 
 [data-period='malam'] .dropdown-menu[aria-labelledby="userMenuDropdown"] .fw-bold {
     color: #f8fafc !important;
+}
+/* SweetAlert2 Modal Malam Theme */
+[data-period="malam"] .swal2-popup {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-period="malam"] .swal2-title {
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .swal2-html-container,
+[data-period="malam"] .swal2-content {
+    color: #94a3b8 !important;
+}
+
+[data-period="malam"] .swal2-icon.swal2-info {
+    border-color: #38bdf8 !important;
+    color: #38bdf8 !important;
+}
+
+[data-period="malam"] .swal2-icon.swal2-warning {
+    border-color: #fbbf24 !important;
+    color: #fbbf24 !important;
+}
+
+[data-period="malam"] .swal2-styled.swal2-confirm {
+    background-color: #0284c7 !important;
+    border-color: #0284c7 !important;
+    color: #ffffff !important;
+}
+
+[data-period="malam"] .p-3.rounded.border,
+[data-period="malam"] .p-4.rounded.border,
+[data-period="malam"] div[style*="background-color: var(--mu-surface"],
+[data-period="malam"] div[style*="background: var(--mu-surface"],
+[data-period="malam"] .card.bg-light,
+[data-period="malam"] .card {
+    background-color: #151e32 !important;
+    background: #151e32 !important;
+    border-color: #1e293b !important;
+    color: #f8fafc !important;
+}
+
+[data-period="malam"] .p-3.rounded.border table,
+[data-period="malam"] .p-3.rounded.border table td,
+[data-period="malam"] .p-3.rounded.border table th {
+    background-color: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+[data-period="malam"] .p-3.rounded.border table th.text-muted {
+    color: #94a3b8 !important;
 }
