@@ -2901,7 +2901,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const qName = nameInput ? nameInput.value : 'queue1';
             if (window.toastManager) {
                 window.toastManager.show({
-                    title: 'QoS Queue Saved',
+                    title: 'QoS Saved',
                     message: `Antrean ${qName} berhasil disimpan.`,
                     type: 'success'
                 });

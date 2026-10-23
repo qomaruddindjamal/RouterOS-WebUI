@@ -20,7 +20,7 @@
       <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="queues-simple">Simple QoS</a>
       <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-interface">QoS Interfaces</a>
       <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-tree">QoS Tree</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">QoS Type</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">QoS Types</a>
     </div>
 
     <!-- 2. Window Action Toolbar -->
@@ -1021,7 +1021,7 @@
                     <circle cx="8" cy="11" r="2" fill="currentColor"/>
                 </svg>
                 <span style="font-size: 0.8rem; font-weight: 700; color: #1e293b;">
-                    Simple Queue &gt; <span id="modal-queue-title-name" style="font-weight: 600;">New...</span>
+                    QoS &gt; <span id="modal-queue-title-name" style="font-weight: 600;">New...</span>
                 </span>
             </div>
             <div class="d-flex align-items-center gap-1">
@@ -1425,8 +1425,8 @@
                     <span style="font-size: 0.75rem; font-weight: 700; color: #334155;">Actions</span>
                 </div>
 
-                <button type="button" class="winbox-action-link text-start" onclick="toastManager.show({title:'QoS Queue', message:'Counters reset.', type:'info'})">Reset Counters</button>
-                <button type="button" class="winbox-action-link text-start" onclick="toastManager.show({title:'QoS Queue', message:'All counters reset.', type:'info'})">Reset All Counters</button>
+                <button type="button" class="winbox-action-link text-start" onclick="toastManager.show({title:'QoS Manager', message:'Counters reset.', type:'info'})">Reset Counters</button>
+                <button type="button" class="winbox-action-link text-start" onclick="toastManager.show({title:'QoS Manager', message:'All counters reset.', type:'info'})">Reset All Counters</button>
                 <button type="button" class="winbox-action-link text-start" onclick="if(window.navigationManager){window.navigationManager.switchView('tools-torch','Torch');window.modalManager.close('modal-simple-queue');}">Torch</button>
             </div>
         </div>
