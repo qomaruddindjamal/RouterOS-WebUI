@@ -44,7 +44,7 @@ export class ModuleLoader {
             if (!container) return;
 
             try {
-                const response = await fetch(filePath);
+                const response = await fetch(filePath + "?v=" + Date.now());
                 if (response.ok) {
                     const html = await response.text();
                     container.innerHTML = html;

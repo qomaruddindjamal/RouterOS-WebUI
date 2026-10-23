@@ -1925,7 +1925,7 @@ class ModuleLoader {
             if (!container) return;
 
             try {
-                const response = await fetch(filePath);
+                const response = await fetch(filePath + "?v=" + Date.now());
                 if (response.ok) {
                     const html = await response.text();
                     container.innerHTML = html;
@@ -2461,7 +2461,7 @@ document.addEventListener('dblclick', (e) => {
         row.classList.add('table-primary', 'selected');
     }
 
-    // 0. Jika pada QoS Simple Queues Table -> Buka Modal Simple Queue (JANGAN fallback ke Interface Properties)
+    // 0. Jika pada QoS Simple QoS Table -> Buka Modal QoS (JANGAN fallback ke Interface Properties)
     if (row.closest('#table-queues-simple')) {
         if (typeof window.openSimpleQueueModal === 'function') {
             window.openSimpleQueueModal(row);
@@ -2869,7 +2869,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // QoS Simple Queue WinBox Modal Dialog Handlers
+    // QoS WinBox Modal Dialog Handlers
     // =========================================================================
     // 1. Sub-tabs switching inside modal-simple-queue
     document.addEventListener('click', (e) => {
@@ -2895,7 +2895,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Open Simple Queue modal on table row double-click
+    // 2. Open QoS modal on table row double-click
     document.addEventListener('dblclick', (e) => {
         const tr = e.target.closest('#table-queues-simple tbody tr');
         if (!tr) return;
