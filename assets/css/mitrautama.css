@@ -1709,7 +1709,8 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     min-height: 34px !important;
     padding: 3px 8px !important;
     box-sizing: border-box !important;
-    z-index: 1 !important;
+    position: relative !important;
+    z-index: 100 !important;
 }
 
 
@@ -1723,7 +1724,7 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     position: absolute;
     top: calc(100% + 2px);
     left: 0;
-    z-index: 1050;
+    z-index: 9999 !important;
     display: none;
     min-width: 190px;
     max-height: none;

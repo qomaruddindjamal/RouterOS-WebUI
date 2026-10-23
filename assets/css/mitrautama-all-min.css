@@ -1829,6 +1829,8 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
 }
 
 .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2114,6 +2116,8 @@ input[type=number] {
 }
 
 #view-interfaces .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -2759,6 +2763,8 @@ input[type=number] {
 }
 
 #view-wireguard .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -2888,6 +2894,8 @@ input[type=number] {
 
 #view-ppp .mitrane-toolbar,
 #view-vpn .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -3009,6 +3017,8 @@ input[type=number] {
 }
 
 #view-bridge .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -3362,6 +3372,8 @@ input[type=number] {
 }
 
 #view-queues .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -3520,6 +3532,8 @@ input[type=number] {
 }
 
 .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     min-height: 34px !important;
     padding: 3px 8px !important;
     box-sizing: border-box !important;
@@ -3577,6 +3591,8 @@ input[type=number] {
 
 .mitrautama-content-area.winbox-mode .mitrane-tab-bar,
 .mitrautama-content-area.winbox-mode .mitrane-toolbar {
+    position: relative !important;
+    z-index: 100 !important;
     border-radius: 0 !important;
     border-left: none !important;
     border-right: none !important;
@@ -3738,7 +3754,7 @@ input[type=number] {
     position: absolute;
     top: calc(100% + 2px);
     left: 0;
-    z-index: 1050;
+    z-index: 9999 !important;
     display: none;
     min-width: 190px;
     max-height: none;
