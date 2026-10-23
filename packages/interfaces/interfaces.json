@@ -270,8 +270,8 @@
     },
     {
       "id": "iface_15",
-      "name": "BRIDGE1",
-      "subname": "bridge1",
+      "name": "2. LAN",
+      "subname": "2. LAN",
       "type": "Bridge",
       "status": "running",
       "actualMtu": 1500,
@@ -285,7 +285,7 @@
       "fpTxPkt": 42,
       "fpRxPkt": 56,
       "macAddress": "2C:C8:1B:18:BE:18",
-      "defaultName": "bridge1"
+      "defaultName": "2. LAN"
     },
     {
       "id": "iface_16",

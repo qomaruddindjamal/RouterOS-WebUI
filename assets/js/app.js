@@ -1420,7 +1420,7 @@ class JsonDataService {
         // 2. Bridge Accordion: BRIDGE1 (2. LAN) hanya membawahi ether4
         const bridgeDef = {
             id: 'iface-group-bridge1',
-            parentName: 'BRIDGE1',
+            parentName: '2. LAN',
             color: '#16a34a',
             members: ['ETH4']
         };
@@ -1429,7 +1429,7 @@ class JsonDataService {
         const otherGroups = [
             {
                 id: 'iface-group-wan',
-                title: '1. WAN (Bridge & Uplinks)',
+                title: '1. WAN',
                 color: '#0284c7',
                 members: ['ETH7', 'ETH8', 'ETH9', 'PPP0', 'WG-BACKBONE', 'SSTP-VPN'],
                 type: 'List / WAN'
