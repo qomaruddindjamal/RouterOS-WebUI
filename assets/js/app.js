@@ -1433,8 +1433,14 @@ class JsonDataService {
             }
         ];
 
-        // 2. Interface Port Induk VLAN (ETH2 induk VLAN10 & 20, ETH3 induk VLAN30 & 40)
-        const vlanParentGroups = [
+        // 2. Interface Port Induk (ETH1 -> pppoe-out1, ETH2 -> VLAN10 & 20, ETH3 -> VLAN30 & 40)
+        const portParentGroups = [
+            {
+                id: 'iface-group-eth1',
+                parentName: 'ETH1',
+                color: '#0284c7',
+                members: ['pppoe-out1']
+            },
             {
                 id: 'iface-group-eth2',
                 parentName: 'ETH2',
@@ -1670,19 +1676,15 @@ class JsonDataService {
         });
 
         // =========================================================================
-        // B. Render ETH1, diikuti ETH2 (induk VLAN10,20) dan ETH3 (induk VLAN30,40)
+        // B. Render Port Induk: ETH1 (induk pppoe-out1), ETH2 (induk VLAN10,20), ETH3 (induk VLAN30,40)
         // =========================================================================
-        // 1. ETH1 tepat di atas ETH2 & ETH3
-        renderStandaloneRow('ETH1');
-
-        // 2. ETH2 & ETH3 di bawah ETH1
-        vlanParentGroups.forEach(vGrp => {
-            const pEntry = ifaceMap[vGrp.parentName];
+        portParentGroups.forEach(pGrp => {
+            const pEntry = ifaceMap[pGrp.parentName];
             if (!pEntry) return;
             const { item: pItem, idx: pIdx } = pEntry;
 
-            const matchingVlans = [];
-            vGrp.members.forEach(mName => {
+            const matchingChildren = [];
+            pGrp.members.forEach(mName => {
                 const entry = ifaceMap[mName];
                 if (!entry) return;
                 const it = entry.item;
@@ -1691,19 +1693,19 @@ class JsonDataService {
                                 it.subname.toLowerCase().includes(term) ||
                                 it.type.toLowerCase().includes(term) ||
                                 pItem.name.toLowerCase().includes(term);
-                if (matches) matchingVlans.push(entry);
+                if (matches) matchingChildren.push(entry);
             });
 
             const parentMatches = !term ||
                                   pItem.name.toLowerCase().includes(term) ||
                                   pItem.subname.toLowerCase().includes(term);
 
-            if (!term || parentMatches || matchingVlans.length > 0) {
-                totalRendered += 1 + matchingVlans.length;
+            if (!term || parentMatches || matchingChildren.length > 0) {
+                totalRendered += 1 + matchingChildren.length;
                 const isClosed = !term;
                 const chevronTransform = isClosed ? 'rotate(0deg)' : 'rotate(90deg)';
                 const childDisplay = isClosed ? 'display: none;' : '';
-                const memberCount = matchingVlans.length;
+                const memberCount = matchingChildren.length;
 
                 const isRunning = pItem.status === 'running';
                 const iconSvg = isRunning 
@@ -1719,16 +1721,16 @@ class JsonDataService {
                 const safeType = this.escapeHtml(pItem.type);
 
                 htmlParts.push(`
-                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${vGrp.id}" data-mitrautama-row-index="${pIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+                <tr class="iface-tree-row iface-root-row ${isSelected}" data-iface-node="${pGrp.id}" data-mitrautama-row-index="${pIdx}" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
                     <td class="text-center" style="width: 28px;">${iconSvg}</td>
                     <td>
-                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${vGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                        <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="${pGrp.id}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
                             <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: ${chevronTransform};"><polyline points="9 18 15 12 9 6"></polyline></svg>
                         </span>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                        <strong style="color: ${vGrp.color};">${safeName}</strong>
+                        <strong style="color: ${pGrp.color};">${safeName}</strong>
                         <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${vGrp.color}; color: #ffffff;">${memberCount}</span>
+                        <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${pGrp.color}; color: #ffffff;">${memberCount}</span>
                     </td>
                     <td><span class="mitrane-badge-type">${safeType}</span></td>
                     <td>${pItem.actualMtu}</td>
@@ -1743,8 +1745,8 @@ class JsonDataService {
                     <td>${pItem.fpRxPkt}</td>
                 </tr>`);
 
-                matchingVlans.forEach(({ item, idx }) => {
-                    htmlParts.push(renderChildRow(item, idx, vGrp.id, childDisplay));
+                matchingChildren.forEach(({ item, idx }) => {
+                    htmlParts.push(renderChildRow(item, idx, pGrp.id, childDisplay));
                 });
             }
         });

@@ -1,5 +1,5 @@
 {
-  "total": 30,
+  "total": 31,
   "lastUpdated": "2026-10-22T23:10:00Z",
   "interfaces": [
     {
@@ -571,6 +571,25 @@
       "fpRxPkt": 0,
       "macAddress": "2C:C8:1B:18:BE:27",
       "defaultName": "erspan0"
+    },
+    {
+      "id": "iface_pppoe1",
+      "name": "pppoe-out1",
+      "subname": "pppoe-out1",
+      "type": "PPPoE",
+      "status": "running",
+      "actualMtu": 1492,
+      "l2Mtu": 1500,
+      "tx": "18.4 KB/s",
+      "rx": "42.1 KB/s",
+      "txPkt": 24,
+      "rxPkt": 38,
+      "fpTx": "18.4 KB/s",
+      "fpRx": "42.1 KB/s",
+      "fpTxPkt": 24,
+      "fpRxPkt": 38,
+      "macAddress": "2C:C8:1B:18:BE:0A",
+      "defaultName": "pppoe-out1"
     }
   ]
 }

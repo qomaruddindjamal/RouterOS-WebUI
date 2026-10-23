@@ -240,13 +240,17 @@
             <td>0</td>
             <td>0</td>
           </tr>
-          <!-- Standalone Interface: ETH1 (Root Level / Di Luar Bridge) -->
-          <tr class="iface-tree-row iface-standalone-row" data-mitrautama-row-index="0" style="cursor: pointer;">
+          <!-- Port Parent Accordion: ETH1 (Induk pppoe-out1) (Default Closed) -->
+          <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-eth1" data-mitrautama-row-index="0" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
             <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
             <td>
+              <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="iface-group-eth1" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-              <strong>ETH1</strong>
+              <strong style="color: #0284c7;">ETH1</strong>
               <span class="text-muted" style="font-size: 0.72rem;">(enp1s0)</span>
+              <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #0284c7; color: #ffffff;">1</span>
             </td>
             <td><span class="mitrane-badge-type">Ethernet</span></td>
             <td>1500</td>
@@ -259,6 +263,27 @@
             <td>641 B/s</td>
             <td>3</td>
             <td>4</td>
+          </tr>
+          <!-- Child Interface: pppoe-out1 (Default Hidden) -->
+          <tr class="iface-tree-row iface-child-row" data-iface-parent="iface-group-eth1" data-mitrautama-row-index="30" style="display: none; cursor: pointer;">
+            <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+            <td>
+              <span style="display:inline-block; width: 18px;"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+              <strong>pppoe-out1</strong>
+              <span class="text-muted" style="font-size: 0.72rem;">(pppoe-out1)</span>
+            </td>
+            <td><span class="mitrane-badge-type">PPPoE</span></td>
+            <td>1492</td>
+            <td>1500</td>
+            <td class="mitrane-rate-active">18.4 KB/s</td>
+            <td class="text-primary fw-semibold">42.1 KB/s</td>
+            <td>24</td>
+            <td>38</td>
+            <td>18.4 KB/s</td>
+            <td>42.1 KB/s</td>
+            <td>24</td>
+            <td>38</td>
           </tr>
           <!-- Port Parent Accordion: ETH2 (Induk VLAN10 & VLAN20) (Default Closed) -->
           <tr class="iface-tree-row iface-root-row" data-iface-node="iface-group-eth2" data-mitrautama-row-index="1" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
@@ -1453,7 +1478,7 @@
     <!-- 4. Subsystem Status & Item Count Footer -->
         <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
       <div class="d-flex align-items-center flex-wrap">
-        <span id="mitrane-total-items" class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">30 items</span>
+        <span id="mitrane-total-items" class="fw-bold me-3" style="color: var(--mu-text-main, #1e293b);">31 items</span>
         <div class="mitrane-footer-legends d-flex align-items-center flex-wrap" id="mitrane-footer-legends">
           <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Ethernet: <strong style="color: var(--mu-text-main, #1e293b);">14</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #ec4899; display: inline-block; flex-shrink: 0;"></span><span>VLAN: <strong style="color: var(--mu-text-main, #1e293b);">4</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #06b6d4; display: inline-block; flex-shrink: 0;"></span><span>GRE: <strong style="color: var(--mu-text-main, #1e293b);">3</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #eab308; display: inline-block; flex-shrink: 0;"></span><span>Wireless: <strong style="color: var(--mu-text-main, #1e293b);">2</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #3b82f6; display: inline-block; flex-shrink: 0;"></span><span>Bridge: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #8b5cf6; display: inline-block; flex-shrink: 0;"></span><span>WireGuard: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #f97316; display: inline-block; flex-shrink: 0;"></span><span>EoIP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #6366f1; display: inline-block; flex-shrink: 0;"></span><span>IPIP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; display: inline-block; flex-shrink: 0;"></span><span>VXLAN: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #64748b; display: inline-block; flex-shrink: 0;"></span><span>Loopback: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span><span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #ef4444; display: inline-block; flex-shrink: 0;"></span><span>SSTP: <strong style="color: var(--mu-text-main, #1e293b);">1</strong></span></span>
         </div>
