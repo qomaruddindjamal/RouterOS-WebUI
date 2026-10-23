@@ -2329,6 +2329,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Global Helper untuk membuka dan mengisi data modal Interface Properties (WinBox Replica)
+window.openSimpleQueueModal = function(tr) {
+    if (!tr) return;
+    const nameSpan = tr.querySelector('td:nth-child(3) span:last-child');
+    const queueName = nameSpan ? nameSpan.textContent.trim() : 'queue1';
+    const targetTd = tr.querySelector('td:nth-child(4)');
+    const queueTarget = targetTd ? targetTd.textContent.trim() : '0.0.0.0/0';
+    const upLimitTd = tr.querySelector('td:nth-child(5)');
+    const downLimitTd = tr.querySelector('td:nth-child(6)');
+
+    const titleEl = document.getElementById('modal-queue-title-name');
+    if (titleEl) titleEl.textContent = `<${queueName}>`;
+    const nameInput = document.getElementById('modal-queue-name');
+    if (nameInput) nameInput.value = queueName;
+    const targetInput = document.getElementById('modal-queue-target');
+    if (targetInput) targetInput.value = queueTarget;
+    const maxUpInput = document.getElementById('modal-queue-max-upload');
+    if (maxUpInput && upLimitTd) maxUpInput.value = upLimitTd.textContent.trim() || '0';
+    const maxDownInput = document.getElementById('modal-queue-max-download');
+    if (maxDownInput && downLimitTd) maxDownInput.value = downLimitTd.textContent.trim() || '0';
+
+    if (window.modalManager) {
+        window.modalManager.open('modal-simple-queue');
+    }
+};
+
 window.openInterfacePropertiesModal = function(item) {
     if (!item) return;
 
@@ -2434,6 +2459,14 @@ document.addEventListener('dblclick', (e) => {
     if (tbody) {
         tbody.querySelectorAll('tr').forEach(r => r.classList.remove('table-primary', 'selected'));
         row.classList.add('table-primary', 'selected');
+    }
+
+    // 0. Jika pada QoS Simple Queues Table -> Buka Modal Simple Queue (JANGAN fallback ke Interface Properties)
+    if (row.closest('#table-queues-simple')) {
+        if (typeof window.openSimpleQueueModal === 'function') {
+            window.openSimpleQueueModal(row);
+        }
+        return;
     }
 
     // 1. Jika pada Interfaces Table -> Buka Modal Interface Properties WinBox Replica
@@ -2867,27 +2900,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tr = e.target.closest('#table-queues-simple tbody tr');
         if (!tr) return;
         if (e.target.closest('.btn-queue-toggle')) return;
-
-        const nameSpan = tr.querySelector('td:nth-child(3) span:last-child');
-        const queueName = nameSpan ? nameSpan.textContent.trim() : 'queue1';
-        const targetTd = tr.querySelector('td:nth-child(4)');
-        const queueTarget = targetTd ? targetTd.textContent.trim() : '0.0.0.0/0';
-        const upLimitTd = tr.querySelector('td:nth-child(5)');
-        const downLimitTd = tr.querySelector('td:nth-child(6)');
-
-        const titleEl = document.getElementById('modal-queue-title-name');
-        if (titleEl) titleEl.textContent = `<${queueName}>`;
-        const nameInput = document.getElementById('modal-queue-name');
-        if (nameInput) nameInput.value = queueName;
-        const targetInput = document.getElementById('modal-queue-target');
-        if (targetInput) targetInput.value = queueTarget;
-        const maxUpInput = document.getElementById('modal-queue-max-upload');
-        if (maxUpInput && upLimitTd) maxUpInput.value = upLimitTd.textContent.trim() || '0';
-        const maxDownInput = document.getElementById('modal-queue-max-download');
-        if (maxDownInput && downLimitTd) maxDownInput.value = downLimitTd.textContent.trim() || '0';
-
-        if (window.modalManager) {
-            window.modalManager.open('modal-simple-queue');
+        if (typeof window.openSimpleQueueModal === 'function') {
+            window.openSimpleQueueModal(tr);
         }
     });
 
