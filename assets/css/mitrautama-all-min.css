@@ -2163,6 +2163,7 @@ input[type=number] {
     max-height: calc(100vh - 52px - 32px) !important;
 }
 
+#xolt-module-container,
 #interfaces-module-container,
 #ip-module-container,
 #wireguard-module-container,
@@ -3523,4 +3524,121 @@ input[type=number] {
     padding: 3px 8px !important;
     box-sizing: border-box !important;
     z-index: 1 !important;
+}
+
+/* =========================================================================
+   UNIVERSAL WINBOX FLUSH LAYOUT: SEMUA VIEW & FOOTER CARD MENEMPEL RATA ATAS FOOTER
+   ========================================================================= */
+.mitrautama-content-area.winbox-mode > div:not([style*="display: none"]),
+.mitrautama-content-area.winbox-mode .mitrautama-view-section:not([style*="display: none"]),
+#view-xolt:not([style*="display: none"]),
+#view-interfaces:not([style*="display: none"]),
+#view-ip-addresses:not([style*="display: none"]),
+#view-wireguard:not([style*="display: none"]),
+#view-wireless-tables:not([style*="display: none"]),
+#view-switch:not([style*="display: none"]),
+#view-bridge:not([style*="display: none"]),
+#view-system:not([style*="display: none"]),
+#view-queues:not([style*="display: none"]),
+#view-ppp:not([style*="display: none"]) {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrane-window,
+#view-xolt .mitrane-window,
+#view-interfaces .mitrane-window,
+#view-ip-addresses .mitrane-window,
+#view-wireguard .mitrane-window,
+#view-wireless-tables .mitrane-window,
+#view-switch .mitrane-window,
+#view-bridge .mitrane-window,
+#view-system .mitrane-window,
+#view-queues .mitrane-window,
+#view-ppp .mitrane-window {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    flex: 1 1 auto !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrane-tab-bar,
+.mitrautama-content-area.winbox-mode .mitrane-toolbar {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrautama-tab-content {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrautama-tab-content[style*="display: none"] {
+    display: none !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrautama-table-container {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    margin: 0 !important;
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    overflow: auto !important;
+}
+
+.mitrautama-content-area.winbox-mode .mitrane-status-subsystem,
+#view-xolt .mitrane-status-subsystem,
+#view-interfaces .mitrane-status-subsystem,
+#view-ip-addresses .mitrane-status-subsystem,
+#view-wireguard .mitrane-status-subsystem,
+#view-wireless-tables .mitrane-status-subsystem,
+#view-switch .mitrane-status-subsystem,
+#view-bridge .mitrane-status-subsystem,
+#view-system .mitrane-status-subsystem,
+#view-queues .mitrane-status-subsystem,
+#view-ppp .mitrane-status-subsystem {
+    margin-top: auto !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-top: 1px solid #cbd5e1 !important;
+    background: #f1f5f9 !important;
+    padding: 4px 12px !important;
+    z-index: 10 !important;
+}
+
+[data-theme="dark"] .mitrautama-content-area.winbox-mode .mitrane-status-subsystem,
+[data-period="malam"] .mitrautama-content-area.winbox-mode .mitrane-status-subsystem,
+[data-theme="dark"] #view-xolt .mitrane-status-subsystem,
+[data-period="malam"] #view-xolt .mitrane-status-subsystem {
+    border-top: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: #94a3b8 !important;
 }
