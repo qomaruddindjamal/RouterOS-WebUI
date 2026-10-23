@@ -1401,7 +1401,7 @@ body.mitrautama-sidebar-collapsed .mitrautama-submenu-chevron {
 
 /* Penyelarasan Presisi Header & Sidebar saat Collapsed */
 body.mitrautama-sidebar-collapsed .mitrautama-fixed-header {
-    padding-left: 12px !important;
+    padding-left: 0 !important;
     padding-right: 16px !important;
 }
 
@@ -1415,6 +1415,15 @@ body.mitrautama-sidebar-collapsed .mitrautama-header-left {
     align-items: center !important;
     justify-content: center !important;
     box-sizing: border-box !important;
+}
+
+body.mitrautama-sidebar-collapsed .mitrautama-header-home-btn {
+    width: 58px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* Perfect Vertical Center Alignment for Rail Icons & Logo in Collapsed State */
