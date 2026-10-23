@@ -337,7 +337,63 @@ export class JsonDataService {
         });
 
         // =========================================================================
-        // C. Render Kelompok Overlay / Tunnels Lainnya
+        // C. Render Standalone Interfaces (Port di luar bridge & non-parent)
+        // =========================================================================
+        standaloneNames.forEach(name => {
+            const entry = ifaceMap[name];
+            if (!entry) return;
+            const { item, idx } = entry;
+            const matches = !term ||
+                            item.name.toLowerCase().includes(term) ||
+                            item.subname.toLowerCase().includes(term) ||
+                            item.type.toLowerCase().includes(term);
+            if (!matches) return;
+
+            totalRendered++;
+            const isRunning = item.status === 'running';
+            const isBridgeMember = bridgePortNames.has(item.name);
+
+            let iconSvg;
+            if (isBridgeMember) {
+                iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            } else if (isRunning) {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            } else {
+                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            }
+
+            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
+            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
+            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
+
+            const safeName = this.escapeHtml(item.name);
+            const safeSubname = this.escapeHtml(item.subname);
+            const safeType = this.escapeHtml(item.type);
+
+            htmlParts.push(`
+            <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${idx}" style="cursor: pointer;">
+                <td class="text-center" style="width: 28px;">${iconSvg}</td>
+                <td>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                    <strong>${safeName}</strong>
+                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                </td>
+                <td><span class="mitrane-badge-type">${safeType}</span></td>
+                <td>${item.actualMtu}</td>
+                <td>${item.l2Mtu}</td>
+                <td class="${txRateClass}">${item.tx}</td>
+                <td class="${rxRateClass}">${item.rx}</td>
+                <td>${item.txPkt}</td>
+                <td>${item.rxPkt}</td>
+                <td>${item.fpTx}</td>
+                <td>${item.fpRx}</td>
+                <td>${item.fpTxPkt}</td>
+                <td>${item.fpRxPkt}</td>
+            </tr>`);
+        });
+
+        // =========================================================================
+        // D. Render Kelompok Overlay & Tunnels (Paling Bawah)
         // =========================================================================
         otherGroups.forEach(grp => {
             const matchingMembers = [];
@@ -392,62 +448,6 @@ export class JsonDataService {
             matchingMembers.forEach(({ item, idx }) => {
                 htmlParts.push(renderChildRow(item, idx, grp.id, childDisplay));
             });
-        });
-
-        // =========================================================================
-        // D. Render Standalone Interfaces (Port di luar bridge & non-parent)
-        // =========================================================================
-        standaloneNames.forEach(name => {
-            const entry = ifaceMap[name];
-            if (!entry) return;
-            const { item, idx } = entry;
-            const matches = !term ||
-                            item.name.toLowerCase().includes(term) ||
-                            item.subname.toLowerCase().includes(term) ||
-                            item.type.toLowerCase().includes(term);
-            if (!matches) return;
-
-            totalRendered++;
-            const isRunning = item.status === 'running';
-            const isBridgeMember = bridgePortNames.has(item.name);
-
-            let iconSvg;
-            if (isBridgeMember) {
-                iconSvg = `<svg width="17" height="13" viewBox="0 0 22 16" fill="none" style="vertical-align: middle; display: inline-block;" title="Running, Bridge Port"><polyline points="1.5 9 5.5 13 13.5 5" stroke="#16a34a" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 9 11 13 19 5" stroke="#0284c7" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-            } else if (isRunning) {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            } else {
-                iconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-            }
-
-            const txRateClass = item.tx !== '0 B/s' ? 'mitrane-rate-active' : 'text-muted';
-            const rxRateClass = item.rx !== '0 B/s' ? 'text-primary fw-semibold' : 'text-muted';
-            const isSelected = this.selectedIndex === idx ? 'table-primary selected' : '';
-
-            const safeName = this.escapeHtml(item.name);
-            const safeSubname = this.escapeHtml(item.subname);
-            const safeType = this.escapeHtml(item.type);
-
-            htmlParts.push(`
-            <tr class="iface-tree-row iface-standalone-row ${isSelected}" data-mitrautama-row-index="${idx}" style="cursor: pointer;">
-                <td class="text-center" style="width: 28px;">${iconSvg}</td>
-                <td>
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
-                    <strong>${safeName}</strong>
-                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
-                </td>
-                <td><span class="mitrane-badge-type">${safeType}</span></td>
-                <td>${item.actualMtu}</td>
-                <td>${item.l2Mtu}</td>
-                <td class="${txRateClass}">${item.tx}</td>
-                <td class="${rxRateClass}">${item.rx}</td>
-                <td>${item.txPkt}</td>
-                <td>${item.rxPkt}</td>
-                <td>${item.fpTx}</td>
-                <td>${item.fpRx}</td>
-                <td>${item.fpTxPkt}</td>
-                <td>${item.fpRxPkt}</td>
-            </tr>`);
         });
 
         tableBody.innerHTML = htmlParts.join('');
