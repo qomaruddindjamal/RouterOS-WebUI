@@ -1,32 +1,42 @@
 # RouterOS WebUI
 
-A modern, responsive, information-dense web user interface designed for MikroTik RouterOS (inspired by WinBox 4.x patterns).
+A modern, responsive, high-density Web User Interface designed for MikroTik RouterOS management, inspired by WinBox 4.x patterns.
+
+## Features & Modules
+
+- **Collapsible WinBox Sidebar:** Fast navigation across all RouterOS modules with smooth collapse/expand states (230px full / 58px compact) and upward-oriented flyout submenus.
+- **Interactive Home KPI Dashboard:** Live WAN throughput monitoring, CPU load graph, memory utilization, and real-time system health metrics.
+- **Interfaces Manager:** Complete operational view with multi-tab navigation (`Interface`, `Interface List`, `Ethernet`, `EoIP Tunnel`, `IP Tunnel`, `GRE Tunnel`, `VLAN`, `Bridge`, `VRF`, etc.) and replica WinBox Properties modals.
+- **QoS Manager:** Centralized bandwidth management module featuring:
+  - **Simple QoS:** Tree and table bandwidth limits with expandable hierarchy.
+  - **QoS Interfaces:** Per-interface queue assignment.
+  - **QoS Tree:** Hierarchical parent-child bandwidth tree policies.
+  - **QoS Types:** Queue scheduling algorithms (PCQ, SFQ, RED, FIFO).
+  - **QoS Modal Dialog:** Dedicated WinBox-replica dialog with General, Advanced, Statistics, Traffic, and Total panes.
+- **Bridge, Switch, Wireless, & WireGuard:** Deep management modules with granular port, VLAN, rule, and peer controls.
+- **IP & Network Services:** Addresses, DHCP Server/Client, DNS, Firewall (Filter, NAT, Mangle, Raw), Pools, and Hotspot.
+- **Tools & Utilities:** Integrated Torch traffic monitor, Ping, Traceroute, and Profile diagnostic utilities.
 
 ## Architecture & Design Principles
 
-- **Modular HTML & ES6 JavaScript:** Sub-views located in dedicated directories (`interfaces/`, `switch/`, `bridge/`, `system/`, `queues/`, `ppp/`, `wireguard/`, `wireless/`, `ip/`, `includes/`).
-- **Strict Theme System:** Centralized CSS token architecture with persistent `localStorage` selection, instant early-detection rendering in `<head>`, and seamless dynamic header integration:
-  - `css/mitrautama.css`: Base clean bright theme with CSS custom properties.
-  - `css/mitrautama-dark.css`: Dark midnight navy theme (`[data-theme="dark"]`).
-  - `css/mitrautama-auto.css`: Dynamic time-based theme with 5 atmospheric periods:
-    - **Fajar (`04:00 - 06:14`):** Cahaya lembut keemasan pastel (`[data-period="fajar"]`).
-    - **Pagi (`06:15 - 11:29`):** Cerah segar biru langit & putih hangat (`[data-period="pagi"]`).
-    - **Siang (`11:30 - 15:59`):** Ultra-bright kontras tajam & cerah maksimal (`[data-period="siang"]`).
-    - **Senja (`16:00 - 17:59`):** Hangat jingga lembayung sunset (`[data-period="senja"]`).
-    - **Malam (`18:00 - 03:59`):** Deep night dark mode elegan (`[data-period="malam"]` + `mitrautama-dark.css`).
-  - `css/mitrautama-tabel.css`: Compact high-density data grid tables with status badges.
-  - `css/mitrautama-tost.css`: Floating toast alerts with progress bars.
-  - `css/mitrautama-all-min.css`: Core layout shell, fixed header/footer, collapsible sidebar (230px / 58px), drop-right flyout submenus.
-- **Interactive Home KPI Dashboard:** Default active view displaying WAN live traffic stream, CPU history graphs, hardware health indicators, and memory usage metrics.
-- **Interfaces Operational Window:** Complete WinBox-styled 16-tab navigation (`Interface`, `Interface List`, `Ethernet`, `EoIP Tunnel`, `IP Tunnel`, `GRE Tunnel`, `VLAN`, `Bridge`, `VXLAN`, `VRF`, `VRRP`, `LACC`, `MACsec`, `MACVLAN`, `vEther`, `vEther Tunnel`) and interactive CRUD simulation.
-- **Strict Safety:** Modal dialogs use manual-close only (no auto-close on backdrop click). Local state modifications are clearly bounded as simulations.
+- **Modular Architecture:** Sub-views located in dedicated folders under `packages/` (`interfaces/`, `qos/`, `switch/`, `bridge/`, `system/`, `vpn/`, `wireguard/`, `wireless/`, `ip/`, `tools/`, `xray/`).
+- **Comprehensive Theme System:** Instant early-detection theme script in `<head>` preventing FOUC (Flash of Unstyled Content):
+  - `assets/css/mitrautama.css`: Base bright clean theme with CSS tokens.
+  - `assets/css/mitrautama-dark.css`: Dark midnight navy theme (`[data-theme="dark"]`).
+  - `assets/css/mitrautama-auto.css`: Dynamic solar-synced theme (Fajar, Pagi, Siang, Senja, Malam).
+  - `assets/css/mitrautama-tabel.css`: WinBox-density compact grid tables with keyboard selection and double-click actions.
+  - `assets/css/mitrautama-tost.css`: Non-blocking toast notifications with progress bars.
+  - `assets/css/mitrautama-all-min.css`: Core application shell, fixed header/footer, modal overlay managers.
+- **Modal System:** Strictly manual close (`[X]` or Cancel/OK button) preventing accidental dismissals during configuration.
 
-## Automated Verification
+## Getting Started
 
-Run unit & integration tests:
+Serve the repository root via any static HTTP web server:
 ```bash
-python test_suite.py
+python -m http.server 8080
 ```
+Open `http://localhost:8080` in your web browser.
 
 ## License
-MIT License - See [LICENSE](LICENSE) for details.
+
+MIT License.

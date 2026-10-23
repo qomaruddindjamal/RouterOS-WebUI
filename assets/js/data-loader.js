@@ -2287,10 +2287,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Global Helper untuk membuka dan mengisi data modal Interface Properties (WinBox Replica)
-window.openSimpleQueueModal = function(tr) {
+window.openQosModal = function(tr) {
     if (!tr) return;
     const nameSpan = tr.querySelector('td:nth-child(3) span:last-child');
-    const queueName = nameSpan ? nameSpan.textContent.trim() : 'queue1';
+    const queueName = nameSpan ? nameSpan.textContent.trim() : 'qos1';
     const targetTd = tr.querySelector('td:nth-child(4)');
     const queueTarget = targetTd ? targetTd.textContent.trim() : '0.0.0.0/0';
     const upLimitTd = tr.querySelector('td:nth-child(5)');
@@ -2308,7 +2308,7 @@ window.openSimpleQueueModal = function(tr) {
     if (maxDownInput && downLimitTd) maxDownInput.value = downLimitTd.textContent.trim() || '0';
 
     if (window.modalManager) {
-        window.modalManager.open('modal-simple-queue');
+        window.modalManager.open('modal-qos');
     }
 };
 
@@ -2421,8 +2421,8 @@ document.addEventListener('dblclick', (e) => {
 
     // 0. Jika pada QoS Simple QoS Table -> Buka Modal QoS (JANGAN fallback ke Interface Properties)
     if (row.closest('#table-queues-simple')) {
-        if (typeof window.openSimpleQueueModal === 'function') {
-            window.openSimpleQueueModal(row);
+        if (typeof window.openQosModal === 'function') {
+            window.openQosModal(row);
         }
         return;
     }
@@ -2829,7 +2829,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     // QoS WinBox Modal Dialog Handlers
     // =========================================================================
-    // 1. Sub-tabs switching inside modal-simple-queue
+    // 1. Sub-tabs switching inside modal-qos
     document.addEventListener('click', (e) => {
         const subtabBtn = e.target.closest('#modal-queue-subtabs-bar .winbox-subtab-btn');
         if (!subtabBtn) return;
@@ -2858,8 +2858,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const tr = e.target.closest('#table-queues-simple tbody tr');
         if (!tr) return;
         if (e.target.closest('.btn-queue-toggle')) return;
-        if (typeof window.openSimpleQueueModal === 'function') {
-            window.openSimpleQueueModal(tr);
+        if (typeof window.openQosModal === 'function') {
+            window.openQosModal(tr);
         }
     });
 
@@ -2870,7 +2870,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const titleEl = document.getElementById('modal-queue-title-name');
         if (titleEl) titleEl.textContent = 'New...';
         const nameInput = document.getElementById('modal-queue-name');
-        if (nameInput) nameInput.value = 'queue1';
+        if (nameInput) nameInput.value = 'qos1';
         const targetInput = document.getElementById('modal-queue-target');
         if (targetInput) targetInput.value = '0.0.0.0/0';
         const maxUpInput = document.getElementById('modal-queue-max-upload');
@@ -2894,11 +2894,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Handle Apply and OK
     document.addEventListener('click', (e) => {
-        const applyBtn = e.target.closest('#btn-apply-simple-queue');
-        const okBtn = e.target.closest('#btn-ok-simple-queue');
+        const applyBtn = e.target.closest('#btn-apply-qos');
+        const okBtn = e.target.closest('#btn-ok-qos');
         if (applyBtn || okBtn) {
             const nameInput = document.getElementById('modal-queue-name');
-            const qName = nameInput ? nameInput.value : 'queue1';
+            const qName = nameInput ? nameInput.value : 'qos1';
             if (window.toastManager) {
                 window.toastManager.show({
                     title: 'QoS Saved',
@@ -2907,7 +2907,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             if (okBtn && window.modalManager) {
-                window.modalManager.close('modal-simple-queue');
+                window.modalManager.close('modal-qos');
             }
         }
     });
