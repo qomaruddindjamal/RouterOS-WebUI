@@ -353,7 +353,7 @@
 #switch-module-container,
 #bridge-module-container,
 #system-module-container,
-#queues-module-container,
+#qos-module-container,
 #ppp-module-container {
     width: 100% !important;
     display: contents !important;

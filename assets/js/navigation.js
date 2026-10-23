@@ -21,8 +21,19 @@ export class NavigationManager {
         this.bindQuickSweetAlerts();
         this.bindTerminalEvents();
 
-        // Pastikan view awal aktif
-        this.switchView('dashboard', 'Home');
+        // Pastikan view awal aktif (Restore dari Hash URL atau LocalStorage saat refresh)
+        const initialHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+        const savedView = localStorage.getItem('mitrautama_active_view');
+        const defaultView = initialHash || savedView || 'dashboard';
+        this.switchView(defaultView);
+
+        // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
+        window.addEventListener('hashchange', () => {
+            const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+            if (currentHash && currentHash !== this.activeView) {
+                this.switchView(currentHash);
+            }
+        });
     }
 
     bindSidebarCollapse() {
@@ -218,6 +229,14 @@ export class NavigationManager {
 
     switchView(viewId, titleLabel = '') {
         this.activeView = viewId;
+        try {
+            localStorage.setItem('mitrautama_active_view', viewId);
+            const targetHash = '#' + viewId;
+            if (window.location.hash !== targetHash) {
+                history.replaceState(null, '', targetHash);
+            }
+        } catch (e) {}
+
         const allSections = document.querySelectorAll('.mitrautama-view-section');
         allSections.forEach(sec => {
             sec.style.display = 'none';
@@ -228,7 +247,7 @@ export class NavigationManager {
         const routeConfigMap = {
             'terminal': { view: 'terminal' },
             'vpn': { view: 'ppp' },
-            'qos': { view: 'queues' },
+            'qos': { view: 'qos' },
             'interfaces': { view: 'interfaces', subtab: 'interface' },
             'mpls-interfaces': { view: 'interfaces', subtab: 'interface' },
             'ip': { view: 'ip-addresses', subtab: 'ip-addr' },
@@ -257,7 +276,7 @@ export class NavigationManager {
             'wireguard': { view: 'wireguard' },
             'bridge': { view: 'bridge' },
             'ppp': { view: 'ppp' },
-            'queues': { view: 'queues' },
+            'queues': { view: 'qos' },
             'xolt': { view: 'xolt', subtab: 'xolt-pon-ports' },
             'xolt-onus': { view: 'xolt', subtab: 'xolt-onus' },
             'xolt-optical': { view: 'xolt', subtab: 'xolt-optical' },
@@ -305,6 +324,19 @@ export class NavigationManager {
             }
 
             // Dashboard Chart Lifecycle Integration
+            // Sync sidebar and submenu active state
+            document.querySelectorAll('.mitrautama-menu-item, .mitrautama-submenu-item').forEach(m => m.classList.remove('active'));
+            const activeSidebarItem = document.querySelector(`.mitrautama-menu-item[data-mitrautama-view="${viewId}"], .mitrautama-menu-item[data-mitrautama-view="${resolvedId}"]`) ||
+                                      document.querySelector(`.mitrautama-submenu-item[data-mitrautama-view="${viewId}"]`);
+            if (activeSidebarItem) {
+                activeSidebarItem.classList.add('active');
+                const parentGrp = activeSidebarItem.closest('.mitrautama-menu-group');
+                if (parentGrp) {
+                    const parentMenu = parentGrp.querySelector('.mitrautama-menu-item');
+                    if (parentMenu) parentMenu.classList.add('active');
+                }
+            }
+
             if (viewId === 'dashboard' && window.chartController) {
                 window.chartController.initTrafficChart();
                 window.chartController.initCpuChart();

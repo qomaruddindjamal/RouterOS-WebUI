@@ -1,9 +1,9 @@
-﻿<!-- Module: queues/queues.html (QoS Manager / Queues MITRANE Style Window) -->
-<div class="mitrautama-view-section" id="view-queues" style="display: none;">
+<!-- Module: qos/qos.html (QoS Manager / Quality of Service MITRANE Style Window) -->
+<div class="mitrautama-view-section" id="view-qos" style="display: none;">
   <div class="mitrane-window">
     
     <!-- 1. Window Tab Bar -->
-    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-queues-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-qos-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
             <button class="mitrane-window-title-btn" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="20" x2="18" y2="10"></line>
@@ -17,32 +17,32 @@
       </button>
 
       <!-- Sub-tabs matching screenshot -->
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="queues-simple">Simple QoS</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-interface">QoS Interfaces</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-tree">QoS Tree</a>
-      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="queues-types">QoS Types</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="qos-simple">Simple QoS</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="qos-interface">QoS Interfaces</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="qos-tree">QoS Tree</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="qos-types">QoS Types</a>
     </div>
 
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-queues-new" data-mitrautama-modal-open="modal-qos">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-qos-new" data-mitrautama-modal-open="modal-qos">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-enable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean diaktifkan.', type:'success'})">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-qos-enable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean diaktifkan.', type:'success'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Enable</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-disable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean dinonaktifkan.', type:'info'})">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-qos-disable" onclick="toastManager.show({title:'QoS Manager', message:'Antrean dinonaktifkan.', type:'info'})">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
           <span>Disable</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-remove" onclick="Swal.fire('QoS Manager', 'Hapus entri antrean terpilih?', 'warning')">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-qos-remove" onclick="Swal.fire('QoS Manager', 'Hapus entri antrean terpilih?', 'warning')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           <span>Remove</span>
         </button>
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-queues-comment">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-qos-comment">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           <span>Comment</span>
         </button>
@@ -54,13 +54,13 @@
           <span class="input-group-text border-end-0 py-0 px-2">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </span>
-          <input type="text" id="mitrane-queues-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
+          <input type="text" id="mitrane-qos-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
         </div>
 
         <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
         </button>
-        <button type="button" class="mitrane-toolbar-icon-btn" id="btn-queues-refresh" title="Refresh Table" aria-label="Refresh">
+        <button type="button" class="mitrane-toolbar-icon-btn" id="btn-qos-refresh" title="Refresh Table" aria-label="Refresh">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
         </button>
         <button type="button" class="mitrane-toolbar-icon-btn" title="Configure Columns" aria-label="Columns">
@@ -76,9 +76,9 @@
       <div class="flex-grow-1 d-flex flex-column overflow-hidden" style="min-width: 0;">
         
         <!-- Tab 1: Simple QoS -->
-        <div class="mitrautama-tab-content active flex-grow-1 d-flex flex-column overflow-hidden" id="subtab-queues-simple" style="display: flex;">
+        <div class="mitrautama-tab-content active flex-grow-1 d-flex flex-column overflow-hidden" id="subtab-qos-simple" style="display: flex;">
           <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
-                                                <table class="mitrane-grid-table mitrautama-table" id="table-queues-simple" style="white-space: nowrap;">
+                                                <table class="mitrane-grid-table mitrautama-table" id="table-qos-simple" style="white-space: nowrap;">
               <thead>
                 <tr>
                   <th style="width: 20px; text-align: center;"></th>
@@ -750,8 +750,8 @@
           </div>
         </div>
 
-                <!-- Tab 2: Interface Queues matching screenshot -->
-        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-interface" style="display: none;">
+                <!-- Tab 2: Interface QoS matching screenshot -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-qos-interface" style="display: none;">
           <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
             <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
               <thead>
@@ -784,7 +784,7 @@
         </div>
 
                 <!-- Tab 3: Queue Tree matching screenshot -->
-        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-tree" style="display: none;">
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-qos-tree" style="display: none;">
           <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
             <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
               <thead>
@@ -940,7 +940,7 @@
           </div>
         </div>
 
-        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-queues-types" style="display: none;">
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto" id="subtab-qos-types" style="display: none;">
           <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
             <table class="mitrane-grid-table mitrautama-table" style="white-space: nowrap;">
               <thead>
@@ -1261,7 +1261,7 @@
                         <input type="text" class="form-control winbox-form-input text-muted" style="width: 135px;" readonly value="">
                     </div>
 
-                    <!-- PCQ Queues -->
+                    <!-- PCQ QoS -->
                     <div class="d-flex align-items-center mb-2">
                         <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">PCQ Streams</label>
                         <input type="text" class="form-control winbox-form-input me-2 text-muted" style="width: 135px;" readonly value="">

@@ -688,8 +688,19 @@ class NavigationManager {
         this.bindQuickSweetAlerts();
         this.bindTerminalEvents();
 
-        // Pastikan view awal aktif
-        this.switchView('dashboard', 'Home');
+        // Pastikan view awal aktif (Restore dari Hash URL atau LocalStorage saat refresh)
+        const initialHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+        const savedView = localStorage.getItem('mitrautama_active_view');
+        const defaultView = initialHash || savedView || 'dashboard';
+        this.switchView(defaultView);
+
+        // Dengarkan event hashchange agar tombol Back/Forward browser berfungsi mulus
+        window.addEventListener('hashchange', () => {
+            const currentHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+            if (currentHash && currentHash !== this.activeView) {
+                this.switchView(currentHash);
+            }
+        });
     }
 
     bindSidebarCollapse() {
@@ -920,6 +931,14 @@ class NavigationManager {
 
     switchView(viewId, titleLabel = '') {
         this.activeView = viewId;
+        try {
+            localStorage.setItem('mitrautama_active_view', viewId);
+            const targetHash = '#' + viewId;
+            if (window.location.hash !== targetHash) {
+                history.replaceState(null, '', targetHash);
+            }
+        } catch (e) {}
+
         const allSections = document.querySelectorAll('.mitrautama-view-section');
         allSections.forEach(sec => {
             sec.style.display = 'none';
@@ -994,6 +1013,19 @@ class NavigationManager {
 
 
             // Dashboard Chart Lifecycle Integration
+            // Sync sidebar and submenu active state
+            document.querySelectorAll('.mitrautama-menu-item, .mitrautama-submenu-item').forEach(m => m.classList.remove('active'));
+            const activeSidebarItem = document.querySelector(`.mitrautama-menu-item[data-mitrautama-view="${viewId}"], .mitrautama-menu-item[data-mitrautama-view="${resolvedId}"]`) ||
+                                      document.querySelector(`.mitrautama-submenu-item[data-mitrautama-view="${viewId}"]`);
+            if (activeSidebarItem) {
+                activeSidebarItem.classList.add('active');
+                const parentGrp = activeSidebarItem.closest('.mitrautama-menu-group');
+                if (parentGrp) {
+                    const parentMenu = parentGrp.querySelector('.mitrautama-menu-item');
+                    if (parentMenu) parentMenu.classList.add('active');
+                }
+            }
+
             if (viewId === 'dashboard' && window.chartController) {
                 window.chartController.initTrafficChart();
                 window.chartController.initCpuChart();
@@ -1872,7 +1904,7 @@ class ModuleLoader {
             'switch-module-container': 'packages/switch/switch.html',
             'bridge-module-container': 'packages/bridge/bridge.html',
             'system-module-container': 'packages/system/system.html',
-            'queues-module-container': 'packages/qos/qos.html',
+            'qos-module-container': 'packages/qos/qos.html',
             'ppp-module-container': 'packages/vpn/vpn.html'
         };
     }
@@ -2420,7 +2452,7 @@ document.addEventListener('dblclick', (e) => {
     }
 
     // 0. Jika pada QoS Simple QoS Table -> Buka Modal QoS (JANGAN fallback ke Interface Properties)
-    if (row.closest('#table-queues-simple')) {
+    if (row.closest('#table-qos-simple')) {
         if (typeof window.openQosModal === 'function') {
             window.openQosModal(row);
         }
@@ -2855,7 +2887,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Open QoS modal on table row double-click
     document.addEventListener('dblclick', (e) => {
-        const tr = e.target.closest('#table-queues-simple tbody tr');
+        const tr = e.target.closest('#table-qos-simple tbody tr');
         if (!tr) return;
         if (e.target.closest('.btn-queue-toggle')) return;
         if (typeof window.openQosModal === 'function') {
@@ -2865,7 +2897,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Reset form when clicking "+ New" button
     document.addEventListener('click', (e) => {
-        const newBtn = e.target.closest('#btn-queues-new');
+        const newBtn = e.target.closest('#btn-qos-new');
         if (!newBtn) return;
         const titleEl = document.getElementById('modal-queue-title-name');
         if (titleEl) titleEl.textContent = 'New...';
