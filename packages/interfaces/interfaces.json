@@ -1,5 +1,5 @@
 {
-  "total": 38,
+  "total": 37,
   "lastUpdated": "2026-10-22T23:10:00Z",
   "interfaces": [
     {
@@ -124,8 +124,8 @@
     },
     {
       "id": "iface_vlan50",
-      "name": "VLAN50-CORP",
-      "subname": "vlan50",
+      "name": "VLAN50-PPTP",
+      "subname": "pptp-server",
       "type": "VLAN",
       "status": "running",
       "actualMtu": 1500,
@@ -144,8 +144,8 @@
     },
     {
       "id": "iface_vlan60",
-      "name": "VLAN60-VOIP",
-      "subname": "vlan60",
+      "name": "VLAN60-SSTP",
+      "subname": "sstp-server",
       "type": "VLAN",
       "status": "running",
       "actualMtu": 1500,
@@ -164,8 +164,8 @@
     },
     {
       "id": "iface_vlan70",
-      "name": "VLAN70-CCTV",
-      "subname": "vlan70",
+      "name": "VLAN70-L2TP",
+      "subname": "l2tp-server",
       "type": "VLAN",
       "status": "running",
       "actualMtu": 1500,
@@ -184,8 +184,8 @@
     },
     {
       "id": "iface_vlan80",
-      "name": "VLAN80-SERVER",
-      "subname": "vlan80",
+      "name": "VLAN80-OPENVPN",
+      "subname": "ovpn-server",
       "type": "VLAN",
       "status": "running",
       "actualMtu": 1500,
@@ -200,26 +200,6 @@
       "fpRxPkt": 82,
       "macAddress": "2C:C8:1B:18:BE:80",
       "defaultName": "vlan80",
-      "parent": "ETH5"
-    },
-    {
-      "id": "iface_vlan90",
-      "name": "VLAN90-DMZ",
-      "subname": "vlan90",
-      "type": "VLAN",
-      "status": "running",
-      "actualMtu": 1500,
-      "l2Mtu": 1500,
-      "tx": "6.3 KB/s",
-      "rx": "4.1 KB/s",
-      "txPkt": 9,
-      "rxPkt": 7,
-      "fpTx": "6.3 KB/s",
-      "fpRx": "4.1 KB/s",
-      "fpTxPkt": 9,
-      "fpRxPkt": 7,
-      "macAddress": "2C:C8:1B:18:BE:90",
-      "defaultName": "vlan90",
       "parent": "ETH5"
     },
     {
