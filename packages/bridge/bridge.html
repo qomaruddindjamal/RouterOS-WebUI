@@ -279,9 +279,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr style="cursor: pointer;">
+            <!-- Bridge 1: WAN Parent Accordion Row -->
+            <tr class="mitrautama-bridge-accordion-toggle" data-bridge-target="bridge-wan-ports" style="cursor: pointer; background: var(--mu-bg-subtle, rgba(16, 185, 129, 0.05)); font-weight: 600;">
               <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-              <td><strong>1. WAN</strong></td>
+              <td>
+                <span class="d-inline-flex align-items-center gap-1">
+                  <svg class="mitrautama-accordion-chevron me-1" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <strong>1. WAN</strong>
+                  <span class="badge bg-success ms-1" style="font-size: 0.68rem; padding: 2px 6px;">3 Ports</span>
+                </span>
+              </td>
               <td><code>2C:C8:1B:18:BE:35</code></td>
               <td>1500</td>
               <td>1500</td>
@@ -290,9 +297,74 @@
               <td>no</td>
               <td><span class="text-success fw-semibold">Running</span></td>
             </tr>
-            <tr style="cursor: pointer;">
+            <!-- Bridge 1 Child Ports Detail Row -->
+            <tr class="mitrautama-bridge-ports-detail" id="bridge-wan-ports" style="background: var(--mu-bg-card, #ffffff);">
+              <td colspan="9" style="padding: 0 0 8px 32px; border-bottom: 2px solid #cbd5e1;">
+                <div style="padding: 6px 12px; background: var(--mu-bg-subtle, #f8fafc); border: 1px solid var(--mu-border, #e2e8f0); border-radius: 4px; margin: 4px 12px 4px 0;">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span style="font-size: 0.72rem; font-weight: 700; color: var(--mu-text-muted, #475569); text-transform: uppercase; letter-spacing: 0.5px;">Port Anggota Bridge &bull; 1. WAN</span>
+                    <span style="font-size: 0.7rem; color: #16a34a; font-weight: 600;">3 Interface Terhubung</span>
+                  </div>
+                  <table class="mitrane-grid-table" style="background: #fff; width: 100%; border: 1px solid #cbd5e1; font-size: 0.74rem;">
+                    <thead>
+                      <tr style="background: #f1f5f9;">
+                        <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+                        <th>Port Interface</th>
+                        <th>PVID</th>
+                        <th>Frame Types</th>
+                        <th>Role</th>
+                        <th>Edge</th>
+                        <th>Path Cost</th>
+                        <th>Status BPDU</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether7</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp7s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>120 / 4 (Forwarding)</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether8</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp8s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>110 / 0 (Forwarding)</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether9</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp9s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>104 / 0 (Forwarding)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Bridge 2: LAN Parent Accordion Row -->
+            <tr class="mitrautama-bridge-accordion-toggle" data-bridge-target="bridge-lan-ports" style="cursor: pointer; background: var(--mu-bg-subtle, rgba(59, 130, 246, 0.05)); font-weight: 600;">
               <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-              <td><strong>2. LAN</strong></td>
+              <td>
+                <span class="d-inline-flex align-items-center gap-1">
+                  <svg class="mitrautama-accordion-chevron me-1" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(90deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <strong>2. LAN</strong>
+                  <span class="badge bg-primary ms-1" style="font-size: 0.68rem; padding: 2px 6px;">3 Ports</span>
+                </span>
+              </td>
               <td><code>2C:C8:1B:18:BE:2E</code></td>
               <td>1500</td>
               <td>1500</td>
@@ -300,6 +372,63 @@
               <td>none</td>
               <td>no</td>
               <td><span class="text-success fw-semibold">Running</span></td>
+            </tr>
+            <!-- Bridge 2 Child Ports Detail Row -->
+            <tr class="mitrautama-bridge-ports-detail" id="bridge-lan-ports" style="background: var(--mu-bg-card, #ffffff);">
+              <td colspan="9" style="padding: 0 0 8px 32px; border-bottom: 2px solid #cbd5e1;">
+                <div style="padding: 6px 12px; background: var(--mu-bg-subtle, #f8fafc); border: 1px solid var(--mu-border, #e2e8f0); border-radius: 4px; margin: 4px 12px 4px 0;">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span style="font-size: 0.72rem; font-weight: 700; color: var(--mu-text-muted, #475569); text-transform: uppercase; letter-spacing: 0.5px;">Port Anggota Bridge &bull; 2. LAN</span>
+                    <span style="font-size: 0.7rem; color: #16a34a; font-weight: 600;">3 Interface Terhubung</span>
+                  </div>
+                  <table class="mitrane-grid-table" style="background: #fff; width: 100%; border: 1px solid #cbd5e1; font-size: 0.74rem;">
+                    <thead>
+                      <tr style="background: #f1f5f9;">
+                        <th style="width: 28px; text-align: center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></th>
+                        <th>Port Interface</th>
+                        <th>PVID</th>
+                        <th>Frame Types</th>
+                        <th>Role</th>
+                        <th>Edge</th>
+                        <th>Path Cost</th>
+                        <th>Status BPDU</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether1</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp1s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>142 / 12 (Forwarding)</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether3</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp3s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>88 / 0 (Forwarding)</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                        <td><strong>ether4</strong> <span class="text-muted" style="font-size: 0.7rem;">(enp4s0)</span></td>
+                        <td>1</td>
+                        <td>admit all</td>
+                        <td><span class="badge bg-primary" style="font-size: 0.65rem;">designated</span></td>
+                        <td>auto</td>
+                        <td>10</td>
+                        <td>94 / 0 (Forwarding)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

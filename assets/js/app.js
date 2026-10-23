@@ -2152,6 +2152,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Bridge Accordion Toggle Handler
+    document.addEventListener('click', (e) => {
+        const toggleRow = e.target.closest('.mitrautama-bridge-accordion-toggle');
+        if (toggleRow) {
+            const targetId = toggleRow.getAttribute('data-bridge-target');
+            if (targetId) {
+                const detailRow = document.getElementById(targetId);
+                const chevron = toggleRow.querySelector('.mitrautama-accordion-chevron');
+                if (detailRow) {
+                    const isHidden = (detailRow.style.display === 'none');
+                    detailRow.style.display = isHidden ? '' : 'none';
+                    if (chevron) {
+                        chevron.style.transform = isHidden ? 'rotate(90deg)' : 'rotate(0deg)';
+                    }
+                }
+            }
+        }
+    });
+
     const bridgeRefreshBtn = document.getElementById('btn-bridge-refresh');
     if (bridgeRefreshBtn) {
         bridgeRefreshBtn.addEventListener('click', () => {
