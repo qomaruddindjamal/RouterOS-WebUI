@@ -320,6 +320,39 @@
     background-color: rgba(56, 189, 248, 0.08) !important;
 }
 
+[data-period="malam"] .mitrane-grid-table tbody tr.table-primary td,
+[data-period="malam"] .mitrane-grid-table tbody tr.selected td,
+[data-period="malam"] .mitrautama-table tbody tr.table-primary td,
+[data-period="malam"] .mitrautama-table tbody tr.selected td,
+[data-period="malam"] tr.table-primary td,
+[data-period="malam"] tr.selected td {
+    background-color: #1e3a5f !important;
+    color: #ffffff !important;
+    border-bottom-color: #2563eb !important;
+}
+
+[data-period="malam"] .mitrane-grid-table tbody tr.table-primary:hover td,
+[data-period="malam"] .mitrane-grid-table tbody tr.selected:hover td,
+[data-period="malam"] .mitrautama-table tbody tr.table-primary:hover td,
+[data-period="malam"] .mitrautama-table tbody tr.selected:hover td {
+    background-color: #234570 !important;
+}
+
+[data-period="malam"] tr.table-primary td strong,
+[data-period="malam"] tr.selected td strong {
+    color: #ffffff !important;
+}
+
+[data-period="malam"] tr.table-primary td .text-muted,
+[data-period="malam"] tr.selected td .text-muted {
+    color: #93c5fd !important;
+}
+
+[data-period="malam"] tr.table-primary td .mitrane-badge-type,
+[data-period="malam"] tr.selected td .mitrane-badge-type {
+    color: #bfdbfe !important;
+}
+
 [data-period="malam"] tr.iface-root-row,
 [data-period="malam"] tr[style*="background"] {
     background: #151e32 !important;

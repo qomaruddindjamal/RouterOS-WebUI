@@ -1669,6 +1669,56 @@ body.mitrautama-sidebar-collapsed .mitrautama-sidebar-menu::-webkit-scrollbar-bu
     background-color: #1e293b !important;
 }
 
+/* Selected / Clicked Row in Dark Mode (WinBox Style navy accent) */
+[data-theme="dark"] .mitrane-grid-table tbody tr.table-primary td,
+[data-theme="dark"] .mitrane-grid-table tbody tr.selected td,
+[data-period="malam"] .mitrane-grid-table tbody tr.table-primary td,
+[data-period="malam"] .mitrane-grid-table tbody tr.selected td,
+[data-theme="dark"] .mitrautama-table tbody tr.table-primary td,
+[data-theme="dark"] .mitrautama-table tbody tr.selected td,
+[data-period="malam"] .mitrautama-table tbody tr.table-primary td,
+[data-period="malam"] .mitrautama-table tbody tr.selected td,
+[data-theme="dark"] tr.table-primary td,
+[data-period="malam"] tr.table-primary td,
+[data-theme="dark"] tr.selected td,
+[data-period="malam"] tr.selected td {
+    background-color: #1e3a5f !important;
+    color: #ffffff !important;
+    border-bottom-color: #2563eb !important;
+}
+
+[data-theme="dark"] .mitrane-grid-table tbody tr.table-primary:hover td,
+[data-theme="dark"] .mitrane-grid-table tbody tr.selected:hover td,
+[data-period="malam"] .mitrane-grid-table tbody tr.table-primary:hover td,
+[data-period="malam"] .mitrane-grid-table tbody tr.selected:hover td,
+[data-theme="dark"] .mitrautama-table tbody tr.table-primary:hover td,
+[data-theme="dark"] .mitrautama-table tbody tr.selected:hover td,
+[data-period="malam"] .mitrautama-table tbody tr.table-primary:hover td,
+[data-period="malam"] .mitrautama-table tbody tr.selected:hover td {
+    background-color: #234570 !important;
+}
+
+[data-theme="dark"] tr.table-primary td strong,
+[data-period="malam"] tr.table-primary td strong,
+[data-theme="dark"] tr.selected td strong,
+[data-period="malam"] tr.selected td strong {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] tr.table-primary td .text-muted,
+[data-period="malam"] tr.table-primary td .text-muted,
+[data-theme="dark"] tr.selected td .text-muted,
+[data-period="malam"] tr.selected td .text-muted {
+    color: #93c5fd !important;
+}
+
+[data-theme="dark"] tr.table-primary td .mitrane-badge-type,
+[data-period="malam"] tr.table-primary td .mitrane-badge-type,
+[data-theme="dark"] tr.selected td .mitrane-badge-type,
+[data-period="malam"] tr.selected td .mitrane-badge-type {
+    color: #bfdbfe !important;
+}
+
 /* Traffic rate highlight in dark mode */
 [data-theme="dark"] .rate-cell,
 [data-period="malam"] .rate-cell,
