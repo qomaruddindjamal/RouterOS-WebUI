@@ -813,8 +813,11 @@ class NavigationManager {
                         subList.style.zIndex = '9999';
 
                         const listRect = subList.getBoundingClientRect();
-                        if (listRect.bottom > window.innerHeight) {
-                            const diff = listRect.bottom - window.innerHeight + 10;
+                        const footerEl = document.querySelector('.mitrautama-fixed-footer');
+                        const footerTop = footerEl ? footerEl.getBoundingClientRect().top : window.innerHeight;
+                        const maxBottom = Math.min(window.innerHeight, footerTop) - 8;
+                        if (listRect.bottom > maxBottom) {
+                            const diff = listRect.bottom - maxBottom;
                             subList.style.top = Math.max(10, rect.top - diff) + "px";
                         }
                     } else if (isMobile && subList) {

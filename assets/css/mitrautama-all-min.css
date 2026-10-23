@@ -72,7 +72,7 @@ html, body {
     padding: 0 20px;
     font-size: 0.775rem;
     color: var(--mu-text-muted, #64748b);
-    z-index: 1040;
+    z-index: 1020;
     gap: 16px;
     width: 100%;
 }
@@ -205,6 +205,13 @@ html, body {
 .mitrautama-menu-group:hover > .mitrautama-submenu-list,
 .mitrautama-menu-group.open > .mitrautama-submenu-list {
     display: block;
+}
+
+/* Saat menu berada di paling bawah (seperti Tools / System), drop-right popover tumbuh ke atas (bottom: 0) agar tidak tertutup footer */
+.mitrautama-menu-group:last-child > .mitrautama-submenu-list,
+.mitrautama-menu-group:nth-last-child(2) > .mitrautama-submenu-list {
+    top: auto !important;
+    bottom: 0 !important;
 }
 
 @keyframes dropRightFadeIn {
