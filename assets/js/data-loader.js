@@ -1635,6 +1635,7 @@ class JsonDataService {
                 else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) groupColor = '#8b5cf6';
                 else if (rItem.name === 'ETH2') groupColor = '#6366f1';
                 else if (rItem.name === 'ETH3') groupColor = '#eab308';
+                else if (rItem.name === 'ETH5') groupColor = '#ec4899';
 
                 // Tipe icon untuk root berbasis tipe interface
                 const rootIconSvg = this.getInterfaceIconSvg(rItem, false);
