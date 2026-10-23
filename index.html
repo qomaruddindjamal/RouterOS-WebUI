@@ -2772,7 +2772,17 @@
         <table class="mitrane-grid-table mitrautama-table">
           <thead><tr><th>Switch</th><th>VLAN ID</th><th>Ports</th><th>Independent Learning</th></tr></thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-3">No hardware switch VLAN entries configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Switch VLAN Entries</div>
+                  <div class="mitrane-empty-state-desc">Hardware switch chip VLAN table has no entries configured.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -3329,7 +3339,17 @@
             <tr><th>Bridge</th><th>MSTI ID</th><th>Priority</th><th>VLANs</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Multiple Spanning Tree Instances (MSTIs) defined.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M4 15h16M4 11h16M4 7h16"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No MST Instances Defined</div>
+                  <div class="mitrane-empty-state-desc">Multiple Spanning Tree instances are not configured on this bridge.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -3347,7 +3367,17 @@
             <tr><th>Interface</th><th>MSTI ID</th><th>Internal Path Cost</th><th>Priority</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Port MST Overrides configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Port MST Overrides</div>
+                  <div class="mitrane-empty-state-desc">No custom per-port MST priority or path cost overrides active.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -3365,7 +3395,17 @@
             <tr><th>Chain</th><th>Action</th><th>In. Interface</th><th>Out. Interface</th><th>MAC Protocol</th><th>Src. MAC</th><th>Dst. MAC</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Bridge Filter rules configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Bridge Filter Rules</div>
+                  <div class="mitrane-empty-state-desc">L2 bridge packet filtering rules list is currently empty.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -3383,7 +3423,17 @@
             <tr><th>Chain</th><th>Action</th><th>To MAC</th><th>In. Interface</th><th>Out. Interface</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="5" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Bridge NAT rules configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="5" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Bridge NAT Rules</div>
+                  <div class="mitrane-empty-state-desc">No MAC-level NAT translation rules defined for bridge interfaces.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -3444,7 +3494,17 @@
             <tr><th>Bridge</th><th>VLAN ID</th><th>Group Address</th><th>Ports</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Multicast Database (MDB) entries configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Multicast DB Entries</div>
+                  <div class="mitrane-empty-state-desc">IGMP/MLD snooping multicast forwarding database is empty.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -5183,7 +5243,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No PPPoE server instances configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No PPPoE Servers Configured</div>
+                  <div class="mitrane-empty-state-desc">There are no active or configured PPPoE server instances on this router.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -5209,7 +5279,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No OpenVPN server instances configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No OpenVPN Servers Configured</div>
+                  <div class="mitrane-empty-state-desc">No OpenVPN daemon instances or certificates have been defined.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -5235,7 +5315,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No PPP/VPN secrets configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No VPN Secrets Available</div>
+                  <div class="mitrane-empty-state-desc">No local user credentials configured for PPPoE, L2TP, or PPTP clients.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -5333,7 +5423,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="5" class="text-center text-muted py-5" style="font-size: 0.8rem;">No L2TP Ethernet bindings configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="5" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No L2TP Ethernet Bindings</div>
+                  <div class="mitrane-empty-state-desc">No pseudowire L2TP ethernet-over-IP sessions or pseudo-interfaces defined.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -5355,7 +5455,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td colspan="3" class="text-center text-muted py-5" style="font-size: 0.8rem;">No L2TP IPsec secrets configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="3" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-6 6 7 7-2 2-7-7"></path><path d="M15 8 9.5 2.5a2.12 2.12 0 1 0-3 3L8 7"></path><circle cx="7.5" cy="16.5" r="5.5"></circle></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No L2TP IPsec Secrets</div>
+                  <div class="mitrane-empty-state-desc">No pre-shared keys (PSK) assigned for peer address IPsec encryption.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

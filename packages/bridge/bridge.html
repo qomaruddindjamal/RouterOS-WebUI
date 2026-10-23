@@ -470,7 +470,17 @@
             <tr><th>Bridge</th><th>MSTI ID</th><th>Priority</th><th>VLANs</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Multiple Spanning Tree Instances (MSTIs) defined.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M4 15h16M4 11h16M4 7h16"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No MST Instances Defined</div>
+                  <div class="mitrane-empty-state-desc">Multiple Spanning Tree instances are not configured on this bridge.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -488,7 +498,17 @@
             <tr><th>Interface</th><th>MSTI ID</th><th>Internal Path Cost</th><th>Priority</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Port MST Overrides configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Port MST Overrides</div>
+                  <div class="mitrane-empty-state-desc">No custom per-port MST priority or path cost overrides active.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -506,7 +526,17 @@
             <tr><th>Chain</th><th>Action</th><th>In. Interface</th><th>Out. Interface</th><th>MAC Protocol</th><th>Src. MAC</th><th>Dst. MAC</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="7" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Bridge Filter rules configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="7" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Bridge Filter Rules</div>
+                  <div class="mitrane-empty-state-desc">L2 bridge packet filtering rules list is currently empty.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -524,7 +554,17 @@
             <tr><th>Chain</th><th>Action</th><th>To MAC</th><th>In. Interface</th><th>Out. Interface</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="5" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Bridge NAT rules configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="5" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Bridge NAT Rules</div>
+                  <div class="mitrane-empty-state-desc">No MAC-level NAT translation rules defined for bridge interfaces.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -585,7 +625,17 @@
             <tr><th>Bridge</th><th>VLAN ID</th><th>Group Address</th><th>Ports</th></tr>
           </thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-5" style="font-size: 0.8rem;">No Multicast Database (MDB) entries configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Multicast DB Entries</div>
+                  <div class="mitrane-empty-state-desc">IGMP/MLD snooping multicast forwarding database is empty.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

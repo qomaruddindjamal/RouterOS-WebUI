@@ -115,7 +115,17 @@
         <table class="mitrane-grid-table mitrautama-table">
           <thead><tr><th>Switch</th><th>VLAN ID</th><th>Ports</th><th>Independent Learning</th></tr></thead>
           <tbody>
-            <tr><td colspan="4" class="text-center text-muted py-3">No hardware switch VLAN entries configured.</td></tr>
+            <tr class="mitrane-table-empty-row">
+              <td colspan="4" class="text-center p-0" style="border: none;">
+                <div class="mitrane-empty-state-box">
+                  <div class="mitrane-empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                  </div>
+                  <div class="mitrane-empty-state-title">No Switch VLAN Entries</div>
+                  <div class="mitrane-empty-state-desc">Hardware switch chip VLAN table has no entries configured.</div>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

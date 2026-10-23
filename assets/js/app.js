@@ -1971,6 +1971,17 @@ document.addEventListener('click', (e) => {
     const row = e.target.closest('.mitrane-grid-table tbody tr, .mitrautama-table tbody tr');
     if (!row) return;
 
+    // Abaikan baris kosong / empty state (jangan di-select)
+    if (
+        row.classList.contains('mitrane-table-empty-row') ||
+        row.classList.contains('mitrautama-table-empty-row') ||
+        row.querySelector('.mitrane-empty-state-box') ||
+        row.querySelector('td[colspan]') ||
+        (row.querySelectorAll('td').length === 1 && row.textContent.trim().startsWith('No '))
+    ) {
+        return;
+    }
+
     // Highlight selected row in its parent table body
     const tbody = row.closest('tbody');
     if (tbody) {
@@ -1995,6 +2006,17 @@ document.addEventListener('click', (e) => {
 document.addEventListener('dblclick', (e) => {
     const row = e.target.closest('.mitrane-grid-table tbody tr, .mitrautama-table tbody tr');
     if (!row) return;
+
+    // Abaikan baris kosong / empty state (tidak boleh membuka modal popup properties)
+    if (
+        row.classList.contains('mitrane-table-empty-row') ||
+        row.classList.contains('mitrautama-table-empty-row') ||
+        row.querySelector('.mitrane-empty-state-box') ||
+        row.querySelector('td[colspan]') ||
+        (row.querySelectorAll('td').length === 1 && row.textContent.trim().startsWith('No '))
+    ) {
+        return;
+    }
 
     // Pastikan baris ditandai terpilih
     const tbody = row.closest('tbody');
