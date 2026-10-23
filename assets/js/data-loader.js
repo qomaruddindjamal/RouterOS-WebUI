@@ -1558,14 +1558,14 @@ class JsonDataService {
 
                 // Warna tema root berbasis tipe/grup secara global/desain generik
                 let groupColor = '#0284c7';
-                if (rItem.name.includes('LAN')) groupColor = '#16a34a';
+                if (rItem.name === '2. LAN' || rItem.type === 'Bridge') groupColor = '#16a34a';
                 else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) groupColor = '#8b5cf6';
                 else if (rItem.name === 'ETH2') groupColor = '#6366f1';
                 else if (rItem.name === 'ETH3') groupColor = '#eab308';
 
                 // Tipe icon untuk root: folder/bridge icon jika root punya anak atau bridge, nic icon jika Ethernet standalone
                 let rootIconSvg;
-                if (rItem.type === 'Bridge' || rItem.name.includes('WAN') || rItem.name.includes('LAN')) {
+                if (rItem.type === 'Bridge' || rItem.name === '1. WAN' || rItem.name === '2. LAN') {
                     rootIconSvg = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="7" width="5" height="10" rx="1"></rect><rect x="17" y="7" width="5" height="10" rx="1"></rect><path d="M7 10h10M7 14h10"></path></svg>`;
                 } else if (rItem.name.includes('OVERLAY') || rItem.name.includes('TUNNELS')) {
                     rootIconSvg = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${groupColor}" stroke-width="2.5" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`;
