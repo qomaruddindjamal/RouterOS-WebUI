@@ -625,7 +625,7 @@
     {
       "id": "iface_pppoe1",
       "name": "<pppoe-user@citramedia.tech>",
-      "subname": "user@citramedia.tech",
+      "subname": "",
       "type": "PPPoE Client",
       "status": "running",
       "actualMtu": 1492,

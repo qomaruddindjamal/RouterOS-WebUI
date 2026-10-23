@@ -1497,7 +1497,7 @@ class JsonDataService {
                     <span style="display:inline-block; width: 18px;"></span>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" class="me-1" style="vertical-align: middle;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
                     <strong>${safeName}</strong>
-                    <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                    ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
                 </td>
                 <td><span class="mitrane-badge-type">${safeType}</span></td>
                 <td>${item.actualMtu ?? 1500}</td>
@@ -1586,7 +1586,7 @@ class JsonDataService {
                             </span>
                             ${rootIconSvg}
                             <strong style="color: ${groupColor};">${safeName}</strong>
-                            <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                            ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
                             <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: ${groupColor}; color: #ffffff;">${memberCount}</span>
                         </td>
                         <td><span class="mitrane-badge-type">${safeType}</span></td>
@@ -1614,7 +1614,7 @@ class JsonDataService {
                         <td>
                             ${rootIconSvg}
                             <strong>${safeName}</strong>
-                            <span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>
+                            ${safeSubname ? `<span class="text-muted" style="font-size: 0.72rem;">(${safeSubname})</span>` : ''}
                         </td>
                         <td><span class="mitrane-badge-type">${safeType}</span></td>
                         <td>${rItem.actualMtu ?? 1500}</td>
