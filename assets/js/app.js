@@ -2464,3 +2464,225 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// ==========================================================================
+// Dynamic Table Empty State Observer & Manager (Automatic Rule)
+// If any table tbody is empty or has 0 rows -> auto-render clean white empty state with contextual icon
+// If data rows are added -> automatically remove empty state
+// ==========================================================================
+
+window.TableEmptyStateManager = {
+    // Mapping icon kontekstual berdasarkan modul / ID tabel
+    getModuleMeta: function(table) {
+        const id = table.id || '';
+        const parentPane = table.closest('[id]') ? table.closest('[id]').id : '';
+        const combined = (id + ' ' + parentPane).toLowerCase();
+
+        // 1. Interfaces & Tunneling
+        if (combined.includes('eoip')) {
+            return {
+                title: 'No EoIP Tunnels Configured',
+                desc: 'Ethernet over IP tunnel list is currently empty on this router.',
+                icon: '<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>'
+            };
+        }
+        if (combined.includes('ip-tunnel') || combined.includes('ipip')) {
+            return {
+                title: 'No IP Tunnels Configured',
+                desc: 'IPIP encapsulation tunnel interface list is currently empty.',
+                icon: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line>'
+            };
+        }
+        if (combined.includes('gre')) {
+            return {
+                title: 'No GRE Tunnels Configured',
+                desc: 'Generic Routing Encapsulation tunnel list is currently empty.',
+                icon: '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>'
+            };
+        }
+        if (combined.includes('vlan')) {
+            return {
+                title: 'No VLAN Interfaces Configured',
+                desc: 'No IEEE 802.1Q virtual LAN sub-interfaces defined.',
+                icon: '<path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>'
+            };
+        }
+        if (combined.includes('vxlan')) {
+            return {
+                title: 'No VXLAN Interfaces Configured',
+                desc: 'Virtual Extensible LAN VNI interfaces are not active.',
+                icon: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>'
+            };
+        }
+        if (combined.includes('vrf')) {
+            return {
+                title: 'No VRF Instances Defined',
+                desc: 'Virtual Routing and Forwarding domain list is currently empty.',
+                icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>'
+            };
+        }
+        if (combined.includes('vrrp')) {
+            return {
+                title: 'No VRRP Instances Configured',
+                desc: 'Virtual Router Redundancy Protocol failover daemon is inactive.',
+                icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>'
+            };
+        }
+        if (combined.includes('lacc') || combined.includes('bond')) {
+            return {
+                title: 'No Bonding Interfaces Configured',
+                desc: 'Link Aggregation / 802.3ad trunk interfaces list is currently empty.',
+                icon: '<line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line>'
+            };
+        }
+        if (combined.includes('macsec')) {
+            return {
+                title: 'No MACsec Encryptions Configured',
+                desc: 'IEEE 802.1AE Layer-2 security associations list is empty.',
+                icon: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>'
+            };
+        }
+        if (combined.includes('macvlan')) {
+            return {
+                title: 'No MACVLAN Interfaces Configured',
+                desc: 'MACVLAN virtual sub-interfaces list is currently empty.',
+                icon: '<rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>'
+            };
+        }
+        if (combined.includes('vether')) {
+            return {
+                title: 'No vEther Interfaces Configured',
+                desc: 'Virtual container ethernet pairs are currently unallocated.',
+                icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line>'
+            };
+        }
+        if (combined.includes('interface')) {
+            return {
+                title: 'No Interfaces Available',
+                desc: 'There are no active or configured interfaces in this category.',
+                icon: '<rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>'
+            };
+        }
+
+        // 2. WireGuard
+        if (combined.includes('wg') || combined.includes('wireguard')) {
+            return {
+                title: 'No WireGuard Records Found',
+                desc: 'WireGuard tunnels, peers, or status telemetry list is currently empty.',
+                icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path>'
+            };
+        }
+
+        // 3. Wireless
+        if (combined.includes('wire') || combined.includes('wifi') || combined.includes('wlan')) {
+            return {
+                title: 'No Wireless Radios / Clients',
+                desc: 'No IEEE 802.11 wireless interfaces, registrations, or snooping found.',
+                icon: '<path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line>'
+            };
+        }
+
+        // 4. IP / Routing
+        if (combined.includes('route') || combined.includes('ip') || combined.includes('pool') || combined.includes('dhcp') || combined.includes('arp')) {
+            return {
+                title: 'No Network Records Configured',
+                desc: 'Routing table, IP address pools, or ARP neighbors list is empty.',
+                icon: '<circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline>'
+            };
+        }
+
+        // 5. Default Fallback
+        return {
+            title: 'No Data Records Found',
+            desc: 'There are no active records or configured items available in this table.',
+            icon: '<rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line>'
+        };
+    },
+
+    // Mengecek dan memperbarui satu tabel (aturan: jika baris data 0 -> render empty state)
+    checkTable: function(table) {
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+
+        // Hitung baris non-empty
+        const allRows = Array.from(tbody.querySelectorAll('tr'));
+        const emptyRows = allRows.filter(r => r.classList.contains('mitrane-table-empty-row') || r.querySelector('.mitrane-empty-state-box'));
+        const dataRows = allRows.filter(r => !r.classList.contains('mitrane-table-empty-row') && !r.querySelector('.mitrane-empty-state-box'));
+
+        // Aturan: Jika tidak ada data row (dataRows.length === 0)
+        if (dataRows.length === 0) {
+            // Jika sudah ada empty row standar, tidak perlu render ulang
+            if (emptyRows.length > 0) return;
+
+            // Hitung jumlah kolom dari thead
+            let colCount = 1;
+            const theadRow = table.querySelector('thead tr');
+            if (theadRow) {
+                colCount = theadRow.querySelectorAll('th, td').length || 1;
+            }
+
+            const meta = this.getModuleMeta(table);
+            const emptyTr = document.createElement('tr');
+            emptyTr.className = 'mitrane-table-empty-row';
+            emptyTr.innerHTML = `
+                <td colspan="${colCount}" class="text-center p-0" style="border: none;">
+                    <div class="mitrane-empty-state-box">
+                        <div class="mitrane-empty-state-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                ${meta.icon}
+                            </svg>
+                        </div>
+                        <div class="mitrane-empty-state-title">${meta.title}</div>
+                        <div class="mitrane-empty-state-desc">${meta.desc}</div>
+                    </div>
+                </td>
+            `;
+            tbody.innerHTML = '';
+            tbody.appendChild(emptyTr);
+        } else {
+            // Jika ada data baris nyata tapi ada sisa empty-row -> hapus empty row
+            if (emptyRows.length > 0) {
+                emptyRows.forEach(r => r.remove());
+            }
+        }
+    },
+
+    // Periksa semua tabel di dokumen
+    checkAllTables: function() {
+        document.querySelectorAll('.mitrane-grid-table, .mitrautama-table').forEach(table => {
+            this.checkTable(table);
+        });
+    },
+
+    // Inisialisasi observer otomatis
+    init: function() {
+        this.checkAllTables();
+
+        // Pantau mutasi DOM pada semua tabel (jika ada data dihapus atau ditambahkan secara dinamis)
+        const observer = new MutationObserver((mutations) => {
+            for (let mutation of mutations) {
+                if (mutation.type === 'childList') {
+                    const target = mutation.target;
+                    const table = target.closest ? target.closest('.mitrane-grid-table, .mitrautama-table') : null;
+                    if (table) {
+                        this.checkTable(table);
+                    }
+                }
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+};
+
+// Jalankan otomatis saat DOM siap
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => window.TableEmptyStateManager.init());
+} else {
+    window.TableEmptyStateManager.init();
+}
