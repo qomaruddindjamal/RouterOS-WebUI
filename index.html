@@ -7070,7 +7070,7 @@
       </div>
     </div>
 
-    <!-- ==================== SUBTAB: Active Connections ==================== -->
+        <!-- ==================== SUBTAB: Active Connections ==================== -->
     <div class="mitrautama-tab-pane" id="subtab-vpn-active" style="display: none; flex-direction: column; flex: 1 1 auto; height: 100%; min-height: 0;">
       <div class="flex-grow-1 overflow-auto mitrautama-table-container" style="border-radius: 0; margin-bottom: 0;">
         <table class="mitrane-grid-table mitrautama-table">
@@ -7086,21 +7086,308 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
-              <td><strong>client-branch-01</strong></td>
-              <td><span class="mitrane-type-badge">l2tp</span></td>
-              <td>103.93.162.168</td>
-              <td>10.10.66.100</td>
-              <td>16h50m</td>
-              <td>CBC-AES-128/SHA1</td>
+            <!-- Group Accordion: Active PPPoE Sessions -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="PPPoE Sessions" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="PPPoE Sessions" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="7.5" cy="15.5" r="4.5"></circle><path d="M10.8 12.2L19 4h3v3l-2 2v2l-2 2z"></path></svg>
+                <strong style="color: #f97316;">Active PPPoE Sessions</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN50-PPTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #f97316; color: #ffffff;">4</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #f97316; border: 1px solid rgba(2, 132, 199, 0.3);">PPPoE Sessions</span></td>
+              <td>103.93.x.x</td>
+              <td>10.10.x.x</td>
+              <td class="text-muted">Active</td>
+              <td class="text-muted">Encrypted</td>
+            </tr>
+            <!-- Child Active Connection: client01@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client01@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><code>2C:C8:1B:18:50:01</code></td>
+              <td><code>10.10.50.101</code></td>
+              <td class="text-primary fw-semibold">2h15m</td>
+              <td class="text-muted">CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: client02@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client02@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><code>2C:C8:1B:18:50:02</code></td>
+              <td><code>10.10.50.102</code></td>
+              <td class="text-primary fw-semibold">6h25m</td>
+              <td class="text-muted">CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: client03@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client03@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><code>2C:C8:1B:18:50:03</code></td>
+              <td><code>10.10.50.103</code></td>
+              <td class="text-primary fw-semibold">10h35m</td>
+              <td class="text-muted">CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: client04@citramedia.tech -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="PPPoE Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>client04@citramedia.tech</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(249, 115, 22, 0.12); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.3);">pppoe</span></td>
+              <td><code>2C:C8:1B:18:50:04</code></td>
+              <td><code>10.10.50.104</code></td>
+              <td class="text-primary fw-semibold">14h45m</td>
+              <td class="text-muted">CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Group Accordion: Active SSTP Sessions -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="SSTP Sessions" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="SSTP Sessions" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <strong style="color: #8b5cf6;">Active SSTP Sessions</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN60-SSTP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #8b5cf6; color: #ffffff;">4</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #8b5cf6; border: 1px solid rgba(2, 132, 199, 0.3);">SSTP Sessions</span></td>
+              <td>103.93.x.x</td>
+              <td>10.10.x.x</td>
+              <td class="text-muted">Active</td>
+              <td class="text-muted">Encrypted</td>
+            </tr>
+            <!-- Child Active Connection: sstp-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><code>182.253.112.10</code></td>
+              <td><code>10.10.60.101</code></td>
+              <td class="text-primary fw-semibold">1h20m</td>
+              <td class="text-muted">TLSv1.3/AES-256-GCM</td>
+            </tr>
+            <!-- Child Active Connection: sstp-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><code>182.253.112.11</code></td>
+              <td><code>10.10.60.102</code></td>
+              <td class="text-primary fw-semibold">6h28m</td>
+              <td class="text-muted">TLSv1.3/AES-256-GCM</td>
+            </tr>
+            <!-- Child Active Connection: sstp-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><code>182.253.112.12</code></td>
+              <td><code>10.10.60.103</code></td>
+              <td class="text-primary fw-semibold">11h36m</td>
+              <td class="text-muted">TLSv1.3/AES-256-GCM</td>
+            </tr>
+            <!-- Child Active Connection: sstp-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="SSTP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>sstp-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(139, 92, 246, 0.12); color: #7c3aed; border: 1px solid rgba(139, 92, 246, 0.3);">sstp</span></td>
+              <td><code>182.253.112.13</code></td>
+              <td><code>10.10.60.104</code></td>
+              <td class="text-primary fw-semibold">16h44m</td>
+              <td class="text-muted">TLSv1.3/AES-256-GCM</td>
+            </tr>
+            <!-- Group Accordion: Active L2TP Sessions -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="L2TP Sessions" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="L2TP Sessions" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                <strong style="color: #eab308;">Active L2TP Sessions</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN70-L2TP)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #eab308; color: #ffffff;">4</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #eab308; border: 1px solid rgba(2, 132, 199, 0.3);">L2TP Sessions</span></td>
+              <td>103.93.x.x</td>
+              <td>10.10.x.x</td>
+              <td class="text-muted">Active</td>
+              <td class="text-muted">Encrypted</td>
+            </tr>
+            <!-- Child Active Connection: l2tp-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><code>103.93.162.160</code></td>
+              <td><code>10.10.70.101</code></td>
+              <td class="text-primary fw-semibold">3h40m</td>
+              <td class="text-muted">IPsec/CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: l2tp-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><code>103.93.162.161</code></td>
+              <td><code>10.10.70.102</code></td>
+              <td class="text-primary fw-semibold">9h45m</td>
+              <td class="text-muted">IPsec/CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: l2tp-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><code>103.93.162.162</code></td>
+              <td><code>10.10.70.103</code></td>
+              <td class="text-primary fw-semibold">15h50m</td>
+              <td class="text-muted">IPsec/CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Child Active Connection: l2tp-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="L2TP Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>l2tp-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(234, 179, 8, 0.12); color: #ca8a04; border: 1px solid rgba(234, 179, 8, 0.3);">l2tp</span></td>
+              <td><code>103.93.162.163</code></td>
+              <td><code>10.10.70.104</code></td>
+              <td class="text-primary fw-semibold">21h55m</td>
+              <td class="text-muted">IPsec/CBC-AES-128/SHA1</td>
+            </tr>
+            <!-- Group Accordion: Active OpenVPN Sessions -->
+            <tr class="iface-tree-row iface-root-row" data-iface-node="OpenVPN Sessions" style="cursor: pointer; background: var(--mu-surface-muted, #f8fafc);">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span class="btn-iface-toggle text-muted fw-bold me-1 user-select-none" data-iface-node="OpenVPN Sessions" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px;">
+                  <svg class="iface-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition: transform 0.2s; transform: rotate(0deg);"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.2" class="me-1" style="vertical-align: middle; display: inline-block;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                <strong style="color: #06b6d4;">Active OpenVPN Sessions</strong>
+                <span class="text-muted" style="font-size: 0.72rem;">(VLAN80-OPENVPN)</span>
+                <span class="badge rounded-pill ms-1" style="display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; font-size: 0.7rem; font-weight: 700; padding: 0 5px; background-color: #06b6d4; color: #ffffff;">4</span>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(2, 132, 199, 0.12); color: #06b6d4; border: 1px solid rgba(2, 132, 199, 0.3);">OpenVPN Sessions</span></td>
+              <td>103.93.x.x</td>
+              <td>10.10.x.x</td>
+              <td class="text-muted">Active</td>
+              <td class="text-muted">Encrypted</td>
+            </tr>
+            <!-- Child Active Connection: ovpn-user01 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user01</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><code>114.122.45.50</code></td>
+              <td><code>10.10.80.101</code></td>
+              <td class="text-primary fw-semibold">7h10m</td>
+              <td class="text-muted">TLS/AES-256-GCM/SHA256</td>
+            </tr>
+            <!-- Child Active Connection: ovpn-user02 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user02</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><code>114.122.45.51</code></td>
+              <td><code>10.10.80.102</code></td>
+              <td class="text-primary fw-semibold">10h22m</td>
+              <td class="text-muted">TLS/AES-256-GCM/SHA256</td>
+            </tr>
+            <!-- Child Active Connection: ovpn-user03 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user03</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><code>114.122.45.52</code></td>
+              <td><code>10.10.80.103</code></td>
+              <td class="text-primary fw-semibold">13h34m</td>
+              <td class="text-muted">TLS/AES-256-GCM/SHA256</td>
+            </tr>
+            <!-- Child Active Connection: ovpn-user04 -->
+            <tr class="iface-tree-row iface-child-row" data-iface-parent="OpenVPN Sessions" style="display: none; cursor: pointer;">
+              <td class="text-center" style="width: 28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+              <td>
+                <span style="display:inline-block; width: 22px;"></span>
+                <span style="color: #64748b; margin-right: 4px; font-weight: bold;">&bull;</span>
+                <strong>ovpn-user04</strong>
+              </td>
+              <td><span class="mitrane-type-badge" style="background: rgba(6, 182, 212, 0.12); color: #0891b2; border: 1px solid rgba(6, 182, 212, 0.3);">ovpn</span></td>
+              <td><code>114.122.45.53</code></td>
+              <td><code>10.10.80.104</code></td>
+              <td class="text-primary fw-semibold">16h46m</td>
+              <td class="text-muted">TLS/AES-256-GCM/SHA256</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
-        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">1 active sessions</span>
-        <div class="text-muted" style="font-size: 0.72rem;">Active VPN Sessions</div>
+        <span class="fw-bold" style="color: var(--mu-text-main, #1e293b);">16 active sessions (4 server groups)</span>
+        <div class="text-muted" style="font-size: 0.72rem;">Active VPN Sessions (PPPoE, SSTP, L2TP, OpenVPN)</div>
       </div>
     </div>
 
@@ -7515,7 +7802,7 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <!-- 100% Local Application Script (Works seamlessly on file:/// and http://) -->
-    <script src="assets/js/app.js?v=1792755755"></script>
+    <script src="assets/js/app.js?v=1792755890"></script>
 
     <!-- WINBOX INTERFACE PROPERTIES MODAL (Strict WinBox Replica) -->
     <div id="modal-interface-properties" class="modal-overlay">
