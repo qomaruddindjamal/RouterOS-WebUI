@@ -1,6 +1,129 @@
 {
-  "module": "switch",
-  "enabled": true,
-  "total": 0,
-  "items": []
+  "total": 12,
+  "ports": [
+    {
+      "id": "sw_p1",
+      "port": "ether1",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "running"
+    },
+    {
+      "id": "sw_p2",
+      "port": "ether2",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p3",
+      "port": "ether3",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p4",
+      "port": "ether4",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p5",
+      "port": "ether5",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p6",
+      "port": "switch1-cpu",
+      "switch": "switch1",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "cpu"
+    },
+    {
+      "id": "sw_p7",
+      "port": "ether6",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p8",
+      "port": "ether7",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p9",
+      "port": "ether8",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p10",
+      "port": "ether9",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p11",
+      "port": "ether10",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "inactive"
+    },
+    {
+      "id": "sw_p12",
+      "port": "switch2-cpu",
+      "switch": "switch2",
+      "vlanMode": "disabled",
+      "vlanHeader": "leave-as-is",
+      "defaultVlanId": "auto",
+      "status": "cpu"
+    }
+  ],
+  "vlans": [
+    {
+      "id": "sw_v1",
+      "switch": "switch1",
+      "vlanId": 10,
+      "ports": "ether2, ether3",
+      "independentLearning": true
+    },
+    {
+      "id": "sw_v2",
+      "switch": "switch1",
+      "vlanId": 20,
+      "ports": "ether4, ether5",
+      "independentLearning": true
+    }
+  ]
 }

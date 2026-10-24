@@ -1211,11 +1211,57 @@ class NavigationManager {
                     responseLine.className = 'terminal-prompt';
 
                     if (cmd === '/interface print' || cmd === 'interface print' || cmd === 'ip link') {
-                        responseLine.innerHTML = `Flags: R - RUNNING; S - SLAVE<br>
+                        if (window.jsonDataService && window.jsonDataService.interfacesData && window.jsonDataService.interfacesData.interfaces) {
+                            let lines = ['Flags: R - RUNNING; X - DISABLED; S - SLAVE'];
+                            window.jsonDataService.interfacesData.interfaces.forEach((it, idx) => {
+                                const flag = it.status === 'running' ? 'R' : ' ';
+                                lines.push(` ${idx} ${flag}  name="${it.name}" type=${(it.type || 'ether').toLowerCase()} mtu=${it.actualMtu || 1500}`);
+                            });
+                            responseLine.innerHTML = lines.join('<br>');
+                        } else {
+                            responseLine.innerHTML = `Flags: R - RUNNING; S - SLAVE<br>
  0 R  name="ETH1" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
  1    name="ETH2" type=ether mtu=1500 actual-mtu=1500 l2mtu=1500<br>
  2 R  name="LO" type=loopback mtu=65536 actual-mtu=65536<br>
  3 R  name="WG-BACKBONE" type=wireguard mtu=1420`;
+                        }
+                    } else if (cmd === '/ip address print' || cmd === 'ip address print') {
+                        if (window.jsonDataService && window.jsonDataService.ipData && window.jsonDataService.ipData.addresses) {
+                            let lines = ['Flags: X - DISABLED, I - INVALID, D - DYNAMIC', ' #   ADDRESS            NETWORK         INTERFACE'];
+                            window.jsonDataService.ipData.addresses.forEach((it, idx) => {
+                                const flag = it.disabled ? 'X' : ' ';
+                                lines.push(` ${idx} ${flag}  ${it.address.padEnd(18, ' ')} ${it.network.padEnd(15, ' ')} ${it.interface}`);
+                            });
+                            responseLine.innerHTML = lines.join('<br>');
+                        } else {
+                            responseLine.innerHTML = `Flags: X - DISABLED, I - INVALID, D - DYNAMIC<br>
+ #   ADDRESS            NETWORK         INTERFACE<br>
+ 0   172.16.92.230/24   172.16.92.0     1. WAN<br>
+ 1   192.168.88.1/24    192.168.88.0    2. LAN<br>
+ 2   10.10.77.2/30      10.10.77.0      wg-chr`;
+                        }
+                    } else if (cmd === '/wireguard print' || cmd === 'wireguard print') {
+                        if (window.jsonDataService && window.jsonDataService.wgData && window.jsonDataService.wgData.interfaces) {
+                            let lines = ['Flags: X - DISABLED, R - RUNNING', ' #   NAME          PORT   PUBLIC-KEY'];
+                            window.jsonDataService.wgData.interfaces.forEach((it, idx) => {
+                                const flag = it.status === 'running' ? 'R' : ' ';
+                                lines.push(` ${idx} ${flag}  ${it.name.padEnd(13, ' ')} ${String(it.listenPort).padEnd(6, ' ')} ${(it.publicKey || '').substring(0, 24)}...`);
+                            });
+                            responseLine.innerHTML = lines.join('<br>');
+                        } else {
+                            responseLine.innerHTML = `Flags: X - DISABLED, R - RUNNING<br> 0 R  wg-backbone   13231  k2aH8kY+F2x3pY9z8j3q4m5n...`;
+                        }
+                    } else if (cmd === '/queue simple print' || cmd === 'queue simple print') {
+                        if (window.jsonDataService && window.jsonDataService.qosData && window.jsonDataService.qosData.simple) {
+                            let lines = ['Flags: X - DISABLED', ' #   NAME                TARGET          MAX-LIMIT'];
+                            window.jsonDataService.qosData.simple.forEach((it, idx) => {
+                                const flag = it.status === 'running' ? ' ' : 'X';
+                                lines.push(` ${idx} ${flag}  ${it.name.padEnd(19, ' ')} ${it.target.padEnd(15, ' ')} ${it.maxLimitUpload}/${it.maxLimitDownload}`);
+                            });
+                            responseLine.innerHTML = lines.join('<br>');
+                        } else {
+                            responseLine.innerHTML = `Flags: X - DISABLED<br> 0    1. WAN Limit        172.16.92.230   50M/100M`;
+                        }
                     } else if (cmd === '/system resource print' || cmd === 'system resource print') {
                         responseLine.innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uptime: 16h50m00s<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version: 7.24.5 (stable)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free-memory: 942.1MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total-memory: 1024.0MiB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu: ARMv7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-count: 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-frequency: 1400MHz<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu-load: 2%`;
                     } else if (cmd === 'clear' || cmd === '/clear') {
@@ -1382,6 +1428,17 @@ class JsonDataService {
         this.selectedIndex = -1;
         this.currentFilter = '';
         this.onSelectionChangeCallbacks = [];
+
+        // Subsystem Data Store
+        this.ipData = null;
+        this.wgData = null;
+        this.qosData = null;
+        this.bridgeData = null;
+
+        this.selectedIpIndex = -1;
+        this.selectedWgIndex = -1;
+        this.selectedQosIndex = -1;
+        this.selectedBridgeIndex = -1;
     }
 
     onSelectionChange(cb) {
@@ -1449,6 +1506,419 @@ class JsonDataService {
             console.warn('[JsonDataService] Fetching interfaces.json failed:', e);
         }
         return null;
+    }
+
+    // ==================== IP ADDRESSES & ROUTES ====================
+    saveIpToStorage() {
+        if (this.ipData) {
+            try {
+                localStorage.setItem('mitrautama_ip_data', JSON.stringify(this.ipData));
+            } catch (e) {}
+        }
+    }
+
+    async loadIpData() {
+        try {
+            const saved = localStorage.getItem('mitrautama_ip_data');
+            if (saved) {
+                try {
+                    this.ipData = JSON.parse(saved);
+                    return this.ipData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/ip/ip.json?v=' + Date.now());
+            if (res.ok) {
+                this.ipData = await res.json();
+                this.saveIpToStorage();
+                return this.ipData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching ip.json failed:', e);
+        }
+        return null;
+    }
+
+    renderIpAddressesTable() {
+        const table = document.getElementById('table-ip-addresses');
+        if (!table || !this.ipData || !this.ipData.addresses) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+
+        let html = '';
+        this.ipData.addresses.forEach((item, idx) => {
+            const isSelected = this.selectedIpIndex === idx ? 'table-primary selected' : '';
+            const statusClass = item.disabled ? 'text-muted text-decoration-line-through' : '';
+            const badgeClass = item.interface === '1. WAN' ? 'bg-primary' : (item.interface === '2. LAN' ? 'bg-success' : 'bg-info');
+            html += `
+                <tr class="mitrautama-ip-row ${isSelected} ${statusClass}" data-ip-index="${idx}" style="cursor: pointer;">
+                    <td>${idx}</td>
+                    <td><strong>${this.escapeHtml(item.address)}</strong> ${item.comment ? `<em class="text-muted ms-1">(${this.escapeHtml(item.comment)})</em>` : ''}</td>
+                    <td>${this.escapeHtml(item.network)}</td>
+                    <td><span class="badge ${badgeClass}">${this.escapeHtml(item.interface)}</span></td>
+                    <td>${this.escapeHtml(item.interface)}</td>
+                    <td>main</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    addIpAddress(address, network, iface, comment = '') {
+        if (!this.ipData) this.ipData = { addresses: [], routes: [] };
+        if (!this.ipData.addresses) this.ipData.addresses = [];
+        const newRecord = {
+            id: 'ip_' + Date.now(),
+            address: address,
+            network: network || (address.split('/')[0].replace(/\.\d+$/, '.0')),
+            interface: iface || '1. WAN',
+            comment: comment,
+            disabled: false
+        };
+        this.ipData.addresses.push(newRecord);
+        this.selectedIpIndex = this.ipData.addresses.length - 1;
+        this.saveIpToStorage();
+        this.renderIpAddressesTable();
+        return newRecord;
+    }
+
+    removeSelectedIp() {
+        if (!this.ipData || !this.ipData.addresses || this.selectedIpIndex < 0 || this.selectedIpIndex >= this.ipData.addresses.length) {
+            return null;
+        }
+        const removed = this.ipData.addresses.splice(this.selectedIpIndex, 1)[0];
+        this.selectedIpIndex = -1;
+        this.saveIpToStorage();
+        this.renderIpAddressesTable();
+        return removed;
+    }
+
+    toggleSelectedIpStatus(disabled) {
+        if (!this.ipData || !this.ipData.addresses || this.selectedIpIndex < 0 || this.selectedIpIndex >= this.ipData.addresses.length) {
+            return null;
+        }
+        const item = this.ipData.addresses[this.selectedIpIndex];
+        item.disabled = disabled;
+        this.saveIpToStorage();
+        this.renderIpAddressesTable();
+        return item;
+    }
+
+    // ==================== WIREGUARD SUBSYSTEM ====================
+    saveWireguardToStorage() {
+        if (this.wgData) {
+            try {
+                localStorage.setItem('mitrautama_wg_data', JSON.stringify(this.wgData));
+            } catch (e) {}
+        }
+    }
+
+    async loadWireguardData() {
+        try {
+            const saved = localStorage.getItem('mitrautama_wg_data');
+            if (saved) {
+                try {
+                    this.wgData = JSON.parse(saved);
+                    return this.wgData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/wireguard/wireguard.json?v=' + Date.now());
+            if (res.ok) {
+                this.wgData = await res.json();
+                this.saveWireguardToStorage();
+                return this.wgData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching wireguard.json failed:', e);
+        }
+        return null;
+    }
+
+    renderWireguardTable() {
+        const table = document.getElementById('mitrane-wg-table');
+        if (!table || !this.wgData || !this.wgData.interfaces) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+
+        let html = '';
+        this.wgData.interfaces.forEach((item, idx) => {
+            const isSelected = this.selectedWgIndex === idx ? 'table-primary selected' : '';
+            const isRunning = item.status === 'running';
+            const iconSvg = isRunning 
+                ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+                : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
+            const badgeClass = isRunning ? 'bg-success' : 'bg-secondary';
+            html += `
+                <tr class="mitrautama-wg-row ${isSelected}" data-wg-index="${idx}" style="cursor: pointer;">
+                    <td class="text-center">${iconSvg}</td>
+                    <td><strong>${this.escapeHtml(item.name)}</strong></td>
+                    <td><span class="badge ${badgeClass}">${isRunning ? 'UP' : 'DOWN'}</span></td>
+                    <td>Server</td>
+                    <td>${this.escapeHtml(item.comment || 'WireGuard Tunnel')}</td>
+                    <td>10.10.77.3/24</td>
+                    <td>${item.listenPort || 13231}</td>
+                    <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">${this.escapeHtml((item.publicKey || '').substring(0, 18))}...</code></td>
+                    <td>0 B/s</td>
+                    <td>0 B/s</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+
+        // Render Peers Table if present
+        const peersTable = document.getElementById('mitrane-wg-peers-table');
+        if (peersTable && this.wgData.peers) {
+            const peersBody = peersTable.querySelector('tbody');
+            if (peersBody) {
+                let peerHtml = '';
+                this.wgData.peers.forEach((p, pIdx) => {
+                    peerHtml += `
+                        <tr class="mitrautama-wg-peer-row" data-wg-peer-index="${pIdx}" style="cursor: pointer;">
+                            <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                            <td><strong>${this.escapeHtml(p.comment || 'Peer')}</strong></td>
+                            <td><span class="badge bg-info">${this.escapeHtml(p.interface)}</span></td>
+                            <td><code class="font-monospace text-muted" style="font-size: 0.72rem;">${this.escapeHtml((p.publicKey || '').substring(0, 18))}...</code></td>
+                            <td>${this.escapeHtml(p.endpoint || '-')}</td>
+                            <td>${(p.endpoint || '').split(':')[1] || '13231'}</td>
+                            <td><strong>${this.escapeHtml(p.allowedAddress || '0.0.0.0/0')}</strong></td>
+                            <td>25s</td>
+                            <td>${this.escapeHtml(p.currentEndpoint || p.endpoint || '-')}</td>
+                        </tr>
+                    `;
+                });
+                peersBody.innerHTML = peerHtml;
+            }
+        }
+    }
+
+    addWireguardInterface(name, listenPort = 13231, comment = '') {
+        if (!this.wgData) this.wgData = { interfaces: [], peers: [] };
+        if (!this.wgData.interfaces) this.wgData.interfaces = [];
+        const newRecord = {
+            id: 'wg_' + Date.now(),
+            name: name || 'wg-vpn',
+            mtu: 1420,
+            listenPort: Number(listenPort) || 13231,
+            privateKey: 'aGVsbG8xMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc=',
+            publicKey: 'k2aH8kY+F2x3pY9z8j3q4m5n6o7p8q9r0s1t2u3v4w=',
+            status: 'running',
+            comment: comment || 'WireGuard Tunnel'
+        };
+        this.wgData.interfaces.push(newRecord);
+        this.selectedWgIndex = this.wgData.interfaces.length - 1;
+        this.saveWireguardToStorage();
+        this.renderWireguardTable();
+        return newRecord;
+    }
+
+    removeSelectedWireguard() {
+        if (!this.wgData || !this.wgData.interfaces || this.selectedWgIndex < 0 || this.selectedWgIndex >= this.wgData.interfaces.length) {
+            return null;
+        }
+        const removed = this.wgData.interfaces.splice(this.selectedWgIndex, 1)[0];
+        this.selectedWgIndex = -1;
+        this.saveWireguardToStorage();
+        this.renderWireguardTable();
+        return removed;
+    }
+
+    toggleSelectedWireguardStatus(status) {
+        if (!this.wgData || !this.wgData.interfaces || this.selectedWgIndex < 0 || this.selectedWgIndex >= this.wgData.interfaces.length) {
+            return null;
+        }
+        const item = this.wgData.interfaces[this.selectedWgIndex];
+        item.status = status;
+        this.saveWireguardToStorage();
+        this.renderWireguardTable();
+        return item;
+    }
+
+    // ==================== QOS / QUEUES SUBSYSTEM ====================
+    saveQosToStorage() {
+        if (this.qosData) {
+            try {
+                localStorage.setItem('mitrautama_qos_data', JSON.stringify(this.qosData));
+            } catch (e) {}
+        }
+    }
+
+    async loadQosData() {
+        try {
+            const saved = localStorage.getItem('mitrautama_qos_data');
+            if (saved) {
+                try {
+                    this.qosData = JSON.parse(saved);
+                    return this.qosData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/qos/qos.json?v=' + Date.now());
+            if (res.ok) {
+                this.qosData = await res.json();
+                this.saveQosToStorage();
+                return this.qosData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching qos.json failed:', e);
+        }
+        return null;
+    }
+
+    renderQosTable() {
+        const table = document.getElementById('table-qos-simple');
+        if (!table || !this.qosData || !this.qosData.simple) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+
+        let html = '';
+        this.qosData.simple.forEach((item, idx) => {
+            const isSelected = this.selectedQosIndex === idx ? 'table-primary selected' : '';
+            const isRunning = item.status === 'running';
+            const iconSvg = isRunning
+                ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>`
+                : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" class="me-1" style="vertical-align: middle;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>`;
+
+            html += `
+                <tr class="queue-row queue-root ${isSelected}" data-qos-index="${idx}" style="cursor: pointer;">
+                    <td class="text-center" style="width: 20px; padding: 2px 4px;"><svg width="9" height="12" viewBox="0 0 6 10" fill="currentColor" class="text-muted opacity-75" style="vertical-align: middle;"><circle cx="1.5" cy="2" r="1"/><circle cx="4.5" cy="2" r="1"/><circle cx="1.5" cy="5" r="1"/><circle cx="4.5" cy="5" r="1"/><circle cx="1.5" cy="8" r="1"/><circle cx="4.5" cy="8" r="1"/></svg></td>
+                    <td class="text-end text-muted" style="width: 28px; padding: 2px 6px;">${idx}</td>
+                    <td>${iconSvg}<span class="fw-bold">${this.escapeHtml(item.name)}</span> ${item.comment ? `<span class="text-muted" style="font-size:0.72rem;">(${this.escapeHtml(item.comment)})</span>` : ''}</td>
+                    <td>${this.escapeHtml(item.target)}</td>
+                    <td>${this.escapeHtml(item.maxLimitUpload)}</td>
+                    <td>${this.escapeHtml(item.maxLimitDownload)}</td>
+                    <td></td><td></td><td></td><td></td><td></td><td>0 bps</td><td>0 bps</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    addQosQueue(name, target, upload = '10M', download = '20M', comment = '') {
+        if (!this.qosData) this.qosData = { simple: [] };
+        if (!this.qosData.simple) this.qosData.simple = [];
+        const newRecord = {
+            id: 'qos_' + Date.now(),
+            name: name || 'Queue-Client',
+            target: target || '192.168.88.0/24',
+            maxLimitUpload: upload,
+            maxLimitDownload: download,
+            burstLimit: '0/0',
+            priority: '8/8',
+            status: 'running',
+            comment: comment || 'Limit Simple QoS'
+        };
+        this.qosData.simple.push(newRecord);
+        this.selectedQosIndex = this.qosData.simple.length - 1;
+        this.saveQosToStorage();
+        this.renderQosTable();
+        return newRecord;
+    }
+
+    removeSelectedQos() {
+        if (!this.qosData || !this.qosData.simple || this.selectedQosIndex < 0 || this.selectedQosIndex >= this.qosData.simple.length) {
+            return null;
+        }
+        const removed = this.qosData.simple.splice(this.selectedQosIndex, 1)[0];
+        this.selectedQosIndex = -1;
+        this.saveQosToStorage();
+        this.renderQosTable();
+        return removed;
+    }
+
+    toggleSelectedQosStatus(status) {
+        if (!this.qosData || !this.qosData.simple || this.selectedQosIndex < 0 || this.selectedQosIndex >= this.qosData.simple.length) {
+            return null;
+        }
+        const item = this.qosData.simple[this.selectedQosIndex];
+        item.status = status;
+        this.saveQosToStorage();
+        this.renderQosTable();
+        return item;
+    }
+
+    // ==================== BRIDGE SUBSYSTEM ====================
+    saveBridgeToStorage() {
+        if (this.bridgeData) {
+            try {
+                localStorage.setItem('mitrautama_bridge_data', JSON.stringify(this.bridgeData));
+            } catch (e) {}
+        }
+    }
+
+    async loadBridgeData() {
+        try {
+            const saved = localStorage.getItem('mitrautama_bridge_data');
+            if (saved) {
+                try {
+                    this.bridgeData = JSON.parse(saved);
+                    return this.bridgeData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/bridge/bridge.json?v=' + Date.now());
+            if (res.ok) {
+                this.bridgeData = await res.json();
+                this.saveBridgeToStorage();
+                return this.bridgeData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching bridge.json failed:', e);
+        }
+        return null;
+    }
+
+    renderBridgePortsTable() {
+        const table = document.getElementById('mitrane-bridge-ports-table');
+        if (!table || !this.bridgeData || !this.bridgeData.ports) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+
+        let html = '';
+        this.bridgeData.ports.forEach((item, idx) => {
+            const isSelected = this.selectedBridgeIndex === idx ? 'table-primary selected' : '';
+            html += `
+                <tr class="mitrautama-bridge-port-row ${isSelected}" data-bridge-index="${idx}" style="cursor: pointer;">
+                    <td class="text-center">${idx}</td>
+                    <td class="text-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                    <td><strong>${this.escapeHtml(item.interface)}</strong></td>
+                    <td><span class="badge ${item.bridge === '1. WAN' ? 'bg-primary' : 'bg-success'}">${this.escapeHtml(item.bridge)}</span></td>
+                    <td>none</td>
+                    <td>no</td>
+                    <td>auto</td>
+                    <td>auto</td>
+                    <td>no</td>
+                    <td>no</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    addBridgePort(iface, bridge = '2. LAN') {
+        if (!this.bridgeData) this.bridgeData = { bridges: [], ports: [] };
+        if (!this.bridgeData.ports) this.bridgeData.ports = [];
+        const newRecord = {
+            id: 'bp_' + Date.now(),
+            interface: iface || 'ETH4',
+            bridge: bridge,
+            priority: 128,
+            pathCost: 10,
+            status: 'forwarding',
+            role: 'designated'
+        };
+        this.bridgeData.ports.push(newRecord);
+        this.selectedBridgeIndex = this.bridgeData.ports.length - 1;
+        this.saveBridgeToStorage();
+        this.renderBridgePortsTable();
+        return newRecord;
+    }
+
+    removeSelectedBridgePort() {
+        if (!this.bridgeData || !this.bridgeData.ports || this.selectedBridgeIndex < 0 || this.selectedBridgeIndex >= this.bridgeData.ports.length) {
+            return null;
+        }
+        const removed = this.bridgeData.ports.splice(this.selectedBridgeIndex, 1)[0];
+        this.selectedBridgeIndex = -1;
+        this.saveBridgeToStorage();
+        this.renderBridgePortsTable();
+        return removed;
     }
 
             getInterfaceIconSvg(item, isChild = false) {
@@ -2292,6 +2762,358 @@ class ModuleLoader {
                     });
                 });
             }
+
+            // ==================== LOAD & BIND ALL OTHER SUBSYSTEMS ====================
+            // 1. IP Subsystem
+            const ipData = await jsonDataService.loadIpData();
+            if (ipData) {
+                jsonDataService.renderIpAddressesTable();
+            }
+
+            // 2. WireGuard Subsystem
+            const wgData = await jsonDataService.loadWireguardData();
+            if (wgData) {
+                jsonDataService.renderWireguardTable();
+            }
+
+            // 3. QoS Subsystem
+            const qosData = await jsonDataService.loadQosData();
+            if (qosData) {
+                jsonDataService.renderQosTable();
+            }
+
+            // 4. Bridge Subsystem
+            const bridgeData = await jsonDataService.loadBridgeData();
+            if (bridgeData) {
+                jsonDataService.renderBridgePortsTable();
+            }
+
+            // Global Row Selection for Tables
+            document.addEventListener('click', (e) => {
+                // IP Row Select
+                const ipRow = e.target.closest('.mitrautama-ip-row');
+                if (ipRow) {
+                    const idx = parseInt(ipRow.getAttribute('data-ip-index'), 10);
+                    jsonDataService.selectedIpIndex = idx;
+                    document.querySelectorAll('.mitrautama-ip-row').forEach(r => r.classList.remove('table-primary', 'selected'));
+                    ipRow.classList.add('table-primary', 'selected');
+                }
+
+                // WireGuard Row Select
+                const wgRow = e.target.closest('.mitrautama-wg-row');
+                if (wgRow) {
+                    const idx = parseInt(wgRow.getAttribute('data-wg-index'), 10);
+                    jsonDataService.selectedWgIndex = idx;
+                    document.querySelectorAll('.mitrautama-wg-row').forEach(r => r.classList.remove('table-primary', 'selected'));
+                    wgRow.classList.add('table-primary', 'selected');
+                }
+
+                // QoS Row Select
+                const qosRow = e.target.closest('.queue-row');
+                if (qosRow) {
+                    const idx = parseInt(qosRow.getAttribute('data-qos-index'), 10);
+                    if (!isNaN(idx)) {
+                        jsonDataService.selectedQosIndex = idx;
+                        document.querySelectorAll('.queue-row').forEach(r => r.classList.remove('table-primary', 'selected'));
+                        qosRow.classList.add('table-primary', 'selected');
+                    }
+                }
+
+                // Bridge Port Row Select
+                const brRow = e.target.closest('.mitrautama-bridge-port-row');
+                if (brRow) {
+                    const idx = parseInt(brRow.getAttribute('data-bridge-index'), 10);
+                    jsonDataService.selectedBridgeIndex = idx;
+                    document.querySelectorAll('.mitrautama-bridge-port-row').forEach(r => r.classList.remove('table-primary', 'selected'));
+                    brRow.classList.add('table-primary', 'selected');
+                }
+            });
+
+            // Global Button Event Delegation for IP, WireGuard, QoS, and Bridge Toolbars
+            document.addEventListener('click', (e) => {
+                // IP Toolbar
+                if (e.target.closest('#btn-ip-new')) {
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'New IP Address',
+                            html: `
+                                <div class="text-start">
+                                    <label class="form-label small fw-bold">Address / Netmask</label>
+                                    <input id="swal-input-ip-addr" class="form-control mb-2" placeholder="192.168.100.1/24" value="192.168.100.1/24">
+                                    <label class="form-label small fw-bold">Network</label>
+                                    <input id="swal-input-ip-net" class="form-control mb-2" placeholder="192.168.100.0" value="192.168.100.0">
+                                    <label class="form-label small fw-bold">Interface</label>
+                                    <select id="swal-input-ip-iface" class="form-select mb-2">
+                                        <option value="1. WAN">1. WAN</option>
+                                        <option value="2. LAN" selected>2. LAN</option>
+                                        <option value="wg-chr">wg-chr</option>
+                                        <option value="ETH1">ETH1</option>
+                                        <option value="ETH2">ETH2</option>
+                                    </select>
+                                    <label class="form-label small fw-bold">Comment</label>
+                                    <input id="swal-input-ip-comment" class="form-control" placeholder="Contoh: Gateway Server">
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'Cancel',
+                            confirmButtonColor: '#0284c7',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const addr = document.getElementById('swal-input-ip-addr').value.trim();
+                                const net = document.getElementById('swal-input-ip-net').value.trim();
+                                const iface = document.getElementById('swal-input-ip-iface').value;
+                                const comment = document.getElementById('swal-input-ip-comment').value.trim();
+                                if (!addr) {
+                                    Swal.showValidationMessage('IP Address wajib diisi!');
+                                    return false;
+                                }
+                                return { addr, net, iface, comment };
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed && result.value) {
+                                const added = jsonDataService.addIpAddress(result.value.addr, result.value.net, result.value.iface, result.value.comment);
+                                toastManager.show({ title: 'IP Added', message: `Address ${added.address} berhasil disimpan.`, type: 'success' });
+                            }
+                        });
+                    }
+                } else if (e.target.closest('#btn-ip-enable')) {
+                    const item = jsonDataService.toggleSelectedIpStatus(false);
+                    if (item) toastManager.show({ title: 'IP Enabled', message: `Address ${item.address} diaktifkan.`, type: 'success' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris IP Address terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-ip-disable')) {
+                    const item = jsonDataService.toggleSelectedIpStatus(true);
+                    if (item) toastManager.show({ title: 'IP Disabled', message: `Address ${item.address} dinonaktifkan.`, type: 'warning' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris IP Address terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-ip-remove')) {
+                    if (jsonDataService.selectedIpIndex < 0) {
+                        toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris IP yang ingin dihapus.', type: 'info' });
+                        return;
+                    }
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'Hapus IP Address?',
+                            text: 'Konfirmasi penghapusan entri IP Address ini.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            confirmButtonText: 'Ya, Hapus'
+                        }).then((res) => {
+                            if (res.isConfirmed) {
+                                const rem = jsonDataService.removeSelectedIp();
+                                if (rem) toastManager.show({ title: 'IP Dihapus', message: `Address ${rem.address} dihapus.`, type: 'success' });
+                            }
+                        });
+                    }
+                }
+
+                // WireGuard Toolbar
+                else if (e.target.closest('#btn-wg-new')) {
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'New WireGuard Interface',
+                            html: `
+                                <div class="text-start">
+                                    <label class="form-label small fw-bold">Name</label>
+                                    <input id="swal-input-wg-name" class="form-control mb-2" placeholder="wg0" value="wg-office">
+                                    <label class="form-label small fw-bold">Listen Port</label>
+                                    <input id="swal-input-wg-port" class="form-control mb-2" type="number" placeholder="13231" value="13231">
+                                    <label class="form-label small fw-bold">Comment</label>
+                                    <input id="swal-input-wg-comment" class="form-control" placeholder="Branch Office VPN">
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'Cancel',
+                            confirmButtonColor: '#0284c7',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const name = document.getElementById('swal-input-wg-name').value.trim();
+                                const port = document.getElementById('swal-input-wg-port').value.trim();
+                                const comment = document.getElementById('swal-input-wg-comment').value.trim();
+                                if (!name) {
+                                    Swal.showValidationMessage('Nama interface wajib diisi!');
+                                    return false;
+                                }
+                                return { name, port, comment };
+                            }
+                        }).then((res) => {
+                            if (res.isConfirmed && res.value) {
+                                const added = jsonDataService.addWireguardInterface(res.value.name, res.value.port, res.value.comment);
+                                toastManager.show({ title: 'WireGuard Created', message: `Interface ${added.name} dibuat (Port: ${added.listenPort}).`, type: 'success' });
+                            }
+                        });
+                    }
+                } else if (e.target.closest('#btn-wg-enable')) {
+                    const item = jsonDataService.toggleSelectedWireguardStatus('running');
+                    if (item) toastManager.show({ title: 'WireGuard Enabled', message: `Interface ${item.name} diaktifkan (UP).`, type: 'success' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih interface WireGuard terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-wg-disable')) {
+                    const item = jsonDataService.toggleSelectedWireguardStatus('inactive');
+                    if (item) toastManager.show({ title: 'WireGuard Disabled', message: `Interface ${item.name} dinonaktifkan (DOWN).`, type: 'warning' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih interface WireGuard terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-wg-remove')) {
+                    if (jsonDataService.selectedWgIndex < 0) {
+                        toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih interface WireGuard yang ingin dihapus.', type: 'info' });
+                        return;
+                    }
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'Hapus WireGuard Interface?',
+                            text: 'Konfirmasi penghapusan interface WireGuard ini.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            confirmButtonText: 'Ya, Hapus'
+                        }).then((res) => {
+                            if (res.isConfirmed) {
+                                const rem = jsonDataService.removeSelectedWireguard();
+                                if (rem) toastManager.show({ title: 'WireGuard Dihapus', message: `Interface ${rem.name} berhasil dihapus.`, type: 'success' });
+                            }
+                        });
+                    }
+                }
+
+                // QoS Toolbar
+                else if (e.target.closest('#btn-qos-new')) {
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'New Simple Queue',
+                            html: `
+                                <div class="text-start">
+                                    <label class="form-label small fw-bold">Name</label>
+                                    <input id="swal-input-qos-name" class="form-control mb-2" placeholder="Queue 1" value="Staff Bandwidth Limit">
+                                    <label class="form-label small fw-bold">Target IP / Subnet</label>
+                                    <input id="swal-input-qos-target" class="form-control mb-2" placeholder="192.168.88.50/32" value="192.168.88.50/32">
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-6">
+                                            <label class="form-label small fw-bold">Max Upload</label>
+                                            <input id="swal-input-qos-up" class="form-control" placeholder="10M" value="10M">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label small fw-bold">Max Download</label>
+                                            <input id="swal-input-qos-down" class="form-control" placeholder="20M" value="20M">
+                                        </div>
+                                    </div>
+                                    <label class="form-label small fw-bold">Comment</label>
+                                    <input id="swal-input-qos-comment" class="form-control" placeholder="Catatan Limitasi">
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'Cancel',
+                            confirmButtonColor: '#0284c7',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const name = document.getElementById('swal-input-qos-name').value.trim();
+                                const target = document.getElementById('swal-input-qos-target').value.trim();
+                                const up = document.getElementById('swal-input-qos-up').value.trim();
+                                const down = document.getElementById('swal-input-qos-down').value.trim();
+                                const comment = document.getElementById('swal-input-qos-comment').value.trim();
+                                if (!name || !target) {
+                                    Swal.showValidationMessage('Nama dan Target wajib diisi!');
+                                    return false;
+                                }
+                                return { name, target, up, down, comment };
+                            }
+                        }).then((res) => {
+                            if (res.isConfirmed && res.value) {
+                                const added = jsonDataService.addQosQueue(res.value.name, res.value.target, res.value.up, res.value.down, res.value.comment);
+                                toastManager.show({ title: 'Queue Created', message: `Queue ${added.name} berhasil dibuat.`, type: 'success' });
+                            }
+                        });
+                    }
+                } else if (e.target.closest('#btn-qos-enable')) {
+                    const item = jsonDataService.toggleSelectedQosStatus('running');
+                    if (item) toastManager.show({ title: 'Queue Enabled', message: `Queue ${item.name} diaktifkan.`, type: 'success' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris Queue terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-qos-disable')) {
+                    const item = jsonDataService.toggleSelectedQosStatus('inactive');
+                    if (item) toastManager.show({ title: 'Queue Disabled', message: `Queue ${item.name} dinonaktifkan.`, type: 'warning' });
+                    else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris Queue terlebih dahulu.', type: 'info' });
+                } else if (e.target.closest('#btn-qos-remove')) {
+                    if (jsonDataService.selectedQosIndex < 0) {
+                        toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris Queue yang ingin dihapus.', type: 'info' });
+                        return;
+                    }
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'Hapus Queue?',
+                            text: 'Konfirmasi penghapusan limitasi bandwith ini.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            confirmButtonText: 'Ya, Hapus'
+                        }).then((res) => {
+                            if (res.isConfirmed) {
+                                const rem = jsonDataService.removeSelectedQos();
+                                if (rem) toastManager.show({ title: 'Queue Dihapus', message: `Queue ${rem.name} berhasil dihapus.`, type: 'success' });
+                            }
+                        });
+                    }
+                }
+
+                // Bridge Toolbar
+                else if (e.target.closest('#btn-bridge-new')) {
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'New Bridge Port',
+                            html: `
+                                <div class="text-start">
+                                    <label class="form-label small fw-bold">Interface</label>
+                                    <select id="swal-input-bridge-iface" class="form-select mb-2">
+                                        <option value="ETH4">ETH4</option>
+                                        <option value="ETH5">ETH5</option>
+                                        <option value="ETH6">ETH6</option>
+                                        <option value="ETH7">ETH7</option>
+                                        <option value="SFP-PLUS1">SFP-PLUS1</option>
+                                    </select>
+                                    <label class="form-label small fw-bold">Bridge</label>
+                                    <select id="swal-input-bridge-target" class="form-select">
+                                        <option value="2. LAN" selected>2. LAN</option>
+                                        <option value="1. WAN">1. WAN</option>
+                                    </select>
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'Cancel',
+                            confirmButtonColor: '#0284c7',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                const iface = document.getElementById('swal-input-bridge-iface').value;
+                                const br = document.getElementById('swal-input-bridge-target').value;
+                                return { iface, br };
+                            }
+                        }).then((res) => {
+                            if (res.isConfirmed && res.value) {
+                                const added = jsonDataService.addBridgePort(res.value.iface, res.value.br);
+                                toastManager.show({ title: 'Port Added', message: `Port ${added.interface} ditambahkan ke ${added.bridge}.`, type: 'success' });
+                            }
+                        });
+                    }
+                } else if (e.target.closest('#btn-bridge-remove')) {
+                    if (jsonDataService.selectedBridgeIndex < 0) {
+                        toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih port bridge yang ingin dilepas.', type: 'info' });
+                        return;
+                    }
+                    if (window.Swal) {
+                        Swal.fire({
+                            title: 'Lepas Port dari Bridge?',
+                            text: 'Konfirmasi pelepasan port interface dari bridge.',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#ef4444',
+                            confirmButtonText: 'Ya, Lepas'
+                        }).then((res) => {
+                            if (res.isConfirmed) {
+                                const rem = jsonDataService.removeSelectedBridgePort();
+                                if (rem) toastManager.show({ title: 'Port Dilepas', message: `Port ${rem.interface} telah dilepas dari bridge.`, type: 'success' });
+                            }
+                        });
+                    }
+                }
+            });
 
         } catch (e) {
             console.warn('[ModuleLoader] JSON data init failed:', e);

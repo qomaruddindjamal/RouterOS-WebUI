@@ -1,6 +1,35 @@
 {
-  "module": "system",
-  "enabled": true,
-  "total": 0,
-  "items": []
+  "resources": {
+    "board": "RB3011UiAS-RM",
+    "architecture": "arm",
+    "cpu": "IPQ8064",
+    "cpuCount": 2,
+    "cpuFrequency": 1400,
+    "memoryTotal": "1024.0 MiB",
+    "memoryFree": "942.1 MiB",
+    "storageTotal": "128.0 MiB",
+    "storageFree": "98.4 MiB",
+    "uptime": "16h 50m",
+    "version": "7.24.5 (stable)"
+  },
+  "users": [
+    {
+      "id": "usr_1",
+      "user": "citramedia",
+      "group": "full",
+      "allowedAddress": "0.0.0.0/0",
+      "inactivityTimeout": "10m",
+      "lastLoggedIn": "2026-10-22 15:06:41",
+      "status": "Active"
+    },
+    {
+      "id": "usr_2",
+      "user": "admin",
+      "group": "full",
+      "allowedAddress": "0.0.0.0/0",
+      "inactivityTimeout": "10m",
+      "lastLoggedIn": "-",
+      "status": "Disabled"
+    }
+  ]
 }

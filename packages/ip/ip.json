@@ -4,9 +4,8 @@
       "id": "ip_1",
       "address": "172.16.92.230/24",
       "network": "172.16.92.0",
-      "interface": "ETH1",
-      "actualInterface": "1. WAN",
-      "comment": "IP Manajemen Utama",
+      "interface": "1. WAN",
+      "comment": "Uplink ISP Utama",
       "disabled": false
     },
     {
@@ -14,47 +13,56 @@
       "address": "192.168.88.1/24",
       "network": "192.168.88.0",
       "interface": "2. LAN",
-      "actualInterface": "2. LAN",
       "comment": "Default Gateway LAN",
       "disabled": false
     },
     {
       "id": "ip_3",
-      "address": "10.200.0.1/24",
-      "network": "10.200.0.0",
-      "interface": "wg-backbone",
-      "actualInterface": "wg-backbone",
-      "comment": "WireGuard IP",
+      "address": "10.10.77.2/30",
+      "network": "10.10.77.0",
+      "interface": "wg-chr",
+      "comment": "WireGuard Tunnel IP",
       "disabled": false
     }
   ],
   "routes": [
     {
       "id": "rt_1",
+      "flags": "DAS",
       "dstAddress": "0.0.0.0/0",
       "gateway": "172.16.92.254",
+      "immediateGw": "1. WAN",
       "distance": 1,
-      "routingTable": "main",
-      "status": "active, reachable",
-      "comment": "Default Route Internet"
+      "comment": "Default Gateway"
     },
     {
       "id": "rt_2",
-      "dstAddress": "192.168.88.0/24",
-      "gateway": "2. LAN",
+      "flags": "DAC",
+      "dstAddress": "172.16.92.0/24",
+      "gateway": "1. WAN",
+      "immediateGw": "1. WAN",
       "distance": 0,
-      "routingTable": "main",
-      "status": "active, connected",
-      "comment": "LAN Subnet"
+      "comment": "Connected WAN"
     },
     {
       "id": "rt_3",
-      "dstAddress": "172.16.92.0/24",
-      "gateway": "1. WAN",
+      "flags": "DAC",
+      "dstAddress": "192.168.88.0/24",
+      "gateway": "2. LAN",
+      "immediateGw": "2. LAN",
       "distance": 0,
-      "routingTable": "main",
-      "status": "active, connected",
-      "comment": "WAN Subnet"
+      "comment": "Connected LAN"
+    }
+  ],
+  "dhcp": [
+    {
+      "id": "dhcp_1",
+      "flags": "",
+      "name": "dhcp1",
+      "interface": "2. LAN",
+      "leaseTime": "10m",
+      "addressPool": "pool-lan",
+      "comment": "DHCP Server LAN"
     }
   ],
   "pools": [
@@ -63,7 +71,7 @@
       "name": "pool-lan",
       "ranges": "192.168.88.10-192.168.88.254",
       "nextPool": "none",
-      "comment": "DHCP Pool Klien LAN"
+      "comment": "IP Pool Klien"
     }
   ],
   "firewall": [
@@ -71,25 +79,17 @@
       "id": "fw_1",
       "chain": "forward",
       "action": "accept",
-      "connectionState": "established,related",
-      "comment": "Accept established/related",
-      "disabled": false
+      "outInterface": "",
+      "srcAddress": "192.168.88.0/24",
+      "comment": "Allow LAN Access"
     },
     {
       "id": "fw_2",
-      "chain": "forward",
-      "action": "drop",
-      "connectionState": "invalid",
-      "comment": "Drop invalid connections",
-      "disabled": false
-    },
-    {
-      "id": "nat_1",
       "chain": "srcnat",
       "action": "masquerade",
       "outInterface": "1. WAN",
-      "comment": "NAT Masquerade WAN",
-      "disabled": false
+      "srcAddress": "192.168.88.0/24",
+      "comment": "NAT Internet Masquerade"
     }
   ]
 }

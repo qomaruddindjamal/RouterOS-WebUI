@@ -1,6 +1,44 @@
 {
-  "module": "vpn",
-  "enabled": true,
-  "total": 0,
-  "items": []
+  "total": 3,
+  "interfaces": [
+    {
+      "id": "vpn_1",
+      "name": "<pppoe-user@citramedia.tech>",
+      "type": "PPPoE Client",
+      "actualMtu": 1492,
+      "l2Mtu": 1500,
+      "tx": "18.4 KB/s",
+      "rx": "42.1 KB/s",
+      "txPkt": 24,
+      "rxPkt": 38,
+      "status": "running",
+      "comment": "Uplink PPPoE Citramedia"
+    },
+    {
+      "id": "vpn_2",
+      "name": "sstp-client-kantor",
+      "type": "SSTP Client",
+      "actualMtu": 1500,
+      "l2Mtu": 1500,
+      "tx": "0 B/s",
+      "rx": "0 B/s",
+      "txPkt": 0,
+      "rxPkt": 0,
+      "status": "inactive",
+      "comment": "VPN Branch Office"
+    },
+    {
+      "id": "vpn_3",
+      "name": "l2tp-client-hq",
+      "type": "L2TP Client",
+      "actualMtu": 1450,
+      "l2Mtu": 1500,
+      "tx": "2.1 KB/s",
+      "rx": "3.4 KB/s",
+      "txPkt": 5,
+      "rxPkt": 7,
+      "status": "running",
+      "comment": "HQ Tunnel"
+    }
+  ]
 }
