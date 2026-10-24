@@ -3315,23 +3315,163 @@ class ModuleLoader {
                 btnApplyFw.addEventListener('click', () => saveFirewallRule(false));
             }
 
+            // Bind NAT Rule Subtabs (General, Advanced, Extra, Action, Statistics)
+            const modalNatRule = document.getElementById('modal-nat-rule');
+            if (modalNatRule) {
+                const subtabBtns = modalNatRule.querySelectorAll('.winbox-subtab-btn');
+                subtabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const targetPane = btn.getAttribute('data-nat-subtab');
+                        subtabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        modalNatRule.querySelectorAll('.modal-nat-pane').forEach(p => p.style.display = 'none');
+                        const activePane = document.getElementById(`modal-nat-pane-${targetPane}`);
+                        if (activePane) activePane.style.display = 'block';
+                    });
+                });
+
+                // Toggle To Addresses and To Ports visibility based on action
+                const natActionSelect = document.getElementById('modal-nat-action');
+                const toAddressesGroup = document.getElementById('modal-nat-to-addresses-group');
+                const toPortsGroup = document.getElementById('modal-nat-to-ports-group');
+                if (natActionSelect) {
+                    natActionSelect.addEventListener('change', () => {
+                        const act = natActionSelect.value;
+                        const needsToAddr = (act === 'dst-nat' || act === 'src-nat' || act === 'netmap' || act === 'redirect');
+                        if (toAddressesGroup) toAddressesGroup.style.display = needsToAddr ? 'flex' : 'none';
+                        if (toPortsGroup) toPortsGroup.style.display = (act === 'dst-nat' || act === 'redirect') ? 'flex' : 'none';
+                    });
+                }
+            }
+
+            const populateNatInterfaces = () => {
+                const inSelect = document.getElementById('modal-nat-in-iface');
+                const outSelect = document.getElementById('modal-nat-out-iface');
+                let ifaceNames = [''];
+                if (jsonDataService.interfacesData && jsonDataService.interfacesData.interfaces) {
+                    jsonDataService.interfacesData.interfaces.forEach(it => {
+                        if (it.name) ifaceNames.push(it.name);
+                    });
+                } else {
+                    ifaceNames = ['', '1. WAN', '2. LAN', 'ETH1', 'ETH2', 'ETH3', 'ETH4', 'ETH5', 'ETH6', 'ETH7', 'ETH8', 'ETH9', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'wg-chr'];
+                }
+                const optionsHtml = ifaceNames.map(n => `<option value="${jsonDataService.escapeHtml(n)}">${jsonDataService.escapeHtml(n)}</option>`).join('');
+                if (inSelect) inSelect.innerHTML = optionsHtml;
+                if (outSelect) outSelect.innerHTML = optionsHtml;
+            };
+
+            // Function to save NAT Rule
+            const saveNatRule = (closeOnSuccess = true) => {
+                if (!jsonDataService.firewallData) jsonDataService.firewallData = { nat: [] };
+                if (!jsonDataService.firewallData.nat) jsonDataService.firewallData.nat = [];
+
+                const chain = document.getElementById('modal-nat-chain')?.value || 'srcnat';
+                const action = document.getElementById('modal-nat-action')?.value || 'masquerade';
+                const srcAddr = document.getElementById('modal-nat-src-address')?.value.trim() || '';
+                const dstAddr = document.getElementById('modal-nat-dst-address')?.value.trim() || '';
+                const srcAddrList = document.getElementById('modal-nat-src-address-list')?.value.trim() || '';
+                const dstAddrList = document.getElementById('modal-nat-dst-address-list')?.value.trim() || '';
+                const proto = document.getElementById('modal-nat-protocol')?.value.trim() || '';
+                const srcPort = document.getElementById('modal-nat-src-port')?.value.trim() || '';
+                const dstPort = document.getElementById('modal-nat-dst-port')?.value.trim() || '';
+                const anyPort = document.getElementById('modal-nat-any-port')?.value.trim() || '';
+                const inIface = document.getElementById('modal-nat-in-iface')?.value || '';
+                const outIface = document.getElementById('modal-nat-out-iface')?.value || '';
+                const inIfaceList = document.getElementById('modal-nat-in-iface-list')?.value || '';
+                const outIfaceList = document.getElementById('modal-nat-out-iface-list')?.value || '';
+                const comment = document.getElementById('modal-nat-comment')?.value.trim() || '';
+                const enabled = document.getElementById('modal-nat-enabled')?.checked ?? true;
+
+                const newNat = {
+                    id: 'nat_' + Date.now(),
+                    action: action,
+                    chain: chain,
+                    srcAddress: srcAddr,
+                    dstAddress: dstAddr,
+                    srcAddressList: srcAddrList,
+                    dstAddressList: dstAddrList,
+                    protocol: proto,
+                    srcPort: srcPort,
+                    dstPort: dstPort,
+                    anyPort: anyPort,
+                    inInterface: inIface,
+                    outInterface: outIface,
+                    inInterfaceList: inIfaceList,
+                    outInterfaceList: outIfaceList,
+                    bytes: '0 B',
+                    packets: 0,
+                    comment: comment,
+                    disabled: !enabled
+                };
+
+                jsonDataService.firewallData.nat.push(newNat);
+                jsonDataService.saveFirewallToStorage();
+                jsonDataService.renderFirewallTables();
+
+                if (window.toastManager) {
+                    toastManager.show({ title: 'NAT Rule Disimpan', message: `Rule [${action}] pada chain ${chain} berhasil ditambahkan.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-nat-rule');
+                    } else {
+                        const modal = document.getElementById('modal-nat-rule');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+            };
+
+            const btnOkNat = document.getElementById('btn-ok-nat-rule');
+            if (btnOkNat) {
+                btnOkNat.addEventListener('click', () => saveNatRule(true));
+            }
+
+            const btnApplyNat = document.getElementById('btn-apply-nat-rule');
+            if (btnApplyNat) {
+                btnApplyNat.addEventListener('click', () => saveNatRule(false));
+            }
+
             document.addEventListener('click', (e) => {
                 if (e.target.closest('#btn-fw-new')) {
                     e.preventDefault();
                     e.stopPropagation();
-                    populateFwInterfaces();
 
-                    // Reset to General Tab
-                    if (modalFwRule) {
-                        const firstSubtab = modalFwRule.querySelector('.winbox-subtab-btn[data-fw-subtab="general"]');
-                        if (firstSubtab) firstSubtab.click();
-                    }
+                    // Check active subtab in Firewall view
+                    const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                    const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : 'fw-filter';
 
-                    if (window.modalManager) {
-                        window.modalManager.open('modal-firewall-rule');
+                    if (activeSubtab === 'fw-nat') {
+                        // Open NAT Rule Modal
+                        populateNatInterfaces();
+
+                        if (modalNatRule) {
+                            const firstSubtab = modalNatRule.querySelector('.winbox-subtab-btn[data-nat-subtab="general"]');
+                            if (firstSubtab) firstSubtab.click();
+                        }
+
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-nat-rule');
+                        } else {
+                            const modal = document.getElementById('modal-nat-rule');
+                            if (modal) modal.classList.add('active');
+                        }
                     } else {
-                        const modal = document.getElementById('modal-firewall-rule');
-                        if (modal) modal.classList.add('active');
+                        // Default to Filter Rules Modal
+                        populateFwInterfaces();
+
+                        if (modalFwRule) {
+                            const firstSubtab = modalFwRule.querySelector('.winbox-subtab-btn[data-fw-subtab="general"]');
+                            if (firstSubtab) firstSubtab.click();
+                        }
+
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-firewall-rule');
+                        } else {
+                            const modal = document.getElementById('modal-firewall-rule');
+                            if (modal) modal.classList.add('active');
+                        }
                     }
                 } else if (e.target.closest('#btn-fw-enable')) {
                     toastManager.show({ title: 'Rule Enabled', message: 'Aturan firewall diaktifkan.', type: 'success' });

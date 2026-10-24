@@ -28,7 +28,7 @@
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-fw-new" data-mitrautama-modal-open="modal-firewall-rule">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-fw-new">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
@@ -751,6 +751,519 @@
       <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-3" data-mitrautama-modal-close="modal-firewall-rule" style="font-size: 0.75rem;">Cancel</button>
       <button type="button" id="btn-apply-firewall-rule" class="btn btn-sm btn-secondary py-1 px-3" style="font-size: 0.75rem;">Apply</button>
       <button type="button" id="btn-ok-firewall-rule" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.75rem;">OK</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==================== WINBOX STYLE POPUP MODAL: NEW NAT RULE ==================== -->
+<div id="modal-nat-rule" class="modal-overlay" style="display: none;">
+  <div class="modal-box winbox-modal-box" style="max-width: 580px; width: 580px;">
+    <!-- WinBox Modal Header -->
+    <div class="winbox-modal-header d-flex justify-content-between align-items-center" style="background: #dbe4ef; border-bottom: 1px solid #b8c7d9; padding: 4px 8px;">
+      <div class="d-flex align-items-center gap-2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span style="font-size: 0.8rem; font-weight: 700; color: #1e293b;">
+          NAT Rule &gt; <span class="badge bg-light text-dark border px-2 py-0" style="font-weight: 600; font-size: 0.75rem;">New...</span>
+        </span>
+      </div>
+      <div class="d-flex align-items-center gap-1">
+        <button type="button" class="btn btn-sm p-0 d-flex align-items-center justify-content-center" style="width: 18px; height: 18px; background: transparent; border: none; color: #64748b;" title="Minimize">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <button type="button" class="modal-close-btn p-0 d-flex align-items-center justify-content-center" data-mitrautama-modal-close="modal-nat-rule" title="Tutup Modal" style="width: 18px; height: 18px; background: transparent; border: none; color: #64748b; font-size: 1rem; line-height: 1;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Subtabs Bar: General, Advanced, Extra, Action, Statistics -->
+    <div class="d-flex align-items-center gap-1 px-2 pt-2 border-bottom flex-wrap winbox-subtabs-bar" id="modal-nat-rule-subtabs">
+      <button type="button" class="winbox-subtab-btn active" data-nat-subtab="general">General</button>
+      <button type="button" class="winbox-subtab-btn" data-nat-subtab="advanced">Advanced</button>
+      <button type="button" class="winbox-subtab-btn" data-nat-subtab="extra">Extra</button>
+      <button type="button" class="winbox-subtab-btn" data-nat-subtab="action">Action</button>
+      <button type="button" class="winbox-subtab-btn" data-nat-subtab="statistics">Statistics</button>
+    </div>
+
+    <!-- WinBox Modal Body: Two Columns (Left: Form Panes, Right: Winbox Actions) -->
+    <div class="p-3 d-flex gap-3 winbox-modal-body">
+      <!-- Left Column: Form Tab Contents -->
+      <div class="flex-grow-1 overflow-auto pe-1" style="max-height: 480px;" id="modal-nat-tab-contents">
+        
+        <!-- PANE 1: GENERAL -->
+        <div class="modal-nat-pane" id="modal-nat-pane-general">
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Enabled</label>
+            <input type="checkbox" id="modal-nat-enabled" checked class="form-check-input mt-0" style="width: 16px; height: 16px;">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Comment</label>
+            <input type="text" id="modal-nat-comment" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+
+          <div style="height: 6px;"></div>
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Chain</label>
+            <select id="modal-nat-chain" class="form-select winbox-form-select flex-grow-1">
+              <option value="srcnat" selected>srcnat</option>
+              <option value="dstnat">dstnat</option>
+            </select>
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Src. Address</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-src-address" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Dst. Address</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-dst-address" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Src. Address List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-src-address-list" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Dst. Address List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-dst-address-list" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Protocol</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <select id="modal-nat-protocol" class="form-select winbox-form-select">
+                <option value="" selected>(all)</option>
+                <option value="6 (tcp)">6 (tcp)</option>
+                <option value="17 (udp)">17 (udp)</option>
+                <option value="1 (icmp)">1 (icmp)</option>
+                <option value="47 (gre)">47 (gre)</option>
+                <option value="ipsec-esp">ipsec-esp</option>
+                <option value="ipsec-ah">ipsec-ah</option>
+              </select>
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Src. Port</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-src-port" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Dst. Port</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-dst-port" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Any. Port</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-any-port" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">In. Interface</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <select id="modal-nat-in-iface" class="form-select winbox-form-select">
+                <option value=""></option>
+              </select>
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Out. Interface</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <select id="modal-nat-out-iface" class="form-select winbox-form-select">
+                <option value=""></option>
+              </select>
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">In. Interface List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <select id="modal-nat-in-iface-list" class="form-select winbox-form-select">
+                <option value="">(all)</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+              </select>
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Out. Interface List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <select id="modal-nat-out-iface-list" class="form-select winbox-form-select">
+                <option value="">(all)</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+              </select>
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Packet Mark</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-packet-mark" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Connection Mark</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-conn-mark" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Routing Mark</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-routing-mark" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Connection Type</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-conn-type" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 2: ADVANCED -->
+        <div class="modal-nat-pane" id="modal-nat-pane-advanced" style="display: none;">
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Layer7 Protocol</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-layer7" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Content</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Connection Bytes</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Connection Rate</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Per Connection Classifier</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Src. MAC Address</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Out. Bridge Port</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">In. Bridge Port</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">In. Bridge Port List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Out. Bridge Port List</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">IPsec Policy</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Ingress Priority</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Priority</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">DSCP</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">TCP MSS</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">TOS</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Packet Size</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Random</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">TTL</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 3: EXTRA -->
+        <div class="modal-nat-pane" id="modal-nat-pane-extra" style="display: none;">
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Nth</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Connection Limit</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Src. Address Type</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Dst. Address Type</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Hotspot</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">IP Fragment</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Limit</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Dst. Limit</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Time</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">PSD</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1" placeholder="">
+          </div>
+        </div>
+
+        <!-- PANE 4: ACTION -->
+        <div class="modal-nat-pane" id="modal-nat-pane-action" style="display: none;">
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Action</label>
+            <select id="modal-nat-action" class="form-select winbox-form-select flex-grow-1">
+              <option value="accept">accept</option>
+              <option value="add-dst-to-address-list">add-dst-to-address-list</option>
+              <option value="add-src-to-address-list">add-src-to-address-list</option>
+              <option value="dst-nat">dst-nat</option>
+              <option value="jump">jump</option>
+              <option value="log">log</option>
+              <option value="masquerade" selected>masquerade</option>
+              <option value="netmap">netmap</option>
+              <option value="passthrough">passthrough</option>
+              <option value="redirect">redirect</option>
+              <option value="return">return</option>
+              <option value="same">same</option>
+              <option value="src-nat">src-nat</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Action Specific Inputs (To Addresses / To Ports) -->
+          <div id="modal-nat-to-addresses-group" class="d-flex align-items-center mb-2" style="display: none;">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">To Addresses</label>
+            <input type="text" id="modal-nat-to-addresses" class="form-control winbox-form-input flex-grow-1" placeholder="0.0.0.0">
+          </div>
+          <div id="modal-nat-to-ports-group" class="d-flex align-items-center mb-3" style="display: none;">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">To Ports</label>
+            <input type="text" id="modal-nat-to-ports" class="form-control winbox-form-input flex-grow-1" placeholder="0-65535">
+          </div>
+
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Log</label>
+            <input type="checkbox" id="modal-nat-log" class="form-check-input mt-0" style="width: 16px; height: 16px;">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Log Prefix</label>
+            <div class="input-group input-group-sm flex-grow-1">
+              <input type="text" id="modal-nat-log-prefix" class="form-control winbox-form-input" placeholder="">
+              <button class="btn btn-outline-secondary py-0 px-2" type="button">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 5: STATISTICS -->
+        <div class="modal-nat-pane" id="modal-nat-pane-statistics" style="display: none;">
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Bytes</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1 text-muted" readonly value="0 B">
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Packets</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1 text-muted" readonly value="0">
+          </div>
+          <div class="d-flex align-items-center mb-2">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Rate</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1 text-muted" readonly value="0 bps">
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <label class="winbox-form-label" style="width: 130px; text-align: right; padding-right: 12px;">Packet Rate</label>
+            <input type="text" class="form-control winbox-form-input flex-grow-1 text-muted" readonly value="0 p/s">
+          </div>
+
+          <div class="mb-2">
+            <div class="text-muted fw-bold mb-1" style="font-size: 0.72rem;">Rate Graph</div>
+            <div class="p-3 border rounded text-center" style="background: var(--mu-surface, #ffffff); font-size: 0.75rem;">
+              <span class="text-primary fw-bold">● 0 bps</span> Rate
+            </div>
+          </div>
+
+          <div>
+            <div class="text-muted fw-bold mb-1" style="font-size: 0.72rem;">Packet Rate Graph</div>
+            <div class="p-3 border rounded text-center" style="background: var(--mu-surface, #ffffff); font-size: 0.75rem;">
+              <span class="text-primary fw-bold">● 0 p/s</span> Packet Rate
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: WinBox Actions Column -->
+      <div class="d-flex flex-column winbox-actions-column" style="min-width: 90px; border-left: 1px solid var(--mu-border, #cbd5e1); padding-left: 10px;">
+        <button type="button" class="winbox-action-link d-flex align-items-center gap-1 mb-2" onclick="toastManager.show({title:'Copy', message:'Konfigurasi NAT disalin.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Copy</span>
+        </button>
+
+        <div class="d-flex align-items-center gap-1 mb-1 text-muted fw-bold" style="font-size: 0.75rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Actions</span>
+        </div>
+        <button type="button" class="winbox-action-link" onclick="toastManager.show({title:'Counters', message:'NAT counter direset.', type:'info'})">Reset Counters</button>
+        <button type="button" class="winbox-action-link" onclick="toastManager.show({title:'Counters', message:'Semua counter direset.', type:'info'})">Reset All Counters</button>
+      </div>
+    </div>
+
+    <!-- WinBox Modal Footer: Cancel, Apply, OK -->
+    <div class="p-2 border-top d-flex justify-content-end align-items-center gap-2 winbox-modal-footer">
+      <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-3" data-mitrautama-modal-close="modal-nat-rule" style="font-size: 0.75rem;">Cancel</button>
+      <button type="button" id="btn-apply-nat-rule" class="btn btn-sm btn-secondary py-1 px-3" style="font-size: 0.75rem;">Apply</button>
+      <button type="button" id="btn-ok-nat-rule" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.75rem;">OK</button>
     </div>
   </div>
 </div>
