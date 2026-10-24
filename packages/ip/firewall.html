@@ -1,0 +1,348 @@
+<!-- Module: packages/ip/firewall.html (Standalone WinBox Firewall Window) -->
+<div class="mitrautama-view-section" id="view-ip-firewall" style="display: none;">
+  <div class="mitrane-window">
+    
+    <!-- 1. Window Tab Bar with WinBox Title Button -->
+    <div class="mitrane-tab-bar mitrautama-winbox-tabs" id="mitrane-firewall-tabs" style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto; overflow-y: hidden;">
+      <button class="mitrane-window-title-btn" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>Firewall</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ms-1">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <!-- 8 Subtabs matching Winbox screenshots -->
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab active" data-mitrautama-subtab="fw-filter">Filter Rules</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-nat">NAT</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-mangle">Mangle</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-raw">Raw</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-service-ports">Service Ports</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-connections">Connections</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-address-lists">Address Lists</a>
+      <a href="#" class="mitrane-tab-item mitrautama-winbox-tab" data-mitrautama-subtab="fw-layer7">Layer7 Protocols</a>
+    </div>
+
+    <!-- 2. Window Action Toolbar -->
+    <div class="mitrane-toolbar mitrautama-winbox-toolbar">
+      <div class="mitrane-action-group mitrautama-toolbar-actions">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-fw-new">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-fw-enable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Enable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-fw-disable">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          <span>Disable</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-fw-remove">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <span>Remove</span>
+        </button>
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn" id="btn-fw-comment">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          <span>Comment</span>
+        </button>
+      </div>
+
+      <!-- Right Tools: Find Search Box, Filter, Columns -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm" style="width: 170px;">
+          <span class="input-group-text border-end-0 py-0 px-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </span>
+          <input type="text" id="mitrane-fw-search" class="form-control form-control-sm border-start-0 py-0" placeholder="Find">
+        </div>
+
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Filter Records" aria-label="Filter">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" id="btn-fw-refresh" title="Refresh Table" aria-label="Refresh">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        </button>
+        <button type="button" class="mitrane-toolbar-icon-btn" title="Configure Columns" aria-label="Columns">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. Sub-Tab Panes Content with Right Actions Sidebar -->
+    <div class="d-flex flex-grow-1 overflow-hidden" style="min-height: 0;">
+      
+      <!-- Table Panes Area -->
+      <div class="flex-grow-1 d-flex flex-column overflow-hidden" style="min-width: 0;">
+
+        <!-- Tab 1: Filter Rules -->
+        <div class="mitrautama-tab-content active flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-filter" style="border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-filter" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 28px; text-align: center;">#</th>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Action</th>
+                <th>Chain</th>
+                <th>Src. Address</th>
+                <th>Dst. Address</th>
+                <th>Src. Address List</th>
+                <th>Dst. Address List</th>
+                <th>Protocol</th>
+                <th>Src. Port</th>
+                <th>Dst. Port</th>
+                <th>Any. Port</th>
+                <th>In. Interface</th>
+                <th>Out. Interface</th>
+                <th>In. Interface List</th>
+                <th>Out. Interface List</th>
+                <th>Bytes</th>
+                <th>Packets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Empty initially or populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 2: NAT -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-nat" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-nat" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 28px; text-align: center;">#</th>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Action</th>
+                <th>Chain</th>
+                <th>Src. Address</th>
+                <th>Dst. Address</th>
+                <th>Src. Address List</th>
+                <th>Dst. Address List</th>
+                <th>Protocol</th>
+                <th>Src. Port</th>
+                <th>Dst. Port</th>
+                <th>Any. Port</th>
+                <th>In. Interface</th>
+                <th>Out. Interface</th>
+                <th>In. Interface List</th>
+                <th>Out. Interface List</th>
+                <th>Bytes</th>
+                <th>Packets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fw-row" data-nat-index="0" style="cursor: pointer;">
+                <td class="text-center">0</td>
+                <td class="text-center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></td>
+                <td><span class="badge bg-success">masquerade</span></td>
+                <td>srcnat</td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                <td><span class="badge bg-primary">1. WAN</span></td>
+                <td></td><td></td>
+                <td>2340 B</td>
+                <td>34</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 3: Mangle -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-mangle" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-mangle" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 28px; text-align: center;">#</th>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Action</th>
+                <th>Chain</th>
+                <th>Src. Address</th>
+                <th>Dst. Address</th>
+                <th>Src. Address List</th>
+                <th>Dst. Address List</th>
+                <th>Protocol</th>
+                <th>Src. Port</th>
+                <th>Dst. Port</th>
+                <th>Any. Port</th>
+                <th>In. Interface</th>
+                <th>Out. Interface</th>
+                <th>In. Interface List</th>
+                <th>Out. Interface List</th>
+                <th>Bytes</th>
+                <th>Packets</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Tab 4: Raw -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-raw" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-raw" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 28px; text-align: center;">#</th>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Action</th>
+                <th>Chain</th>
+                <th>Src. Address</th>
+                <th>Dst. Address</th>
+                <th>Src. Address List</th>
+                <th>Dst. Address List</th>
+                <th>Protocol</th>
+                <th>Src. Port</th>
+                <th>Dst. Port</th>
+                <th>Any. Port</th>
+                <th>In. Interface</th>
+                <th>Out. Interface</th>
+                <th>In. Interface List</th>
+                <th>Out. Interface List</th>
+                <th>Bytes</th>
+                <th>Packets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="fw-row" data-raw-index="0" style="cursor: pointer;">
+                <td class="text-center">0</td>
+                <td class="text-center"><span class="badge bg-secondary">X</span></td>
+                <td><span class="badge bg-danger">drop</span></td>
+                <td>prerouting</td>
+                <td></td><td></td><td></td><td></td>
+                <td>17 (udp)</td>
+                <td></td>
+                <td>53</td>
+                <td></td>
+                <td>ether1</td>
+                <td></td><td></td><td></td>
+                <td>0 B</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 5: Service Ports -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-service-ports" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-service-ports" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Name</th>
+                <th>Ports</th>
+                <th>SIP Direct Media</th>
+                <th>SIP Timeout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>dccp</strong></td><td></td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>ftp</strong></td><td>21</td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>h323</strong></td><td></td><td></td><td></td></tr>
+              <tr><td class="text-center"><span class="badge bg-secondary" style="font-size: 0.65rem;">XI</span></td><td><strong>irc</strong></td><td>6667</td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>pptp</strong></td><td></td><td></td><td></td></tr>
+              <tr><td class="text-center"><span class="badge bg-secondary" style="font-size: 0.65rem;">XI</span></td><td><strong>rtsp</strong></td><td>554</td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>sctp</strong></td><td></td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>sip</strong></td><td>5060, 5061</td><td>yes</td><td>01:00:00</td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>tftp</strong></td><td>69</td><td></td><td></td></tr>
+              <tr><td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td><td><strong>udplite</strong></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 6: Connections -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-connections" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-connections" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 32px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>Src. Address</th>
+                <th>Src. Port</th>
+                <th>Dst. Address</th>
+                <th>Dst. Port</th>
+                <th>Reply Src. Address</th>
+                <th>Reply Dst. Address</th>
+                <th>Protocol</th>
+                <th>Connection Mark</th>
+                <th>Connection Type</th>
+                <th>Timeout</th>
+                <th>TCP State</th>
+                <th>Orig./Repl. Rate</th>
+                <th>Orig./Repl. Bytes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="text-center fw-bold">C</td><td>10.10.77.2</td><td>52975</td><td>121.101.13.5</td><td>53</td><td>121.101.13.5</td><td>10.10.77.2</td><td>17 (udp)</td><td></td><td></td><td>00:00:09</td><td></td><td>1024 bps/0 bps</td><td>320 B/0 B</td></tr>
+              <tr><td class="text-center fw-bold">C</td><td>10.10.77.2</td><td>39489</td><td>8.8.4.4</td><td>53</td><td>8.8.4.4</td><td>10.10.77.2</td><td>17 (udp)</td><td></td><td></td><td>00:00:09</td><td></td><td>512 bps/0 bps</td><td>320 B/0 B</td></tr>
+              <tr><td class="text-center fw-bold">C</td><td>10.10.77.2</td><td>54988</td><td>121.101.13.5</td><td>53</td><td>121.101.13.5</td><td>10.10.77.2</td><td>17 (udp)</td><td></td><td></td><td>00:00:09</td><td></td><td>1024 bps/0 bps</td><td>320 B/0 B</td></tr>
+              <tr><td class="text-center fw-bold">C</td><td>10.10.77.2</td><td>37509</td><td>8.8.8.8</td><td>53</td><td>8.8.8.8</td><td>10.10.77.2</td><td>17 (udp)</td><td></td><td></td><td>00:00:09</td><td></td><td>1024 bps/0 bps</td><td>320 B/0 B</td></tr>
+              <tr><td class="text-center fw-bold">C</td><td>172.16.92.230</td><td>13231</td><td>103.93.162.2</td><td>13231</td><td>103.93.162.2</td><td>172.16.92.230</td><td>17 (udp)</td><td></td><td></td><td>00:00:08</td><td></td><td>1408 bps/0 bps</td><td>11.9 KB/0 B</td></tr>
+              <tr><td class="text-center fw-bold text-success">SAC</td><td>172.16.92.230</td><td>123</td><td>116.12.47.30</td><td>123</td><td>116.12.47.30</td><td>172.16.92.230</td><td>17 (udp)</td><td></td><td></td><td>00:02:21</td><td></td><td>0 bps/0 bps</td><td>1520 B/1368 B</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 7: Address Lists -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-address-lists" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-address-lists" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th style="width: 24px; text-align: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></th>
+                <th>List</th>
+                <th>Address</th>
+                <th>Timeout</th>
+                <th>Creation Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td>
+                <td><strong>PUBLIK-IP</strong></td>
+                <td>103.247.13.9</td>
+                <td></td>
+                <td>2024-03-23 09:15:22</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 8: Layer7 Protocols -->
+        <div class="mitrautama-tab-content flex-grow-1 overflow-auto mitrautama-table-container" id="subtab-fw-layer7" style="display: none; border-radius: 0; margin-bottom: 0;">
+          <table class="mitrane-grid-table mitrautama-table" id="table-fw-layer7" style="white-space: nowrap;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Regexp</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Right WinBox Actions Sidebar matching screenshot -->
+      <div class="winbox-sidebar-actions d-none d-md-flex flex-column border-start p-2" style="width: 140px; background: var(--mu-surface-muted, #f8fafc); border-color: var(--mu-border, #cbd5e1) !important;">
+        <div class="d-flex align-items-center gap-1 mb-2 text-muted fw-bold" style="font-size: 0.75rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Actions</span>
+        </div>
+        <button type="button" class="winbox-action-link" onclick="toastManager.show({title:'Counters', message:'Reset traffic counters.', type:'info'})">Reset Counters</button>
+        <button type="button" class="winbox-action-link" onclick="toastManager.show({title:'Counters', message:'Reset all firewall counters.', type:'info'})">Reset All Counters</button>
+      </div>
+
+    </div>
+
+    <!-- 4. Subsystem Status & Item Count Footer -->
+    <div class="d-flex justify-content-between align-items-center mitrane-status-subsystem flex-wrap" style="padding: 4px 12px; gap: 8px;">
+      <div class="d-flex align-items-center flex-wrap">
+        <span class="fw-bold me-3" id="mitrane-fw-item-count" style="color: var(--mu-text-main, #1e293b);">1 item</span>
+        <div class="mitrane-footer-legends d-flex align-items-center flex-wrap">
+          <span class="mitrane-legend-item" style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.73rem; margin-right: 14px; color: var(--mu-text-muted, #475569);"><span style="width: 8px; height: 8px; border-radius: 50%; background-color: #16a34a; display: inline-block; flex-shrink: 0;"></span><span>Live</span></span>
+        </div>
+      </div>
+      <div class="text-muted" style="font-size: 0.72rem;">RouterOS IPv4 Firewall Subsystem</div>
+    </div>
+
+  </div>
+</div>

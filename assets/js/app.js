@@ -962,7 +962,7 @@ class NavigationManager {
             'ip-dhcp-server': { view: 'ip-addresses', subtab: 'ip-dhcp' },
             'ip-dhcp-client': { view: 'ip-addresses', subtab: 'ip-dhcp' },
             'ip-pool': { view: 'ip-addresses', subtab: 'ip-pool' },
-            'ip-firewall': { view: 'ip-addresses', subtab: 'ip-firewall' },
+            'ip-firewall': { view: 'ip-firewall', subtab: 'fw-filter' },
             'ip-dns': { view: 'ip-addresses', subtab: 'ip-routes' },
             'ip-hotspot': { view: 'ip-addresses', subtab: 'ip-dhcp' },
             'switch': { view: 'switch', subtab: 'switch-ports' },
@@ -1050,7 +1050,7 @@ class NavigationManager {
             'ip-addresses': 'ip-addr',
             'ip-routes': 'ip-routes',
             'ip-pool': 'ip-pool',
-            'ip-firewall': 'ip-firewall'
+            'ip-firewall': 'fw-filter'
         };
 
         if (subtabTargetMap[viewId] && targetSection) {
@@ -2372,6 +2372,7 @@ class ModuleLoader {
             'xolt-module-container': 'packages/xolt/xolt.html',
             'interfaces-module-container': 'packages/interfaces/interfaces.html',
             'ip-module-container': 'packages/ip/ip.html',
+            'firewall-module-container': 'packages/ip/firewall.html',
             'wireguard-module-container': 'packages/wireguard/wireguard.html',
             'wireless-module-container': 'packages/wireless/wireless.html',
             'switch-module-container': 'packages/switch/switch.html',
@@ -3010,6 +3011,19 @@ class ModuleLoader {
             if (btnApplyIp) {
                 btnApplyIp.addEventListener('click', () => saveNewIpAddress(false));
             }
+
+            // 5. Firewall Subsystem Interactivity
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#btn-fw-new')) {
+                    toastManager.show({ title: 'New Rule', message: 'Fitur penambahan aturan Firewall Rule siap dikonfigurasi.', type: 'info' });
+                } else if (e.target.closest('#btn-fw-enable')) {
+                    toastManager.show({ title: 'Rule Enabled', message: 'Aturan firewall diaktifkan.', type: 'success' });
+                } else if (e.target.closest('#btn-fw-disable')) {
+                    toastManager.show({ title: 'Rule Disabled', message: 'Aturan firewall dinonaktifkan.', type: 'warning' });
+                } else if (e.target.closest('#btn-fw-remove')) {
+                    toastManager.show({ title: 'Rule Removed', message: 'Aturan firewall yang dipilih dihapus.', type: 'info' });
+                }
+            });
 
             // Global Button Event Delegation for IP, WireGuard, QoS, and Bridge Toolbars
             document.addEventListener('click', (e) => {
