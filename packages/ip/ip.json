@@ -1,0 +1,95 @@
+{
+  "addresses": [
+    {
+      "id": "ip_1",
+      "address": "172.16.92.230/24",
+      "network": "172.16.92.0",
+      "interface": "ETH1",
+      "actualInterface": "1. WAN",
+      "comment": "IP Manajemen Utama",
+      "disabled": false
+    },
+    {
+      "id": "ip_2",
+      "address": "192.168.88.1/24",
+      "network": "192.168.88.0",
+      "interface": "2. LAN",
+      "actualInterface": "2. LAN",
+      "comment": "Default Gateway LAN",
+      "disabled": false
+    },
+    {
+      "id": "ip_3",
+      "address": "10.200.0.1/24",
+      "network": "10.200.0.0",
+      "interface": "wg-backbone",
+      "actualInterface": "wg-backbone",
+      "comment": "WireGuard IP",
+      "disabled": false
+    }
+  ],
+  "routes": [
+    {
+      "id": "rt_1",
+      "dstAddress": "0.0.0.0/0",
+      "gateway": "172.16.92.254",
+      "distance": 1,
+      "routingTable": "main",
+      "status": "active, reachable",
+      "comment": "Default Route Internet"
+    },
+    {
+      "id": "rt_2",
+      "dstAddress": "192.168.88.0/24",
+      "gateway": "2. LAN",
+      "distance": 0,
+      "routingTable": "main",
+      "status": "active, connected",
+      "comment": "LAN Subnet"
+    },
+    {
+      "id": "rt_3",
+      "dstAddress": "172.16.92.0/24",
+      "gateway": "1. WAN",
+      "distance": 0,
+      "routingTable": "main",
+      "status": "active, connected",
+      "comment": "WAN Subnet"
+    }
+  ],
+  "pools": [
+    {
+      "id": "pool_1",
+      "name": "pool-lan",
+      "ranges": "192.168.88.10-192.168.88.254",
+      "nextPool": "none",
+      "comment": "DHCP Pool Klien LAN"
+    }
+  ],
+  "firewall": [
+    {
+      "id": "fw_1",
+      "chain": "forward",
+      "action": "accept",
+      "connectionState": "established,related",
+      "comment": "Accept established/related",
+      "disabled": false
+    },
+    {
+      "id": "fw_2",
+      "chain": "forward",
+      "action": "drop",
+      "connectionState": "invalid",
+      "comment": "Drop invalid connections",
+      "disabled": false
+    },
+    {
+      "id": "nat_1",
+      "chain": "srcnat",
+      "action": "masquerade",
+      "outInterface": "1. WAN",
+      "comment": "NAT Masquerade WAN",
+      "disabled": false
+    }
+  ]
+}

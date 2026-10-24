@@ -1,0 +1,37 @@
+{
+  "simple": [
+    {
+      "id": "qos_1",
+      "name": "1. WAN Limit",
+      "target": "172.16.92.230/32",
+      "maxLimitUpload": "50M",
+      "maxLimitDownload": "100M",
+      "burstLimit": "0/0",
+      "priority": "8/8",
+      "status": "running",
+      "comment": "Limit Traffic WAN Utama"
+    },
+    {
+      "id": "qos_2",
+      "name": "LAN Clients VIP",
+      "target": "192.168.88.0/24",
+      "maxLimitUpload": "20M",
+      "maxLimitDownload": "50M",
+      "burstLimit": "0/0",
+      "priority": "5/5",
+      "status": "running",
+      "comment": "QoS Bandwidth Kantor"
+    },
+    {
+      "id": "qos_3",
+      "name": "Guest Wifi Throttle",
+      "target": "192.168.99.0/24",
+      "maxLimitUpload": "2M",
+      "maxLimitDownload": "5M",
+      "burstLimit": "0/0",
+      "priority": "8/8",
+      "status": "running",
+      "comment": "Limit Tamu"
+    }
+  ]
+}

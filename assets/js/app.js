@@ -1408,13 +1408,41 @@ class JsonDataService {
         return null;
     }
 
+    isProtectedInterface(name) {
+        if (!name) return false;
+        const n = name.trim().toUpperCase();
+        if (/^ETH(10|[1-9])$/.test(n)) return true;
+        if (/^SFP-PLUS[12]$/.test(n)) return true;
+        if (/^WLAN[12]$/.test(n)) return true;
+        if (n === '1. WAN' || n === '2. LAN') return true;
+        return false;
+    }
+
+    saveInterfacesToStorage() {
+        if (this.interfacesData) {
+            try {
+                localStorage.setItem('mitrautama_interfaces_data', JSON.stringify(this.interfacesData));
+            } catch (e) {}
+        }
+    }
+
     async loadInterfaces() {
         try {
-            const res = await fetch('packages/interfaces/interfaces.json?v=1792749829');
+            const saved = localStorage.getItem('mitrautama_interfaces_data');
+            if (saved) {
+                try {
+                    this.interfacesData = JSON.parse(saved);
+                    this.selectedIndex = -1;
+                    this.notifySelectionChange();
+                    return this.interfacesData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/interfaces/interfaces.json?v=' + Date.now());
             if (res.ok) {
                 this.interfacesData = await res.json();
                 this.selectedIndex = -1;
                 this.notifySelectionChange();
+                this.saveInterfacesToStorage();
                 return this.interfacesData;
             }
         } catch (e) {
@@ -1785,6 +1813,7 @@ class JsonDataService {
         this.interfacesData.interfaces.unshift(record);
         this.interfacesData.total = this.interfacesData.interfaces.length;
         this.selectedIndex = 0;
+        this.saveInterfacesToStorage();
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
         this.notifySelectionChange();
         return record;
@@ -1802,6 +1831,7 @@ class JsonDataService {
         if (updatedFields.type) item.type = updatedFields.type;
         if (updatedFields.actualMtu) item.actualMtu = Number(updatedFields.actualMtu);
 
+        this.saveInterfacesToStorage();
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
         this.notifySelectionChange();
         return item;
@@ -1814,6 +1844,7 @@ class JsonDataService {
         const removed = this.interfacesData.interfaces.splice(this.selectedIndex, 1)[0];
         this.interfacesData.total = this.interfacesData.interfaces.length;
         this.selectedIndex = -1;
+        this.saveInterfacesToStorage();
         this.renderInterfacesTable('mitrane-interfaces-table', this.currentFilter);
         this.notifySelectionChange();
         return removed;
@@ -2144,6 +2175,18 @@ class ModuleLoader {
                 removeBtn.addEventListener('click', () => {
                     const selected = jsonDataService.getSelectedInterface();
                     if (!selected) {
+                        return;
+                    }
+
+                    if (jsonDataService.isProtectedInterface(selected.name)) {
+                        if (window.Swal) {
+                            window.Swal.fire({
+                                title: 'Interface Fisik Dilindungi',
+                                text: `Interface hardware fisik [${selected.name}] adalah port bawaan router dan tidak dapat dihapus.`,
+                                icon: 'info',
+                                confirmButtonColor: '#0284c7'
+                            });
+                        }
                         return;
                     }
 
@@ -2563,6 +2606,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selected && nameInput) {
             selected.name = nameInput.value.toUpperCase();
             if (mtuInput) selected.actualMtu = parseInt(mtuInput.value, 10) || 1500;
+            if (jsonDataService.saveInterfacesToStorage) jsonDataService.saveInterfacesToStorage();
             jsonDataService.renderInterfacesTable('mitrane-interfaces-table');
             if (window.toastManager) {
                 window.toastManager.show({title: 'Interface Saved', message: `Perubahan ${selected.name} disimpan.`, type: 'success'});

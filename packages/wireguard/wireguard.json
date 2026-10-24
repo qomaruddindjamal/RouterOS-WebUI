@@ -1,0 +1,31 @@
+{
+  "total": 1,
+  "interfaces": [
+    {
+      "id": "wg_1",
+      "name": "wg-backbone",
+      "mtu": 1420,
+      "listenPort": 13231,
+      "privateKey": "aGVsbG8xMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc=",
+      "publicKey": "k2aH8kY+F2x3pY9z8j3q4m5n6o7p8q9r0s1t2u3v4w=",
+      "status": "running",
+      "comment": "Backbone VPS Tunnel"
+    }
+  ],
+  "peers": [
+    {
+      "id": "peer_1",
+      "interface": "wg-backbone",
+      "publicKey": "u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1=",
+      "endpoint": "103.147.154.2:13231",
+      "allowedAddress": "10.200.0.2/32",
+      "presharedKey": "",
+      "currentEndpoint": "103.147.154.2:13231",
+      "rx": "1.2 MB",
+      "tx": "4.5 MB",
+      "lastHandshake": "12s ago",
+      "status": "active",
+      "comment": "Core Cloud Gateway"
+    }
+  ]
+}

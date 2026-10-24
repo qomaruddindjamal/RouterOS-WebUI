@@ -1,0 +1,60 @@
+{
+  "bridges": [
+    {
+      "id": "br_1",
+      "name": "1. WAN",
+      "mtu": 1500,
+      "macAddress": "2C:C8:1B:18:BE:0A",
+      "arp": "enabled",
+      "fastForward": true,
+      "comment": "Bridge WAN"
+    },
+    {
+      "id": "br_2",
+      "name": "2. LAN",
+      "mtu": 1500,
+      "macAddress": "2C:C8:1B:18:BE:0B",
+      "arp": "enabled",
+      "fastForward": true,
+      "comment": "Bridge LAN"
+    }
+  ],
+  "ports": [
+    {
+      "id": "bp_1",
+      "interface": "ETH1",
+      "bridge": "1. WAN",
+      "priority": 128,
+      "pathCost": 10,
+      "status": "forwarding",
+      "role": "designated"
+    },
+    {
+      "id": "bp_2",
+      "interface": "ETH2",
+      "bridge": "2. LAN",
+      "priority": 128,
+      "pathCost": 10,
+      "status": "forwarding",
+      "role": "root"
+    },
+    {
+      "id": "bp_3",
+      "interface": "ETH3",
+      "bridge": "2. LAN",
+      "priority": 128,
+      "pathCost": 10,
+      "status": "forwarding",
+      "role": "designated"
+    },
+    {
+      "id": "bp_4",
+      "interface": "ETH4",
+      "bridge": "2. LAN",
+      "priority": 128,
+      "pathCost": 10,
+      "status": "forwarding",
+      "role": "designated"
+    }
+  ]
+}
