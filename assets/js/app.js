@@ -2091,10 +2091,12 @@ class JsonDataService {
         if (connTable && this.firewallData.connections) {
             const tbody = connTable.querySelector('tbody');
             if (tbody) {
+                if (!this.selectedConnectionIds) this.selectedConnectionIds = new Set();
                 let html = '';
                 this.firewallData.connections.forEach(item => {
+                    const isSelected = this.selectedConnectionIds.has(item.id);
                     html += `
-                        <tr>
+                        <tr class="fw-connection-row ${isSelected ? 'table-active' : ''}" data-conn-id="${item.id}" style="cursor: pointer; user-select: none;">
                             <td class="text-center fw-bold ${item.flags.includes('S') ? 'text-success' : ''}">${this.escapeHtml(item.flags)}</td>
                             <td>${this.escapeHtml(item.srcAddress)}</td>
                             <td>${item.srcPort}</td>
@@ -2113,6 +2115,31 @@ class JsonDataService {
                     `;
                 });
                 tbody.innerHTML = html;
+
+                // Handle click row selection (Single select, or multi-select with Ctrl/Shift)
+                tbody.querySelectorAll('.fw-connection-row').forEach(row => {
+                    row.addEventListener('click', (e) => {
+                        const connId = row.getAttribute('data-conn-id');
+                        if (e.ctrlKey || e.metaKey) {
+                            if (this.selectedConnectionIds.has(connId)) {
+                                this.selectedConnectionIds.delete(connId);
+                            } else {
+                                this.selectedConnectionIds.add(connId);
+                            }
+                        } else {
+                            if (this.selectedConnectionIds.size === 1 && this.selectedConnectionIds.has(connId)) {
+                                this.selectedConnectionIds.clear();
+                            } else {
+                                this.selectedConnectionIds.clear();
+                                this.selectedConnectionIds.add(connId);
+                            }
+                        }
+                        this.renderFirewallTables();
+                        if (window.updateFirewallToolbarState) {
+                            window.updateFirewallToolbarState();
+                        }
+                    });
+                });
             }
         }
 
@@ -2168,6 +2195,47 @@ class JsonDataService {
                     `;
                 });
                 tbody.innerHTML = html;
+            }
+        }
+
+        // 7. Service Ports Table
+        const spTable = document.getElementById('table-fw-service-ports');
+        if (spTable && this.firewallData.servicePorts) {
+            const tbody = spTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.servicePorts.forEach((item, idx) => {
+                    const statusDot = item.disabled
+                        ? `<span class="badge bg-secondary" style="font-size: 0.65rem;">XI</span>`
+                        : `<span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span>`;
+                    const isSelected = this.selectedServicePortIndex === idx;
+                    html += `
+                        <tr class="fw-service-port-row ${isSelected ? 'table-active' : ''}" data-sp-index="${idx}" style="cursor: pointer; ${item.disabled ? 'color: #94a3b8;' : ''}">
+                            <td class="text-center">${statusDot}</td>
+                            <td><strong>${this.escapeHtml(item.name)}</strong></td>
+                            <td>${this.escapeHtml(item.ports || '')}</td>
+                            <td>${this.escapeHtml(item.sipDirectMedia || '')}</td>
+                            <td>${this.escapeHtml(item.sipTimeout || '')}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+
+                // Bind click event for single click row selection
+                tbody.querySelectorAll('.fw-service-port-row').forEach(row => {
+                    row.addEventListener('click', (e) => {
+                        const idx = parseInt(row.getAttribute('data-sp-index'), 10);
+                        if (this.selectedServicePortIndex === idx) {
+                            this.selectedServicePortIndex = -1;
+                        } else {
+                            this.selectedServicePortIndex = idx;
+                        }
+                        this.renderFirewallTables();
+                        if (window.updateFirewallToolbarState) {
+                            window.updateFirewallToolbarState();
+                        }
+                    });
+                });
             }
         }
     }
@@ -3817,6 +3885,102 @@ class ModuleLoader {
                 btnApplyL7.addEventListener('click', () => saveLayer7Protocol(false));
             }
 
+            // Function to update toolbar button states based on active subtab and selection
+            window.updateFirewallToolbarState = () => {
+                const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : 'fw-filter';
+
+                const btnNew = document.getElementById('btn-fw-new');
+                const btnEnable = document.getElementById('btn-fw-enable');
+                const btnDisable = document.getElementById('btn-fw-disable');
+                const btnRemove = document.getElementById('btn-fw-remove');
+                const btnComment = document.getElementById('btn-fw-comment');
+
+                if (activeSubtab === 'fw-service-ports') {
+                    // Di Service Ports: Hanya ada button Enable dan Disable; New, Remove, Comment disembunyikan/disabled
+                    if (btnNew) btnNew.style.display = 'none';
+                    if (btnRemove) btnRemove.style.display = 'none';
+                    if (btnComment) btnComment.style.display = 'none';
+
+                    // Default readonly/disabled, hanya active saat ada row yang di-klik sekali
+                    const hasSelection = (jsonDataService.selectedServicePortIndex >= 0);
+                    if (btnEnable) {
+                        btnEnable.style.display = 'inline-flex';
+                        btnEnable.disabled = !hasSelection;
+                        btnEnable.style.opacity = hasSelection ? '1' : '0.45';
+                        btnEnable.style.pointerEvents = hasSelection ? 'auto' : 'none';
+                    }
+                    if (btnDisable) {
+                        btnDisable.style.display = 'inline-flex';
+                        btnDisable.disabled = !hasSelection;
+                        btnDisable.style.opacity = hasSelection ? '1' : '0.45';
+                        btnDisable.style.pointerEvents = hasSelection ? 'auto' : 'none';
+                    }
+                } else if (activeSubtab === 'fw-connections') {
+                    // Di Connections: Hanya button Remove; New, Enable, Disable, Comment disembunyikan
+                    if (btnNew) btnNew.style.display = 'none';
+                    if (btnEnable) btnEnable.style.display = 'none';
+                    if (btnDisable) btnDisable.style.display = 'none';
+                    if (btnComment) btnComment.style.display = 'none';
+
+                    // Default readonly/disabled, hanya active saat ada koneksi yang dipilih (satu atau semua via Ctrl+A)
+                    const hasConnSelected = (jsonDataService.selectedConnectionIds && jsonDataService.selectedConnectionIds.size > 0);
+                    if (btnRemove) {
+                        btnRemove.style.display = 'inline-flex';
+                        btnRemove.disabled = !hasConnSelected;
+                        btnRemove.style.opacity = hasConnSelected ? '1' : '0.45';
+                        btnRemove.style.pointerEvents = hasConnSelected ? 'auto' : 'none';
+                    }
+                } else {
+                    // Subtabs Filter, NAT, Mangle, Raw, Address Lists, Layer7: normal winbox toolbar
+                    if (btnNew) btnNew.style.display = 'inline-flex';
+                    if (btnEnable) {
+                        btnEnable.style.display = 'inline-flex';
+                        btnEnable.disabled = false;
+                        btnEnable.style.opacity = '1';
+                        btnEnable.style.pointerEvents = 'auto';
+                    }
+                    if (btnDisable) {
+                        btnDisable.style.display = 'inline-flex';
+                        btnDisable.disabled = false;
+                        btnDisable.style.opacity = '1';
+                        btnDisable.style.pointerEvents = 'auto';
+                    }
+                    if (btnRemove) btnRemove.style.display = 'inline-flex';
+                    if (btnComment) btnComment.style.display = 'inline-flex';
+                }
+            };
+
+            // Global keydown for Ctrl+A on Connections subtab
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'a' || e.key === 'A')) {
+                    const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                    const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : '';
+                    if (activeSubtab === 'fw-connections') {
+                        e.preventDefault();
+                        if (!jsonDataService.selectedConnectionIds) jsonDataService.selectedConnectionIds = new Set();
+                        if (jsonDataService.firewallData?.connections) {
+                            jsonDataService.firewallData.connections.forEach(c => jsonDataService.selectedConnectionIds.add(c.id));
+                        }
+                        jsonDataService.renderFirewallTables();
+                        if (window.updateFirewallToolbarState) {
+                            window.updateFirewallToolbarState();
+                        }
+                    }
+                }
+            });
+
+            // Hook firewall subtab click to update toolbar state
+            document.querySelectorAll('#mitrane-firewall-tabs .mitrautama-winbox-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    setTimeout(() => {
+                        if (window.updateFirewallToolbarState) {
+                            window.updateFirewallToolbarState();
+                        }
+                    }, 50);
+                });
+            });
+
             document.addEventListener('click', (e) => {
                 if (e.target.closest('#btn-fw-new')) {
                     e.preventDefault();
@@ -3910,11 +4074,58 @@ class ModuleLoader {
                         }
                     }
                 } else if (e.target.closest('#btn-fw-enable')) {
-                    toastManager.show({ title: 'Rule Enabled', message: 'Aturan firewall diaktifkan.', type: 'success' });
+                    const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                    const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : 'fw-filter';
+
+                    if (activeSubtab === 'fw-service-ports') {
+                        if (jsonDataService.selectedServicePortIndex >= 0 && jsonDataService.firewallData?.servicePorts) {
+                            const port = jsonDataService.firewallData.servicePorts[jsonDataService.selectedServicePortIndex];
+                            if (port) {
+                                port.disabled = false;
+                                jsonDataService.saveFirewallToStorage();
+                                jsonDataService.renderFirewallTables();
+                                toastManager.show({ title: 'Service Port Enabled', message: `Service port [${port.name}] diaktifkan.`, type: 'success' });
+                            }
+                        }
+                    } else {
+                        toastManager.show({ title: 'Rule Enabled', message: 'Aturan firewall diaktifkan.', type: 'success' });
+                    }
                 } else if (e.target.closest('#btn-fw-disable')) {
-                    toastManager.show({ title: 'Rule Disabled', message: 'Aturan firewall dinonaktifkan.', type: 'warning' });
+                    const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                    const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : 'fw-filter';
+
+                    if (activeSubtab === 'fw-service-ports') {
+                        if (jsonDataService.selectedServicePortIndex >= 0 && jsonDataService.firewallData?.servicePorts) {
+                            const port = jsonDataService.firewallData.servicePorts[jsonDataService.selectedServicePortIndex];
+                            if (port) {
+                                port.disabled = true;
+                                jsonDataService.saveFirewallToStorage();
+                                jsonDataService.renderFirewallTables();
+                                toastManager.show({ title: 'Service Port Disabled', message: `Service port [${port.name}] dinonaktifkan.`, type: 'warning' });
+                            }
+                        }
+                    } else {
+                        toastManager.show({ title: 'Rule Disabled', message: 'Aturan firewall dinonaktifkan.', type: 'warning' });
+                    }
                 } else if (e.target.closest('#btn-fw-remove')) {
-                    toastManager.show({ title: 'Rule Removed', message: 'Aturan firewall yang dipilih dihapus.', type: 'info' });
+                    const activeSubtabEl = document.querySelector('#mitrane-firewall-tabs .mitrautama-winbox-tab.active');
+                    const activeSubtab = activeSubtabEl ? activeSubtabEl.getAttribute('data-mitrautama-subtab') : 'fw-filter';
+
+                    if (activeSubtab === 'fw-connections') {
+                        if (jsonDataService.selectedConnectionIds && jsonDataService.selectedConnectionIds.size > 0 && jsonDataService.firewallData?.connections) {
+                            const count = jsonDataService.selectedConnectionIds.size;
+                            jsonDataService.firewallData.connections = jsonDataService.firewallData.connections.filter(c => !jsonDataService.selectedConnectionIds.has(c.id));
+                            jsonDataService.selectedConnectionIds.clear();
+                            jsonDataService.saveFirewallToStorage();
+                            jsonDataService.renderFirewallTables();
+                            if (window.updateFirewallToolbarState) {
+                                window.updateFirewallToolbarState();
+                            }
+                            toastManager.show({ title: 'Connection Removed', message: `${count} koneksi berhasil dihapus/ditutup.`, type: 'info' });
+                        }
+                    } else {
+                        toastManager.show({ title: 'Rule Removed', message: 'Aturan firewall yang dipilih dihapus.', type: 'info' });
+                    }
                 }
             });
 
