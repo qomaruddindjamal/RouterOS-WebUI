@@ -1921,6 +1921,165 @@ class JsonDataService {
         return removed;
     }
 
+    // ==================== FIREWALL SUBSYSTEM ====================
+    saveFirewallToStorage() {
+        if (this.firewallData) {
+            try {
+                localStorage.setItem('mitrautama_firewall_data', JSON.stringify(this.firewallData));
+            } catch (e) {}
+        }
+    }
+
+    async loadFirewallData() {
+        try {
+            const saved = localStorage.getItem('mitrautama_firewall_data');
+            if (saved) {
+                try {
+                    this.firewallData = JSON.parse(saved);
+                    return this.firewallData;
+                } catch (e) {}
+            }
+            const res = await fetch('packages/ip/firewall.json?v=' + Date.now());
+            if (res.ok) {
+                this.firewallData = await res.json();
+                this.saveFirewallToStorage();
+                return this.firewallData;
+            }
+        } catch (e) {
+            console.warn('[JsonDataService] Fetching firewall.json failed:', e);
+        }
+        return null;
+    }
+
+    renderFirewallTables() {
+        if (!this.firewallData) return;
+
+        // 1. NAT Table
+        const natTable = document.getElementById('table-fw-nat');
+        if (natTable && this.firewallData.nat) {
+            const tbody = natTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.nat.forEach((item, idx) => {
+                    const iconSvg = item.disabled
+                        ? `<span class="badge bg-secondary">X</span>`
+                        : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    html += `
+                        <tr class="fw-row" data-nat-index="${idx}" style="cursor: pointer;">
+                            <td class="text-center">${idx}</td>
+                            <td class="text-center">${iconSvg}</td>
+                            <td><span class="badge bg-success">${this.escapeHtml(item.action)}</span></td>
+                            <td>${this.escapeHtml(item.chain)}</td>
+                            <td>${this.escapeHtml(item.srcAddress || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddress || '')}</td>
+                            <td>${this.escapeHtml(item.srcAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.protocol || '')}</td>
+                            <td>${this.escapeHtml(item.srcPort || '')}</td>
+                            <td>${this.escapeHtml(item.dstPort || '')}</td>
+                            <td>${this.escapeHtml(item.anyPort || '')}</td>
+                            <td>${this.escapeHtml(item.inInterface || '')}</td>
+                            <td><span class="badge bg-primary">${this.escapeHtml(item.outInterface || '')}</span></td>
+                            <td>${this.escapeHtml(item.inInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.outInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.bytes || '0 B')}</td>
+                            <td>${item.packets || 0}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        // 2. Raw Table
+        const rawTable = document.getElementById('table-fw-raw');
+        if (rawTable && this.firewallData.raw) {
+            const tbody = rawTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.raw.forEach((item, idx) => {
+                    const iconSvg = item.disabled
+                        ? `<span class="badge bg-secondary">X</span>`
+                        : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    html += `
+                        <tr class="fw-row" data-raw-index="${idx}" style="cursor: pointer;">
+                            <td class="text-center">${idx}</td>
+                            <td class="text-center">${iconSvg}</td>
+                            <td><span class="badge bg-danger">${this.escapeHtml(item.action)}</span></td>
+                            <td>${this.escapeHtml(item.chain)}</td>
+                            <td>${this.escapeHtml(item.srcAddress || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddress || '')}</td>
+                            <td>${this.escapeHtml(item.srcAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.protocol || '')}</td>
+                            <td>${this.escapeHtml(item.srcPort || '')}</td>
+                            <td>${this.escapeHtml(item.dstPort || '')}</td>
+                            <td>${this.escapeHtml(item.anyPort || '')}</td>
+                            <td>${this.escapeHtml(item.inInterface || '')}</td>
+                            <td>${this.escapeHtml(item.outInterface || '')}</td>
+                            <td>${this.escapeHtml(item.inInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.outInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.bytes || '0 B')}</td>
+                            <td>${item.packets || 0}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        // 3. Address Lists Table
+        const alistTable = document.getElementById('table-fw-address-lists');
+        if (alistTable && this.firewallData.addressLists) {
+            const tbody = alistTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.addressLists.forEach((item, idx) => {
+                    html += `
+                        <tr class="fw-row" data-alist-index="${idx}" style="cursor: pointer;">
+                            <td class="text-center"><span style="width: 7px; height: 7px; border-radius: 50%; background: #0284c7; display: inline-block;"></span></td>
+                            <td><strong>${this.escapeHtml(item.list)}</strong></td>
+                            <td>${this.escapeHtml(item.address)}</td>
+                            <td>${this.escapeHtml(item.timeout || '')}</td>
+                            <td>${this.escapeHtml(item.creationTime || '')}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+
+        // 4. Connections Table
+        const connTable = document.getElementById('table-fw-connections');
+        if (connTable && this.firewallData.connections) {
+            const tbody = connTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.connections.forEach(item => {
+                    html += `
+                        <tr>
+                            <td class="text-center fw-bold ${item.flags.includes('S') ? 'text-success' : ''}">${this.escapeHtml(item.flags)}</td>
+                            <td>${this.escapeHtml(item.srcAddress)}</td>
+                            <td>${item.srcPort}</td>
+                            <td>${this.escapeHtml(item.dstAddress)}</td>
+                            <td>${item.dstPort}</td>
+                            <td>${this.escapeHtml(item.replySrcAddress)}</td>
+                            <td>${this.escapeHtml(item.replyDstAddress)}</td>
+                            <td>${this.escapeHtml(item.protocol)}</td>
+                            <td>${this.escapeHtml(item.connectionMark || '')}</td>
+                            <td>${this.escapeHtml(item.connectionType || '')}</td>
+                            <td>${this.escapeHtml(item.timeout || '')}</td>
+                            <td>${this.escapeHtml(item.tcpState || '')}</td>
+                            <td>${this.escapeHtml(item.origReplRate || '')}</td>
+                            <td>${this.escapeHtml(item.origReplBytes || '')}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
+    }
+
             getInterfaceIconSvg(item, isChild = false) {
         const name = (item.name || '').toUpperCase();
         const type = (item.type || '').toUpperCase();
@@ -2787,6 +2946,12 @@ class ModuleLoader {
             const bridgeData = await jsonDataService.loadBridgeData();
             if (bridgeData) {
                 jsonDataService.renderBridgePortsTable();
+            }
+
+            // 5. Firewall Subsystem (Standalone Model)
+            const firewallData = await jsonDataService.loadFirewallData();
+            if (firewallData) {
+                jsonDataService.renderFirewallTables();
             }
 
             // Global Row Selection for Tables
