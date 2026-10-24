@@ -2078,6 +2078,43 @@ class JsonDataService {
                 tbody.innerHTML = html;
             }
         }
+
+        // 5. Filter Rules Table
+        const filterTable = document.getElementById('table-fw-filter');
+        if (filterTable && this.firewallData.filter) {
+            const tbody = filterTable.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.filter.forEach((item, idx) => {
+                    const iconSvg = item.disabled
+                        ? `<span class="badge bg-secondary">X</span>`
+                        : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    html += `
+                        <tr class="fw-row" data-filter-index="${idx}" style="cursor: pointer;">
+                            <td class="text-center">${idx}</td>
+                            <td class="text-center">${iconSvg}</td>
+                            <td><span class="badge ${item.action === 'drop' || item.action === 'reject' ? 'bg-danger' : 'bg-success'}">${this.escapeHtml(item.action)}</span></td>
+                            <td>${this.escapeHtml(item.chain)}</td>
+                            <td>${this.escapeHtml(item.srcAddress || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddress || '')}</td>
+                            <td>${this.escapeHtml(item.srcAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.dstAddressList || '')}</td>
+                            <td>${this.escapeHtml(item.protocol || '')}</td>
+                            <td>${this.escapeHtml(item.srcPort || '')}</td>
+                            <td>${this.escapeHtml(item.dstPort || '')}</td>
+                            <td>${this.escapeHtml(item.anyPort || '')}</td>
+                            <td>${this.escapeHtml(item.inInterface || '')}</td>
+                            <td>${this.escapeHtml(item.outInterface || '')}</td>
+                            <td>${this.escapeHtml(item.inInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.outInterfaceList || '')}</td>
+                            <td>${this.escapeHtml(item.bytes || '0 B')}</td>
+                            <td>${item.packets || 0}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
     }
 
             getInterfaceIconSvg(item, isChild = false) {
@@ -3177,10 +3214,125 @@ class ModuleLoader {
                 btnApplyIp.addEventListener('click', () => saveNewIpAddress(false));
             }
 
-            // 5. Firewall Subsystem Interactivity
+            // 5. Firewall Subsystem Interactivity & Subtab Navigation in Modal
+            const populateFwInterfaces = () => {
+                const inSelect = document.getElementById('modal-fw-in-iface');
+                const outSelect = document.getElementById('modal-fw-out-iface');
+                let ifaceNames = [''];
+                if (jsonDataService.interfacesData && jsonDataService.interfacesData.interfaces) {
+                    jsonDataService.interfacesData.interfaces.forEach(it => {
+                        if (it.name) ifaceNames.push(it.name);
+                    });
+                } else {
+                    ifaceNames = ['', '1. WAN', '2. LAN', 'ETH1', 'ETH2', 'ETH3', 'ETH4', 'ETH5', 'ETH6', 'ETH7', 'ETH8', 'ETH9', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'wg-chr'];
+                }
+                const optionsHtml = ifaceNames.map(n => `<option value="${jsonDataService.escapeHtml(n)}">${jsonDataService.escapeHtml(n)}</option>`).join('');
+                if (inSelect) inSelect.innerHTML = optionsHtml;
+                if (outSelect) outSelect.innerHTML = optionsHtml;
+            };
+
+            // Bind Firewall Rule Subtabs (General, Advanced, Extra, Action, Statistics)
+            const modalFwRule = document.getElementById('modal-firewall-rule');
+            if (modalFwRule) {
+                const subtabBtns = modalFwRule.querySelectorAll('.winbox-subtab-btn');
+                subtabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const targetPane = btn.getAttribute('data-fw-subtab');
+                        subtabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        modalFwRule.querySelectorAll('.modal-fw-pane').forEach(p => p.style.display = 'none');
+                        const activePane = document.getElementById(`modal-fw-pane-${targetPane}`);
+                        if (activePane) activePane.style.display = 'block';
+                    });
+                });
+            }
+
+            // Function to save Firewall Rule
+            const saveFirewallRule = (closeOnSuccess = true) => {
+                if (!jsonDataService.firewallData) jsonDataService.firewallData = { filter: [] };
+                if (!jsonDataService.firewallData.filter) jsonDataService.firewallData.filter = [];
+
+                const chain = document.getElementById('modal-fw-chain')?.value || 'forward';
+                const action = document.getElementById('modal-fw-action')?.value || 'accept';
+                const srcAddr = document.getElementById('modal-fw-src-address')?.value.trim() || '';
+                const dstAddr = document.getElementById('modal-fw-dst-address')?.value.trim() || '';
+                const srcPort = document.getElementById('modal-fw-src-port')?.value.trim() || '';
+                const dstPort = document.getElementById('modal-fw-dst-port')?.value.trim() || '';
+                const proto = document.getElementById('modal-fw-protocol')?.value.trim() || '';
+                const inIface = document.getElementById('modal-fw-in-iface')?.value || '';
+                const outIface = document.getElementById('modal-fw-out-iface')?.value || '';
+                const comment = document.getElementById('modal-fw-comment')?.value.trim() || '';
+                const enabled = document.getElementById('modal-fw-enabled')?.checked ?? true;
+
+                const newRule = {
+                    id: 'rule_' + Date.now(),
+                    action: action,
+                    chain: chain,
+                    srcAddress: srcAddr,
+                    dstAddress: dstAddr,
+                    srcAddressList: '',
+                    dstAddressList: '',
+                    protocol: proto,
+                    srcPort: srcPort,
+                    dstPort: dstPort,
+                    anyPort: '',
+                    inInterface: inIface,
+                    outInterface: outIface,
+                    inInterfaceList: '',
+                    outInterfaceList: '',
+                    bytes: '0 B',
+                    packets: 0,
+                    comment: comment,
+                    disabled: !enabled
+                };
+
+                jsonDataService.firewallData.filter.push(newRule);
+                jsonDataService.saveFirewallToStorage();
+                jsonDataService.renderFirewallTables();
+
+                if (window.toastManager) {
+                    toastManager.show({ title: 'Firewall Rule Disimpan', message: `Rule [${action}] pada chain ${chain} berhasil ditambahkan.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-firewall-rule');
+                    } else {
+                        const modal = document.getElementById('modal-firewall-rule');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+            };
+
+            const btnOkFw = document.getElementById('btn-ok-firewall-rule');
+            if (btnOkFw) {
+                btnOkFw.addEventListener('click', () => saveFirewallRule(true));
+            }
+
+            const btnApplyFw = document.getElementById('btn-apply-firewall-rule');
+            if (btnApplyFw) {
+                btnApplyFw.addEventListener('click', () => saveFirewallRule(false));
+            }
+
             document.addEventListener('click', (e) => {
                 if (e.target.closest('#btn-fw-new')) {
-                    toastManager.show({ title: 'New Rule', message: 'Fitur penambahan aturan Firewall Rule siap dikonfigurasi.', type: 'info' });
+                    e.preventDefault();
+                    e.stopPropagation();
+                    populateFwInterfaces();
+
+                    // Reset to General Tab
+                    if (modalFwRule) {
+                        const firstSubtab = modalFwRule.querySelector('.winbox-subtab-btn[data-fw-subtab="general"]');
+                        if (firstSubtab) firstSubtab.click();
+                    }
+
+                    if (window.modalManager) {
+                        window.modalManager.open('modal-firewall-rule');
+                    } else {
+                        const modal = document.getElementById('modal-firewall-rule');
+                        if (modal) modal.classList.add('active');
+                    }
                 } else if (e.target.closest('#btn-fw-enable')) {
                     toastManager.show({ title: 'Rule Enabled', message: 'Aturan firewall diaktifkan.', type: 'success' });
                 } else if (e.target.closest('#btn-fw-disable')) {
