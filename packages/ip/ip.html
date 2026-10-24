@@ -23,7 +23,7 @@
     <!-- 2. Window Action Toolbar -->
     <div class="mitrane-toolbar mitrautama-winbox-toolbar">
       <div class="mitrane-action-group mitrautama-toolbar-actions">
-        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-ip-new">
+        <button type="button" class="mitrane-btn-action mitrautama-toolbar-btn btn-new" id="btn-ip-new" data-mitrautama-modal-open="modal-ip-address">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           <span>New</span>
         </button>
@@ -167,5 +167,101 @@
       <div class="text-muted" style="font-size: 0.72rem;">IPv4 Address & Routing Subsystem</div>
     </div>
 
+  </div>
+</div>
+
+<!-- ==================== WINBOX STYLE POPUP MODAL: NEW IP ADDRESS ==================== -->
+<div id="modal-ip-address" class="modal-overlay" style="display: none;">
+  <div class="modal-box winbox-modal-box" style="max-width: 490px; width: 490px;">
+    <!-- WinBox Modal Header -->
+    <div class="winbox-modal-header d-flex justify-content-between align-items-center" style="background: #dbe4ef; border-bottom: 1px solid #b8c7d9; padding: 4px 8px;">
+      <div class="d-flex align-items-center gap-2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span style="font-size: 0.8rem; font-weight: 700; color: #1e293b;">
+          Address &gt; <span class="badge bg-light text-dark border px-2 py-0" style="font-weight: 600; font-size: 0.75rem;">New...</span>
+        </span>
+      </div>
+      <div class="d-flex align-items-center gap-1">
+        <button type="button" class="btn btn-sm p-0 d-flex align-items-center justify-content-center" style="width: 18px; height: 18px; background: transparent; border: none; color: #64748b;" title="Minimize">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <button type="button" class="modal-close-btn p-0 d-flex align-items-center justify-content-center" data-mitrautama-modal-close="modal-ip-address" title="Tutup Modal" style="width: 18px; height: 18px; background: transparent; border: none; color: #64748b; font-size: 1rem; line-height: 1;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- WinBox Modal Body: Two Columns (Left: Form, Right: Action Links) -->
+    <div class="p-3 d-flex gap-3 winbox-modal-body">
+      <!-- Left Column: Form Fields -->
+      <div class="flex-grow-1">
+        <!-- Enabled Checkbox -->
+        <div class="d-flex align-items-center mb-2">
+          <label class="winbox-form-label" style="width: 90px; text-align: right; padding-right: 12px;">Enabled</label>
+          <input type="checkbox" id="modal-ip-enabled" checked class="form-check-input mt-0" style="width: 16px; height: 16px;">
+        </div>
+
+        <!-- Comment -->
+        <div class="d-flex align-items-center mb-2">
+          <label class="winbox-form-label" style="width: 90px; text-align: right; padding-right: 12px;">Comment</label>
+          <input type="text" id="modal-ip-comment" class="form-control winbox-form-input flex-grow-1" placeholder="">
+        </div>
+
+        <div style="height: 6px;"></div>
+
+        <!-- Address -->
+        <div class="d-flex align-items-start mb-1">
+          <label class="winbox-form-label fw-bold text-danger" id="modal-ip-addr-label" style="width: 90px; text-align: right; padding-right: 12px; margin-top: 3px;">Address</label>
+          <div class="flex-grow-1">
+            <input type="text" id="modal-ip-address-input" class="form-control winbox-form-input w-100" style="border-color: #ef4444; color: #b91c1c;" value="0.0.0.0">
+            <div id="modal-ip-validation-msg" class="text-danger mt-1" style="font-size: 0.7rem; line-height: 1.1;">Non zero IPv4 address[/Mask]</div>
+          </div>
+        </div>
+
+        <!-- Network -->
+        <div class="d-flex align-items-center mb-2">
+          <label class="winbox-form-label" style="width: 90px; text-align: right; padding-right: 12px;">Network</label>
+          <div class="input-group input-group-sm flex-grow-1">
+            <button class="btn btn-outline-secondary py-0 px-2" type="button" id="btn-ip-auto-network" title="Auto calculate network">+</button>
+            <input type="text" id="modal-ip-network-input" class="form-control winbox-form-input" placeholder="">
+          </div>
+        </div>
+
+        <!-- Interface Selector (Dynamic all interfaces) -->
+        <div class="d-flex align-items-center mb-2">
+          <label class="winbox-form-label" style="width: 90px; text-align: right; padding-right: 12px;">Interface</label>
+          <div class="flex-grow-1">
+            <select id="modal-ip-interface-select" class="form-select winbox-form-input w-100">
+              <!-- Dynamically populated from all active interfaces -->
+            </select>
+          </div>
+        </div>
+
+        <!-- VRF -->
+        <div class="d-flex align-items-center mb-2">
+          <label class="winbox-form-label" style="width: 90px; text-align: right; padding-right: 12px;">VRF</label>
+          <input type="text" id="modal-ip-vrf-input" class="form-control winbox-form-input flex-grow-1" value="main">
+        </div>
+      </div>
+
+      <!-- Right Column: WinBox Actions Column -->
+      <div class="d-flex flex-column winbox-actions-column" style="min-width: 75px; border-left: 1px solid var(--mu-border, #cbd5e1); padding-left: 10px;">
+        <button type="button" class="winbox-action-link d-flex align-items-center gap-1" id="btn-ip-copy" onclick="toastManager.show({title:'Copy', message:'Konfigurasi IP disalin ke clipboard.', type:'info'})">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span>Copy</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- WinBox Modal Footer: Cancel, Apply, OK -->
+    <div class="p-2 border-top d-flex justify-content-end align-items-center gap-2 winbox-modal-footer">
+      <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-3" data-mitrautama-modal-close="modal-ip-address" style="font-size: 0.75rem;">Cancel</button>
+      <button type="button" id="btn-apply-ip-address" class="btn btn-sm btn-secondary py-1 px-3" style="font-size: 0.75rem;">Apply</button>
+      <button type="button" id="btn-ok-ip-address" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.75rem;">OK</button>
+    </div>
   </div>
 </div>

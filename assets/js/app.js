@@ -2829,55 +2829,192 @@ class ModuleLoader {
                 }
             });
 
+            // Populate Dynamic Interfaces into Modal IP Address Select
+            const populateIpInterfacesDropdown = () => {
+                const selectEl = document.getElementById('modal-ip-interface-select');
+                if (!selectEl) return;
+                
+                let ifaceNames = [];
+                if (jsonDataService.interfacesData && jsonDataService.interfacesData.interfaces) {
+                    jsonDataService.interfacesData.interfaces.forEach(it => {
+                        if (it.name) ifaceNames.push(it.name);
+                    });
+                }
+                
+                // Fallback default list jika data belum ready
+                if (ifaceNames.length === 0) {
+                    ifaceNames = ['1. WAN', '2. LAN', 'ETH1', 'ETH2', 'ETH3', 'ETH4', 'ETH5', 'ETH6', 'ETH7', 'ETH8', 'ETH9', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'wg-chr', 'wg-backbone'];
+                }
+
+                // Tambahkan interface wireguard jika ada
+                if (jsonDataService.wgData && jsonDataService.wgData.interfaces) {
+                    jsonDataService.wgData.interfaces.forEach(w => {
+                        if (w.name && !ifaceNames.includes(w.name)) ifaceNames.push(w.name);
+                    });
+                }
+
+                selectEl.innerHTML = ifaceNames.map(name => `<option value="${jsonDataService.escapeHtml(name)}">${jsonDataService.escapeHtml(name)}</option>`).join('');
+            };
+
+            // Bind New IP Address Modal open event
+            const btnNewIp = document.getElementById('btn-ip-new');
+            if (btnNewIp) {
+                btnNewIp.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    populateIpInterfacesDropdown();
+
+                    const addrInput = document.getElementById('modal-ip-address-input');
+                    const netInput = document.getElementById('modal-ip-network-input');
+                    const commentInput = document.getElementById('modal-ip-comment');
+                    const enabledCheck = document.getElementById('modal-ip-enabled');
+                    const validationMsg = document.getElementById('modal-ip-validation-msg');
+                    const addrLabel = document.getElementById('modal-ip-addr-label');
+
+                    if (addrInput) {
+                        addrInput.value = '0.0.0.0';
+                        addrInput.style.borderColor = '#ef4444';
+                        addrInput.style.color = '#b91c1c';
+                    }
+                    if (addrLabel) addrLabel.classList.add('text-danger');
+                    if (validationMsg) {
+                        validationMsg.textContent = 'Non zero IPv4 address[/Mask]';
+                        validationMsg.style.display = 'block';
+                    }
+                    if (netInput) netInput.value = '';
+                    if (commentInput) commentInput.value = '';
+                    if (enabledCheck) enabledCheck.checked = true;
+
+                    if (window.modalManager) {
+                        window.modalManager.open('modal-ip-address');
+                    } else {
+                        const modal = document.getElementById('modal-ip-address');
+                        if (modal) modal.classList.add('active');
+                    }
+                });
+            }
+
+            // Realtime Validation & Auto-Network Calculation on IP Address Input
+            const ipAddrInput = document.getElementById('modal-ip-address-input');
+            const ipNetInput = document.getElementById('modal-ip-network-input');
+            const ipValidationMsg = document.getElementById('modal-ip-validation-msg');
+            const ipAddrLabel = document.getElementById('modal-ip-addr-label');
+
+            const validateAndCalcNetwork = (val) => {
+                const trimmed = (val || '').trim();
+                const ipv4Regex = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$/;
+
+                if (!trimmed || trimmed === '0.0.0.0' || trimmed.startsWith('0.0.0.0/')) {
+                    if (ipAddrInput) {
+                        ipAddrInput.style.borderColor = '#ef4444';
+                        ipAddrInput.style.color = '#b91c1c';
+                    }
+                    if (ipAddrLabel) ipAddrLabel.classList.add('text-danger');
+                    if (ipValidationMsg) {
+                        ipValidationMsg.textContent = 'Non zero IPv4 address[/Mask]';
+                        ipValidationMsg.style.display = 'block';
+                    }
+                    return false;
+                }
+
+                if (!ipv4Regex.test(trimmed)) {
+                    if (ipAddrInput) {
+                        ipAddrInput.style.borderColor = '#ef4444';
+                        ipAddrInput.style.color = '#b91c1c';
+                    }
+                    if (ipAddrLabel) ipAddrLabel.classList.add('text-danger');
+                    if (ipValidationMsg) {
+                        ipValidationMsg.textContent = 'Invalid IPv4 address format (e.g. 192.168.1.1/24)';
+                        ipValidationMsg.style.display = 'block';
+                    }
+                    return false;
+                }
+
+                // Format valid
+                if (ipAddrInput) {
+                    ipAddrInput.style.borderColor = '#10b981';
+                    ipAddrInput.style.color = 'inherit';
+                }
+                if (ipAddrLabel) ipAddrLabel.classList.remove('text-danger');
+                if (ipValidationMsg) ipValidationMsg.style.display = 'none';
+
+                // Auto calculate network jika belum diisi manual
+                if (ipNetInput && (!ipNetInput.value || ipNetInput.getAttribute('data-auto') === 'true')) {
+                    const baseIp = trimmed.split('/')[0];
+                    const parts = baseIp.split('.');
+                    if (parts.length === 4) {
+                        ipNetInput.value = `${parts[0]}.${parts[1]}.${parts[2]}.0`;
+                        ipNetInput.setAttribute('data-auto', 'true');
+                    }
+                }
+                return true;
+            };
+
+            if (ipAddrInput) {
+                ipAddrInput.addEventListener('input', (e) => {
+                    validateAndCalcNetwork(e.target.value);
+                });
+            }
+
+            const btnAutoNet = document.getElementById('btn-ip-auto-network');
+            if (btnAutoNet && ipAddrInput) {
+                btnAutoNet.addEventListener('click', () => {
+                    const trimmed = ipAddrInput.value.trim();
+                    const baseIp = trimmed.split('/')[0];
+                    const parts = baseIp.split('.');
+                    if (parts.length === 4 && ipNetInput) {
+                        ipNetInput.value = `${parts[0]}.${parts[1]}.${parts[2]}.0`;
+                        ipNetInput.setAttribute('data-auto', 'true');
+                    }
+                });
+            }
+
+            // Function to handle IP Address Saving (Used by Apply & OK)
+            const saveNewIpAddress = (closeOnSuccess = true) => {
+                const addr = (ipAddrInput ? ipAddrInput.value.trim() : '');
+                const net = (ipNetInput ? ipNetInput.value.trim() : '');
+                const ifaceSelect = document.getElementById('modal-ip-interface-select');
+                const iface = ifaceSelect ? ifaceSelect.value : '1. WAN';
+                const commentInput = document.getElementById('modal-ip-comment');
+                const comment = commentInput ? commentInput.value.trim() : '';
+
+                if (!validateAndCalcNetwork(addr)) {
+                    if (window.toastManager) {
+                        toastManager.show({ title: 'Input Tidak Valid', message: 'Harap masukkan alamat IPv4 non-zero yang valid.', type: 'warning' });
+                    }
+                    return false;
+                }
+
+                const added = jsonDataService.addIpAddress(addr, net, iface, comment);
+                if (window.toastManager) {
+                    toastManager.show({ title: 'IP Disimpan', message: `Address ${added.address} (${added.interface}) berhasil disimpan.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-ip-address');
+                    } else {
+                        const modal = document.getElementById('modal-ip-address');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+                return true;
+            };
+
+            const btnOkIp = document.getElementById('btn-ok-ip-address');
+            if (btnOkIp) {
+                btnOkIp.addEventListener('click', () => saveNewIpAddress(true));
+            }
+
+            const btnApplyIp = document.getElementById('btn-apply-ip-address');
+            if (btnApplyIp) {
+                btnApplyIp.addEventListener('click', () => saveNewIpAddress(false));
+            }
+
             // Global Button Event Delegation for IP, WireGuard, QoS, and Bridge Toolbars
             document.addEventListener('click', (e) => {
-                // IP Toolbar
-                if (e.target.closest('#btn-ip-new')) {
-                    if (window.Swal) {
-                        Swal.fire({
-                            title: 'New IP Address',
-                            html: `
-                                <div class="text-start">
-                                    <label class="form-label small fw-bold">Address / Netmask</label>
-                                    <input id="swal-input-ip-addr" class="form-control mb-2" placeholder="192.168.100.1/24" value="192.168.100.1/24">
-                                    <label class="form-label small fw-bold">Network</label>
-                                    <input id="swal-input-ip-net" class="form-control mb-2" placeholder="192.168.100.0" value="192.168.100.0">
-                                    <label class="form-label small fw-bold">Interface</label>
-                                    <select id="swal-input-ip-iface" class="form-select mb-2">
-                                        <option value="1. WAN">1. WAN</option>
-                                        <option value="2. LAN" selected>2. LAN</option>
-                                        <option value="wg-chr">wg-chr</option>
-                                        <option value="ETH1">ETH1</option>
-                                        <option value="ETH2">ETH2</option>
-                                    </select>
-                                    <label class="form-label small fw-bold">Comment</label>
-                                    <input id="swal-input-ip-comment" class="form-control" placeholder="Contoh: Gateway Server">
-                                </div>
-                            `,
-                            showCancelButton: true,
-                            confirmButtonText: 'OK',
-                            cancelButtonText: 'Cancel',
-                            confirmButtonColor: '#0284c7',
-                            focusConfirm: false,
-                            preConfirm: () => {
-                                const addr = document.getElementById('swal-input-ip-addr').value.trim();
-                                const net = document.getElementById('swal-input-ip-net').value.trim();
-                                const iface = document.getElementById('swal-input-ip-iface').value;
-                                const comment = document.getElementById('swal-input-ip-comment').value.trim();
-                                if (!addr) {
-                                    Swal.showValidationMessage('IP Address wajib diisi!');
-                                    return false;
-                                }
-                                return { addr, net, iface, comment };
-                            }
-                        }).then((result) => {
-                            if (result.isConfirmed && result.value) {
-                                const added = jsonDataService.addIpAddress(result.value.addr, result.value.net, result.value.iface, result.value.comment);
-                                toastManager.show({ title: 'IP Added', message: `Address ${added.address} berhasil disimpan.`, type: 'success' });
-                            }
-                        });
-                    }
-                } else if (e.target.closest('#btn-ip-enable')) {
+                // IP Toolbar actions
+                if (e.target.closest('#btn-ip-enable')) {
                     const item = jsonDataService.toggleSelectedIpStatus(false);
                     if (item) toastManager.show({ title: 'IP Enabled', message: `Address ${item.address} diaktifkan.`, type: 'success' });
                     else toastManager.show({ title: 'Pilih Baris', message: 'Silakan pilih baris IP Address terlebih dahulu.', type: 'info' });
