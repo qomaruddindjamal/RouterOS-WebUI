@@ -943,6 +943,10 @@ class NavigationManager {
         allSections.forEach(sec => {
             sec.style.display = 'none';
         });
+        const genericSec = document.getElementById('view-generic-module');
+        if (genericSec) {
+            genericSec.style.display = 'none';
+        }
 
         // 1. Pemetaan Alias Route ke Modul Spesifik
         // 1. Pemetaan Alias Route & Sub-Tab ke Modul Spesifik
@@ -1079,7 +1083,11 @@ class NavigationManager {
             if (window.chartController) {
                 window.chartController.stopStream();
             }
-            this.renderDynamicView(viewId, titleLabel);
+            // Jika viewId terdaftar di routeConfigMap atau modul valid tapi DOM belum selesai dimuat, jangan render fallback
+            const isKnownRoute = Boolean(routeConfigMap[viewId]);
+            if (!isKnownRoute) {
+                this.renderDynamicView(viewId, titleLabel);
+            }
         }
 
 
@@ -1973,9 +1981,12 @@ class ModuleLoader {
         // Muat Data & Konfigurasi JSON
         await this.initJsonData();
 
-        // Re-bind navigasi setelah template terinjeksi
+        // Re-bind navigasi setelah template terinjeksi dan aktifkan ulang view yang sedang dibuka
         if (window.navigationManager) {
             window.navigationManager.init();
+            const activeHash = (window.location.hash || '').replace(/^#\/?/, '').trim();
+            const targetView = activeHash || window.navigationManager.activeView || 'dashboard';
+            window.navigationManager.switchView(targetView);
         }
     }
 
