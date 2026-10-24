@@ -3598,6 +3598,111 @@ class ModuleLoader {
                 btnApplyMangle.addEventListener('click', () => saveMangleRule(false));
             }
 
+            // Bind Raw Rule Subtabs (General, Advanced, Extra, Action, Statistics)
+            const modalRawRule = document.getElementById('modal-raw-rule');
+            if (modalRawRule) {
+                const subtabBtns = modalRawRule.querySelectorAll('.winbox-subtab-btn');
+                subtabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const targetPane = btn.getAttribute('data-raw-subtab');
+                        subtabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        modalRawRule.querySelectorAll('.modal-raw-pane').forEach(p => p.style.display = 'none');
+                        const activePane = document.getElementById(`modal-raw-pane-${targetPane}`);
+                        if (activePane) activePane.style.display = 'block';
+                    });
+                });
+            }
+
+            const populateRawInterfaces = () => {
+                const inSelect = document.getElementById('modal-raw-in-iface');
+                const outSelect = document.getElementById('modal-raw-out-iface');
+                let ifaceNames = [''];
+                if (jsonDataService.interfacesData && jsonDataService.interfacesData.interfaces) {
+                    jsonDataService.interfacesData.interfaces.forEach(it => {
+                        if (it.name) ifaceNames.push(it.name);
+                    });
+                } else {
+                    ifaceNames = ['', '1. WAN', '2. LAN', 'ETH1', 'ETH2', 'ETH3', 'ETH4', 'ETH5', 'ETH6', 'ETH7', 'ETH8', 'ETH9', 'ETH10', 'SFP-PLUS1', 'SFP-PLUS2', 'WLAN1', 'WLAN2', 'wg-chr'];
+                }
+                const optionsHtml = ifaceNames.map(n => `<option value="${jsonDataService.escapeHtml(n)}">${jsonDataService.escapeHtml(n)}</option>`).join('');
+                if (inSelect) inSelect.innerHTML = optionsHtml;
+                if (outSelect) outSelect.innerHTML = optionsHtml;
+            };
+
+            // Function to save Raw Rule
+            const saveRawRule = (closeOnSuccess = true) => {
+                if (!jsonDataService.firewallData) jsonDataService.firewallData = { raw: [] };
+                if (!jsonDataService.firewallData.raw) jsonDataService.firewallData.raw = [];
+
+                const chain = document.getElementById('modal-raw-chain')?.value || 'prerouting';
+                const action = document.getElementById('modal-raw-action')?.value || 'accept';
+                const srcAddr = document.getElementById('modal-raw-src-address')?.value.trim() || '';
+                const dstAddr = document.getElementById('modal-raw-dst-address')?.value.trim() || '';
+                const srcAddrList = document.getElementById('modal-raw-src-address-list')?.value.trim() || '';
+                const dstAddrList = document.getElementById('modal-raw-dst-address-list')?.value.trim() || '';
+                const proto = document.getElementById('modal-raw-protocol')?.value.trim() || '';
+                const srcPort = document.getElementById('modal-raw-src-port')?.value.trim() || '';
+                const dstPort = document.getElementById('modal-raw-dst-port')?.value.trim() || '';
+                const anyPort = document.getElementById('modal-raw-any-port')?.value.trim() || '';
+                const inIface = document.getElementById('modal-raw-in-iface')?.value || '';
+                const outIface = document.getElementById('modal-raw-out-iface')?.value || '';
+                const inIfaceList = document.getElementById('modal-raw-in-iface-list')?.value || '';
+                const outIfaceList = document.getElementById('modal-raw-out-iface-list')?.value || '';
+                const comment = document.getElementById('modal-raw-comment')?.value.trim() || '';
+                const enabled = document.getElementById('modal-raw-enabled')?.checked ?? true;
+
+                const newRaw = {
+                    id: 'raw_' + Date.now(),
+                    action: action,
+                    chain: chain,
+                    srcAddress: srcAddr,
+                    dstAddress: dstAddr,
+                    srcAddressList: srcAddrList,
+                    dstAddressList: dstAddrList,
+                    protocol: proto,
+                    srcPort: srcPort,
+                    dstPort: dstPort,
+                    anyPort: anyPort,
+                    inInterface: inIface,
+                    outInterface: outIface,
+                    inInterfaceList: inIfaceList,
+                    outInterfaceList: outIfaceList,
+                    bytes: '0 B',
+                    packets: 0,
+                    comment: comment,
+                    disabled: !enabled
+                };
+
+                jsonDataService.firewallData.raw.push(newRaw);
+                jsonDataService.saveFirewallToStorage();
+                jsonDataService.renderFirewallTables();
+
+                if (window.toastManager) {
+                    toastManager.show({ title: 'Raw Rule Disimpan', message: `Rule [${action}] pada chain ${chain} berhasil ditambahkan.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-raw-rule');
+                    } else {
+                        const modal = document.getElementById('modal-raw-rule');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+            };
+
+            const btnOkRaw = document.getElementById('btn-ok-raw-rule');
+            if (btnOkRaw) {
+                btnOkRaw.addEventListener('click', () => saveRawRule(true));
+            }
+
+            const btnApplyRaw = document.getElementById('btn-apply-raw-rule');
+            if (btnApplyRaw) {
+                btnApplyRaw.addEventListener('click', () => saveRawRule(false));
+            }
+
             document.addEventListener('click', (e) => {
                 if (e.target.closest('#btn-fw-new')) {
                     e.preventDefault();
@@ -3635,6 +3740,21 @@ class ModuleLoader {
                             window.modalManager.open('modal-mangle-rule');
                         } else {
                             const modal = document.getElementById('modal-mangle-rule');
+                            if (modal) modal.classList.add('active');
+                        }
+                    } else if (activeSubtab === 'fw-raw') {
+                        // Open Raw Rule Modal
+                        populateRawInterfaces();
+
+                        if (modalRawRule) {
+                            const firstSubtab = modalRawRule.querySelector('.winbox-subtab-btn[data-raw-subtab="general"]');
+                            if (firstSubtab) firstSubtab.click();
+                        }
+
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-raw-rule');
+                        } else {
+                            const modal = document.getElementById('modal-raw-rule');
                             if (modal) modal.classList.add('active');
                         }
                     } else {
