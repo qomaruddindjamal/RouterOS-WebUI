@@ -2152,6 +2152,24 @@ class JsonDataService {
                 tbody.innerHTML = html;
             }
         }
+
+        // 6. Layer7 Protocols Table
+        const l7Table = document.getElementById('table-fw-layer7');
+        if (l7Table && this.firewallData.layer7) {
+            const tbody = l7Table.querySelector('tbody');
+            if (tbody) {
+                let html = '';
+                this.firewallData.layer7.forEach((item, idx) => {
+                    html += `
+                        <tr class="fw-row" data-l7-index="${idx}" style="cursor: pointer;">
+                            <td><strong>${this.escapeHtml(item.name)}</strong></td>
+                            <td style="font-family: monospace; font-size: 0.78rem;">${this.escapeHtml(item.regexp || '')}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+        }
     }
 
             getInterfaceIconSvg(item, isChild = false) {
@@ -3703,6 +3721,102 @@ class ModuleLoader {
                 btnApplyRaw.addEventListener('click', () => saveRawRule(false));
             }
 
+            // Function to save Address List
+            const saveAddressList = (closeOnSuccess = true) => {
+                if (!jsonDataService.firewallData) jsonDataService.firewallData = { addressLists: [] };
+                if (!jsonDataService.firewallData.addressLists) jsonDataService.firewallData.addressLists = [];
+
+                const listName = document.getElementById('modal-alist-list')?.value.trim() || 'PUBLIK-IP';
+                const address = document.getElementById('modal-alist-address')?.value.trim() || '0.0.0.0';
+                const timeout = document.getElementById('modal-alist-timeout')?.value.trim() || '';
+                const comment = document.getElementById('modal-alist-comment')?.value.trim() || '';
+                const enabled = document.getElementById('modal-alist-enabled')?.checked ?? true;
+
+                const d = new Date();
+                const nowStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+
+                const newAlist = {
+                    id: 'alist_' + Date.now(),
+                    list: listName,
+                    address: address,
+                    timeout: timeout,
+                    creationTime: nowStr,
+                    comment: comment,
+                    disabled: !enabled
+                };
+
+                jsonDataService.firewallData.addressLists.push(newAlist);
+                jsonDataService.saveFirewallToStorage();
+                jsonDataService.renderFirewallTables();
+
+                if (window.toastManager) {
+                    toastManager.show({ title: 'Address List Disimpan', message: `Address ${address} ditambahkan ke ${listName}.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-address-list');
+                    } else {
+                        const modal = document.getElementById('modal-address-list');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+            };
+
+            const btnOkAlist = document.getElementById('btn-ok-address-list');
+            if (btnOkAlist) {
+                btnOkAlist.addEventListener('click', () => saveAddressList(true));
+            }
+
+            const btnApplyAlist = document.getElementById('btn-apply-address-list');
+            if (btnApplyAlist) {
+                btnApplyAlist.addEventListener('click', () => saveAddressList(false));
+            }
+
+            // Function to save Layer7 Protocol
+            const saveLayer7Protocol = (closeOnSuccess = true) => {
+                if (!jsonDataService.firewallData) jsonDataService.firewallData = { layer7: [] };
+                if (!jsonDataService.firewallData.layer7) jsonDataService.firewallData.layer7 = [];
+
+                const name = document.getElementById('modal-l7-name')?.value.trim() || 'l7-rule';
+                const regexp = document.getElementById('modal-l7-regexp')?.value || '';
+                const comment = document.getElementById('modal-l7-comment')?.value.trim() || '';
+
+                const newL7 = {
+                    id: 'l7_' + Date.now(),
+                    name: name,
+                    regexp: regexp,
+                    comment: comment
+                };
+
+                jsonDataService.firewallData.layer7.push(newL7);
+                jsonDataService.saveFirewallToStorage();
+                jsonDataService.renderFirewallTables();
+
+                if (window.toastManager) {
+                    toastManager.show({ title: 'L7 Protocol Disimpan', message: `Protokol L7 [${name}] berhasil ditambahkan.`, type: 'success' });
+                }
+
+                if (closeOnSuccess) {
+                    if (window.modalManager) {
+                        window.modalManager.close('modal-layer7-protocol');
+                    } else {
+                        const modal = document.getElementById('modal-layer7-protocol');
+                        if (modal) modal.classList.remove('active');
+                    }
+                }
+            };
+
+            const btnOkL7 = document.getElementById('btn-ok-layer7-protocol');
+            if (btnOkL7) {
+                btnOkL7.addEventListener('click', () => saveLayer7Protocol(true));
+            }
+
+            const btnApplyL7 = document.getElementById('btn-apply-layer7-protocol');
+            if (btnApplyL7) {
+                btnApplyL7.addEventListener('click', () => saveLayer7Protocol(false));
+            }
+
             document.addEventListener('click', (e) => {
                 if (e.target.closest('#btn-fw-new')) {
                     e.preventDefault();
@@ -3755,6 +3869,28 @@ class ModuleLoader {
                             window.modalManager.open('modal-raw-rule');
                         } else {
                             const modal = document.getElementById('modal-raw-rule');
+                            if (modal) modal.classList.add('active');
+                        }
+                    } else if (activeSubtab === 'fw-address-lists') {
+                        // Open Address List Modal
+                        const creationInput = document.getElementById('modal-alist-creation-time');
+                        if (creationInput) {
+                            const d = new Date();
+                            creationInput.value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+                        }
+
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-address-list');
+                        } else {
+                            const modal = document.getElementById('modal-address-list');
+                            if (modal) modal.classList.add('active');
+                        }
+                    } else if (activeSubtab === 'fw-layer7') {
+                        // Open Layer7 Protocol Modal
+                        if (window.modalManager) {
+                            window.modalManager.open('modal-layer7-protocol');
+                        } else {
+                            const modal = document.getElementById('modal-layer7-protocol');
                             if (modal) modal.classList.add('active');
                         }
                     } else {
