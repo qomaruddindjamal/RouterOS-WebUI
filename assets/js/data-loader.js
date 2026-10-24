@@ -1037,7 +1037,7 @@ class NavigationManager {
             if (window.chartController) {
                 window.chartController.stopStream();
             }
-            this.renderDynamicView(viewId, titleLabel);
+            // generic fallback removed
         }
 
 
@@ -1049,85 +1049,7 @@ class NavigationManager {
         if (tabBtn) tabBtn.click();
     }
 
-    renderDynamicView(viewId, titleLabel) {
-        let genericSection = document.getElementById('view-generic-module');
-        if (!genericSection) {
-            genericSection = document.createElement('div');
-            genericSection.id = 'view-generic-module';
-            genericSection.className = 'mitrautama-view-section';
-            document.querySelector('.mitrautama-content-area').appendChild(genericSection);
-        }
-
-        genericSection.innerHTML = `
-            <div class="mitrautama-win-header">
-                <div class="mitrautama-win-title">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <span>${titleLabel || viewId}</span>
-                </div>
-            </div>
-
-            <div class="mitrautama-winbox-toolbar">
-                <div class="mitrautama-toolbar-actions">
-                    <button class="mitrautama-toolbar-btn text-primary" onclick="Swal.fire('Tambah', 'Tambah entri pada ${titleLabel}', 'info')">
-                        <strong>+</strong> New
-                    </button>
-                    <button class="mitrautama-toolbar-btn text-success" >
-                        ✓ Enable
-                    </button>
-                    <button class="mitrautama-toolbar-btn text-danger" >
-                        ✕ Disable
-                    </button>
-                    <button class="mitrautama-toolbar-btn text-muted" >
-                        ✎ Comment
-                    </button>
-                </div>
-                <div>
-                    <input type="text" placeholder="Find / Filter..." class="form-control form-control-sm" style="height: 24px; font-size: 0.75rem; width: 140px;">
-                </div>
-            </div>
-
-            <div class="mitrautama-table-container mt-0" style="border-radius: 0 0 8px 8px; border-top: none;">
-                <table class="mitrautama-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Parameter / Item</th>
-                            <th>Nilai Konfigurasi</th>
-                            <th>Interface Target</th>
-                            <th>Status Operasional</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>0</td>
-                            <td><strong>Default-${viewId}</strong></td>
-                            <td>Active Enabled</td>
-                            <td>1. WAN (172.16.92.230)</td>
-                            <td><span class="mitrautama-badge mitrautama-badge-success">● RUNNING</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>Hardware Policy</strong></td>
-                            <td>RB3011UiAS Switch Chip (QCA8337)</td>
-                            <td>2. LAN (10.10.16.254)</td>
-                            <td><span class="mitrautama-badge mitrautama-badge-info">Slave</span></td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-primary py-0 px-2" onclick="Swal.fire('Detail', 'Modul ${titleLabel} siap dioperasikan.', 'info')">Edit</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        `;
-
-        genericSection.style.display = 'block';
-        const container = document.querySelector('.mitrautama-content-area');
-        if (container) container.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    renderDynamicView(viewId, titleLabel) { /* Anomaly fallback removed */ }
 
     bindActionButtons() {
         const pingBtn = document.getElementById('btn-action-ping');
